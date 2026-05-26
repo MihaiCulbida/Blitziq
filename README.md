@@ -1,2 +1,2 @@
-# Idk
-123
+# BlitzIq
+Quizz app
