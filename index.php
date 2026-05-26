@@ -8,7 +8,7 @@
 
   <h1>Test</h1>
   <?php echo "Afisare text in php"; ?>
-
+  <?php echo "<script>console.log('Mesaj in consola');</script>"; ?>
   <script src="src/script.js"></script>
 </body>
 </html>
