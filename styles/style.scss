@@ -1,4 +1,106 @@
-body {
-    background: #bff5ff86;
+$purple: #7c3aed;
+$yellow: #fbbf24;
+$white: #fff;
+$text: #111;
+$text-muted: #555;
+$border: #e5e7eb;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Inter', sans-serif;
+  background: $white;
+  color: $text;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  border-bottom: 1px solid $border;
+  background: $white;
+
+  &-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: $text;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+
+    &-badge {
+      background: $yellow;
+      color: $text;
+      font-size: 1.2rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 5px;
+      letter-spacing: 0.01em;
+    }
+  }
+
+  &-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    a {
+      text-decoration: none;
+      color: $text-muted;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $text;
+      }
+    }
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  &-btn {
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-family: inherit;
+
+    &-login {
+      background: transparent;
+      color: $text;
+      border: 1px solid $border;
+
+      &:hover {
+        background: #f3f4f6;
+      }
+    }
+
+    &-signup {
+      background: $purple;
+      color: $white;
+      border: 1px solid $purple;
+
+      &:hover {
+        background: #6d28d9;
+      }
+    }
+  }
+}

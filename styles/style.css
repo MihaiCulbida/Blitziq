@@ -1,3 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background: rgba(191, 245, 255, 0.5254901961);
+  font-family: "Inter", sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+}
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #111;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.navbar-logo-badge {
+  background: #fbbf24;
+  color: #111;
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 5px;
+  letter-spacing: 0.01em;
+}
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.navbar-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.navbar-links a:hover {
+  color: #111;
+}
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.navbar-btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.45rem 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: inherit;
+}
+.navbar-btn-login {
+  background: transparent;
+  color: #111;
+  border: 1px solid #e5e7eb;
+}
+.navbar-btn-login:hover {
+  background: #f3f4f6;
+}
+.navbar-btn-signup {
+  background: #7c3aed;
+  color: #fff;
+  border: 1px solid #7c3aed;
+}
+.navbar-btn-signup:hover {
+  background: #6d28d9;
 }/*# sourceMappingURL=style.css.map */
