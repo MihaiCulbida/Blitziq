@@ -28,5 +28,45 @@
     </div>
   </nav>
 
+  <section class="hero">
+
+    <div class="hero-shapes">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+      <div class="blob blob-5"></div>
+      <div class="blob blob-6"></div>
+    </div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">Text</h1>
+      <h2 class="hero-subtext">Subtext</h2>
+      <p class="hero-desc">Description</p>
+      <div class="hero-actions">
+        <button class="hero-btn hero-btn-primary">
+          Start creating
+          <img class="hero-btn-img" src="img/arrow-right1.png">
+        </button>
+        <button class="hero-btn hero-btn-secondary">
+          <img class="hero-btn2-img" src="img/arrow-right2.png">
+          Try a quizz
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-join">
+      <h3 class="hero-join-title">Try it now</h3>
+      <div class="hero-join-row">
+        <input class="hero-join-input" type="text" placeholder="Code">
+        <button class="hero-join-btn">
+          Join
+          <img class="hero-join-img" src="img/arrow-right1.png">
+        </button>
+      </div>
+    </div>
+
+  </section>
+
 </body>
 </html>
