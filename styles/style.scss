@@ -17,6 +17,10 @@ body {
   color: $text;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -297,7 +301,7 @@ body {
 .hero-join {
   width: 100%;
   background: rgba(0, 0, 0, 0.185);
-  padding: 48px 2rem;
+  padding: 78px 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -365,4 +369,8 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 26px rgba(251, 191, 36, 0.55);
   }
+}
+
+.section1 {
+  height: 100vh;
 }
