@@ -23,8 +23,8 @@
     </ul>
 
     <div class="navbar-actions">
-      <button class="navbar-btn navbar-btn-login">Log in</button>
-      <button class="navbar-btn navbar-btn-signup">Sign up</button>
+      <button type="button" class="navbar-btn navbar-btn-login" onclick="window.location.href='login.php'">Log in</button>
+      <button type="button" class="navbar-btn navbar-btn-signup" onclick="window.location.href='register.php'">Sign up</button>
     </div>
   </nav>
 
@@ -50,7 +50,7 @@
         </button>
         <button class="hero-btn hero-btn-secondary">
           <img class="hero-btn2-img" src="img/arrow-right2.png">
-          Try a quizz
+          Try a quiz
         </button>
       </div>
     </div>
