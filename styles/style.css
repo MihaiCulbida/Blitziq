@@ -8,6 +8,9 @@ body {
   font-family: "Inter", sans-serif;
   background: #fff;
   color: #111;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 body::-webkit-scrollbar {

@@ -15,6 +15,7 @@ body {
   font-family: 'Inter', sans-serif;
   background: $white;
   color: $text;
+  user-select: none;
 }
 
 body::-webkit-scrollbar {
