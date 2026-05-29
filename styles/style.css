@@ -418,7 +418,6 @@ body::-webkit-scrollbar {
   line-height: 1.1;
   margin-bottom: 56px;
 }
-
 .fs-heading span {
   color: #6d28d9;
 }
@@ -440,7 +439,6 @@ body::-webkit-scrollbar {
   flex-direction: column;
   gap: 10px;
 }
-
 .fs-card.wide {
   grid-column: span 2;
   display: grid;
@@ -504,7 +502,6 @@ body::-webkit-scrollbar {
   align-items: center;
   gap: 7px;
 }
-
 .mock-opt.ok {
   background: #ede9fe;
   color: #6d28d9;
@@ -518,7 +515,6 @@ body::-webkit-scrollbar {
   background: #c4b5fd;
   flex-shrink: 0;
 }
-
 .dot.ok {
   background: #6d28d9;
 }
@@ -585,7 +581,6 @@ body::-webkit-scrollbar {
   border-radius: 99px;
   background: #7c3aed;
 }
-
 .mock-r-fill.hi {
   background: #fbbf24;
 }
@@ -611,6 +606,15 @@ body::-webkit-scrollbar {
   padding: 10px 8px;
   text-align: center;
 }
+.mock-r-pill.accent {
+  background: #fef3c7;
+}
+.mock-r-pill.accent .mock-r-pill-num {
+  color: #b45309;
+}
+.mock-r-pill.accent .mock-r-pill-sub {
+  color: #d97706;
+}
 
 .mock-r-pill-num {
   font-size: 1.1rem;
@@ -625,16 +629,4 @@ body::-webkit-scrollbar {
   margin-top: 2px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-}
-
-.mock-r-pill.accent .mock-r-pill-num {
-  color: #b45309;
-}
-
-.mock-r-pill.accent {
-  background: #fef3c7;
-}
-
-.mock-r-pill.accent .mock-r-pill-sub {
-  color: #d97706;
 }/*# sourceMappingURL=style.css.map */
