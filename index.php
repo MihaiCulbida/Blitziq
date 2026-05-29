@@ -41,9 +41,9 @@
     </div>
 
     <div class="hero-content">
-      <h1 class="hero-title">Text</h1>
-      <h2 class="hero-subtext">Subtext</h2>
-      <p class="hero-desc">Description</p>
+      <h1 class="hero-title">The fastest way to<br>run live quizzes</h1>
+      <h2 class="hero-subtext">Your crowd. Your questions.</h2>
+      <p class="hero-desc">Create, share, and host real-time quizzes - for classrooms, events, or just for fun.</p>
       <div class="hero-actions">
         <button class="hero-btn hero-btn-primary">
           Start creating
