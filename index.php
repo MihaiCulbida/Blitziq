@@ -68,7 +68,70 @@
     </div>
   </section>
 
-  <div class="section1"></div>
+  <div class="fs">
+  
+  <h2 class="fs-heading">Everything you need.<br><span>Nothing you don't.</span></h2>
+  <div class="fs-grid">
+
+    <div class="fs-card wide">
+      <div class="fs-card-text">
+        <p class="fs-num">01</p>
+        <h3 class="fs-title">Build a quiz in under a minute</h3>
+        <p class="fs-desc">Type your questions, pick the right answer, set a timer. No learning curve - just a clean editor that gets out of your way.</p>
+      </div>
+      <div>
+        <div class="mock-q">What is the capital of France?</div>
+        <div class="mock-opts">
+          <div class="mock-opt"><div class="dot"></div>Berlin</div>
+          <div class="mock-opt ok"><div class="dot ok"></div>Paris</div>
+          <div class="mock-opt"><div class="dot"></div>Madrid</div>
+          <div class="mock-opt"><div class="dot"></div>Rome</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fs-card" style="align-items:center; justify-content:space-between;">
+      <div class="fs-card-text" style="text-align:center; align-items:center;">
+        <p class="fs-num">02</p>
+        <h3 class="fs-title">Timed pressure</h3>
+        <p class="fs-desc">Every question has a countdown. Fast answers score more.</p>
+      </div>
+      <div class="mock-timer-wrap">
+        <div class="mock-timer">12</div>
+        <div class="mock-timer-label">seconds left</div>
+      </div>
+    </div>
+
+    <div class="fs-card" style="grid-column: span 3;">
+      <p class="fs-num">03</p>
+      <h3 class="fs-title">Results after every session</h3>
+      <p class="fs-desc">See which questions people skipped the most and their percentage.</p>
+      <div class="mock-results" style="margin-top:8px;">
+        <div class="mock-r-row">
+          <span class="mock-r-label">Q1</span>
+          <div class="mock-r-track"><div class="mock-r-fill hi" style="width:91%"></div></div>
+          <span class="mock-r-val">91%</span>
+        </div>
+        <div class="mock-r-row">
+          <span class="mock-r-label">Q2</span>
+          <div class="mock-r-track"><div class="mock-r-fill" style="width:58%"></div></div>
+          <span class="mock-r-val">58%</span>
+        </div>
+        <div class="mock-r-row">
+          <span class="mock-r-label">Q3</span>
+          <div class="mock-r-track"><div class="mock-r-fill" style="width:34%"></div></div>
+          <span class="mock-r-val">34%</span>
+        </div>
+        <div class="mock-r-pills">
+          <div class="mock-r-pill"><div class="mock-r-pill-num">24</div><div class="mock-r-pill-sub">players</div></div>
+          <div class="mock-r-pill accent"><div class="mock-r-pill-num">68%</div><div class="mock-r-pill-sub">avg score</div></div>
+          <div class="mock-r-pill"><div class="mock-r-pill-num">8</div><div class="mock-r-pill-sub">questions</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>
