@@ -131,7 +131,7 @@ body::-webkit-scrollbar {
   top: -220px;
   left: -160px; 
   background: rgba(167, 139, 250, 0.7);
-  animation: blob-float 12s ease-in-out infinite;
+  animation: blob-float 5s ease-in-out infinite;
 }
 
 .blob-2 {
@@ -139,8 +139,8 @@ body::-webkit-scrollbar {
   height: 480px;
   bottom: -160px;
   right: -100px;
-  background: rgba(251, 191, 36, 0.45);
-  animation: blob-float 15s ease-in-out infinite 2s reverse;
+  background: rgba(167, 139, 250, 0.75);
+  animation: blob-float-2 4s ease-in-out infinite 2s reverse;
 }
 
 .blob-3 {
@@ -150,7 +150,7 @@ body::-webkit-scrollbar {
   left: 58%;
   transform: translate(-50%, -50%);
   background: rgba(124, 58, 237, 0.75);
-  animation: blob-morph 18s ease-in-out infinite 1s;
+  animation: blob-morph 6s ease-in-out infinite 1s;
 }
 
 .blob-4 {
@@ -159,7 +159,7 @@ body::-webkit-scrollbar {
   bottom: -80px;
   left: 8%;
   background: rgba(196, 181, 253, 0.5);
-  animation: blob-float 10s ease-in-out infinite 3s;
+  animation: blob-float 4.5s ease-in-out infinite 3s;
 }
 
 .blob-5 {
@@ -167,8 +167,8 @@ body::-webkit-scrollbar {
   height: 260px;
   top: 5%;
   right: 10%;
-  background: rgba(251, 191, 36, 0.3);
-  animation: blob-float 13s ease-in-out infinite 0.5s;
+  background: rgba(167, 139, 250, 0.75);
+  animation: blob-float-5 3.5s ease-in-out infinite 0.5s;
 }
 
 .blob-6 {
@@ -177,20 +177,20 @@ body::-webkit-scrollbar {
   top: 40%;
   left: 5%;
   background: rgba(139, 92, 246, 0.45);
-  animation: blob-float 16s ease-in-out infinite 4s;
+  animation: blob-float 5.5s ease-in-out infinite 4s;
 }
 
 @keyframes blob-float {
   0%, 100% { transform: translateY(0) scale(1); }
-  33% { transform: translateY(-36px) scale(1.05); }
-  66% { transform: translateY(20px) scale(0.96); }
+  33% { transform: translateY(-70px) scale(1.1); }
+  66% { transform: translateY(40px) scale(0.9); }
 }
 
 @keyframes blob-morph {
   0%, 100% { border-radius: 50%; transform: translate(-50%, -50%) scale(1); }
-  25% { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; transform: translate(-50%, -50%) scale(1.07); }
-  50% { border-radius: 40% 60% 45% 55% / 55% 45% 60% 40%; transform: translate(-50%, -50%) scale(0.94); }
-  75% { border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%; transform: translate(-50%, -50%) scale(1.04); }
+  25% { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; transform: translate(-50%, -50%) scale(1.12); }
+  50% { border-radius: 40% 60% 45% 55% / 55% 45% 60% 40%; transform: translate(-50%, -50%) scale(0.88); }
+  75% { border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%; transform: translate(-50%, -50%) scale(1.08); }
 }
 
 @keyframes fade-up {
