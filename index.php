@@ -113,11 +113,11 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <a class="navbar-logo">Blitz<span class="navbar-logo-badge">IQ</span></a>
 
     <ul class="navbar-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Demo</a></li>
       <li><a href="#">text</a></li>
-      <li><a href="#">text</a></li>
-      <li><a href="#">text</a></li>
-      <li><a href="#">text</a></li>
-      <li><a href="#">text</a></li>
+      <li><a href="#">Contact</a></li>
     </ul>
 
     <div class="navbar-actions">
@@ -230,7 +230,60 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </div>
 
-  
+<section class="game">
+  <div class="game-head">
+    <h2 class="game-title">
+      Play<span class="game-title-amp">&amp;</span>Learn
+      <span class="game-badge">Interactive</span>
+    </h2>
+  </div>
+
+  <div class="game-card" id="game-card">
+    <div class="game-prog" id="game-prog" style="width:33%"></div>
+
+    <div id="game-main">
+      <div class="game-top">
+        <span class="game-num" id="g-num">Question 1 of 3</span>
+        <div class="game-timer-wrap">
+          <img src="img/clock.png" width="14" height="14" style="opacity:.5">
+          <span class="game-timer" id="g-timer">15</span>s
+        </div>
+      </div>
+
+      <div class="game-body">
+        <div class="game-left">
+          <div class="game-question" id="g-text"></div>
+          <div class="game-code" id="g-code"></div>
+          <div class="game-feedback" id="g-feedback"></div>
+          <button class="game-next" id="btn-next">
+            Next question <img src="img/arrow-right1.png" class="game-next-img">
+          </button>
+        </div>
+        <div class="game-right">
+          <div class="game-opts" id="g-opts"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-result" id="game-result">
+      <div class="game-score-ring">
+        <span class="game-score-num" id="g-score">0</span>
+        <span class="game-score-max">/ 3</span>
+      </div>
+      <div class="game-result-title" id="g-result-title"></div>
+      <div class="game-result-sub" id="g-result-sub"></div>
+      <button class="game-restart" id="btn-restart">
+        Try again <img src="img/arrow-right1.png" class="game-next-img">
+      </button>
+    </div>
+  </div>
+
+  <div class="game-dots">
+    <div class="game-dot active" id="gdot-0"></div>
+    <div class="game-dot" id="gdot-1"></div>
+    <div class="game-dot" id="gdot-2"></div>
+  </div>
+</section>
 
   <script src="src/script.js"></script>
 </body>
