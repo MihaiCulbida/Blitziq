@@ -230,6 +230,8 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </div>
 
+  
+
   <script src="src/script.js"></script>
 </body>
 </html>
