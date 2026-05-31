@@ -116,7 +116,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
       <li><a href="#">Home</a></li>
       <li><a href="#">Features</a></li>
       <li><a href="#">Demo</a></li>
-      <li><a href="#">text</a></li>
+      <li><a href="#">About</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
 
@@ -134,43 +134,36 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </nav>
 
-  <section class="hero">
-    <div class="hero-shapes">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-      <div class="blob blob-4"></div>
-      <div class="blob blob-5"></div>
-      <div class="blob blob-6"></div>
-    </div>
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
 
-    <div class="hero-content">
-      <h1 class="hero-title">The fastest way to<br>run live quizzes</h1>
-      <h2 class="hero-subtext">Your crowd. Your questions.</h2>
-      <p class="hero-desc">Create, share, and host real-time quizzes - for classrooms, events, or just for fun.</p>
-      <div class="hero-actions">
-        <button class="hero-btn hero-btn-primary">
-          Start creating
-          <img class="hero-btn-img" src="img/arrow-right1.png">
-        </button>
-        <button class="hero-btn hero-btn-secondary">
-          <img class="hero-btn2-img" src="img/arrow-right2.png">
-          Try a quiz
-        </button>
-      </div>
+  <div class="hero-content">
+    <h1 class="hero-title">The fastest way to<br>run live quizzes</h1>
+    <h2 class="hero-subtext">Your crowd. Your questions.</h2>
+    <p class="hero-desc">Create, share, and host real-time quizzes - for classrooms, events, or just for fun.</p>
+    <div class="hero-actions">
+      <button class="hero-btn hero-btn-primary">
+        Start creating
+        <img class="hero-btn-img" src="img/arrow-right1.png">
+      </button>
+      <button class="hero-btn hero-btn-secondary">
+        <img class="hero-btn2-img" src="img/arrow-right2.png">
+        Try a quiz
+      </button>
     </div>
+  </div>
 
-    <div class="hero-join">
-      <h3 class="hero-join-title">Try it now</h3>
-      <div class="hero-join-row">
-        <input class="hero-join-input" type="text" placeholder="Code">
-        <button class="hero-join-btn">
-          Join
-          <img class="hero-join-img" src="img/arrow-right1.png">
-        </button>
-      </div>
+  <div class="hero-join">
+    <h3 class="hero-join-title">Try it now</h3>
+    <div class="hero-join-row">
+      <input class="hero-join-input" type="text" placeholder="Code">
+      <button class="hero-join-btn">
+        Join
+        <img class="hero-join-img" src="img/arrow-right1.png">
+      </button>
     </div>
-  </section>
+  </div>
+</section>
 
   <div class="fs">
     <h2 class="fs-heading">Everything you need.<br><span>Nothing you don't.</span></h2>
@@ -179,7 +172,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
       <div class="fs-card">
         <p class="fs-num">01</p>
         <h3 class="fs-title">Build a quiz in under a minute</h3>
-        <p class="fs-desc">Type your questions, pick the right answer, set a timer. No learning curve — just a clean editor that gets out of your way.</p>
+        <p class="fs-desc">Type your questions, pick the right answer, set a timer. No learning curve, just a clean editor that gets out of your way.</p>
         <div class="mock-q">What is the capital of France?</div>
         <div class="mock-opts">
           <div class="mock-opt"><div class="dot"></div>Berlin</div>
@@ -245,23 +238,18 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
       <div class="game-top">
         <span class="game-num" id="g-num">Question 1 of 3</span>
         <div class="game-timer-wrap">
-          <img src="img/clock.png" width="14" height="14" style="opacity:.5">
           <span class="game-timer" id="g-timer">15</span>s
         </div>
       </div>
 
       <div class="game-body">
-        <div class="game-left">
-          <div class="game-question" id="g-text"></div>
-          <div class="game-code" id="g-code"></div>
-          <div class="game-feedback" id="g-feedback"></div>
-          <button class="game-next" id="btn-next">
-            Next question <img src="img/arrow-right1.png" class="game-next-img">
-          </button>
-        </div>
-        <div class="game-right">
-          <div class="game-opts" id="g-opts"></div>
-        </div>
+        <div class="game-question" id="g-text"></div>
+        <div class="game-code" id="g-code"></div>
+        <div class="game-opts" id="g-opts"></div>
+        <div class="game-feedback" id="g-feedback"></div>
+        <button class="game-next" id="btn-next">
+          Next question <img src="img/arrow-right1.png" class="game-next-img">
+        </button>
       </div>
     </div>
 
@@ -282,6 +270,46 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <div class="game-dot active" id="gdot-0"></div>
     <div class="game-dot" id="gdot-1"></div>
     <div class="game-dot" id="gdot-2"></div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-inner">
+    <div class="about-header">
+      <h2 class="about-heading">Built for speed.<br><span>Designed for everyone.</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-num">01</div>
+        <h3 class="about-card-title">Create in seconds</h3>
+        <p class="about-card-desc">Add your questions, set the timer and you're ready. No complicated setup, no learning curve.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-num">02</div>
+        <h3 class="about-card-title">Play live with anyone</h3>
+        <p class="about-card-desc">Share a simple code and participants join instantly from any device, anywhere.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-num">03</div>
+        <h3 class="about-card-title">Multiple choice questions</h3>
+        <p class="about-card-desc">4 answer options, one correct. Simple for players, efficient for the host.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-num">04</div>
+        <h3 class="about-card-title">Detailed analytics</h3>
+        <p class="about-card-desc">See which questions were hardest and how well your group performed after each session.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-num">05</div>
+        <h3 class="about-card-title">For any occasion</h3>
+        <p class="about-card-desc">Classroom, team building, party or event, Blitziq adapts to your context.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-num">06</div>
+        <h3 class="about-card-title">Free to start</h3>
+        <p class="about-card-desc">Create your account and launch your first quiz in less than 2 minutes. No credit card needed.</p>
+      </div>
+    </div>
   </div>
 </section>
 
