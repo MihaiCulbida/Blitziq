@@ -317,8 +317,8 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   <h2 class="cta-title">Ready to run your first quiz?</h2>
   <p class="cta-desc">Join thousands of hosts already using Blitziq, free to start, no card needed.</p>
   <div class="cta-actions">
-    <button class="hero-btn hero-btn-primary">Create account <img class="hero-btn-img" src="img/arrow-right1.png"></button>
-    <button class="hero-btn hero-btn-secondary"><img class="hero-btn2-img" src="img/arrow-right2.png"> Talk to us</button>
+    <button class="hero-btn hero-btn-primary" id="btn-cta-signup">Create account <img class="hero-btn-img" src="img/arrow-right1.png"></button>
+    <button class="hero-btn hero-btn-secondary" id="btn-cta-contact"><img class="hero-btn2-img" src="img/arrow-right2.png"> Talk to us</button>
   </div>
 </section>
 

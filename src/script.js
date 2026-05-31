@@ -336,6 +336,9 @@ document.querySelectorAll('[data-open]').forEach(el => {
 
   window.addEventListener('scroll', updateActive);
   updateActive();
+
+  document.getElementById('btn-cta-signup')?.addEventListener('click', () => openOverlay('overlay-signup'));
+  document.getElementById('btn-cta-contact')?.addEventListener('click', () => openOverlay('overlay-contact'));
 })();
 
 (function () {
