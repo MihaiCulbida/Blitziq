@@ -993,6 +993,8 @@ body::-webkit-scrollbar {
   border-color: rgba(248, 113, 113, 0.35);
 }
 .game-next {
+  width: -moz-fit-content;
+  width: fit-content;
   margin-top: 18px;
   font-family: "Inter", sans-serif;
   font-size: 0.88rem;
@@ -1167,4 +1169,112 @@ body::-webkit-scrollbar {
   font-size: 0.82rem;
   color: #555;
   line-height: 1.65;
+}
+
+.cta {
+  background: #6d28d9;
+  padding: 80px 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+.cta-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.cta-desc {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 420px;
+}
+.cta-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.footer {
+  background: #481b92;
+  font-family: "Inter", sans-serif;
+  padding: 60px 4rem 0;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.footer-logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.footer-logo span {
+  background: #fbbf24;
+  color: #111;
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 5px;
+  margin-left: 2px;
+}
+.footer-brand-desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.7;
+  max-width: 240px;
+}
+.footer-col-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 16px;
+}
+.footer-socials {
+  flex-direction: row !important;
+  gap: 16px !important;
+}
+.footer-socials a {
+  display: flex;
+}
+.footer-socials a img {
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+.footer-socials a:hover img {
+  opacity: 1;
+}
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-col ul a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.15s;
+}
+.footer-col ul a:hover {
+  color: #fff;
+}
+.footer-bottom {
+  padding: 20px 0;
+}
+.footer-bottom p {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.25);
 }/*# sourceMappingURL=style.css.map */

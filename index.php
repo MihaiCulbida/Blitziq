@@ -313,6 +313,53 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   </div>
 </section>
 
+<section class="cta">
+  <h2 class="cta-title">Ready to run your first quiz?</h2>
+  <p class="cta-desc">Join thousands of hosts already using Blitziq, free to start, no card needed.</p>
+  <div class="cta-actions">
+    <button class="hero-btn hero-btn-primary">Create account <img class="hero-btn-img" src="img/arrow-right1.png"></button>
+    <button class="hero-btn hero-btn-secondary"><img class="hero-btn2-img" src="img/arrow-right2.png"> Talk to us</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="footer-logo">Blitz<span>IQ</span></a>
+      <p class="footer-brand-desc">The interactive quiz platform that makes learning captivating for students and professionals alike.</p>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Product</h4>
+      <ul>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Demo game</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Company</h4>
+      <ul>
+        <li><a href="#">Contacts</a></li>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+  <h4 class="footer-col-title">Socials</h4>
+  <ul class="footer-socials">
+    <li><a href="#"><img src="img/github.png" width="30" height="30"></a></li>
+    <li><a href="#"><img src="img/instagram.png" width="30" height="30"></a></li>
+    <li><a href="#"><img src="img/telegram.png" width="30" height="30"></a></li>
+  </ul>
+</div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Blitziq</p>
+  </div>
+</footer>
+
   <script src="src/script.js"></script>
 </body>
 </html>
