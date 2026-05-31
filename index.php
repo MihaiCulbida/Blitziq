@@ -340,7 +340,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <div class="footer-col">
       <h4 class="footer-col-title">Company</h4>
       <ul>
-        <li><a href="#">Contacts</a></li>
+        <li><a href="#" data-open="overlay-contact">Contacts</a></li>
         <li><a href="#">About us</a></li>
         <li><a href="#">Terms & Conditions</a></li>
         <li><a href="#">Privacy Policy</a></li>
@@ -359,7 +359,53 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <p>© 2026 Blitziq</p>
   </div>
 </footer>
+<div class="overlay" id="overlay-contact" role="dialog" aria-modal="true" aria-label="Contact">
+  <div class="overlay-backdrop" data-close="overlay-contact"></div>
+  <div class="overlay-card">
+    <button class="overlay-close" data-close="overlay-contact" aria-label="Close">
+      <img src="img/close.png" width="16" height="16">
+    </button>
 
+    <h2 class="overlay-title">Get in touch</h2>
+    <p class="overlay-sub">We'll get back to you as soon as possible</p>
+
+    <?php if ($logged_in): ?>
+      <div id="contact-error" class="overlay-alert" style="display:none;"></div>
+      <div id="contact-success" class="overlay-alert overlay-alert--success" style="display:none;"></div>
+      <form class="overlay-form" id="form-contact" novalidate>
+        <div class="overlay-field">
+          <label for="contact-to">To</label>
+          <input id="contact-to" type="email" value="clbidamihai@gmail.com" readonly>
+        </div>
+        <div class="overlay-field">
+          <label for="contact-subject">Subject</label>
+          <input id="contact-subject" name="subject" type="text" placeholder="What's this about?" required>
+        </div>
+        <div class="overlay-field">
+          <label for="contact-msg">Message</label>
+          <textarea id="contact-msg" name="message" rows="4" placeholder="Your message..." required style="resize:vertical;"></textarea>
+        </div>
+        <button type="submit" class="overlay-submit" id="btn-contact-submit">
+          <span class="overlay-submit-text">Send message</span>
+          <span class="overlay-spinner" style="display:none;"></span>
+        </button>
+      </form>
+    <?php else: ?>
+      <p class="overlay-sub" style="margin-top:0;">
+        <a href="#" id="contact-login-link" style="color:var(--accent);">Log in</a> to send a message directly.
+      </p>
+    <?php endif; ?>
+
+    <div class="contact-socials">
+      <p class="contact-socials-label">Or reach out on socials</p>
+      <div class="contact-socials-row">
+        <a href="https://github.com/MihaiCulbida" target="_blank"><img src="img/github.png" width="28" height="28"></a>
+        <a href="https://instagram.com/acsiless" target="_blank"><img src="img/instagram.png" width="28" height="28"></a>
+        <a href="https://t.me/acsiless" target="_blank"><img src="img/telegram.png" width="28" height="28"></a>
+      </div>
+    </div>
+  </div>
+</div>
   <script src="src/script.js"></script>
 </body>
 </html>

@@ -1288,3 +1288,60 @@ body::-webkit-scrollbar {
     }
   }
 }
+
+.contact-socials {
+  margin-top: 24px;
+  text-align: center;
+
+  &-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  img { filter: invert(1); }
+
+  &-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    a {
+      opacity: 0.7;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.overlay-field {
+  textarea {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.6rem 0.85rem;
+    border: 1.5px solid $border;
+    border-radius: 8px;
+    outline: none;
+    color: $text;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+    resize: vertical;
+
+    &:focus {
+      border-color: $purple-hero;
+      box-shadow: 0 0 0 3px rgba(109,40,217,0.1);
+    }
+
+    &::placeholder { color: #c0bfc8; }
+  }
+}
+
+#contact-to {
+  background: var(--surface-2, #f5f5f5);
+  cursor: default;
+  opacity: 0.7;
+}

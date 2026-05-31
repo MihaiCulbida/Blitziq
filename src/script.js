@@ -146,6 +146,61 @@
     `;
   }
 
+  const contactCard = document.querySelector('#overlay-contact .overlay-card');
+    if (contactCard) {
+      contactCard.innerHTML = `
+        <button class="overlay-close" data-close="overlay-contact" aria-label="Close">
+          <img src="img/close.png" width="16" height="16">
+        </button>
+        <h2 class="overlay-title">Get in touch</h2>
+        <p class="overlay-sub">We'll get back to you as soon as possible</p>
+        <div id="contact-error" class="overlay-alert" style="display:none;"></div>
+        <div id="contact-success" class="overlay-alert overlay-alert--success" style="display:none;"></div>
+        <form class="overlay-form" id="form-contact" novalidate>
+          <div class="overlay-field">
+            <label for="contact-to">To</label>
+            <input id="contact-to" type="email" value="clbidamihai@gmail.com" readonly>
+          </div>
+          <div class="overlay-field">
+            <label for="contact-subject">Subject</label>
+            <input id="contact-subject" name="subject" type="text" placeholder="What's this about?" required>
+          </div>
+          <div class="overlay-field">
+            <label for="contact-msg">Message</label>
+            <textarea id="contact-msg" name="message" rows="4" placeholder="Your message..." required style="resize:vertical;"></textarea>
+          </div>
+          <button type="submit" class="overlay-submit" id="btn-contact-submit">
+            <span class="overlay-submit-text">Send message</span>
+            <span class="overlay-spinner" style="display:none;"></span>
+          </button>
+        </form>
+        <div class="contact-socials">
+          <p class="contact-socials-label">Or reach out on socials</p>
+          <div class="contact-socials-row">
+            <a href="https://github.com/MihaiCulbida" target="_blank"><img src="img/github.png" width="28" height="28"></a>
+            <a href="https://instagram.com/acsiless" target="_blank"><img src="img/instagram.png" width="28" height="28"></a>
+            <a href="https://t.me/acsiless" target="_blank"><img src="img/telegram.png" width="28" height="28"></a>
+          </div>
+        </div>
+      `;
+      document.getElementById('form-contact').addEventListener('submit', async e => {
+        e.preventDefault();
+        const err = document.getElementById('contact-error');
+        const ok  = document.getElementById('contact-success');
+        const btn = document.getElementById('btn-contact-submit');
+        err.style.display = 'none';
+        ok.style.display  = 'none';
+        btn.querySelector('.overlay-submit-text').style.display = 'none';
+        btn.querySelector('.overlay-spinner').style.display = 'inline-block';
+        await new Promise(r => setTimeout(r, 800));
+        btn.querySelector('.overlay-submit-text').style.display = 'inline';
+        btn.querySelector('.overlay-spinner').style.display = 'none';
+        ok.textContent = 'Message sent!';
+        ok.style.display = 'block';
+        e.target.reset();
+      });
+    }
+
   function escapeHtml(str) {
     return str.replace(/[&<>"']/g, c => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -222,6 +277,37 @@
       input.type = input.type === 'password' ? 'text' : 'password';
       this.querySelector('img').src = input.type === 'text' ? 'img/eye-open.png' : 'img/eye-closed.png';
     });
+  });
+document.querySelectorAll('[data-open]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      openOverlay(el.dataset.open);
+    });
+  });
+
+  document.getElementById('contact-login-link')?.addEventListener('click', e => {
+    e.preventDefault();
+    closeOverlay('overlay-contact');
+    openOverlay('overlay-login');
+  });
+
+  document.getElementById('form-contact')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const err = document.getElementById('contact-error');
+    const ok  = document.getElementById('contact-success');
+    const btn = document.getElementById('btn-contact-submit');
+    err.style.display = 'none';
+    ok.style.display  = 'none';
+    btn.querySelector('.overlay-submit-text').style.display = 'none';
+    btn.querySelector('.overlay-spinner').style.display = 'inline-block';
+
+    await new Promise(r => setTimeout(r, 800));
+
+    btn.querySelector('.overlay-submit-text').style.display = 'inline';
+    btn.querySelector('.overlay-spinner').style.display = 'none';
+    ok.textContent = 'Message sent!';
+    ok.style.display = 'block';
+    e.target.reset();
   });
 
 })();

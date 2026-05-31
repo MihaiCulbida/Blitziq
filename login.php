@@ -21,6 +21,7 @@ $users = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
 foreach ($users as $u) {
     if (($u['username'] === $identifier || $u['email'] === $identifier) && password_verify($password, $u['password_hash'])) {
         session_regenerate_id(true);
+        $_SESSION['user_id']  = $u['id'] ?? $u['username'];
         $_SESSION['username'] = $u['username'];
         echo json_encode(['success' => true, 'username' => $u['username']]);
         exit;
