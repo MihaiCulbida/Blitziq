@@ -349,9 +349,9 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <div class="footer-col">
   <h4 class="footer-col-title">Socials</h4>
   <ul class="footer-socials">
-    <li><a href="#"><img src="img/github.png" width="30" height="30"></a></li>
-    <li><a href="#"><img src="img/instagram.png" width="30" height="30"></a></li>
-    <li><a href="#"><img src="img/telegram.png" width="30" height="30"></a></li>
+    <li><a href="https://github.com/MihaiCulbida" target="_blank"><img src="img/github.png" width="30" height="30"></a></li>
+    <li><a href="https://instagram.com/acsiless" target="_blank"><img src="img/instagram.png" width="30" height="30"></a></li>
+    <li><a href="https://t.me/acsiless" target="_blank"><img src="img/telegram.png" width="30" height="30"></a></li>
   </ul>
 </div>
   </div>
