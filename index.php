@@ -113,11 +113,11 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <a class="navbar-logo">Blitz<span class="navbar-logo-badge">IQ</span></a>
 
     <ul class="navbar-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Demo</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#game">Demo</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#cta">Contact</a></li>
     </ul>
 
     <div class="navbar-actions">

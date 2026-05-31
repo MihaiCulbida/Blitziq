@@ -310,6 +310,26 @@ document.querySelectorAll('[data-open]').forEach(el => {
     e.target.reset();
   });
 
+ const navLinks = document.querySelectorAll('.navbar-links a[href^="#"]');
+  const sections = [];
+  navLinks.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) sections.push({ id, el });
+  });
+
+  function updateActive() {
+    let current = sections[0]?.id;
+    sections.forEach(({ id, el }) => {
+      if (window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', updateActive);
+  updateActive();
 })();
 
 (function () {

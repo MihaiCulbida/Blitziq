@@ -59,7 +59,7 @@ body::-webkit-scrollbar {
   &-links {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 3.5rem;
     list-style: none;
     position: absolute;
     left: 50%;
@@ -69,8 +69,38 @@ body::-webkit-scrollbar {
       text-decoration: none;
       color: $text-muted;
       font-size: 0.9rem;
-      transition: color 0.2s;
-      &:hover { color: $text; }
+      padding: 6px 16px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: $purple-hero;
+        border-radius: 2px;
+        transition: width 0.25s ease;
+      }
+
+      &:hover {
+        color: $purple-hero;
+        background: #ede9fe;
+
+        &::after { width: calc(100% - 32px); }
+      }
+
+      &.active {
+        color: $purple-hero;
+        background: #ede9fe;
+        font-weight: 600;
+
+        &::after { width: calc(100% - 32px); }
+      }
     }
   }
 

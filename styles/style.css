@@ -53,7 +53,7 @@ body::-webkit-scrollbar {
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3.5rem;
   list-style: none;
   position: absolute;
   left: 50%;
@@ -63,10 +63,37 @@ body::-webkit-scrollbar {
   text-decoration: none;
   color: #555;
   font-size: 0.9rem;
-  transition: color 0.2s;
+  padding: 6px 16px;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+  position: relative;
+}
+.navbar-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #6d28d9;
+  border-radius: 2px;
+  transition: width 0.25s ease;
 }
 .navbar-links a:hover {
-  color: #111;
+  color: #6d28d9;
+  background: #ede9fe;
+}
+.navbar-links a:hover::after {
+  width: calc(100% - 32px);
+}
+.navbar-links a.active {
+  color: #6d28d9;
+  background: #ede9fe;
+  font-weight: 600;
+}
+.navbar-links a.active::after {
+  width: calc(100% - 32px);
 }
 .navbar-actions {
   display: flex;
