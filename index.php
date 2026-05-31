@@ -134,7 +134,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </nav>
 
-<section class="hero">
+<section class="hero" id="hero">
   <canvas id="hero-canvas"></canvas>
 
   <div class="hero-content">
@@ -165,7 +165,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   </div>
 </section>
 
-  <div class="fs">
+  <div class="fs" id="features">
     <h2 class="fs-heading">Everything you need.<br><span>Nothing you don't.</span></h2>
     <div class="fs-grid">
 
@@ -223,7 +223,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </div>
 
-<section class="game">
+<section class="game" id="game">
   <div class="game-head">
     <h2 class="game-title">
       Play<span class="game-title-amp">&amp;</span>Learn
@@ -273,7 +273,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   </div>
 </section>
 
-<section class="about">
+<section class="about" id="about">
   <div class="about-inner">
     <div class="about-header">
       <h2 class="about-heading">Built for speed.<br><span>Designed for everyone.</span></h2>
@@ -313,7 +313,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   </div>
 </section>
 
-<section class="cta">
+<section class="cta" id="cta">
   <h2 class="cta-title">Ready to run your first quiz?</h2>
   <p class="cta-desc">Join thousands of hosts already using Blitziq, free to start, no card needed.</p>
   <div class="cta-actions">
@@ -331,10 +331,10 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <div class="footer-col">
       <h4 class="footer-col-title">Product</h4>
       <ul>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">Demo game</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#game">Demo game</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#cta">Contact</a></li>
       </ul>
     </div>
     <div class="footer-col">
