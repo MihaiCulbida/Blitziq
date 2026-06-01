@@ -122,11 +122,15 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
 
     <div class="navbar-actions">
       <?php if ($logged_in): ?>
-        <span class="navbar-user">
-          <span class="navbar-avatar"><?= strtoupper(mb_substr($username, 0, 1)) ?></span>
-          <?= $username ?>
-        </span>
-        <a href="logout.php" class="navbar-btn navbar-btn-login">Log out</a>
+        <span class="navbar-username"><?= $username ?></span>
+        <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
+          <button class="navbar-avatar" id="btn-avatar" aria-label="Account menu">
+            <?= strtoupper(mb_substr($username, 0, 1)) ?>
+          </button>
+          <div class="navbar-dropdown" id="navbar-dropdown">
+            <a href="logout.php" class="navbar-dropdown-item">Log out</a>
+          </div>
+        </div>
       <?php else: ?>
         <button type="button" class="navbar-btn navbar-btn-login" id="btn-open-login">Log in</button>
         <button type="button" class="navbar-btn navbar-btn-signup" id="btn-open-signup">Sign up</button>
@@ -261,7 +265,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
       <div class="game-result-title" id="g-result-title"></div>
       <div class="game-result-sub" id="g-result-sub"></div>
       <button class="game-restart" id="btn-restart">
-        Try again <img src="img/arrow-right1.png" class="game-next-img">
+        Try again <img src="img/again.png" class="game-next-img">
       </button>
     </div>
   </div>

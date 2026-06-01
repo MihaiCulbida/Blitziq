@@ -138,12 +138,22 @@
     const actions = document.querySelector('.navbar-actions');
     if (!actions) return;
     actions.innerHTML = `
-      <span class="navbar-user">
-        <span class="navbar-avatar">${username.charAt(0).toUpperCase()}</span>
-        ${escapeHtml(username)}
-      </span>
-      <a href="logout.php" class="navbar-btn navbar-btn-login">Log out</a>
+      <span class="navbar-username">${escapeHtml(username)}</span>
+      <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
+        <button class="navbar-avatar" id="btn-avatar" aria-label="Account menu">
+          ${username.charAt(0).toUpperCase()}
+        </button>
+        <div class="navbar-dropdown" id="navbar-dropdown">
+          <a href="logout.php" class="navbar-dropdown-item">Log out</a>
+        </div>
+      </div>
     `;
+    const newAvatarBtn = document.getElementById('btn-avatar');
+    const newDropdown  = document.getElementById('navbar-dropdown');
+    newAvatarBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      newDropdown.classList.toggle('is-open');
+    });
   }
 
   const contactCard = document.querySelector('#overlay-contact .overlay-card');
@@ -281,7 +291,12 @@
 document.querySelectorAll('[data-open]').forEach(el => {
     el.addEventListener('click', e => {
       e.preventDefault();
-      openOverlay(el.dataset.open);
+      const target = el.dataset.open;
+      if (target === 'overlay-contact' && !document.querySelector('.navbar-avatar')) {
+        openOverlay('overlay-login');
+        return;
+      }
+      openOverlay(target);
     });
   });
 
@@ -337,8 +352,49 @@ document.querySelectorAll('[data-open]').forEach(el => {
   window.addEventListener('scroll', updateActive);
   updateActive();
 
-  document.getElementById('btn-cta-signup')?.addEventListener('click', () => openOverlay('overlay-signup'));
-  document.getElementById('btn-cta-contact')?.addEventListener('click', () => openOverlay('overlay-contact'));
+  document.getElementById('btn-cta-signup')?.addEventListener('click', () => {
+    if (document.querySelector('.navbar-avatar')) {
+      showToast('You are already logged in.');
+      return;
+    }
+    openOverlay('overlay-signup');
+  });
+  document.getElementById('btn-cta-contact')?.addEventListener('click', () => {
+  if (!document.querySelector('.navbar-avatar')) {
+    openOverlay('overlay-login');
+    return;
+  }
+  openOverlay('overlay-contact');
+});
+
+  const avatarBtn = document.getElementById('btn-avatar');
+  const dropdown  = document.getElementById('navbar-dropdown');
+
+  if (avatarBtn && dropdown) {
+    avatarBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      dropdown.classList.toggle('is-open');
+    });
+
+    document.addEventListener('click', () => {
+      dropdown.classList.remove('is-open');
+    });
+  }
+
+  function showToast(message) {
+    const existing = document.getElementById('toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('toast-show'));
+    setTimeout(() => {
+      toast.classList.remove('toast-show');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+  
 })();
 
 (function () {

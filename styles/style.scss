@@ -139,6 +139,63 @@ body::-webkit-scrollbar {
   }
 }
 
+.navbar-username {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text;
+}
+
+.navbar-avatar-wrap {
+  position: relative;
+}
+
+.navbar-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: $purple-hero;
+  color: $white;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+
+  &:hover { background: darken(#6d28d9, 8%); }
+}
+
+.navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  min-width: 140px;
+  padding: 6px;
+  display: none;
+  z-index: 200;
+
+  &.is-open { display: block; }
+}
+
+.navbar-dropdown-item {
+  display: block;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $text;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.15s;
+
+  &:hover { background: #f3f4f6; }
+}
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -1044,8 +1101,8 @@ body::-webkit-scrollbar {
   }
 
   &-next-img {
-    width: 13px;
-    height: 13px;
+    width: 14px;
+    height: 14px;
     object-fit: contain;
     display: block;
     flex-shrink: 0;
@@ -1378,4 +1435,27 @@ body::-webkit-scrollbar {
   background: var(--surface-2, #f5f5f5);
   cursor: default;
   opacity: 0.7;
+}
+
+#toast {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: #1a1a2e;
+  color: $white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+  white-space: nowrap;
+
+  &.toast-show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
