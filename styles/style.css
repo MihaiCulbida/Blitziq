@@ -15,6 +15,7 @@ body {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  padding-top: 60px;
 }
 
 body::-webkit-scrollbar {
@@ -29,8 +30,11 @@ body::-webkit-scrollbar {
   height: 60px;
   border-bottom: 1px solid #e5e7eb;
   background: #fff;
-  position: relative;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 .navbar-logo {
   display: flex;

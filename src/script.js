@@ -320,8 +320,14 @@ document.querySelectorAll('[data-open]').forEach(el => {
 
   function updateActive() {
     let current = sections[0]?.id;
+    let minDist = Infinity;
     sections.forEach(({ id, el }) => {
-      if (window.scrollY >= el.offsetTop - 120) current = id;
+      const rect = el.getBoundingClientRect();
+      const dist = Math.abs(rect.top);
+      if (rect.top <= window.innerHeight / 2 && dist < minDist) {
+        minDist = dist;
+        current = id;
+      }
     });
     navLinks.forEach(a => {
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
