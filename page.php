@@ -1,26 +1,72 @@
+<?php
+session_start();
+$logged_in = isset($_SESSION['user_id']);
+$username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blitziq</title>
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blitziq</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image" href="img/logo1.png">
-    <link rel="stylesheet" href="styles/page.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image" href="img/logo1.png">
+  <link rel="stylesheet" href="styles/page.css">
 </head>
 <body>
 
 <nav class="navbar">
-    <a class="navbar-logo">Blitz<span class="navbar-logo-badge">IQ</span></a>
-    
-    <ul class="navbar-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#quizzes">My quizzes</a></li>
-        <li><a href="#discover">Discover</a></li>
-    </ul>
-    
+  <a class="navbar-logo" href="index.php">Blitz<span class="navbar-logo-badge">IQ</span></a>
+
+  <ul class="navbar-links">
+    <li><a href="#home" class="active">
+      <img src="img/home.png" width="20" height="20">
+      Home
+    </a></li>
+    <li><a href="#quizzes">
+      <img src="img/quizzes.png" width="20" height="20">
+      My quizzes
+    </a></li>
+    <li><a href="#discover">
+      <img src="img/discover.png" width="20" height="20">
+      Discover
+    </a></li>
+  </ul>
+
+  <div class="navbar-search">
+    <img src="img/search.png" width="15" height="15" class="navbar-search-icon">
+    <input type="text" class="navbar-search-input" placeholder="Search">
+  </div>
+
+  <div class="navbar-right">
+    <button class="navbar-new-btn">
+      <img src="img/add.png" width="14" height="14">
+      New quiz
+    </button>
+
+    <button class="navbar-bell" aria-label="Notifications">
+      <img src="img/bell.png" width="27" height="27">
+    </button>
+
+    <?php if ($logged_in): ?>
+      <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
+        <button class="navbar-avatar" id="btn-avatar" aria-label="Account menu">
+          <?= strtoupper(mb_substr($username, 0, 1)) ?>
+        </button>
+        <div class="navbar-dropdown" id="navbar-dropdown">
+          <span class="navbar-dropdown-user"><?= $username ?></span>
+          <a href="index.php" class="navbar-dropdown-item">Home</a>
+          <a href="logout.php" class="navbar-dropdown-item">Log out</a>
+        </div>
+      </div>
+    <?php else: ?>
+      <a href="index.php" class="navbar-avatar" style="text-decoration:none;font-size:0.75rem;">Login</a>
+    <?php endif; ?>
+  </div>
 </nav>
+
+<script src="src/page.js"></script>
 </body>
 </html>
