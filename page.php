@@ -30,7 +30,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
       My quizzes
     </a></li>
     <li><a href="#discover">
-      <img src="img/discover.png" width="20" height="20">
+      <img src="img/discover.png" width="22" height="22">
       Discover
     </a></li>
   </ul>
