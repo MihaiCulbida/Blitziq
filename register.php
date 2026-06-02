@@ -47,16 +47,19 @@ foreach ($users as $u) {
     }
 }
 
-$users[] = [
+$newUser = [
     'id' => time(),
     'username' => $username,
     'email' => $email,
     'password_hash' => password_hash($password, PASSWORD_BCRYPT),
 ];
 
+$users[] = $newUser;
+
 file_put_contents($file, json_encode($users, JSON_PRETTY_PRINT));
 
 session_regenerate_id(true);
-$_SESSION['username'] = $username;
+$_SESSION['user_id']  = $newUser['id'];
+$_SESSION['username'] = $newUser['username'];
 
 echo json_encode(['success' => true, 'username' => $username]);
