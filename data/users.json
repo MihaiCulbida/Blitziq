@@ -4,5 +4,11 @@
         "username": "Mihail",
         "email": "culbidamihai@gmail.com",
         "password_hash": "$2y$10$jTa5K94gzzmfMn72lXd3WOuL5Hc8mAAG\/Mef4ibNDqz8vI0eFESrm"
+    },
+    {
+        "id": 1780420968,
+        "username": "Test",
+        "email": "test@gmail.com",
+        "password_hash": "$2y$10$E4MQu7fzE\/pYeLqnvTXRRup.g5c5kLkQvOt45rPNOFA8txo2jdb3y"
     }
 ]
