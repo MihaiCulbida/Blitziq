@@ -146,7 +146,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <h2 class="hero-subtext">Your crowd. Your questions.</h2>
     <p class="hero-desc">Create, share, and host real-time quizzes - for classrooms, events, or just for fun.</p>
     <div class="hero-actions">
-      <button class="hero-btn hero-btn-primary">
+      <button class="hero-btn hero-btn-primary" onclick="if(document.querySelector('.navbar-avatar')){window.location.href='page.php'}else{showToast('You are not logged in')}">
         Start creating
         <img class="hero-btn-img" src="img/arrow-right1.png">
       </button>
