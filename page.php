@@ -76,37 +76,44 @@ $username = htmlspecialchars($_SESSION['username']);
 <aside class="sidebar">
   <div class="sidebar-body">
 
-    <div class="sidebar-section">My collections</div>
+    <div class="sidebar-section">
+      My collections
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+        <img src="img/sidebar.png" width="24" height="24">
+      </button>
+    </div>
+
     <a href="#" class="sidebar-item sidebar-item--active">
       <img src="img/squares.png" width="22" height="22">
-      All quizzes
+      <span class="sidebar-label">All quizzes</span>
     </a>
 
-    <div class="sidebar-folders">
-    </div>
+    <div class="sidebar-folders"></div>
 
     <a href="#" class="sidebar-item sidebar-item--muted">
       <img src="img/folder.png">
-      New folder
+      <span class="sidebar-label">New folder</span>
     </a>
 
     <div class="sidebar-divider"></div>
 
-    <div class="sidebar-section">Saved</div>
+    <div class="sidebar-section sidebar-section--saved">
+      <span class="sidebar-label">Saved</span>
+    </div>
 
     <a href="#" class="sidebar-item">
       <img src="img/bookmark.png" width="16" height="16">
-      Favorites
+      <span class="sidebar-label">Favorites</span>
     </a>
     <a href="#" class="sidebar-item">
       <img src="img/history.png" width="16" height="16">
-      History
+      <span class="sidebar-label">History</span>
     </a>
   </div>
   <div class="sidebar-footer">
     <a href="#" class="sidebar-item">
       <img src="img/settings.png" width="16" height="16">
-      Settings
+      <span class="sidebar-label">Settings</span>
     </a>
   </div>
 </aside>

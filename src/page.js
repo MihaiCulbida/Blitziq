@@ -20,6 +20,19 @@
     });
   });
 
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+
+  if (localStorage.getItem('blitziq-sidebar') === '1') {
+    document.body.classList.add('sidebar-collapsed');
+  }
+  
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', () => {
+      const collapsed = document.body.classList.toggle('sidebar-collapsed');
+      localStorage.setItem('blitziq-sidebar', collapsed ? '1' : '0');
+    });
+  }
+
   const MAX_FOLDERS = 6;
   const STORAGE_KEY = 'blitziq-folders';
   const COLORS = ['#a78bfa', '#f472b6', '#34d399', '#60a5fa', '#fb923c', '#facc15'];
@@ -139,6 +152,7 @@
   }
 
   function showInlineNewFolder() {
+    if (document.body.classList.contains('sidebar-collapsed')) return;
     const container = document.querySelector('.sidebar-folders');
     if (!container) return;
 
@@ -233,6 +247,10 @@
   if (newFolderBtn) {
     newFolderBtn.addEventListener('click', e => {
       e.preventDefault();
+      if (document.body.classList.contains('sidebar-collapsed')) {
+        document.body.classList.remove('sidebar-collapsed');
+        localStorage.setItem('blitziq-sidebar', '0');
+      }
       showInlineNewFolder();
     });
   }
@@ -241,6 +259,10 @@
   if (allQuizzesBtn) {
     allQuizzesBtn.addEventListener('click', e => {
       e.preventDefault();
+      if (document.body.classList.contains('sidebar-collapsed')) {
+        document.body.classList.remove('sidebar-collapsed');
+        localStorage.setItem('blitziq-sidebar', '0');
+      }
       const folders = getFolders();
       if (folders.length === 0) return;
       allQuizzesBtn.classList.toggle('is-expanded');

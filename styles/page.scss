@@ -239,6 +239,7 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 90;
+  transition: width 0.22s ease;
 
   &-body {
     flex: 1;
@@ -250,8 +251,47 @@ body {
     border-top: 1px solid $border;
     padding: 6px 0;
   }
+    
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 12px;
+    border-bottom: 1px solid $border;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  &-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 6px;
+      margin-left: auto;
+      flex-shrink: 0;
+      transition: background 0.15s;
+  
+      img { transition: opacity 0.15s; }
+  
+      &:hover {
+        background: $bg;
+        img { opacity: 0.75; }
+      }
+    }
+  
+    &-label {
+      white-space: nowrap;
+      overflow: hidden;
+    }
 
   &-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 0.78rem;
     font-weight: 600;
     color: $text-muted;
@@ -508,6 +548,52 @@ body {
           color: $text;
         }
       }
+    }
+  }
+}
+
+body.sidebar-collapsed {
+  padding-left: 60px;
+
+  .sidebar {
+    width: 60px;
+
+    .sidebar-label,
+    .sidebar-folder-name,
+    .sidebar-folder-count,
+    .sidebar-folder-delete,
+    .sidebar-item-chevron,
+    .sidebar-badge,
+    .sidebar-section--saved,
+    .sidebar-divider {
+      display: none;
+    }
+
+    .sidebar-section {
+      justify-content: center;
+      padding: 6px 0;
+      font-size: 0;
+      letter-spacing: 0;
+    }
+
+    .sidebar-toggle {
+      margin: 0 auto; 
+    }
+
+    .sidebar-item {
+      justify-content: center;
+      padding: 10px 0;
+
+      img { margin: 0; }
+    }
+
+    .sidebar-folder {
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    .sidebar-folder-dot {
+      margin: 0;
     }
   }
 }
