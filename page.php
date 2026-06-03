@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
+$logged_in = isset($_SESSION['user_id']);
+
+if (!$logged_in) {
     header('Location: index.php');
     exit;
 }
