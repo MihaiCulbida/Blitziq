@@ -277,59 +277,38 @@ body {
       height: 22px;
     }
 
-    &:hover {
-      background: $bg;
-      img { opacity: 0.8; }
-    }
+    &:hover { background: $bg; }
 
-    &--active {
-      color: $text;
-      font-weight: 600;
-      img { opacity: 1; }
-    }
+    &--active { font-weight: 600; }
 
     &--muted {
-      color: $text;
       font-size: 0.95rem;
+      color: $text-muted;
 
-      img { 
-        width: 20px; 
-        height: 20px; 
+      img {
+        width: 20px;
+        height: 20px;
       }
+    }
+
+    &-chevron {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      color: $text-muted;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    &--active.is-expanded &-chevron {
+      transform: rotate(180deg);
     }
   }
 
-  &-folders {
-    padding: 2px 0;
-  }
-
-  &-folder {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 9px 16px 9px 20px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: $text;
-    text-decoration: none;
-    transition: background 0.15s;
-  }
-
-  &-folder-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  &-folder-count {
-    margin-left: auto;
-    font-size: 0.82rem;
-    color: $text-muted;
-    background: $bg;
-    border: 1px solid $border;
-    border-radius: 20px;
-    padding: 0 6px;
+  &-divider {
+    height: 1px;
+    background: $border;
+    margin: 8px 16px;
   }
 
   &-badge {
@@ -342,9 +321,197 @@ body {
     font-weight: 600;
   }
 
-  &-divider {
-    height: 1px;
-    background: $border;
-    margin: 8px 16px;
+  &-folders {
+    padding: 2px 0;
+    display: none;
+  }
+
+  &-folder {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 16px 9px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $text;
+    text-decoration: none;
+    transition: background 0.15s, opacity 0.22s, transform 0.22s;
+    position: relative;
+
+    &:hover { background: $bg; }
+
+    &-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    &-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &-count {
+      margin-left: auto;
+      font-size: 0.82rem;
+      color: $text-muted;
+      background: $bg;
+      border: 1px solid $border;
+      border-radius: 20px;
+      padding: 0 6px;
+      flex-shrink: 0;
+    }
+
+    &-delete {
+      display: none;
+      margin-left: auto;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: $text-muted;
+      padding: 2px;
+      border-radius: 4px;
+      line-height: 0;
+      flex-shrink: 0;
+      transition: color 0.15s, background 0.15s;
+
+      &:hover {
+        color: #ef4444;
+        background: #fee2e2;
+      }
+    }
+
+    &:hover &-delete {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover &-count { display: none; }
+
+    &.is-confirming { background: #fff7f7; }
+
+    &.is-removing {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+
+    &-new-row {
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+
+      &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &.is-removing {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+    }
+
+    &-inline-input {
+      flex: 1;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $text;
+      background: none;
+      border: none;
+      border-bottom: 1.5px solid $purple;
+      outline: none;
+      padding: 1px 0;
+      min-width: 0;
+
+      &::placeholder { color: #9ca3af; }
+    }
+
+    &-inline-cancel {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: $text-muted;
+      padding: 2px;
+      border-radius: 4px;
+      line-height: 0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s, background 0.15s;
+
+      &:hover {
+        color: #ef4444;
+        background: #fee2e2;
+      }
+    }
+
+    &-confirm {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%) scale(0.92);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: $white;
+      border: 1px solid $border;
+      border-radius: 8px;
+      padding: 4px 8px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      z-index: 10;
+
+      &.is-visible {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+      }
+
+      &-text {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: $text-muted;
+        white-space: nowrap;
+      }
+
+      &-yes {
+        font-family: inherit;
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 5px;
+        border: none;
+        background: #ef4444;
+        color: $white;
+        cursor: pointer;
+        transition: background 0.15s;
+
+        &:hover { background: #dc2626; }
+      }
+
+      &-no {
+        font-family: inherit;
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 5px;
+        border: 1px solid $border;
+        background: $white;
+        color: $text-muted;
+        cursor: pointer;
+        transition: background 0.15s;
+
+        &:hover {
+          background: $bg;
+          color: $text;
+        }
+      }
+    }
   }
 }
