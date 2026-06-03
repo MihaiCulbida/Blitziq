@@ -18,7 +18,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
 <body>
 
 <nav class="navbar">
-  <a class="navbar-logo" href="index.php">Blitz<span class="navbar-logo-badge">IQ</span></a>
+  <a class="navbar-logo" href="page.php">Blitz<span class="navbar-logo-badge">IQ</span></a>
 
   <ul class="navbar-links">
     <li><a href="#home" class="active">
@@ -36,7 +36,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   </ul>
 
   <div class="navbar-search">
-    <img src="img/search.png" width="15" height="15" class="navbar-search-icon">
+    <img src="img/search.png" width="14" height="14" class="navbar-search-icon">
     <input type="text" class="navbar-search-input" placeholder="Search">
   </div>
 
@@ -66,7 +66,43 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <?php endif; ?>
   </div>
 </nav>
+<aside class="sidebar">
+  <div class="sidebar-body">
 
+    <div class="sidebar-section">My collections</div>
+    <a href="#" class="sidebar-item sidebar-item--active">
+      <img src="img/squares.png" width="16" height="16">
+      All quizzes
+    </a>
+
+    <div class="sidebar-folders">
+    </div>
+
+    <a href="#" class="sidebar-item sidebar-item--muted">
+      <img src="img/folder.png">
+      New folder
+    </a>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">Saved</div>
+
+    <a href="#" class="sidebar-item">
+      <img src="img/bookmark.png" width="16" height="16">
+      Favorites
+    </a>
+    <a href="#" class="sidebar-item">
+      <img src="img/history.png" width="16" height="16">
+      History
+    </a>
+  </div>
+  <div class="sidebar-footer">
+    <a href="#" class="sidebar-item">
+      <img src="img/settings.png" width="16" height="16">
+      Settings
+    </a>
+  </div>
+</aside>
 <script src="src/page.js"></script>
 </body>
 </html>
