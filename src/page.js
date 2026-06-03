@@ -49,17 +49,18 @@
   }
 
   function renderFolders() {
-    const folders = getFolders();
+    const folders   = getFolders();
     const container = document.querySelector('.sidebar-folders');
     if (!container) return;
-
+  
     container.innerHTML = '';
-
-    folders.forEach((folder, index) => {
-      const row = buildFolderRow(folder, index);
-      container.appendChild(row);
-    });
-
+    folders.forEach((folder, index) => container.appendChild(buildFolderRow(folder, index)));
+  
+    if (folders.length === 0) {
+      const allQuizzes = document.querySelector('.sidebar-item--active');
+      if (allQuizzes) allQuizzes.classList.remove('is-expanded');
+    }
+  
     updateFolderVisibility();
     updateNewFolderBtn();
   }
@@ -176,21 +177,16 @@
     const input = row.querySelector('.sidebar-folder-inline-input');
     input.focus();
 
-    function commitFolder() {
+    function commit() {
       const name = input.value.trim();
-      if (!name) {
-        cancelFolder();
-        return;
-      }
+      if (!name) { cancelFolder(); return; }
       const folders = getFolders();
-      if (folders.length >= MAX_FOLDERS) {
-        cancelFolder();
-        return;
-      }
+      if (folders.length >= MAX_FOLDERS) { cancelFolder(); return; }
+      row.classList.add('is-removing');
       folders.push({ name, count: 0 });
       saveFolders(folders);
       row.classList.remove('is-visible');
-      setTimeout(() => renderFolders(), 180);
+      setTimeout(() => renderFolders(), 200);
     }
 
     function cancelFolder() {
@@ -200,16 +196,17 @@
     }
 
     input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') { e.preventDefault(); commitFolder(); }
+      if (e.key === 'Enter') { e.preventDefault(); commit(); }
       if (e.key === 'Escape') { e.preventDefault(); cancelFolder(); }
     });
 
     input.addEventListener('blur', () => {
       setTimeout(() => {
-        if (document.activeElement !== row.querySelector('.sidebar-folder-inline-cancel')) {
-          commitFolder();
+        if (!row.classList.contains('is-removing') &&
+            document.activeElement !== row.querySelector('.sidebar-folder-inline-cancel')) {
+          commit();
         }
-      }, 100);
+      }, 120);
     });
 
     row.querySelector('.sidebar-folder-inline-cancel').addEventListener('mousedown', e => {

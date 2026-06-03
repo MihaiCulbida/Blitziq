@@ -276,7 +276,7 @@ body {
 }
 .sidebar-item--muted {
   font-size: 0.95rem;
-  color: #6b7280;
+  color: #111;
 }
 .sidebar-item--muted img {
   width: 20px;
@@ -315,7 +315,7 @@ body {
   display: flex;
   align-items: center;
   gap: 9px;
-  padding: 9px 16px 9px 20px;
+  padding: 9px 16px 9px 36px;
   font-size: 0.95rem;
   font-weight: 500;
   color: #111;
@@ -355,15 +355,12 @@ body {
   border: none;
   cursor: pointer;
   color: #6b7280;
-  padding: 2px;
-  border-radius: 4px;
   line-height: 0;
   flex-shrink: 0;
-  transition: color 0.15s, background 0.15s;
+  transition: color 0.15s;
 }
 .sidebar-folder-delete:hover {
   color: #ef4444;
-  background: #fee2e2;
 }
 .sidebar-folder:hover .sidebar-folder-delete {
   display: flex;
@@ -428,7 +425,6 @@ body {
 }
 .sidebar-folder-inline-cancel:hover {
   color: #ef4444;
-  background: #fee2e2;
 }
 .sidebar-folder-confirm {
   position: absolute;
