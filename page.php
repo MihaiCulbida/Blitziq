@@ -78,7 +78,7 @@ $username = htmlspecialchars($_SESSION['username']);
 
     <div class="sidebar-section">My collections</div>
     <a href="#" class="sidebar-item sidebar-item--active">
-      <img src="img/squares.png" width="16" height="16">
+      <img src="img/squares.png" width="22" height="22">
       All quizzes
     </a>
 
