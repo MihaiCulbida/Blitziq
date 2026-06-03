@@ -1,7 +1,12 @@
 <?php
 session_start();
-$logged_in = isset($_SESSION['user_id']);
-$username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
+$username = htmlspecialchars($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
