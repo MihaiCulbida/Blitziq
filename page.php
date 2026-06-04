@@ -29,32 +29,32 @@ $username = htmlspecialchars($_SESSION['username']);
 
   <ul class="navbar-links">
     <li><a href="#home" class="active">
-      <img src="img/home.png" width="20" height="20">
+      <img src="img/home.png" width="20" height="20" alt="">
       Home
     </a></li>
     <li><a href="#quizzes">
-      <img src="img/quizzes.png" width="20" height="20">
+      <img src="img/quizzes.png" width="20" height="20" alt="">
       My quizzes
     </a></li>
     <li><a href="#discover">
-      <img src="img/discover.png" width="22" height="22">
+      <img src="img/discover.png" width="22" height="22" alt="">
       Discover
     </a></li>
   </ul>
 
   <div class="navbar-search">
-    <img src="img/search.png" width="14" height="14" class="navbar-search-icon">
+    <img src="img/search.png" width="14" height="14" class="navbar-search-icon" alt="">
     <input type="text" class="navbar-search-input" placeholder="Search">
   </div>
 
   <div class="navbar-right">
-    <button class="navbar-new-btn">
-      <img src="img/add.png" width="14" height="14">
+    <button class="navbar-new-btn" id="btn-new-quiz" aria-label="Create new quiz">
+      <img src="img/add.png" width="14" height="14" alt="">
       New quiz
     </button>
 
     <button class="navbar-bell" aria-label="Notifications">
-      <img src="img/bell.png" width="27" height="27">
+      <img src="img/bell.png" width="27" height="27" alt="">
     </button>
 
     <?php if ($logged_in): ?>
@@ -73,25 +73,26 @@ $username = htmlspecialchars($_SESSION['username']);
     <?php endif; ?>
   </div>
 </nav>
+
 <aside class="sidebar">
   <div class="sidebar-body">
 
     <div class="sidebar-section">
       My collections
       <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
-        <img src="img/sidebar.png" width="24" height="24">
+        <img src="img/sidebar.png" width="24" height="24" alt="">
       </button>
     </div>
 
     <a href="#" class="sidebar-item sidebar-item--active">
-      <img src="img/squares.png" width="22" height="22">
+      <img src="img/squares.png" width="22" height="22" alt="">
       <span class="sidebar-label">All quizzes</span>
     </a>
 
     <div class="sidebar-folders"></div>
 
     <a href="#" class="sidebar-item sidebar-item--muted">
-      <img src="img/folder.png">
+      <img src="img/folder.png" alt="">
       <span class="sidebar-label">New folder</span>
     </a>
 
@@ -102,21 +103,288 @@ $username = htmlspecialchars($_SESSION['username']);
     </div>
 
     <a href="#" class="sidebar-item">
-      <img src="img/bookmark.png" width="16" height="16">
+      <img src="img/bookmark.png" width="16" height="16" alt="">
       <span class="sidebar-label">Favorites</span>
     </a>
     <a href="#" class="sidebar-item">
-      <img src="img/history.png" width="16" height="16">
+      <img src="img/history.png" width="16" height="16" alt="">
       <span class="sidebar-label">History</span>
     </a>
   </div>
   <div class="sidebar-footer">
     <a href="#" class="sidebar-item">
-      <img src="img/settings.png" width="16" height="16">
+      <img src="img/settings.png" width="16" height="16" alt="">
       <span class="sidebar-label">Settings</span>
     </a>
   </div>
 </aside>
+
+<!-- ===== QUIZ CREATION MODAL ===== -->
+<div class="quiz-overlay" id="quiz-overlay" aria-hidden="true">
+  <div class="quiz-modal" id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="qm-title">
+
+    <!-- Header -->
+    <div class="quiz-modal__header">
+      <div class="quiz-modal__header-left">
+        <h2 class="quiz-modal__title" id="qm-title">General information</h2>
+        <span class="quiz-modal__step-label" id="qm-step-label">Step 1 of 3</span>
+      </div>
+      <div class="quiz-modal__header-right">
+        <div class="quiz-modal__dots" aria-label="Progress">
+          <div class="quiz-modal__dot is-active" id="qm-dot-1"></div>
+          <div class="quiz-modal__dot" id="qm-dot-2"></div>
+          <div class="quiz-modal__dot" id="qm-dot-3"></div>
+        </div>
+        <button class="quiz-modal__close" id="qm-close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="quiz-modal__progress">
+      <div class="quiz-modal__progress-fill" id="qm-progress"></div>
+    </div>
+
+    <!-- ===== PANEL 1 — General info ===== -->
+    <div class="quiz-modal__body">
+      <div class="qm-panel is-active" id="qm-panel-1">
+
+        <div class="qm-field">
+          <label class="qm-field__label" for="qm-name">Quiz name</label>
+          <input class="qm-field__input" id="qm-name" type="text"
+            placeholder="e.g. Biology — Animal Cell" maxlength="80" autocomplete="off">
+          <span class="qm-field__hint">Maximum 80 characters</span>
+        </div>
+
+        <div class="qm-field">
+          <label class="qm-field__label" for="qm-desc">
+            Description <span class="qm-field__optional">optional</span>
+          </label>
+          <textarea class="qm-field__input qm-field__input--textarea" id="qm-desc"
+            placeholder="A short description for participants..." maxlength="300"></textarea>
+        </div>
+
+        <div class="qm-row">
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-subject">Subject / Category</label>
+            <div class="qm-field__select-wrap">
+              <select class="qm-field__input qm-field__input--select" id="qm-subject">
+                <option value="">Choose subject...</option>
+                <option>Mathematics</option>
+                <option>Biology</option>
+                <option>Chemistry</option>
+                <option>Physics</option>
+                <option>History</option>
+                <option>Geography</option>
+                <option>Computer Science</option>
+                <option>Language &amp; Literature</option>
+                <option>Psychology</option>
+                <option>Civic Education</option>
+                <option>Other</option>
+              </select>
+              <svg class="qm-field__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-lang">Language</label>
+            <div class="qm-field__select-wrap">
+              <select class="qm-field__input qm-field__input--select" id="qm-lang">
+                <option>Romanian</option>
+                <option>English</option>
+                <option>French</option>
+                <option>German</option>
+                <option>Other</option>
+              </select>
+              <svg class="qm-field__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="qm-divider"></div>
+        <p class="qm-section-label">Visibility</p>
+
+        <div class="qm-vis-group" role="group" aria-label="Quiz visibility">
+          <button class="qm-vis-btn is-active" data-vis="public">
+            <img class="qm-vis-btn__icon" src="img/public.png" width="20" height="20" alt="">
+            <span class="qm-vis-btn__name">Public</span>
+            <span class="qm-vis-btn__desc">Everyone can access</span>
+          </button>
+          <button class="qm-vis-btn" data-vis="private">
+            <img class="qm-vis-btn__icon" src="img/private.png" width="20" height="20" alt="">
+            <span class="qm-vis-btn__name">Private</span>
+            <span class="qm-vis-btn__desc">Link only</span>
+          </button>
+          <button class="qm-vis-btn" data-vis="draft">
+            <img class="qm-vis-btn__icon" src="img/draft.png" width="20" height="20" alt="">
+            <span class="qm-vis-btn__name">Draft</span>
+            <span class="qm-vis-btn__desc">Not publicly visible</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ===== PANEL 2 — Quiz structure ===== -->
+      <div class="qm-panel" id="qm-panel-2">
+
+        <div class="qm-row">
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-count">Number of questions</label>
+            <input class="qm-field__input" id="qm-count" type="number" value="10" min="1" max="100">
+            <span class="qm-field__hint">Between 1 and 100</span>
+          </div>
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-time">Time per question</label>
+            <div class="qm-time-wrap">
+              <input class="qm-field__input" id="qm-time" type="number" value="30" min="5" max="300">
+              <span class="qm-time-wrap__unit">sec.</span>
+            </div>
+            <span class="qm-field__hint">5 – 300 seconds</span>
+          </div>
+        </div>
+
+        <div class="qm-divider"></div>
+        <p class="qm-section-label">Answer choices</p>
+
+        <div class="qm-answer-count">
+          <span class="qm-answer-count__label">Choices per question:</span>
+          <div class="qm-answer-count__controls" role="group" aria-label="Number of choices">
+            <button class="qm-answer-count__btn" id="qm-count-down" aria-label="Decrease">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M2 5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <span class="qm-answer-count__val" id="qm-count-val" aria-live="polite">4</span>
+            <button class="qm-answer-count__btn" id="qm-count-up" aria-label="Increase">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="qm-answers-preview" id="qm-answers-preview" aria-label="Answer choices preview"></div>
+
+        <div class="qm-divider"></div>
+        <p class="qm-section-label">Quiz type</p>
+
+        <div class="qm-type-grid" role="group" aria-label="Quiz type">
+          <button class="qm-type-card is-active" data-type="single">
+            <img class="qm-type-card__icon" src="img/single.png" width="22" height="22" alt="">
+            <span class="qm-type-card__name">Single answer</span>
+            <span class="qm-type-card__desc">One correct option</span>
+          </button>
+          <button class="qm-type-card" data-type="multi">
+            <img class="qm-type-card__icon" src="img/multi.png" width="22" height="22" alt="">
+            <span class="qm-type-card__name">Multiple answers</span>
+            <span class="qm-type-card__desc">Several correct options</span>
+          </button>
+          <button class="qm-type-card" data-type="truefalse">
+            <img class="qm-type-card__icon" src="img/truefalse.png" width="22" height="22" alt="">
+            <span class="qm-type-card__name">True / False</span>
+            <span class="qm-type-card__desc">Forces 2 choices</span>
+          </button>
+          <button class="qm-type-card" data-type="open">
+            <img class="qm-type-card__icon" src="img/open.png" width="22" height="22" alt="">
+            <span class="qm-type-card__name">Open answer</span>
+            <span class="qm-type-card__desc">Short text</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ===== PANEL 3 — Settings & confirmation ===== -->
+      <div class="qm-panel" id="qm-panel-3">
+
+        <p class="qm-section-label">Behaviour</p>
+        <div class="qm-row qm-row--3">
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-order">Question order</label>
+            <div class="qm-field__select-wrap">
+              <select class="qm-field__input qm-field__input--select" id="qm-order">
+                <option value="fixed">Fixed</option>
+                <option value="random">Random</option>
+              </select>
+              <svg class="qm-field__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-aorder">Answer order</label>
+            <div class="qm-field__select-wrap">
+              <select class="qm-field__input qm-field__input--select" id="qm-aorder">
+                <option value="fixed">Fixed</option>
+                <option value="random">Random</option>
+              </select>
+              <svg class="qm-field__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-attempts">Allowed attempts</label>
+            <input class="qm-field__input" id="qm-attempts" type="number" value="1" min="1" max="10">
+          </div>
+        </div>
+
+        <div class="qm-row qm-row--2">
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-pass">Minimum pass score (%)</label>
+            <input class="qm-field__input" id="qm-pass" type="number" value="60" min="0" max="100">
+          </div>
+          <div class="qm-field">
+            <label class="qm-field__label" for="qm-pts">Points per correct answer</label>
+            <input class="qm-field__input" id="qm-pts" type="number" value="10" min="1">
+          </div>
+        </div>
+
+        <div class="qm-divider"></div>
+        <p class="qm-section-label">Display options</p>
+
+        <div class="qm-toggles" role="group" aria-label="Display options">
+          <button class="qm-toggle is-active" data-key="show-score">Show final score</button>
+          <button class="qm-toggle is-active" data-key="show-correct">Correct answers</button>
+          <button class="qm-toggle" data-key="show-timer">Visible timer</button>
+          <button class="qm-toggle" data-key="show-progress">Question progress</button>
+          <button class="qm-toggle" data-key="show-explain">Explanations after answer</button>
+          <button class="qm-toggle" data-key="allow-skip">Allow skip</button>
+        </div>
+
+        <div class="qm-divider"></div>
+        <p class="qm-section-label">Summary</p>
+        <div class="qm-summary" id="qm-summary" aria-label="Configuration summary"></div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="quiz-modal__footer">
+      <button class="quiz-modal__btn quiz-modal__btn--ghost" id="qm-back">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back
+      </button>
+      <button class="quiz-modal__btn quiz-modal__btn--ghost quiz-modal__btn--cancel" id="qm-cancel">
+        Cancel
+      </button>
+      <button class="quiz-modal__btn quiz-modal__btn--primary" id="qm-next">
+        Continue
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
 <script src="src/page.js"></script>
+<script src="src/create.js"></script>
 </body>
 </html>
