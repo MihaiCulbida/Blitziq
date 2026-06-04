@@ -562,4 +562,30 @@ body.sidebar-collapsed .sidebar .sidebar-folder {
 }
 body.sidebar-collapsed .sidebar .sidebar-folder-dot {
   margin: 0;
+}
+
+.sidebar-folder-drag {
+  display: none;
+  color: #9ca3af;
+  flex-shrink: 0;
+  cursor: grab;
+  margin-left: -4px;
+  transition: color 0.15s;
+}
+
+.sidebar-folder:hover .sidebar-folder-drag {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-folder.is-dragging {
+  opacity: 0.4;
+}
+
+.sidebar-folder.drag-over-top {
+  box-shadow: inset 0 2px 0 #6d28d9;
+}
+
+.sidebar-folder.drag-over-bottom {
+  box-shadow: inset 0 -2px 0 #6d28d9;
 }/*# sourceMappingURL=page.css.map */

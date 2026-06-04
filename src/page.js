@@ -25,7 +25,7 @@
   if (localStorage.getItem('blitziq-sidebar') === '1') {
     document.body.classList.add('sidebar-collapsed');
   }
-  
+
   if (sidebarToggle) {
     sidebarToggle.addEventListener('click', () => {
       const collapsed = document.body.classList.toggle('sidebar-collapsed');
@@ -36,6 +36,7 @@
   const MAX_FOLDERS = 6;
   const STORAGE_KEY = 'blitziq-folders';
   const COLORS = ['#a78bfa', '#f472b6', '#34d399', '#60a5fa', '#fb923c', '#facc15'];
+  let dragSrcIndex = -1;
 
   function getFolders() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
@@ -65,15 +66,15 @@
     const folders   = getFolders();
     const container = document.querySelector('.sidebar-folders');
     if (!container) return;
-  
+
     container.innerHTML = '';
     folders.forEach((folder, index) => container.appendChild(buildFolderRow(folder, index)));
-  
+
     if (folders.length === 0) {
       const allQuizzes = document.querySelector('.sidebar-item--active');
       if (allQuizzes) allQuizzes.classList.remove('is-expanded');
     }
-  
+
     updateFolderVisibility();
     updateNewFolderBtn();
   }
@@ -83,6 +84,7 @@
     a.href = '#';
     a.className = 'sidebar-folder';
     a.dataset.index = index;
+    a.draggable = true;
     a.innerHTML = `
       <span class="sidebar-folder-dot" style="background:${COLORS[index % COLORS.length]}"></span>
       <span class="sidebar-folder-name">${escapeHtml(folder.name)}</span>
@@ -98,6 +100,60 @@
       e.preventDefault();
       e.stopPropagation();
       showDeleteConfirm(a, index);
+    });
+
+    a.addEventListener('dragstart', e => {
+      dragSrcIndex = index;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', index);
+      requestAnimationFrame(() => a.classList.add('is-dragging'));
+    });
+
+    a.addEventListener('dragend', () => {
+      a.classList.remove('is-dragging');
+      document.querySelectorAll('.sidebar-folder').forEach(el =>
+        el.classList.remove('drag-over-top', 'drag-over-bottom')
+      );
+    });
+
+    a.addEventListener('dragover', e => {
+      e.preventDefault();
+      const thisIndex = parseInt(a.dataset.index);
+      if (thisIndex === dragSrcIndex) return;
+      e.dataTransfer.dropEffect = 'move';
+      const rect = a.getBoundingClientRect();
+      const mid = rect.top + rect.height / 2;
+      document.querySelectorAll('.sidebar-folder:not(.sidebar-folder-new-row)').forEach(el =>
+        el.classList.remove('drag-over-top', 'drag-over-bottom')
+      );
+      a.classList.add(e.clientY < mid ? 'drag-over-top' : 'drag-over-bottom');
+    });
+
+    a.addEventListener('dragleave', e => {
+      if (!a.contains(e.relatedTarget)) {
+        a.classList.remove('drag-over-top', 'drag-over-bottom');
+      }
+    });
+
+    a.addEventListener('drop', e => {
+      e.preventDefault();
+      const targetIndex = parseInt(a.dataset.index);
+      const insertBefore = a.classList.contains('drag-over-top');
+      a.classList.remove('drag-over-top', 'drag-over-bottom');
+      if (dragSrcIndex === targetIndex) return;
+
+      const folders = getFolders();
+      const [dragged] = folders.splice(dragSrcIndex, 1);
+      let dest = targetIndex > dragSrcIndex
+        ? (insertBefore ? targetIndex - 1 : targetIndex)
+        : (insertBefore ? targetIndex : targetIndex + 1);
+      folders.splice(dest, 0, dragged);
+      saveFolders(folders);
+      renderFolders();
+
+      const allQuizzesBtn = document.querySelector('.sidebar-item--active');
+      if (allQuizzesBtn) allQuizzesBtn.classList.add('is-expanded');
+      updateFolderVisibility();
     });
 
     return a;
