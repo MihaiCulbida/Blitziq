@@ -433,18 +433,14 @@
     btnBack.style.display    = currentPanel > 1 ? '' : 'none';
 
     if (currentPanel === TOTAL) {
-      buildSummary();
-      btnNext.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Create quiz`;
-    } else {
-      btnNext.innerHTML = `Continue
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>`;
-    }
+  buildSummary();
+  btnNext.innerHTML = `
+    Create quiz
+    <img src="img/arrow-right1.png" width="14" height="14" style="filter:invert(1)" >`;
+} else {
+  btnNext.innerHTML = `Continue
+    <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)" >`;
+}
   }
 
   function renderAnswers() {

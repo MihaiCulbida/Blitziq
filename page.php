@@ -238,7 +238,7 @@ $username = htmlspecialchars($_SESSION['username']);
         <div class="qm-field">
           <label class="qm-field__label" for="qm-name">Quiz name</label>
           <input class="qm-field__input" id="qm-name" type="text"
-            placeholder="e.g. Biology — Animal Cell" maxlength="80" autocomplete="off">
+            placeholder="Biology - Animal Cell" maxlength="80" autocomplete="off">
           <span class="qm-field__hint">Maximum 80 characters</span>
         </div>
 
@@ -456,9 +456,7 @@ $username = htmlspecialchars($_SESSION['username']);
       </button>
       <button class="quiz-modal__btn quiz-modal__btn--primary" id="qm-next">
         Continue
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)" >
       </button>
     </div>
 
@@ -466,6 +464,5 @@ $username = htmlspecialchars($_SESSION['username']);
 </div>
 
 <script src="src/page.js"></script>
-<script src="src/create.js"></script>
 </body>
 </html>
