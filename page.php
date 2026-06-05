@@ -119,11 +119,97 @@ $username = htmlspecialchars($_SESSION['username']);
   </div>
 </aside>
 
-<!-- ===== QUIZ CREATION MODAL ===== -->
+<main class="page-main">
+  <section class="cat-carousel-wrap">
+    <div class="cat-carousel" id="cat-carousel">
+      <div class="cat-track" id="cat-track">
+
+        <div class="cat-card" style="--g1:#f97316;--g2:#ef4444">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/science.png" alt="">
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">Science</h3>
+            <p class="cat-card__sub">Biology · Chemistry · Physics</p>
+          </div>
+        </div>
+        
+        <div class="cat-card" style="--g1:#8b5cf6;--g2:#6d28d9">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/mathematics.png" alt="">
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">Mathematics</h3>
+            <p class="cat-card__sub">Algebra · Geometry · Stats</p>
+          </div>
+        </div>
+        
+        <div class="cat-card" style="--g1:#0ea5e9;--g2:#0284c7">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/geography.png" alt="">
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">Geography</h3>
+            <p class="cat-card__sub">Countries · Maps · Capitals</p>
+          </div>
+        </div>
+        
+        <div class="cat-card" style="--g1:#10b981;--g2:#059669">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/literature.png" alt="">
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">Literature</h3>
+            <p class="cat-card__sub">Classic · Poetry · Analysis</p>
+          </div>
+        </div>
+        
+        <div class="cat-card" style="--g1:#f59e0b;--g2:#d97706">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/history1.png" alt="">
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">History</h3>
+            <p class="cat-card__sub">Ancient · Modern · Wars</p>
+          </div>
+        </div>
+        
+        <div class="cat-card" style="--g1:#ec4899;--g2:#db2777">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/computer.png" alt="">
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">Computer Science</h3>
+            <p class="cat-card__sub">Coding · Algorithms · Web</p>
+          </div>
+        </div>
+        
+        <div class="cat-card" style="--g1:#14b8a6;--g2:#0d9488">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/psychology.png" alt="">
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">Psychology</h3>
+            <p class="cat-card__sub">Mind · Behaviour · Theories</p>
+          </div>
+        </div>
+        
+        <div class="cat-card" style="--g1:#6366f1;--g2:#4338ca">
+          <div class="cat-card__bg"></div>
+          <img class="cat-card__icon" src="img/public.png" style="filter:invert(1)" >
+          <div class="cat-card__body">
+            <h3 class="cat-card__title">Languages</h3>
+            <p class="cat-card__sub">English · French · German</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="cat-arrow cat-arrow--left" id="cat-prev" aria-label="Previous">
+      <img src="img/arrow-l.png" width="20" height="20" alt="Previous">
+    </button>
+    <button class="cat-arrow cat-arrow--right" id="cat-next" aria-label="Next">
+      <img src="img/arrow-r.png" width="20" height="20" alt="Next">
+    </button>
+  </section>
+
+</main>
+
 <div class="quiz-overlay" id="quiz-overlay" aria-hidden="true">
   <div class="quiz-modal" id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="qm-title">
 
-    <!-- Header -->
     <div class="quiz-modal__header">
       <div class="quiz-modal__header-left">
         <h2 class="quiz-modal__title" id="qm-title">General information</h2>
@@ -146,8 +232,6 @@ $username = htmlspecialchars($_SESSION['username']);
     <div class="quiz-modal__progress">
       <div class="quiz-modal__progress-fill" id="qm-progress"></div>
     </div>
-
-    <!-- ===== PANEL 1 — General info ===== -->
     <div class="quiz-modal__body">
       <div class="qm-panel is-active" id="qm-panel-1">
 
@@ -216,12 +300,12 @@ $username = htmlspecialchars($_SESSION['username']);
             <span class="qm-vis-btn__desc">Everyone can access</span>
           </button>
           <button class="qm-vis-btn" data-vis="private">
-            <img class="qm-vis-btn__icon" src="img/private.png" width="20" height="20" alt="">
+            <img class="qm-vis-btn__icon" src="img/draft.png" width="20" height="20" alt="">
             <span class="qm-vis-btn__name">Private</span>
             <span class="qm-vis-btn__desc">Link only</span>
           </button>
           <button class="qm-vis-btn" data-vis="draft">
-            <img class="qm-vis-btn__icon" src="img/draft.png" width="20" height="20" alt="">
+            <img class="qm-vis-btn__icon" src="img/private.png" width="20" height="20" alt="">
             <span class="qm-vis-btn__name">Draft</span>
             <span class="qm-vis-btn__desc">Not publicly visible</span>
           </button>
@@ -229,7 +313,6 @@ $username = htmlspecialchars($_SESSION['username']);
 
       </div>
 
-      <!-- ===== PANEL 2 — Quiz structure ===== -->
       <div class="qm-panel" id="qm-panel-2">
 
         <div class="qm-row">
@@ -297,7 +380,6 @@ $username = htmlspecialchars($_SESSION['username']);
 
       </div>
 
-      <!-- ===== PANEL 3 — Settings & confirmation ===== -->
       <div class="qm-panel" id="qm-panel-3">
 
         <p class="qm-section-label">Behaviour</p>
@@ -362,7 +444,6 @@ $username = htmlspecialchars($_SESSION['username']);
       </div>
     </div>
 
-    <!-- Footer -->
     <div class="quiz-modal__footer">
       <button class="quiz-modal__btn quiz-modal__btn--ghost" id="qm-back">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

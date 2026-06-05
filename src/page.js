@@ -589,3 +589,44 @@
 
   renderAnswers();
 })();
+
+(function () {
+  const track    = document.getElementById('cat-track');
+  const prevBtn  = document.getElementById('cat-prev');
+  const nextBtn  = document.getElementById('cat-next');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const VISIBLE   = 4;
+  const cards     = track.querySelectorAll('.cat-card');
+  const total     = cards.length;
+  const maxIndex  = total - VISIBLE;
+  let index       = 0;
+  let timer       = null;
+
+  function getCardWidth() {
+    const card = cards[0];
+    const style = getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 16;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function goTo(i) {
+    index = Math.max(0, Math.min(i, maxIndex));
+    track.style.transform = `translateX(-${index * getCardWidth()}px)`;
+    prevBtn.style.opacity = index === 0 ? '0.4' : '1';
+    nextBtn.style.opacity = index >= maxIndex ? '0.4' : '1';
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      goTo(index >= maxIndex ? 0 : index + 1);
+    }, 10000);
+  }
+
+  prevBtn.addEventListener('click', () => { goTo(index - 1); startTimer(); });
+  nextBtn.addEventListener('click', () => { goTo(index + 1); startTimer(); });
+
+  goTo(0);
+  startTimer();
+})();
