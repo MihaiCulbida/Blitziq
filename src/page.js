@@ -12,25 +12,45 @@
     });
   }
 
-  const navLinks = document.querySelectorAll('.navbar-links a');
-  navLinks.forEach(a => {
-    a.addEventListener('click', () => {
-      navLinks.forEach(l => l.classList.remove('active'));
-      a.classList.add('active');
-    });
-  });
-
-  const sidebarToggle = document.getElementById('sidebar-toggle');
-
   if (localStorage.getItem('blitziq-sidebar') === '1') {
     document.body.classList.add('sidebar-collapsed');
   }
 
+  const sidebarToggle = document.getElementById('sidebar-toggle');
   if (sidebarToggle) {
     sidebarToggle.addEventListener('click', () => {
       const collapsed = document.body.classList.toggle('sidebar-collapsed');
       localStorage.setItem('blitziq-sidebar', collapsed ? '1' : '0');
     });
+  }
+
+  const navLinks = document.querySelectorAll('.navbar-links a[data-section]');
+  const sections = document.querySelectorAll('.page-section');
+
+  function switchSection(sectionId) {
+    sections.forEach(s => s.classList.remove('is-active'));
+    navLinks.forEach(l => l.classList.remove('active'));
+
+    const target = document.getElementById('section-' + sectionId);
+    if (target) target.classList.add('is-active');
+
+    const link = document.querySelector(`.navbar-links a[data-section="${sectionId}"]`);
+    if (link) link.classList.add('active');
+
+    const hash = '#' + sectionId;
+    history.replaceState(null, '', hash);
+  }
+
+  navLinks.forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      switchSection(a.dataset.section);
+    });
+  });
+
+  const initialHash = location.hash.replace('#', '');
+  if (initialHash && document.getElementById('section-' + initialHash)) {
+    switchSection(initialHash);
   }
 
   const MAX_FOLDERS = 6;
@@ -58,8 +78,7 @@
   function updateNewFolderBtn() {
     const btn = getNewFolderBtn();
     if (!btn) return;
-    const count = getFolders().length;
-    btn.style.display = count >= MAX_FOLDERS ? 'none' : '';
+    btn.style.display = getFolders().length >= MAX_FOLDERS ? 'none' : '';
   }
 
   function renderFolders() {
@@ -122,7 +141,7 @@
       if (thisIndex === dragSrcIndex) return;
       e.dataTransfer.dropEffect = 'move';
       const rect = a.getBoundingClientRect();
-      const mid = rect.top + rect.height / 2;
+      const mid  = rect.top + rect.height / 2;
       document.querySelectorAll('.sidebar-folder:not(.sidebar-folder-new-row)').forEach(el =>
         el.classList.remove('drag-over-top', 'drag-over-bottom')
       );
@@ -137,7 +156,7 @@
 
     a.addEventListener('drop', e => {
       e.preventDefault();
-      const targetIndex = parseInt(a.dataset.index);
+      const targetIndex  = parseInt(a.dataset.index);
       const insertBefore = a.classList.contains('drag-over-top');
       a.classList.remove('drag-over-top', 'drag-over-bottom');
       if (dragSrcIndex === targetIndex) return;
@@ -173,7 +192,6 @@
     `;
 
     row.appendChild(confirm);
-
     requestAnimationFrame(() => confirm.classList.add('is-visible'));
 
     confirm.querySelector('.sidebar-folder-confirm-yes').addEventListener('click', e => {
@@ -211,10 +229,9 @@
     if (document.body.classList.contains('sidebar-collapsed')) return;
     const container = document.querySelector('.sidebar-folders');
     if (!container) return;
-
     if (container.querySelector('.sidebar-folder-new-row')) return;
 
-    const folders = getFolders();
+    const folders    = getFolders();
     const colorIndex = folders.length % COLORS.length;
 
     const row = document.createElement('div');
@@ -266,7 +283,7 @@
     }
 
     input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') { e.preventDefault(); commit(); }
+      if (e.key === 'Enter')  { e.preventDefault(); commit(); }
       if (e.key === 'Escape') { e.preventDefault(); cancelFolder(); }
     });
 
@@ -289,13 +306,13 @@
   }
 
   function updateFolderVisibility() {
-    const folders = getFolders();
-    const container = document.querySelector('.sidebar-folders');
+    const folders       = getFolders();
+    const container     = document.querySelector('.sidebar-folders');
     const allQuizzesBtn = document.querySelector('.sidebar-item--active');
     if (!container || !allQuizzesBtn) return;
 
     const isExpanded = allQuizzesBtn.classList.contains('is-expanded');
-    const hasNewRow = !!container.querySelector('.sidebar-folder-new-row');
+    const hasNewRow  = !!container.querySelector('.sidebar-folder-new-row');
     container.style.display = (isExpanded && (folders.length > 0 || hasNewRow)) ? 'block' : 'none';
   }
 
@@ -336,8 +353,8 @@
   }
 
   renderFolders();
-  const container = document.querySelector('.sidebar-folders');
-  if (container) container.style.display = 'none';
+  const foldersContainer = document.querySelector('.sidebar-folders');
+  if (foldersContainer) foldersContainer.style.display = 'none';
 })();
 
 (function () {
@@ -423,8 +440,8 @@
       const dot = document.getElementById('qm-dot-' + i);
       if (!dot) continue;
       dot.className = 'quiz-modal__dot';
-      if (i === currentPanel)     dot.classList.add('is-active');
-      else if (i < currentPanel)  dot.classList.add('is-done');
+      if (i === currentPanel)    dot.classList.add('is-active');
+      else if (i < currentPanel) dot.classList.add('is-done');
     }
 
     progressFill.style.width = ((currentPanel / TOTAL) * 100) + '%';
@@ -433,14 +450,11 @@
     btnBack.style.display    = currentPanel > 1 ? '' : 'none';
 
     if (currentPanel === TOTAL) {
-  buildSummary();
-  btnNext.innerHTML = `
-    Create quiz
-    <img src="img/arrow-right1.png" width="14" height="14" style="filter:invert(1)" >`;
-} else {
-  btnNext.innerHTML = `Continue
-    <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)" >`;
-}
+      buildSummary();
+      btnNext.innerHTML = `Create quiz <img src="img/arrow-right1.png" width="14" height="14" style="filter:invert(1)">`;
+    } else {
+      btnNext.innerHTML = `Continue <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)">`;
+    }
   }
 
   function renderAnswers() {
@@ -453,41 +467,33 @@
       chip.innerHTML = `
         <div class="qm-answer-chip__letter">${LETTERS[i]}</div>
         <div class="qm-answer-chip__bar"></div>
-        ${i === 0
-          ? `<span class="qm-answer-chip__badge">
-               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                 <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-               </svg>
-               correct
-             </span>`
-          : ''}
+        ${i === 0 ? `<span class="qm-answer-chip__badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          correct</span>` : ''}
       `;
       answerPreview.appendChild(chip);
     }
   }
 
   function buildSummary() {
-    const v = id => document.getElementById(id)?.value?.trim() || '—';
+    const v = id => document.getElementById(id)?.value?.trim() || '-';
 
-    const typeMap = {
-      single:    'Single answer',
-      multi:     'Multiple answers',
-      truefalse: 'True / False',
-      open:      'Open answer',
-    };
-    const visMap = { public: 'Public', private: 'Private', draft: 'Draft' };
+    const typeMap = { single: 'Single answer', multi: 'Multiple answers', truefalse: 'True / False', open: 'Open answer' };
+    const visMap  = { public: 'Public', private: 'Private', draft: 'Draft' };
 
     const rows = [
-      ['Name',               v('qm-name') || '—'],
-      ['Subject',            v('qm-subject') || '—'],
-      ['Questions',          v('qm-count')],
-      ['Time / question',    v('qm-time') + ' sec.'],
-      ['Answer type',        typeMap[quizType]],
-      ['Answer choices',     answerCount],
-      ['Visibility',         visMap[visibility]],
-      ['Attempts',           v('qm-attempts')],
-      ['Pass score',         v('qm-pass') + ' %'],
-      ['Points / correct',   v('qm-pts')],
+      ['Name',             v('qm-name') || '-'],
+      ['Subject',          v('qm-subject') || '-'],
+      ['Questions',        v('qm-count')],
+      ['Time / question',  v('qm-time') + ' sec.'],
+      ['Answer type',      typeMap[quizType]],
+      ['Answer choices',   answerCount],
+      ['Visibility',       visMap[visibility]],
+      ['Attempts',         v('qm-attempts')],
+      ['Pass score',       v('qm-pass') + ' %'],
+      ['Points / correct', v('qm-pts')],
     ];
 
     summaryBox.innerHTML = rows.map(([label, value]) => `
@@ -511,19 +517,19 @@
 
     const payload = {
       name,
-      description:     document.getElementById('qm-desc')?.value.trim()           || '',
-      subject:         document.getElementById('qm-subject')?.value               || '',
-      language:        document.getElementById('qm-lang')?.value                  || '',
+      description:     document.getElementById('qm-desc')?.value.trim()        || '',
+      subject:         document.getElementById('qm-subject')?.value            || '',
+      language:        document.getElementById('qm-lang')?.value               || '',
       visibility,
-      questionCount:   parseInt(document.getElementById('qm-count')?.value)       || 10,
-      timePerQuestion: parseInt(document.getElementById('qm-time')?.value)        || 30,
+      questionCount:   parseInt(document.getElementById('qm-count')?.value)    || 10,
+      timePerQuestion: parseInt(document.getElementById('qm-time')?.value)     || 30,
       answerCount,
       quizType,
-      questionOrder:   document.getElementById('qm-order')?.value                 || 'fixed',
-      answerOrder:     document.getElementById('qm-aorder')?.value                || 'fixed',
-      attempts:        parseInt(document.getElementById('qm-attempts')?.value)    || 1,
-      passScore:       parseInt(document.getElementById('qm-pass')?.value)        || 60,
-      pointsPerAnswer: parseInt(document.getElementById('qm-pts')?.value)         || 10,
+      questionOrder:   document.getElementById('qm-order')?.value              || 'fixed',
+      answerOrder:     document.getElementById('qm-aorder')?.value             || 'fixed',
+      attempts:        parseInt(document.getElementById('qm-attempts')?.value) || 1,
+      passScore:       parseInt(document.getElementById('qm-pass')?.value)     || 60,
+      pointsPerAnswer: parseInt(document.getElementById('qm-pts')?.value)      || 10,
       displayOptions:  [...document.querySelectorAll('.qm-toggle.is-active')].map(t => t.dataset.key),
     };
 
@@ -587,30 +593,30 @@
 })();
 
 (function () {
-  const track    = document.getElementById('cat-track');
-  const prevBtn  = document.getElementById('cat-prev');
-  const nextBtn  = document.getElementById('cat-next');
+  const track   = document.getElementById('cat-track');
+  const prevBtn = document.getElementById('cat-prev');
+  const nextBtn = document.getElementById('cat-next');
   if (!track || !prevBtn || !nextBtn) return;
 
-  const VISIBLE   = 4;
-  const cards     = track.querySelectorAll('.cat-card');
-  const total     = cards.length;
-  const maxIndex  = total - VISIBLE;
-  let index       = 0;
-  let timer       = null;
+  const VISIBLE  = 4;
+  const cards    = track.querySelectorAll('.cat-card');
+  const total    = cards.length;
+  const maxIndex = total - VISIBLE;
+  let index = 0;
+  let timer = null;
 
   function getCardWidth() {
-    const card = cards[0];
+    const card  = cards[0];
     const style = getComputedStyle(track);
-    const gap = parseFloat(style.gap) || 16;
+    const gap   = parseFloat(style.gap) || 16;
     return card.getBoundingClientRect().width + gap;
   }
 
   function goTo(i) {
     index = Math.max(0, Math.min(i, maxIndex));
-    track.style.transform = `translateX(-${index * getCardWidth()}px)`;
-    prevBtn.style.opacity = index === 0 ? '0.4' : '1';
-    nextBtn.style.opacity = index >= maxIndex ? '0.4' : '1';
+    track.style.transform    = `translateX(-${index * getCardWidth()}px)`;
+    prevBtn.style.opacity    = index === 0 ? '0.4' : '1';
+    nextBtn.style.opacity    = index >= maxIndex ? '0.4' : '1';
   }
 
   function startTimer() {
@@ -625,4 +631,128 @@
 
   goTo(0);
   startTimer();
+})();
+
+(function () {
+  'use strict';
+
+  const DAILY_QUIZ = {
+    title: 'Organic Chemistry – Functional Groups',
+    meta:  'Chemistry · 10 questions · 30 sec / question',
+  };
+
+  const TRENDING = [
+    { name: 'Animal Cell – Structure & Functions', meta: 'Biology · 25 questions', badge: 'hot',     icon: 'img/science.png',   featured: true },
+    { name: 'Functions & Limits – Baccalaureate',  meta: 'Mathematics · 20 questions', badge: 'new', icon: 'img/mathematics.png' },
+    { name: 'World Capitals',                       meta: 'Geography · 30 questions', badge: 'classic', icon: 'img/geography.png' },
+    { name: 'Sorting Algorithms',                   meta: 'Computer Science · 15 questions', badge: '', icon: 'img/computer.png' },
+  ];
+
+  const RECOMMENDED = [
+    { name: 'Eminescu\'s Poetry',          meta: 'Literature · 10 questions',        icon: 'img/literature.png' },
+    { name: 'Periodic Table – Elements',   meta: 'Chemistry · 18 questions',         icon: 'img/science.png' },
+    { name: 'World War II – Key Events',   meta: 'History · 22 questions',           icon: 'img/history1.png' },
+    { name: 'Cognitive Psychology Basics', meta: 'Psychology · 12 questions',        icon: 'img/psychology.png' },
+    { name: 'French Vocabulary – A2',      meta: 'Language & Literature · 20 questions', icon: 'img/public.png' },
+    { name: 'Newton\'s Laws of Motion',    meta: 'Physics · 16 questions',           icon: 'img/science.png' },
+  ];
+
+  const BADGE_LABELS = { hot: 'Hot', new: 'New', classic: 'Classic' };
+
+  function init() {
+    renderDaily();
+    renderGrid('disc-trending',     TRENDING,     true);
+    renderGrid('disc-recommended',  RECOMMENDED,  false);
+    initFilters();
+  }
+
+  function renderDaily() {
+    const titleEl = document.getElementById('disc-daily-title');
+    const metaEl  = document.getElementById('disc-daily-meta');
+    if (titleEl) titleEl.textContent = DAILY_QUIZ.title;
+    if (metaEl)  metaEl.textContent  = DAILY_QUIZ.meta;
+  }
+
+  function buildCard(quiz, isTrending) {
+    const card = document.createElement('div');
+    card.className = 'disc-card' + (isTrending && quiz.featured ? ' disc-card--featured' : '');
+
+    const iconWrap = document.createElement('div');
+    iconWrap.className = 'disc-card__icon-wrap';
+    const img = document.createElement('img');
+    img.src = quiz.icon;
+    img.alt = '';
+    iconWrap.appendChild(img);
+
+    const body = document.createElement('div');
+    body.className = 'disc-card__body';
+
+    const name = document.createElement('p');
+    name.className = 'disc-card__name';
+    name.textContent = quiz.name;
+
+    const meta = document.createElement('p');
+    meta.className = 'disc-card__meta';
+    meta.textContent = quiz.meta;
+
+    body.appendChild(name);
+    body.appendChild(meta);
+
+    if (quiz.badge && BADGE_LABELS[quiz.badge]) {
+      const footer = document.createElement('div');
+      footer.className = 'disc-card__footer';
+      const badge = document.createElement('span');
+      badge.className = `disc-card__badge disc-card__badge--${quiz.badge}`;
+      badge.textContent = BADGE_LABELS[quiz.badge];
+      footer.appendChild(badge);
+      body.appendChild(footer);
+    }
+
+    card.appendChild(iconWrap);
+    card.appendChild(body);
+
+    return card;
+  }
+
+  function renderGrid(containerId, data, isTrending) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (data.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'disc-empty';
+      empty.textContent = 'No quizzes found for this category.';
+      container.appendChild(empty);
+      return;
+    }
+
+    data.forEach(quiz => container.appendChild(buildCard(quiz, isTrending)));
+  }
+
+  function initFilters() {
+    const filters = document.querySelectorAll('.disc-filter');
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.forEach(f => f.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const cat = btn.dataset.cat;
+        filterGrids(cat);
+      });
+    });
+  }
+
+  function filterGrids(cat) {
+    const filteredTrending     = cat ? TRENDING.filter(q => q.meta.toLowerCase().includes(cat.toLowerCase())) : TRENDING;
+    const filteredRecommended  = cat ? RECOMMENDED.filter(q => q.meta.toLowerCase().includes(cat.toLowerCase())) : RECOMMENDED;
+
+    renderGrid('disc-trending',    filteredTrending,    true);
+    renderGrid('disc-recommended', filteredRecommended, false);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

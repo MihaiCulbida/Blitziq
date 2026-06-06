@@ -28,15 +28,15 @@ $username = htmlspecialchars($_SESSION['username']);
   <a class="navbar-logo" href="page.php">Blitz<span class="navbar-logo-badge">IQ</span></a>
 
   <ul class="navbar-links">
-    <li><a href="#home" class="active">
+    <li><a href="#home" class="active" data-section="home">
       <img src="img/home.png" width="20" height="20" alt="">
       Home
     </a></li>
-    <li><a href="#quizzes">
+    <li><a href="#quizzes" data-section="quizzes">
       <img src="img/quizzes.png" width="20" height="20" alt="">
       My quizzes
     </a></li>
-    <li><a href="#discover">
+    <li><a href="#discover" data-section="discover">
       <img src="img/discover.png" width="22" height="22" alt="">
       Discover
     </a></li>
@@ -120,89 +120,153 @@ $username = htmlspecialchars($_SESSION['username']);
 </aside>
 
 <main class="page-main">
-  <section class="cat-carousel-wrap">
-    <div class="cat-carousel" id="cat-carousel">
-      <div class="cat-track" id="cat-track">
 
-        <div class="cat-card" style="--g1:#f97316;--g2:#ef4444">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/science.png" alt="">
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">Science</h3>
-            <p class="cat-card__sub">Biology · Chemistry · Physics</p>
+  <section class="page-section is-active" id="section-home">
+    <div class="cat-carousel-wrap">
+      <div class="cat-carousel" id="cat-carousel">
+        <div class="cat-track" id="cat-track">
+
+          <div class="cat-card" style="--g1:#f97316;--g2:#ef4444">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/science.png" alt="">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">Science</h3>
+              <p class="cat-card__sub">Biology · Chemistry · Physics</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="cat-card" style="--g1:#8b5cf6;--g2:#6d28d9">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/mathematics.png" alt="">
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">Mathematics</h3>
-            <p class="cat-card__sub">Algebra · Geometry · Stats</p>
+
+          <div class="cat-card" style="--g1:#8b5cf6;--g2:#6d28d9">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/mathematics.png" alt="">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">Mathematics</h3>
+              <p class="cat-card__sub">Algebra · Geometry · Stats</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="cat-card" style="--g1:#0ea5e9;--g2:#0284c7">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/geography.png" alt="">
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">Geography</h3>
-            <p class="cat-card__sub">Countries · Maps · Capitals</p>
+
+          <div class="cat-card" style="--g1:#0ea5e9;--g2:#0284c7">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/geography.png" alt="">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">Geography</h3>
+              <p class="cat-card__sub">Countries · Maps · Capitals</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="cat-card" style="--g1:#10b981;--g2:#059669">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/literature.png" alt="">
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">Literature</h3>
-            <p class="cat-card__sub">Classic · Poetry · Analysis</p>
+
+          <div class="cat-card" style="--g1:#10b981;--g2:#059669">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/literature.png" alt="">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">Literature</h3>
+              <p class="cat-card__sub">Classic · Poetry · Analysis</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="cat-card" style="--g1:#f59e0b;--g2:#d97706">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/history1.png" alt="">
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">History</h3>
-            <p class="cat-card__sub">Ancient · Modern · Wars</p>
+
+          <div class="cat-card" style="--g1:#f59e0b;--g2:#d97706">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/history1.png" alt="">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">History</h3>
+              <p class="cat-card__sub">Ancient · Modern · Wars</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="cat-card" style="--g1:#ec4899;--g2:#db2777">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/computer.png" alt="">
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">Computer Science</h3>
-            <p class="cat-card__sub">Coding · Algorithms · Web</p>
+
+          <div class="cat-card" style="--g1:#ec4899;--g2:#db2777">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/computer.png" alt="">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">Computer Science</h3>
+              <p class="cat-card__sub">Coding · Algorithms · Web</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="cat-card" style="--g1:#14b8a6;--g2:#0d9488">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/psychology.png" alt="">
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">Psychology</h3>
-            <p class="cat-card__sub">Mind · Behaviour · Theories</p>
+
+          <div class="cat-card" style="--g1:#14b8a6;--g2:#0d9488">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/psychology.png" alt="">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">Psychology</h3>
+              <p class="cat-card__sub">Mind · Behaviour · Theories</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="cat-card" style="--g1:#6366f1;--g2:#4338ca">
-          <div class="cat-card__bg"></div>
-          <img class="cat-card__icon" src="img/public.png" style="filter:invert(1)" >
-          <div class="cat-card__body">
-            <h3 class="cat-card__title">Languages</h3>
-            <p class="cat-card__sub">English · French · German</p>
+
+          <div class="cat-card" style="--g1:#6366f1;--g2:#4338ca">
+            <div class="cat-card__bg"></div>
+            <img class="cat-card__icon" src="img/public.png" style="filter:invert(1)">
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">Languages</h3>
+              <p class="cat-card__sub">English · French · German</p>
+            </div>
           </div>
+
         </div>
       </div>
+      <button class="cat-arrow cat-arrow--left" id="cat-prev" aria-label="Previous">
+        <img src="img/arrow-l.png" width="20" height="20" alt="Previous">
+      </button>
+      <button class="cat-arrow cat-arrow--right" id="cat-next" aria-label="Next">
+        <img src="img/arrow-r.png" width="20" height="20" alt="Next">
+      </button>
     </div>
-    <button class="cat-arrow cat-arrow--left" id="cat-prev" aria-label="Previous">
-      <img src="img/arrow-l.png" width="20" height="20" alt="Previous">
-    </button>
-    <button class="cat-arrow cat-arrow--right" id="cat-next" aria-label="Next">
-      <img src="img/arrow-r.png" width="20" height="20" alt="Next">
-    </button>
+  </section>
+
+  <section class="page-section" id="section-quizzes">
+    <p style="color:#6b7280;font-size:0.9rem;">My quizzes - coming soon.</p>
+  </section>
+
+  <section class="page-section" id="section-discover">
+
+    <div class="disc-filters" id="disc-filters">
+      <button class="disc-filter is-active" data-cat="">All</button>
+      <button class="disc-filter" data-cat="Mathematics">Mathematics</button>
+      <button class="disc-filter" data-cat="Biology">Biology</button>
+      <button class="disc-filter" data-cat="Chemistry">Chemistry</button>
+      <button class="disc-filter" data-cat="Physics">Physics</button>
+      <button class="disc-filter" data-cat="History">History</button>
+      <button class="disc-filter" data-cat="Geography">Geography</button>
+      <button class="disc-filter" data-cat="Computer Science">Computer Science</button>
+      <button class="disc-filter" data-cat="Language &amp; Literature">Language &amp; Literature</button>
+      <button class="disc-filter" data-cat="Psychology">Psychology</button>
+      <button class="disc-filter" data-cat="Civic Education">Civic Education</button>
+      <button class="disc-filter" data-cat="Other">Other</button>
+    </div>
+
+    <div class="disc-daily" id="disc-daily">
+      <div class="disc-daily__left">
+        <span class="disc-daily__eyebrow">
+          <img src="img/calendar.png" width="16" height="16" alt="">
+          Daily quiz
+        </span>
+        <h2 class="disc-daily__title" id="disc-daily-title">Organic Chemistry – Functional Groups</h2>
+        <p class="disc-daily__meta" id="disc-daily-meta">Chemistry · 10 questions · 30 sec / question</p>
+      </div>
+      <button class="disc-daily__btn" id="disc-daily-btn">
+        <img src="img/arrow-right2.png" width="14" height="14" alt="">
+        Start now
+      </button>
+    </div>
+
+    <div class="disc-block">
+      <div class="disc-block__hdr">
+        <span class="disc-block__title">
+          <img src="img/fire.png" width="20" height="20" alt="">
+          Trending this week
+        </span>
+        <a href="#" class="disc-block__see-all">See all</a>
+      </div>
+      <div class="disc-grid disc-grid--trending" id="disc-trending"></div>
+    </div>
+
+    <div class="disc-block">
+      <div class="disc-block__hdr">
+        <span class="disc-block__title">
+          <img src="img/star1.png" width="22" height="22" alt="">
+          Recommended for you
+        </span>
+        <a href="#" class="disc-block__see-all">See all</a>
+      </div>
+      <div class="disc-grid disc-grid--recommended" id="disc-recommended"></div>
+    </div>
+
   </section>
 
 </main>
@@ -456,7 +520,7 @@ $username = htmlspecialchars($_SESSION['username']);
       </button>
       <button class="quiz-modal__btn quiz-modal__btn--primary" id="qm-next">
         Continue
-        <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)" >
+        <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)">
       </button>
     </div>
 
