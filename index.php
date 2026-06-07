@@ -410,6 +410,9 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </div>
 </div>
-  <script src="src/script.js"></script>
+  <script src="src/toast.js"></script>
+  <script src="src/hero.js"></script>
+  <script src="src/overlays.js"></script>
+  <script src="src/quiz-game.js"></script>
 </body>
 </html>
