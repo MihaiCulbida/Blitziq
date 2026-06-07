@@ -1449,4 +1449,51 @@ body::-webkit-scrollbar {
 #toast.toast-show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+.game-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 40px;
+  text-align: center;
+  gap: 14px;
+}
+.game-start__icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.game-start__title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.game-start__desc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+.game-start__btn {
+  margin-top: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.65rem 1.6rem;
+  border-radius: 9px;
+  border: none;
+  background: #fbbf24;
+  color: #111;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4);
+}
+.game-start__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.55);
 }/*# sourceMappingURL=style.css.map */

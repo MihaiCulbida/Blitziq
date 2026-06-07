@@ -44,6 +44,47 @@
 
   let current = 0, score = 0, timerInterval = null, answered = false;
 
+  const gameCard   = document.getElementById('game-card');
+  const gameMain   = document.getElementById('game-main');
+  const gameResult = document.getElementById('game-result');
+
+  const startScreen = document.createElement('div');
+  startScreen.id = 'game-start';
+  startScreen.className = 'game-start';
+  startScreen.innerHTML = `
+    <div class="game-start__icon">⚡</div>
+    <h3 class="game-start__title">PHP Quiz</h3>
+    <p class="game-start__desc">3 questions · 15 seconds each<br>Test your PHP knowledge</p>
+    <button class="game-start__btn" id="btn-start-game">
+      Start quiz
+      <img src="img/arrow-right1.png" class="game-next-img" style="width:14px;height:14px;">
+    </button>
+  `;
+
+  gameCard.insertBefore(startScreen, gameMain);
+  gameMain.style.display = 'none';
+  gameResult.className   = 'game-result';
+
+  document.getElementById('btn-start-game').addEventListener('click', startGame);
+
+  function startGame() {
+    startScreen.style.opacity    = '0';
+    startScreen.style.transform  = 'translateY(-8px)';
+    startScreen.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+    setTimeout(() => {
+      startScreen.style.display  = 'none';
+      gameMain.style.display     = '';
+      gameMain.style.opacity     = '0';
+      gameMain.style.transform   = 'translateY(8px)';
+      gameMain.style.transition  = 'opacity 0.22s ease, transform 0.22s ease';
+      requestAnimationFrame(() => {
+        gameMain.style.opacity   = '1';
+        gameMain.style.transform = 'translateY(0)';
+      });
+      renderQuestion(0);
+    }, 200);
+  }
+
   function renderQuestion(i) {
     answered = false;
     const q = questions[i];
@@ -128,8 +169,8 @@
   }
 
   function showResult() {
-    document.getElementById('game-main').style.display = 'none';
-    document.getElementById('game-result').className = 'game-result show';
+    gameMain.style.display = 'none';
+    gameResult.className = 'game-result show';
     document.getElementById('g-score').textContent = score;
     const titles = ['Keep practicing!', 'Good start!', 'PHP Master!'];
     const subs = [
@@ -151,10 +192,20 @@
 
   document.getElementById('btn-restart').addEventListener('click', () => {
     current = 0; score = 0;
-    document.getElementById('game-main').style.display = '';
-    document.getElementById('game-result').className = 'game-result';
-    renderQuestion(0);
+    gameResult.className   = 'game-result';
+    gameMain.style.display = 'none';
+
+    startScreen.style.display    = '';
+    startScreen.style.opacity    = '0';
+    startScreen.style.transform  = 'translateY(8px)';
+    startScreen.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+    requestAnimationFrame(() => {
+      startScreen.style.opacity   = '1';
+      startScreen.style.transform = 'translateY(0)';
+    });
+
+    for (let i = 0; i < 3; i++) document.getElementById('gdot-' + i).className = 'game-dot';
+    document.getElementById('game-prog').style.width = '33%';
   });
 
-  renderQuestion(0);
 })();
