@@ -888,6 +888,21 @@
     renderMyQuizzes();
   }
 
+  function setNavbarEditorMode(hidden) {
+    const search = document.querySelector('.navbar-search');
+    const newBtn = document.getElementById('btn-new-quiz');
+    const bell   = document.querySelector('.navbar-bell');
+    [search, newBtn, bell].forEach(el => {
+      if (!el) return;
+      if (hidden) {
+        el.classList.add('is-hidden');
+      } else {
+        el.classList.remove('is-hidden');
+        el.style.display = '';
+      }
+    });
+  }
+
   function openEditor(quizId) {
     editorQuizId  = quizId;
     currentQIndex = 0;
@@ -895,10 +910,7 @@
     if (!quiz) return;
 
     switchSection('quizzes');
-
-    document.querySelector('.navbar-search')?.classList.add('is-hidden');
-    document.getElementById('btn-new-quiz')?.classList.add('is-hidden');
-    document.querySelector('.navbar-bell')?.classList.add('is-hidden');
+    setNavbarEditorMode(true);
 
     const section = document.getElementById('section-quizzes');
     section.innerHTML = buildEditorHTML(quiz);
@@ -910,9 +922,7 @@
 
   function closeEditor() {
     editorQuizId = null;
-    document.querySelector('.navbar-search')?.classList.remove('is-hidden');
-    document.getElementById('btn-new-quiz')?.classList.remove('is-hidden');
-    document.querySelector('.navbar-bell')?.classList.remove('is-hidden');
+    setNavbarEditorMode(false);
     renderMyQuizzes();
   }
 
@@ -1012,7 +1022,6 @@
 
     document.getElementById('qe-save')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
-      saveQuizzes();
       showSaveToast();
     });
 
@@ -1078,30 +1087,43 @@
     const typeSelect = document.getElementById('qe-q-type');
     if (typeSelect) {
       typeSelect.value = q.type || 'single';
-      typeSelect.addEventListener('change', () => {
-        const currentText   = document.getElementById('qe-q-text').value;
-        const currentTime   = document.getElementById('qe-q-time').value;
-        const currentPoints = document.getElementById('qe-q-pts').value;
 
-        q.type = typeSelect.value;
-        q.text   = currentText;
-        q.time   = parseInt(currentTime)   || quiz.timePerQ;
-        q.points = parseInt(currentPoints) || quiz.points;
+      const freshSelect = typeSelect.cloneNode(true);
+      typeSelect.parentNode.replaceChild(freshSelect, typeSelect);
+      freshSelect.value = q.type || 'single';
+
+      freshSelect.addEventListener('change', () => {
+        q.text   = document.getElementById('qe-q-text').value;
+        q.time   = parseInt(document.getElementById('qe-q-time').value)  || quiz.timePerQ;
+        q.points = parseInt(document.getElementById('qe-q-pts').value)   || quiz.points;
+        q.type   = freshSelect.value;
 
         if (q.type === 'truefalse') {
+          const prev = q.answers || [];
           q.answers = [
-            { text: 'True',  correct: q.answers[0]?.correct || false },
-            { text: 'False', correct: q.answers[1]?.correct || false },
+            { text: prev[0]?.text || 'True',  correct: prev[0]?.correct || false },
+            { text: prev[1]?.text || 'False', correct: prev[1]?.correct || false },
           ];
           if (!q.answers[0].correct && !q.answers[1].correct) {
             q.answers[0].correct = true;
           }
-        } else if (q.answers.length < quiz.answerCount) {
-          while (q.answers.length < quiz.answerCount) {
-            q.answers.push({ text: '', correct: false });
+        } else {
+          const prev = q.answers || [];
+          const target = quiz.answerCount;
+          const tfDefaults = ['True', 'False'];
+          const cleaned = prev.map((a, i) => ({
+            text:    tfDefaults.includes(a.text) ? '' : a.text,
+            correct: a.correct,
+          }));
+          while (cleaned.length < target) cleaned.push({ text: '', correct: false });
+          q.answers = cleaned.slice(0, target);
+
+          if (q.type === 'single' && !q.answers.some(a => a.correct)) {
+            q.answers[0].correct = true;
           }
         }
 
+        saveQuizzes();
         loadQuestion(quiz, index);
       });
     }
@@ -1121,33 +1143,31 @@
           <img src="${ans.correct ? 'img/correct.png' : 'img/correct-empty.png'}" width="16" height="16" alt="" class="qe-correct-img">
         </button>
         <span class="qe-answer-letter">${letters[ai]}</span>
-        <input class="qe-answer-input" type="text" placeholder="Answer ${letters[ai]}..."
-          value="${escapeHtml(ans.text)}" data-ai="${ai}"
-          ${isTF ? 'readonly style="color:#6b7280;cursor:default;"' : ''}>
+        <input class="qe-answer-input" type="text" placeholder="${isTF ? (ai === 0 ? 'True' : 'False') : 'Answer ' + letters[ai] + '...'}"
+          value="${escapeHtml(ans.text)}" data-ai="${ai}">
       `;
 
       row.querySelector('.qe-answer-correct').addEventListener('click', () => {
-        const currentText   = document.getElementById('qe-q-text').value;
-        const currentTime   = document.getElementById('qe-q-time').value;
-        const currentPoints = document.getElementById('qe-q-pts').value;
-
-        q.text   = currentText;
-        q.time   = parseInt(currentTime)   || quiz.timePerQ;
-        q.points = parseInt(currentPoints) || quiz.points;
+        q.text   = document.getElementById('qe-q-text').value;
+        q.time   = parseInt(document.getElementById('qe-q-time').value)   || quiz.timePerQ;
+        q.points = parseInt(document.getElementById('qe-q-pts').value)    || quiz.points;
 
         if (q.type === 'single' || q.type === 'truefalse') {
           q.answers.forEach(a => a.correct = false);
         }
         q.answers[ai].correct = !q.answers[ai].correct;
 
+        if ((q.type === 'single' || q.type === 'truefalse') && !q.answers.some(a => a.correct)) {
+          q.answers[ai].correct = true;
+        }
+
+        saveQuizzes();
         loadQuestion(quiz, index);
       });
 
-      if (!isTF) {
-        row.querySelector('.qe-answer-input').addEventListener('input', e => {
-          q.answers[ai].text = e.target.value;
-        });
-      }
+      row.querySelector('.qe-answer-input').addEventListener('input', e => {
+        q.answers[ai].text = e.target.value;
+      });
 
       answersEl.appendChild(row);
     });
