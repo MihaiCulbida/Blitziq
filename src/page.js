@@ -366,7 +366,6 @@
 
   let currentPanel = 1;
   let answerCount  = 4;
-  let quizType     = 'single';
   let visibility   = 'public';
 
   const overlay       = document.getElementById('quiz-overlay');
@@ -397,7 +396,6 @@
 
   function resetModal() {
     answerCount = 4;
-    quizType    = 'single';
     visibility  = 'public';
 
     goToPanel(1, false);
@@ -419,9 +417,6 @@
 
     document.querySelectorAll('.qm-vis-btn').forEach(b =>
       b.classList.toggle('is-active', b.dataset.vis === 'public'));
-
-    document.querySelectorAll('.qm-type-card').forEach(c =>
-      c.classList.toggle('is-active', c.dataset.type === 'single'));
 
     document.querySelectorAll('.qm-toggle').forEach(t =>
       t.classList.toggle('is-active', ['show-score','show-correct'].includes(t.dataset.key)));
@@ -468,9 +463,7 @@
         <div class="qm-answer-chip__letter">${LETTERS[i]}</div>
         <div class="qm-answer-chip__bar"></div>
         ${i === 0 ? `<span class="qm-answer-chip__badge">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-            <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="img/correct.png" width="10" height="10" alt="">
           correct</span>` : ''}
       `;
       answerPreview.appendChild(chip);
@@ -480,7 +473,6 @@
   function buildSummary() {
     const v = id => document.getElementById(id)?.value?.trim() || '-';
 
-    const typeMap = { single: 'Single answer', multi: 'Multiple answers', truefalse: 'True / False', open: 'Open answer' };
     const visMap  = { public: 'Public', private: 'Private', draft: 'Draft' };
 
     const rows = [
@@ -488,7 +480,6 @@
       ['Subject',          v('qm-subject') || '-'],
       ['Questions',        v('qm-count')],
       ['Time / question',  v('qm-time') + ' sec.'],
-      ['Answer type',      typeMap[quizType]],
       ['Answer choices',   answerCount],
       ['Visibility',       visMap[visibility]],
       ['Attempts',         v('qm-attempts')],
@@ -524,7 +515,6 @@
       questionCount:   parseInt(document.getElementById('qm-count')?.value)    || 10,
       timePerQuestion: parseInt(document.getElementById('qm-time')?.value)     || 30,
       answerCount,
-      quizType,
       questionOrder:   document.getElementById('qm-order')?.value              || 'fixed',
       answerOrder:     document.getElementById('qm-aorder')?.value             || 'fixed',
       attempts:        parseInt(document.getElementById('qm-attempts')?.value) || 1,
@@ -533,15 +523,22 @@
       displayOptions:  [...document.querySelectorAll('.qm-toggle.is-active')].map(t => t.dataset.key),
     };
 
-    console.log('[BlitzIQ] Quiz payload:', payload);
-
-    btnNext.textContent = 'Saving...';
-    btnNext.disabled    = true;
+    btnNext.innerHTML = 'Creating...';
+    btnNext.disabled  = true;
 
     setTimeout(() => {
       btnNext.disabled = false;
+
+      if (typeof window.blitziqCreateDraft === 'function') {
+        window.blitziqCreateDraft(payload);
+      }
+
+      if (typeof window.blitziqSwitchSection === 'function') {
+        window.blitziqSwitchSection('quizzes');
+      }
+
       closeModal();
-    }, 800);
+    }, 600);
   }
 
   btnNewQuiz?.addEventListener('click', openModal);
@@ -565,22 +562,13 @@
     })
   );
 
-  document.querySelectorAll('.qm-type-card').forEach(card =>
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.qm-type-card').forEach(c => c.classList.remove('is-active'));
-      card.classList.add('is-active');
-      quizType = card.dataset.type;
-      if (quizType === 'truefalse') { answerCount = 2; renderAnswers(); }
-    })
-  );
-
   document.getElementById('qm-count-down')?.addEventListener('click', () => {
-    if (quizType === 'truefalse' || answerCount <= 2) return;
+    if (answerCount <= 2) return;
     answerCount--;
     renderAnswers();
   });
   document.getElementById('qm-count-up')?.addEventListener('click', () => {
-    if (quizType === 'truefalse' || answerCount >= 6) return;
+    if (answerCount >= 6) return;
     answerCount++;
     renderAnswers();
   });
@@ -755,4 +743,450 @@
   } else {
     init();
   }
+
+})();
+
+(function () {
+  'use strict';
+
+  let quizzes       = JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]');
+  let editorQuizId  = null;
+  let currentQIndex = 0;
+
+  function saveQuizzes() {
+    localStorage.setItem('blitziq-quizzes', JSON.stringify(quizzes));
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+    );
+  }
+
+  function getQuiz(id) {
+    return quizzes.find(q => q.id === id);
+  }
+
+  window.blitziqCreateDraft = function (payload) {
+    const count = parseInt(payload.questionCount) || 10;
+    const questions = Array.from({ length: count }, (_, i) => ({
+      index:    i,
+      text:     '',
+      answers:  Array.from({ length: payload.answerCount }, () => ({ text: '', correct: false })),
+      type:     'single',
+      time:     payload.timePerQuestion,
+      points:   payload.pointsPerAnswer,
+    }));
+    if (questions.length > 0) {
+      questions[0].answers[0].correct = true;
+    }
+
+    const quiz = {
+      id:            Date.now().toString(),
+      name:          payload.name,
+      description:   payload.description || '',
+      subject:       payload.subject || '',
+      language:      payload.language || '',
+      visibility:    payload.visibility || 'public',
+      answerCount:   payload.answerCount,
+      timePerQ:      payload.timePerQuestion,
+      questionOrder: payload.questionOrder,
+      answerOrder:   payload.answerOrder,
+      attempts:      payload.attempts,
+      passScore:     payload.passScore,
+      points:        payload.pointsPerAnswer,
+      displayOptions: payload.displayOptions || [],
+      status:        'draft',
+      createdAt:     Date.now(),
+      questions,
+    };
+
+    quizzes.unshift(quiz);
+    saveQuizzes();
+    renderMyQuizzes();
+    return quiz;
+  };
+
+  function renderMyQuizzes() {
+    const section = document.getElementById('section-quizzes');
+    if (!section) return;
+
+    if (quizzes.length === 0) {
+      section.innerHTML = `
+        <div class="mq-empty">
+          <div class="mq-empty__icon">
+            <img src="img/quizzes.png" width="40" height="40" alt="">
+          </div>
+          <p class="mq-empty__title">No quizzes yet</p>
+          <p class="mq-empty__sub">Click <strong>New quiz</strong> to create your first one.</p>
+        </div>
+      `;
+      return;
+    }
+
+    section.innerHTML = `
+      <div class="mq-header">
+        <h2 class="mq-header__title">My quizzes</h2>
+        <span class="mq-header__count">${quizzes.length} quiz${quizzes.length !== 1 ? 'zes' : ''}</span>
+      </div>
+      <div class="mq-grid" id="mq-grid"></div>
+    `;
+
+    const grid = document.getElementById('mq-grid');
+    quizzes.forEach(quiz => grid.appendChild(buildQuizCard(quiz)));
+  }
+
+  function buildQuizCard(quiz) {
+    const card = document.createElement('div');
+    card.className = 'mq-card';
+    card.dataset.id = quiz.id;
+
+    const filled   = quiz.questions.filter(q => q.text.trim()).length;
+    const total    = quiz.questions.length;
+    const pct      = total > 0 ? Math.round((filled / total) * 100) : 0;
+    const statusLabel = quiz.status === 'draft' ? 'Draft' : 'Published';
+
+    card.innerHTML = `
+      <div class="mq-card__top">
+        <span class="mq-card__status mq-card__status--${quiz.status}">${statusLabel}</span>
+        <button class="mq-card__delete" data-id="${quiz.id}" aria-label="Delete quiz" title="Delete">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="mq-card__body">
+        <h3 class="mq-card__name">${escapeHtml(quiz.name)}</h3>
+        <p class="mq-card__meta">${escapeHtml(quiz.subject || 'No subject')} · ${total} questions · ${quiz.timePerQ}s</p>
+      </div>
+      <div class="mq-card__footer">
+        <div class="mq-card__progress-wrap">
+          <div class="mq-card__progress-bar">
+            <div class="mq-card__progress-fill" style="width:${pct}%"></div>
+          </div>
+          <span class="mq-card__progress-label">${filled}/${total} filled</span>
+        </div>
+        <button class="mq-card__edit" data-id="${quiz.id}">
+          <img src="img/edit.png" width="12" height="12" alt="" style="filter:invert(1)">
+          Edit
+        </button>
+      </div>
+    `;
+
+    card.querySelector('.mq-card__edit').addEventListener('click', () => openEditor(quiz.id));
+    card.querySelector('.mq-card__delete').addEventListener('click', e => {
+      e.stopPropagation();
+      deleteQuiz(quiz.id);
+    });
+
+    return card;
+  }
+
+  function deleteQuiz(id) {
+    quizzes = quizzes.filter(q => q.id !== id);
+    saveQuizzes();
+    renderMyQuizzes();
+  }
+
+  function openEditor(quizId) {
+    editorQuizId  = quizId;
+    currentQIndex = 0;
+    const quiz    = getQuiz(quizId);
+    if (!quiz) return;
+
+    switchSection('quizzes');
+
+    document.querySelector('.navbar-search')?.classList.add('is-hidden');
+    document.getElementById('btn-new-quiz')?.classList.add('is-hidden');
+    document.querySelector('.navbar-bell')?.classList.add('is-hidden');
+
+    const section = document.getElementById('section-quizzes');
+    section.innerHTML = buildEditorHTML(quiz);
+
+    attachEditorEvents(quiz);
+    renderQuestionList(quiz);
+    loadQuestion(quiz, 0);
+  }
+
+  function closeEditor() {
+    editorQuizId = null;
+    document.querySelector('.navbar-search')?.classList.remove('is-hidden');
+    document.getElementById('btn-new-quiz')?.classList.remove('is-hidden');
+    document.querySelector('.navbar-bell')?.classList.remove('is-hidden');
+    renderMyQuizzes();
+  }
+
+  function buildEditorHTML(quiz) {
+    return `
+      <div class="qe-wrap">
+
+        <aside class="qe-sidebar">
+          <div class="qe-sidebar__header">
+            <button class="qe-back" id="qe-back">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back
+            </button>
+            <span class="qe-sidebar__title">${escapeHtml(quiz.name)}</span>
+          </div>
+          <div class="qe-q-list" id="qe-q-list"></div>
+        </aside>
+
+        <main class="qe-main">
+          <div class="qe-topbar">
+            <span class="qe-topbar__info" id="qe-q-label">Question 1 of ${quiz.questions.length}</span>
+            <div class="qe-topbar__right">
+              <button class="qe-save-btn" id="qe-save">
+                <img src="img/save.png" width="14" height="14" alt="">
+                Save
+              </button>
+              <button class="qe-publish-btn" id="qe-publish">Publish quiz</button>
+            </div>
+          </div>
+
+          <div class="qe-editor" id="qe-editor">
+
+            <div class="qe-field">
+              <label class="qe-field__label">Question text</label>
+              <textarea class="qe-field__input qe-field__input--textarea" id="qe-q-text"
+                placeholder="Type your question here..." rows="3"></textarea>
+            </div>
+
+            <div class="qe-meta-row">
+              <div class="qe-field qe-field--small">
+                <label class="qe-field__label">Time (sec)</label>
+                <input class="qe-field__input" id="qe-q-time" type="number" min="5" max="300">
+              </div>
+              <div class="qe-field qe-field--small">
+                <label class="qe-field__label">Points</label>
+                <input class="qe-field__input" id="qe-q-pts" type="number" min="1">
+              </div>
+              <div class="qe-field qe-field--small">
+                <label class="qe-field__label">Type</label>
+                <div class="qe-field__select-wrap" style="position:relative;">
+                  <select class="qe-field__input" id="qe-q-type" style="padding-right:28px;cursor:pointer;appearance:none;">
+                    <option value="single">Single</option>
+                    <option value="multi">Multiple</option>
+                    <option value="truefalse">True / False</option>
+                  </select>
+                  <svg style="position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:#6b7280;" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="qe-divider"></div>
+            <p class="qe-section-label">Answers <span class="qe-section-hint">(click the icon to mark correct)</span></p>
+
+            <div class="qe-answers" id="qe-answers"></div>
+
+            <div class="qe-nav">
+              <button class="qe-nav-btn" id="qe-prev">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Previous
+              </button>
+              <button class="qe-nav-btn qe-nav-btn--primary" id="qe-next-q">
+                Next
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+          </div>
+        </main>
+
+      </div>
+    `;
+  }
+
+  function attachEditorEvents(quiz) {
+    document.getElementById('qe-back')?.addEventListener('click', () => {
+      saveCurrentQuestion(quiz);
+      closeEditor();
+    });
+
+    document.getElementById('qe-save')?.addEventListener('click', () => {
+      saveCurrentQuestion(quiz);
+      saveQuizzes();
+      showSaveToast();
+    });
+
+    document.getElementById('qe-publish')?.addEventListener('click', () => {
+      saveCurrentQuestion(quiz);
+      quiz.status = 'published';
+      saveQuizzes();
+      closeEditor();
+    });
+
+    document.getElementById('qe-prev')?.addEventListener('click', () => {
+      saveCurrentQuestion(quiz);
+      if (currentQIndex > 0) {
+        currentQIndex--;
+        renderQuestionList(quiz);
+        loadQuestion(quiz, currentQIndex);
+      }
+    });
+
+    document.getElementById('qe-next-q')?.addEventListener('click', () => {
+      saveCurrentQuestion(quiz);
+      if (currentQIndex < quiz.questions.length - 1) {
+        currentQIndex++;
+        renderQuestionList(quiz);
+        loadQuestion(quiz, currentQIndex);
+      }
+    });
+  }
+
+  function renderQuestionList(quiz) {
+    const list = document.getElementById('qe-q-list');
+    if (!list) return;
+    list.innerHTML = '';
+
+    quiz.questions.forEach((q, i) => {
+      const item = document.createElement('div');
+      item.className = 'qe-q-item' + (i === currentQIndex ? ' is-active' : '');
+      const filled = q.text.trim() !== '';
+      item.innerHTML = `
+        <span class="qe-q-item__num">${i + 1}</span>
+        <span class="qe-q-item__text">${filled ? escapeHtml(q.text.substring(0, 40)) + (q.text.length > 40 ? '…' : '') : '<em>Empty</em>'}</span>
+        ${filled ? '<span class="qe-q-item__dot qe-q-item__dot--filled"></span>' : '<span class="qe-q-item__dot"></span>'}
+      `;
+      item.addEventListener('click', () => {
+        saveCurrentQuestion(quiz);
+        currentQIndex = i;
+        renderQuestionList(quiz);
+        loadQuestion(quiz, i);
+      });
+      list.appendChild(item);
+    });
+  }
+
+  function loadQuestion(quiz, index) {
+    const q = quiz.questions[index];
+    if (!q) return;
+
+    document.getElementById('qe-q-label').textContent = `Question ${index + 1} of ${quiz.questions.length}`;
+    document.getElementById('qe-q-text').value  = q.text   || '';
+    document.getElementById('qe-q-time').value  = q.time   || quiz.timePerQ;
+    document.getElementById('qe-q-pts').value   = q.points || quiz.points;
+
+    const typeSelect = document.getElementById('qe-q-type');
+    if (typeSelect) {
+      typeSelect.value = q.type || 'single';
+      typeSelect.addEventListener('change', () => {
+        const currentText   = document.getElementById('qe-q-text').value;
+        const currentTime   = document.getElementById('qe-q-time').value;
+        const currentPoints = document.getElementById('qe-q-pts').value;
+
+        q.type = typeSelect.value;
+        q.text   = currentText;
+        q.time   = parseInt(currentTime)   || quiz.timePerQ;
+        q.points = parseInt(currentPoints) || quiz.points;
+
+        if (q.type === 'truefalse') {
+          q.answers = [
+            { text: 'True',  correct: q.answers[0]?.correct || false },
+            { text: 'False', correct: q.answers[1]?.correct || false },
+          ];
+          if (!q.answers[0].correct && !q.answers[1].correct) {
+            q.answers[0].correct = true;
+          }
+        } else if (q.answers.length < quiz.answerCount) {
+          while (q.answers.length < quiz.answerCount) {
+            q.answers.push({ text: '', correct: false });
+          }
+        }
+
+        loadQuestion(quiz, index);
+      });
+    }
+
+    const answersEl = document.getElementById('qe-answers');
+    answersEl.innerHTML = '';
+
+    const letters  = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const isTF     = q.type === 'truefalse';
+    const answers  = isTF ? q.answers.slice(0, 2) : q.answers;
+
+    answers.forEach((ans, ai) => {
+      const row = document.createElement('div');
+      row.className = 'qe-answer-row' + (ans.correct ? ' is-correct' : '');
+      row.innerHTML = `
+        <button class="qe-answer-correct" data-ai="${ai}" aria-label="Mark correct" title="Mark as correct">
+          <img src="${ans.correct ? 'img/correct.png' : 'img/correct-empty.png'}" width="16" height="16" alt="" class="qe-correct-img">
+        </button>
+        <span class="qe-answer-letter">${letters[ai]}</span>
+        <input class="qe-answer-input" type="text" placeholder="Answer ${letters[ai]}..."
+          value="${escapeHtml(ans.text)}" data-ai="${ai}"
+          ${isTF ? 'readonly style="color:#6b7280;cursor:default;"' : ''}>
+      `;
+
+      row.querySelector('.qe-answer-correct').addEventListener('click', () => {
+        const currentText   = document.getElementById('qe-q-text').value;
+        const currentTime   = document.getElementById('qe-q-time').value;
+        const currentPoints = document.getElementById('qe-q-pts').value;
+
+        q.text   = currentText;
+        q.time   = parseInt(currentTime)   || quiz.timePerQ;
+        q.points = parseInt(currentPoints) || quiz.points;
+
+        if (q.type === 'single' || q.type === 'truefalse') {
+          q.answers.forEach(a => a.correct = false);
+        }
+        q.answers[ai].correct = !q.answers[ai].correct;
+
+        loadQuestion(quiz, index);
+      });
+
+      if (!isTF) {
+        row.querySelector('.qe-answer-input').addEventListener('input', e => {
+          q.answers[ai].text = e.target.value;
+        });
+      }
+
+      answersEl.appendChild(row);
+    });
+
+    const prevBtn = document.getElementById('qe-prev');
+    const nextBtn = document.getElementById('qe-next-q');
+    if (prevBtn) prevBtn.disabled = index === 0;
+    if (nextBtn) nextBtn.disabled = index === quiz.questions.length - 1;
+  }
+
+  function saveCurrentQuestion(quiz) {
+    const q = quiz.questions[currentQIndex];
+    if (!q) return;
+    q.text   = document.getElementById('qe-q-text')?.value  || '';
+    q.time   = parseInt(document.getElementById('qe-q-time')?.value)  || quiz.timePerQ;
+    q.points = parseInt(document.getElementById('qe-q-pts')?.value)   || quiz.points;
+    const typeSelect = document.getElementById('qe-q-type');
+    if (typeSelect) q.type = typeSelect.value;
+    saveQuizzes();
+    renderQuestionList(quiz);
+  }
+
+  function showSaveToast() {
+    if (typeof showToast === 'function') {
+      showToast('Quiz saved!');
+    }
+  }
+
+  function switchSection(id) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('is-active'));
+    document.querySelectorAll('.navbar-links a[data-section]').forEach(l => l.classList.remove('active'));
+    const target = document.getElementById('section-' + id);
+    if (target) target.classList.add('is-active');
+    const link = document.querySelector(`.navbar-links a[data-section="${id}"]`);
+    if (link) link.classList.add('active');
+    history.replaceState(null, '', '#' + id);
+  }
+  window.blitziqSwitchSection = switchSection;
+
+  renderMyQuizzes();
+
 })();

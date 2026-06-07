@@ -417,29 +417,21 @@ $username = htmlspecialchars($_SESSION['username']);
         <div class="qm-answers-preview" id="qm-answers-preview" aria-label="Answer choices preview"></div>
 
         <div class="qm-divider"></div>
-        <p class="qm-section-label">Quiz type</p>
+        <p class="qm-section-label">Question type <span style="font-size:0.72rem;font-weight:400;color:#9ca3af;text-transform:none;letter-spacing:0;margin-left:4px;">can be changed per question in the editor</span></p>
 
-        <div class="qm-type-grid" role="group" aria-label="Quiz type">
-          <button class="qm-type-card is-active" data-type="single">
-            <img class="qm-type-card__icon" src="img/single.png" width="22" height="22" alt="">
-            <span class="qm-type-card__name">Single answer</span>
-            <span class="qm-type-card__desc">One correct option</span>
-          </button>
-          <button class="qm-type-card" data-type="multi">
-            <img class="qm-type-card__icon" src="img/multi.png" width="22" height="22" alt="">
-            <span class="qm-type-card__name">Multiple answers</span>
-            <span class="qm-type-card__desc">Several correct options</span>
-          </button>
-          <button class="qm-type-card" data-type="truefalse">
-            <img class="qm-type-card__icon" src="img/truefalse.png" width="22" height="22" alt="">
-            <span class="qm-type-card__name">True / False</span>
-            <span class="qm-type-card__desc">Forces 2 choices</span>
-          </button>
-          <button class="qm-type-card" data-type="open">
-            <img class="qm-type-card__icon" src="img/open.png" width="22" height="22" alt="">
-            <span class="qm-type-card__name">Open answer</span>
-            <span class="qm-type-card__desc">Short text</span>
-          </button>
+        <div class="qm-type-info">
+          <div class="qm-type-info__item">
+            <img src="img/single.png" width="18" height="18" alt="">
+            <span><strong>Single answer</strong> – one correct option</span>
+          </div>
+          <div class="qm-type-info__item">
+            <img src="img/multi.png" width="18" height="18" alt="">
+            <span><strong>Multiple answers</strong> – several correct options</span>
+          </div>
+          <div class="qm-type-info__item">
+            <img src="img/truefalse.png" width="18" height="18" alt="">
+            <span><strong>True / False</strong> – forces 2 choices</span>
+          </div>
         </div>
 
       </div>
