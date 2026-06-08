@@ -652,7 +652,95 @@
     renderGrid('disc-trending',     TRENDING,     true);
     renderGrid('disc-recommended',  RECOMMENDED,  false);
     initFilters();
+    renderHomeFeatures();
   }
+
+  function renderHomeFeatures() {
+  const section = document.getElementById('section-home');
+  if (!section || document.getElementById('home-features-root')) return;
+
+  const root = document.createElement('div');
+  root.id = 'home-features-root';
+  root.className = 'home-features';
+
+  function shuffle(arr) {
+    return [...arr].sort(() => Math.random() - 0.5);
+  }
+
+  const trendingData   = shuffle(TRENDING).slice(0, 6);
+  const recommendedData = shuffle(RECOMMENDED).slice(0, 6);
+
+  root.innerHTML = `
+    <div class="home-daily" id="home-daily">
+      <div class="home-daily__left">
+        <span class="home-daily__eyebrow">
+          <img src="img/calendar.png" width="14" height="14" alt="">
+          Daily quiz
+        </span>
+        <h3 class="home-daily__title">${DAILY_QUIZ.title}</h3>
+        <p class="home-daily__meta">${DAILY_QUIZ.meta}</p>
+      </div>
+      <button class="home-daily__btn">
+        <img src="img/arrow-right2.png" width="13" height="13" alt="">
+        Start now
+      </button>
+    </div>
+
+    <div class="home-block">
+      <div class="home-block__hdr">
+        <span class="home-block__title">
+          <img src="img/fire.png" width="18" height="18" alt="">
+          Trending this week
+        </span>
+        <button class="home-block__see-all">See all</button>
+      </div>
+      <div class="home-scroll-row" id="hf-trending"></div>
+    </div>
+
+    <div class="home-block">
+      <div class="home-block__hdr">
+        <span class="home-block__title">
+          <img src="img/star1.png" width="20" height="20" alt="">
+          Recommended for you
+        </span>
+        <button class="home-block__see-all">See all</button>
+      </div>
+      <div class="home-scroll-row" id="hf-recommended"></div>
+    </div>
+  `;
+
+  section.appendChild(root);
+
+  trendingData.forEach(q => {
+    document.getElementById('hf-trending').appendChild(buildHomeCard(q));
+  });
+  recommendedData.forEach(q => {
+    document.getElementById('hf-recommended').appendChild(buildHomeCard(q));
+  });
+
+  root.querySelectorAll('.home-block__see-all').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.navbar-links a[data-section="discover"]')?.click();
+    });
+  });
+}
+
+function buildHomeCard(quiz) {
+  const BADGE_LABELS = { hot: 'Hot', new: 'New', classic: 'Classic' };
+  const card = document.createElement('div');
+  card.className = 'home-card';
+  card.innerHTML = `
+    <div class="home-card__icon-wrap">
+      <img src="${quiz.icon}" alt="">
+    </div>
+    <div class="home-card__body">
+      <p class="home-card__name">${quiz.name}</p>
+      <p class="home-card__meta">${quiz.meta}</p>
+      ${quiz.badge && BADGE_LABELS[quiz.badge] ? `<span class="home-card__badge home-card__badge--${quiz.badge}">${BADGE_LABELS[quiz.badge]}</span>` : ''}
+    </div>
+  `;
+  return card;
+}
 
   function renderDaily() {
     const titleEl = document.getElementById('disc-daily-title');
