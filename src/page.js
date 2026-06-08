@@ -1,5 +1,15 @@
 const COLORS = ['#a78bfa', '#f472b6', '#34d399', '#60a5fa', '#fb923c', '#facc15'];
 const STORAGE_KEY = 'blitziq-folders';
+const SAVED_KEY = 'blitziq-saved';
+
+function getSaved() {
+  try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; }
+  catch { return []; }
+}
+
+function setSaved(arr) {
+  localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+}
 
 function getFolders() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
@@ -145,6 +155,81 @@ function getQuizzes() {
     updateFolderVisibility();
     updateNewFolderBtn();
   }
+
+  function renderFavorites() {
+  const favLink = document.querySelector('.sidebar-item[data-section="favorites"]');
+  const allItems = document.querySelectorAll('.sidebar-item');
+  let favItem = null;
+  allItems.forEach(el => {
+    if (el.querySelector('img[src="img/bookmark.png"]') || el.querySelector('img[src="img/bookmark1.png"]')) {
+      if (el.textContent.trim().includes('Favorites')) favItem = el;
+    }
+  });
+  if (!favItem) return;
+
+  const existing = favItem.nextElementSibling;
+  if (existing && existing.classList.contains('sidebar-fav-list')) existing.remove();
+
+  const saved = getSaved();
+  if (saved.length === 0) {
+    favItem.classList.remove('is-expanded');
+    const img = favItem.querySelector('img');
+    if (img) img.src = 'img/bookmark.png';
+    return;
+  }
+  const img = favItem.querySelector('img');
+  if (img) img.src = 'img/bookmark1.png';
+
+  const list = document.createElement('div');
+  list.className = 'sidebar-fav-list sidebar-folder-quizzes' + (favItem.classList.contains('is-expanded') ? ' is-open' : '');
+
+  saved.forEach(q => {
+    const item = document.createElement('a');
+    item.href = '#';
+    item.className = 'sidebar-folder-quiz-item';
+    item.innerHTML = `
+      <span class="sidebar-folder-quiz-dot" style="background:#a78bfa"></span>
+      <span class="sidebar-label">${escapeHtml(q.name)}</span>
+    `;
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      window.blitziqOpenStartModal(q);
+    });
+    list.appendChild(item);
+  });
+
+  favItem.insertAdjacentElement('afterend', list);
+}
+
+(function () {
+  const allItems = document.querySelectorAll('.sidebar-item');
+  allItems.forEach(el => {
+    if (el.textContent.trim().includes('Favorites')) {
+      if (!el.querySelector('.sidebar-item-chevron')) {
+        const chevron = document.createElement('span');
+        chevron.className = 'sidebar-item-chevron';
+        chevron.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+        el.appendChild(chevron);
+      }
+
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        const saved = getSaved();
+        if (saved.length === 0) return;
+        el.classList.toggle('is-expanded');
+        const list = el.nextElementSibling;
+        if (list && list.classList.contains('sidebar-fav-list')) {
+          list.classList.toggle('is-open');
+        }
+      });
+    }
+  });
+})();
+
+renderFavorites();
+window.blitziqRenderFavorites = renderFavorites;
 
   function buildFolderRow(folder, index) {
     const a = document.createElement('a');
@@ -1859,17 +1944,6 @@ function getQuizzes() {
   const infoEl = document.getElementById('start-modal-info');
   const saveBtn = document.getElementById('start-modal-save');
 
-  const SAVED_KEY = 'blitziq-saved';
-
-  function getSaved() {
-    try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; }
-    catch { return []; }
-  }
-
-  function setSaved(arr) {
-    localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
-  }
-
   let currentQuiz = null;
 
   function isSaved(name) {
@@ -1937,6 +2011,9 @@ function getQuizzes() {
     }
     setSaved(saved);
     updateSaveBtn();
+    if (typeof window.blitziqRenderFavorites === 'function') {
+      window.blitziqRenderFavorites();
+    }
   });
 
   closeBtn?.addEventListener('click', closeStartModal);

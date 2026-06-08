@@ -2922,4 +2922,8 @@ body.sidebar-collapsed .sidebar .sidebar-folder-dot {
 .start-modal__start:hover {
   background: #5b21b6;
   transform: translateY(-1px);
+}
+
+.sidebar-item.is-expanded .sidebar-item-chevron {
+  transform: rotate(180deg);
 }/*# sourceMappingURL=page.css.map */

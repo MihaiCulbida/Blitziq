@@ -3180,3 +3180,7 @@ body.sidebar-collapsed {
     }
   }
 }
+
+.sidebar-item.is-expanded .sidebar-item-chevron {
+  transform: rotate(180deg);
+}
