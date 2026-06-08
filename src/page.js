@@ -388,11 +388,32 @@
   const answerPreview = document.getElementById('qm-answers-preview');
   const summaryBox = document.getElementById('qm-summary');
 
+  function clampInput(el, min, max) {
+    if (!el) return;
+    el.addEventListener('change', () => {
+      let v = parseInt(el.value);
+      if (isNaN(v)) v = min;
+      el.value = Math.max(min, Math.min(max, v));
+    });
+    el.addEventListener('blur', () => {
+      let v = parseInt(el.value);
+      if (isNaN(v)) v = min;
+      el.value = Math.max(min, Math.min(max, v));
+    });
+  }
+
   function openModal() {
     overlay.classList.add('is-open');
     overlay.removeAttribute('aria-hidden');
     document.body.style.overflow = 'hidden';
-    setTimeout(() => document.getElementById('qm-name')?.focus(), 270);
+    setTimeout(() => {
+      document.getElementById('qm-name')?.focus();
+      clampInput(document.getElementById('qm-count'), 1, 100);
+      clampInput(document.getElementById('qm-time'), 5, 300);
+      clampInput(document.getElementById('qm-attempts'), 1, 10);
+      clampInput(document.getElementById('qm-pass'), 0, 100);
+      clampInput(document.getElementById('qm-pts'), 1, 999);
+    }, 270);
   }
 
   function closeModal() {
@@ -497,20 +518,34 @@
       input?.addEventListener('input', () => input.classList.remove('has-error'), { once: true });
       return;
     }
+
+    const countEl = document.getElementById('qm-count');
+    const timeEl = document.getElementById('qm-time');
+    const attemptsEl = document.getElementById('qm-attempts');
+    const passEl = document.getElementById('qm-pass');
+    const ptsEl = document.getElementById('qm-pts');
+
+    const questionCount = Math.max(1, Math.min(100, parseInt(countEl?.value) || 10));
+    const timePerQuestion = Math.max(5, Math.min(300, parseInt(timeEl?.value) || 30));
+    const attempts = Math.max(1, Math.min(10, parseInt(attemptsEl?.value) || 1));
+    const passScore = Math.max(0, Math.min(100, parseInt(passEl?.value) || 60));
+    const pointsPerAnswer = Math.max(1, parseInt(ptsEl?.value) || 10);
+    const clampedAnswerCount = Math.max(2, Math.min(6, answerCount));
+
     const payload = {
       name,
       description: document.getElementById('qm-desc')?.value.trim() || '',
       subject: document.getElementById('qm-subject')?.value || '',
       language: document.getElementById('qm-lang')?.value || '',
       visibility,
-      questionCount: parseInt(document.getElementById('qm-count')?.value) || 10,
-      timePerQuestion: parseInt(document.getElementById('qm-time')?.value) || 30,
-      answerCount,
+      questionCount,
+      timePerQuestion,
+      answerCount: clampedAnswerCount,
       questionOrder: document.getElementById('qm-order')?.value || 'fixed',
       answerOrder: document.getElementById('qm-aorder')?.value || 'fixed',
-      attempts: parseInt(document.getElementById('qm-attempts')?.value) || 1,
-      passScore: parseInt(document.getElementById('qm-pass')?.value) || 60,
-      pointsPerAnswer: parseInt(document.getElementById('qm-pts')?.value) || 10,
+      attempts,
+      passScore,
+      pointsPerAnswer,
       displayOptions: [...document.querySelectorAll('.qm-toggle.is-active')].map(t => t.dataset.key),
     };
     btnNext.innerHTML = 'Creating...';
@@ -1039,6 +1074,10 @@
 (function () {
   'use strict';
 
+  const MAX_QUESTIONS = 100;
+  const MAX_ANSWERS = 6;
+  const MIN_ANSWERS = 2;
+
   let quizzes = JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]');
   let editorQuizId = null;
   let currentQIndex = 0;
@@ -1058,14 +1097,15 @@
   }
 
   window.blitziqCreateDraft = function (payload) {
-    const count = parseInt(payload.questionCount) || 10;
+    const count = Math.max(1, Math.min(MAX_QUESTIONS, parseInt(payload.questionCount) || 10));
+    const ansCount = Math.max(MIN_ANSWERS, Math.min(MAX_ANSWERS, parseInt(payload.answerCount) || 4));
     const questions = Array.from({ length: count }, (_, i) => ({
       index: i,
       text: '',
-      answers: Array.from({ length: payload.answerCount }, () => ({ text: '', correct: false })),
+      answers: Array.from({ length: ansCount }, () => ({ text: '', correct: false })),
       type: 'single',
-      time: payload.timePerQuestion,
-      points: payload.pointsPerAnswer,
+      time: Math.max(5, Math.min(300, parseInt(payload.timePerQuestion) || 30)),
+      points: Math.max(1, parseInt(payload.pointsPerAnswer) || 10),
     }));
     if (questions.length > 0) {
       questions[0].answers[0].correct = true;
@@ -1077,13 +1117,13 @@
       subject: payload.subject || '',
       language: payload.language || '',
       visibility: payload.visibility || 'public',
-      answerCount: payload.answerCount,
-      timePerQ: payload.timePerQuestion,
+      answerCount: ansCount,
+      timePerQ: Math.max(5, Math.min(300, parseInt(payload.timePerQuestion) || 30)),
       questionOrder: payload.questionOrder,
       answerOrder: payload.answerOrder,
-      attempts: payload.attempts,
-      passScore: payload.passScore,
-      points: payload.pointsPerAnswer,
+      attempts: Math.max(1, Math.min(10, parseInt(payload.attempts) || 1)),
+      passScore: Math.max(0, Math.min(100, parseInt(payload.passScore) || 60)),
+      points: Math.max(1, parseInt(payload.pointsPerAnswer) || 10),
       displayOptions: payload.displayOptions || [],
       status: 'draft',
       createdAt: Date.now(),
@@ -1205,6 +1245,15 @@
   }
 
   function buildEditorHTML(quiz) {
+    const descBlock = quiz.description
+      ? `<div class="qe-desc-banner">
+           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:0.6">
+             <path d="M7 1a6 6 0 100 12A6 6 0 007 1zm0 2.5a.75.75 0 110 1.5.75.75 0 010-1.5zM6 6.5h2v3.5H6V6.5z" fill="currentColor"/>
+           </svg>
+           <span>${escapeHtml(quiz.description)}</span>
+         </div>`
+      : '';
+
     return `
       <div class="qe-wrap">
         <aside class="qe-sidebar">
@@ -1218,6 +1267,14 @@
             <span class="qe-sidebar__title">${escapeHtml(quiz.name)}</span>
           </div>
           <div class="qe-q-list" id="qe-q-list"></div>
+          <div class="qe-q-add-wrap" id="qe-q-add-wrap">
+            <button class="qe-q-add-btn" id="qe-q-add" title="Add question" aria-label="Add question">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              Add question
+            </button>
+          </div>
         </aside>
         <main class="qe-main">
           <div class="qe-topbar">
@@ -1231,6 +1288,7 @@
             </div>
           </div>
           <div class="qe-editor" id="qe-editor">
+            ${descBlock}
             <div class="qe-field">
               <label class="qe-field__label">Question text</label>
               <textarea class="qe-field__input qe-field__input--textarea" id="qe-q-text" placeholder="Type your question here..." rows="3"></textarea>
@@ -1312,6 +1370,106 @@
         loadQuestion(quiz, currentQIndex);
       }
     });
+
+    document.getElementById('qe-q-add')?.addEventListener('click', () => {
+      if (quiz.questions.length >= MAX_QUESTIONS) return;
+      saveCurrentQuestion(quiz);
+      const newQ = {
+        index: quiz.questions.length,
+        text: '',
+        answers: Array.from({ length: quiz.answerCount }, () => ({ text: '', correct: false })),
+        type: 'single',
+        time: quiz.timePerQ,
+        points: quiz.points,
+      };
+      newQ.answers[0].correct = true;
+      quiz.questions.push(newQ);
+      saveQuizzes();
+      currentQIndex = quiz.questions.length - 1;
+      renderQuestionList(quiz);
+      loadQuestion(quiz, currentQIndex);
+      updateAddQuestionBtn(quiz);
+      const list = document.getElementById('qe-q-list');
+      if (list) list.scrollTop = list.scrollHeight;
+    });
+
+    updateAddQuestionBtn(quiz);
+  }
+
+  function updateAddQuestionBtn(quiz) {
+    const btn = document.getElementById('qe-q-add');
+    if (!btn) return;
+    const atMax = quiz.questions.length >= MAX_QUESTIONS;
+    btn.disabled = atMax;
+    btn.title = atMax ? `Maximum ${MAX_QUESTIONS} questions reached` : 'Add question';
+    btn.style.opacity = atMax ? '0.4' : '';
+    btn.style.cursor = atMax ? 'not-allowed' : '';
+
+    const topLabel = document.getElementById('qe-q-label');
+    if (topLabel) topLabel.textContent = `Question ${currentQIndex + 1} of ${quiz.questions.length}`;
+  }
+
+  function showQuestionDeleteConfirm(itemEl, quiz, index) {
+    if (itemEl.querySelector('.qe-q-delete-confirm')) return;
+    itemEl.classList.add('is-confirming');
+
+    const confirm = document.createElement('div');
+    confirm.className = 'qe-q-delete-confirm';
+    confirm.innerHTML = `
+      <span class="qe-q-delete-confirm__text">Delete?</span>
+      <button class="qe-q-delete-confirm__yes">Yes</button>
+      <button class="qe-q-delete-confirm__no">No</button>
+    `;
+    itemEl.appendChild(confirm);
+    requestAnimationFrame(() => confirm.classList.add('is-visible'));
+
+    confirm.querySelector('.qe-q-delete-confirm__yes').addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      itemEl.classList.add('is-removing');
+      setTimeout(() => {
+        quiz.questions.splice(index, 1);
+        quiz.questions.forEach((q, i) => q.index = i);
+        saveQuizzes();
+        if (currentQIndex >= quiz.questions.length) {
+          currentQIndex = Math.max(0, quiz.questions.length - 1);
+        }
+        if (quiz.questions.length === 0) {
+          quiz.questions.push({
+            index: 0,
+            text: '',
+            answers: Array.from({ length: quiz.answerCount }, () => ({ text: '', correct: false })),
+            type: 'single',
+            time: quiz.timePerQ,
+            points: quiz.points,
+          });
+          quiz.questions[0].answers[0].correct = true;
+          saveQuizzes();
+          currentQIndex = 0;
+        }
+        renderQuestionList(quiz);
+        loadQuestion(quiz, currentQIndex);
+        updateAddQuestionBtn(quiz);
+      }, 220);
+    });
+
+    confirm.querySelector('.qe-q-delete-confirm__no').addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      confirm.classList.remove('is-visible');
+      itemEl.classList.remove('is-confirming');
+      setTimeout(() => confirm.remove(), 180);
+    });
+
+    function outsideClick(e) {
+      if (!itemEl.contains(e.target)) {
+        confirm.classList.remove('is-visible');
+        itemEl.classList.remove('is-confirming');
+        setTimeout(() => confirm.remove(), 180);
+        document.removeEventListener('click', outsideClick);
+      }
+    }
+    setTimeout(() => document.addEventListener('click', outsideClick), 0);
   }
 
   function renderQuestionList(quiz) {
@@ -1321,18 +1479,32 @@
     quiz.questions.forEach((q, i) => {
       const item = document.createElement('div');
       item.className = 'qe-q-item' + (i === currentQIndex ? ' is-active' : '');
+      item.dataset.index = i;
       const filled = q.text.trim() !== '';
       item.innerHTML = `
         <span class="qe-q-item__num">${i + 1}</span>
         <span class="qe-q-item__text">${filled ? escapeHtml(q.text.substring(0, 40)) + (q.text.length > 40 ? '…' : '') : '<em>Empty</em>'}</span>
+        <button class="qe-q-item__delete" data-index="${i}" aria-label="Delete question" title="Delete question">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
         ${filled ? '<span class="qe-q-item__dot qe-q-item__dot--filled"></span>' : '<span class="qe-q-item__dot"></span>'}
       `;
-      item.addEventListener('click', () => {
+
+      item.addEventListener('click', e => {
+        if (e.target.closest('.qe-q-item__delete')) return;
         saveCurrentQuestion(quiz);
         currentQIndex = i;
         renderQuestionList(quiz);
         loadQuestion(quiz, i);
       });
+
+      item.querySelector('.qe-q-item__delete').addEventListener('click', e => {
+        e.stopPropagation();
+        showQuestionDeleteConfirm(item, quiz, i);
+      });
+
       list.appendChild(item);
     });
   }
@@ -1342,8 +1514,25 @@
     if (!q) return;
     document.getElementById('qe-q-label').textContent = `Question ${index + 1} of ${quiz.questions.length}`;
     document.getElementById('qe-q-text').value = q.text || '';
-    document.getElementById('qe-q-time').value = q.time || quiz.timePerQ;
-    document.getElementById('qe-q-pts').value = q.points || quiz.points;
+
+    const timeInput = document.getElementById('qe-q-time');
+    timeInput.value = Math.max(5, Math.min(300, q.time || quiz.timePerQ));
+    timeInput.min = 5;
+    timeInput.max = 300;
+    timeInput.onchange = () => {
+      let v = parseInt(timeInput.value);
+      if (isNaN(v)) v = 5;
+      timeInput.value = Math.max(5, Math.min(300, v));
+    };
+
+    const ptsInput = document.getElementById('qe-q-pts');
+    ptsInput.value = Math.max(1, q.points || quiz.points);
+    ptsInput.min = 1;
+    ptsInput.onchange = () => {
+      let v = parseInt(ptsInput.value);
+      if (isNaN(v)) v = 1;
+      ptsInput.value = Math.max(1, v);
+    };
 
     const typeSelect = document.getElementById('qe-q-type');
     if (typeSelect) {
@@ -1353,8 +1542,8 @@
       freshSelect.value = q.type || 'single';
       freshSelect.addEventListener('change', () => {
         q.text = document.getElementById('qe-q-text').value;
-        q.time = parseInt(document.getElementById('qe-q-time').value) || quiz.timePerQ;
-        q.points = parseInt(document.getElementById('qe-q-pts').value) || quiz.points;
+        q.time = Math.max(5, Math.min(300, parseInt(document.getElementById('qe-q-time').value) || quiz.timePerQ));
+        q.points = Math.max(1, parseInt(document.getElementById('qe-q-pts').value) || quiz.points);
         q.type = freshSelect.value;
         if (q.type === 'truefalse') {
           const prev = q.answers || [];
@@ -1384,11 +1573,22 @@
       });
     }
 
+    renderAnswerRows(quiz, q, index);
+
+    const prevBtn = document.getElementById('qe-prev');
+    const nextBtn = document.getElementById('qe-next-q');
+    if (prevBtn) prevBtn.disabled = index === 0;
+    if (nextBtn) nextBtn.disabled = index === quiz.questions.length - 1;
+  }
+
+  function renderAnswerRows(quiz, q, questionIndex) {
     const answersEl = document.getElementById('qe-answers');
     answersEl.innerHTML = '';
     const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
     const isTF = q.type === 'truefalse';
     const answers = isTF ? q.answers.slice(0, 2) : q.answers;
+    const canAdd = !isTF && answers.length < MAX_ANSWERS;
+    const canRemove = !isTF && answers.length > MIN_ANSWERS;
 
     answers.forEach((ans, ai) => {
       const row = document.createElement('div');
@@ -1399,11 +1599,18 @@
         </button>
         <span class="qe-answer-letter">${letters[ai]}</span>
         <input class="qe-answer-input" type="text" placeholder="${isTF ? (ai === 0 ? 'True' : 'False') : 'Answer ' + letters[ai] + '...'}" value="${escapeHtml(ans.text)}" data-ai="${ai}">
+        ${canRemove ? `
+        <button class="qe-answer-remove" data-ai="${ai}" aria-label="Remove answer" title="Remove answer">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </button>` : ''}
       `;
+
       row.querySelector('.qe-answer-correct').addEventListener('click', () => {
         q.text = document.getElementById('qe-q-text').value;
-        q.time = parseInt(document.getElementById('qe-q-time').value) || quiz.timePerQ;
-        q.points = parseInt(document.getElementById('qe-q-pts').value) || quiz.points;
+        q.time = Math.max(5, Math.min(300, parseInt(document.getElementById('qe-q-time').value) || quiz.timePerQ));
+        q.points = Math.max(1, parseInt(document.getElementById('qe-q-pts').value) || quiz.points);
         if (q.type === 'single' || q.type === 'truefalse') {
           q.answers.forEach(a => a.correct = false);
         }
@@ -1412,28 +1619,71 @@
           q.answers[ai].correct = true;
         }
         saveQuizzes();
-        loadQuestion(quiz, index);
+        renderAnswerRows(quiz, q, questionIndex);
       });
+
       row.querySelector('.qe-answer-input').addEventListener('input', e => {
         q.answers[ai].text = e.target.value;
       });
+
+      if (canRemove) {
+        row.querySelector('.qe-answer-remove').addEventListener('click', e => {
+          e.stopPropagation();
+          syncAnswerTexts(q);
+          q.answers.splice(ai, 1);
+          if ((q.type === 'single') && !q.answers.some(a => a.correct)) {
+            q.answers[0].correct = true;
+          }
+          saveQuizzes();
+          renderAnswerRows(quiz, q, questionIndex);
+        });
+      }
+
       answersEl.appendChild(row);
     });
 
-    const prevBtn = document.getElementById('qe-prev');
-    const nextBtn = document.getElementById('qe-next-q');
-    if (prevBtn) prevBtn.disabled = index === 0;
-    if (nextBtn) nextBtn.disabled = index === quiz.questions.length - 1;
+    if (!isTF) {
+      const addRow = document.createElement('div');
+      addRow.className = 'qe-answer-add-row';
+      addRow.innerHTML = `
+        <button class="qe-answer-add-btn" id="qe-answer-add" ${!canAdd ? 'disabled' : ''} title="${!canAdd ? 'Maximum ' + MAX_ANSWERS + ' answers' : 'Add answer'}">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          Add answer ${!canAdd ? `(max ${MAX_ANSWERS})` : `(${answers.length}/${MAX_ANSWERS})`}
+        </button>
+      `;
+      if (canAdd) {
+        addRow.querySelector('#qe-answer-add').addEventListener('click', () => {
+          syncAnswerTexts(q);
+          q.answers.push({ text: '', correct: false });
+          saveQuizzes();
+          renderAnswerRows(quiz, q, questionIndex);
+          setTimeout(() => {
+            const inputs = document.querySelectorAll('.qe-answer-input');
+            inputs[inputs.length - 1]?.focus();
+          }, 30);
+        });
+      }
+      answersEl.appendChild(addRow);
+    }
+  }
+
+  function syncAnswerTexts(q) {
+    document.querySelectorAll('.qe-answer-input').forEach((input, i) => {
+      if (q.answers[i]) q.answers[i].text = input.value;
+    });
   }
 
   function saveCurrentQuestion(quiz) {
     const q = quiz.questions[currentQIndex];
     if (!q) return;
     q.text = document.getElementById('qe-q-text')?.value || '';
-    q.time = parseInt(document.getElementById('qe-q-time')?.value) || quiz.timePerQ;
-    q.points = parseInt(document.getElementById('qe-q-pts')?.value) || quiz.points;
+    q.time = Math.max(5, Math.min(300, parseInt(document.getElementById('qe-q-time')?.value) || quiz.timePerQ));
+    q.points = Math.max(1, parseInt(document.getElementById('qe-q-pts')?.value) || quiz.points);
     const typeSelect = document.getElementById('qe-q-type');
     if (typeSelect) q.type = typeSelect.value;
+    syncAnswerTexts(q);
     saveQuizzes();
     renderQuestionList(quiz);
   }
