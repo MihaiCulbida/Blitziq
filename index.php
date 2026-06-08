@@ -150,8 +150,8 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
         Start creating
         <img class="hero-btn-img" src="img/arrow-right1.png">
       </button>
-      <button class="hero-btn hero-btn-secondary">
-        <img class="hero-btn2-img" src="img/arrow-right2.png">
+      <button class="hero-btn hero-btn-secondary" onclick="if(document.querySelector('.navbar-avatar')){window.location.href='page.php#discover'}else{showToast('You are not logged in')}">
+        <img class="hero-btn2-img" src="img/arrow-right2.png" >
         Try a quiz
       </button>
     </div>

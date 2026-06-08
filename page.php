@@ -328,7 +328,6 @@ $username = htmlspecialchars($_SESSION['username']);
                 <option>Computer Science</option>
                 <option>Language &amp; Literature</option>
                 <option>Psychology</option>
-                <option>Civic Education</option>
                 <option>Other</option>
               </select>
               <svg class="qm-field__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
