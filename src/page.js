@@ -12,6 +12,33 @@
     });
   }
 
+  const bellBtn = document.getElementById('btn-bell');
+  const notifOverlay = document.getElementById('notif-overlay');
+  const notifClose = document.getElementById('notif-close');
+  
+  function openNotif() {
+    notifOverlay.classList.add('is-open');
+    notifOverlay.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeNotif() {
+    notifOverlay.classList.remove('is-open');
+    notifOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  
+  if (bellBtn && notifOverlay) {
+    bellBtn.addEventListener('click', openNotif);
+    notifClose.addEventListener('click', closeNotif);
+    notifOverlay.addEventListener('click', e => {
+      if (e.target === notifOverlay) closeNotif();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && notifOverlay.classList.contains('is-open')) closeNotif();
+    });
+  }
+
   if (localStorage.getItem('blitziq-sidebar') === '1') {
     document.body.classList.add('sidebar-collapsed');
   }

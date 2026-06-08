@@ -53,7 +53,7 @@ $username = htmlspecialchars($_SESSION['username']);
       New quiz
     </button>
 
-    <button class="navbar-bell" aria-label="Notifications">
+    <button class="navbar-bell" id="btn-bell" aria-label="Notifications">
       <img src="img/bell.png" width="27" height="27" alt="">
     </button>
 
@@ -515,6 +515,26 @@ $username = htmlspecialchars($_SESSION['username']);
       </button>
     </div>
 
+  </div>
+</div>
+
+<div class="notif-overlay" id="notif-overlay" aria-hidden="true">
+  <div class="notif-panel" id="notif-panel" role="dialog" aria-modal="true" aria-label="Notifications">
+    <div class="notif-panel__header">
+      <h2 class="notif-panel__title">Notifications</h2>
+      <button class="notif-panel__close" id="notif-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="notif-panel__body">
+      <div class="notif-empty">
+        <img src="img/bell.png" width="32" height="32" alt="" style="opacity:0.2;">
+        <p class="notif-empty__title">No notifications yet</p>
+        <p class="notif-empty__sub">You're all caught up!</p>
+      </div>
+    </div>
   </div>
 </div>
 
