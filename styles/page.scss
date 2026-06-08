@@ -3143,17 +3143,17 @@ body.sidebar-collapsed {
     border-radius: $radius-md;
     border: 1px solid $border;
     background: $white;
-    color: $text-muted;
+    color: $text;
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, color 0.15s;
 
-    img { opacity: 0.6; transition: opacity 0.15s; }
+    img { transition: opacity 0.15s; }
 
     &:hover {
       background: $bg;
       border-color: $purple-muted;
       color: $text;
-      img { opacity: 1; }
+      img { opacity: 0.85; }
     }
   }
 

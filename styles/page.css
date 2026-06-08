@@ -2887,12 +2887,11 @@ body.sidebar-collapsed .sidebar .sidebar-folder-dot {
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   background: #fff;
-  color: #6b7280;
+  color: #111;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .start-modal__save img {
-  opacity: 0.6;
   transition: opacity 0.15s;
 }
 .start-modal__save:hover {
@@ -2901,7 +2900,7 @@ body.sidebar-collapsed .sidebar .sidebar-folder-dot {
   color: #111;
 }
 .start-modal__save:hover img {
-  opacity: 1;
+  opacity: 0.85;
 }
 .start-modal__start {
   margin-left: auto;

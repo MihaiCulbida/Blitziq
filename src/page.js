@@ -1857,41 +1857,87 @@ function getQuizzes() {
   const titleEl = document.getElementById('start-modal-title');
   const metaEl = document.getElementById('start-modal-meta');
   const infoEl = document.getElementById('start-modal-info');
+  const saveBtn = document.getElementById('start-modal-save');
+
+  const SAVED_KEY = 'blitziq-saved';
+
+  function getSaved() {
+    try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function setSaved(arr) {
+    localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+  }
+
+  let currentQuiz = null;
+
+  function isSaved(name) {
+    return getSaved().some(q => q.name === name);
+  }
+
+  function updateSaveBtn() {
+    if (!currentQuiz || !saveBtn) return;
+    const saved = isSaved(currentQuiz.name);
+    saveBtn.innerHTML = `
+      <img src="img/${saved ? 'bookmark1' : 'bookmark'}.png" width="15" height="15" alt="">
+      ${saved ? 'Saved' : 'Save'}
+    `;
+    saveBtn.style.color = saved ? '#6d28d9' : '';
+    saveBtn.style.borderColor = saved ? '#a78bfa' : '';
+  }
 
   function openStartModal(quiz) {
-  titleEl.textContent = quiz.name;
+    currentQuiz = quiz;
 
-  const questionCount = quiz.questions ? quiz.questions.length : parseInt(quiz.meta?.match(/(\d+)\s+question/)?.[1]) || '—';
-  const timePerQ     = quiz.timePerQ   ?? '—';
-  const points       = quiz.points     ?? '—';
-  const passScore    = quiz.passScore  != null ? quiz.passScore + '%' : '—';
-  const subject      = quiz.subject    || quiz.meta?.split('·')[0]?.trim() || 'Unknown';
+    titleEl.textContent = quiz.name;
 
-  metaEl.textContent = `${subject} · ${questionCount} questions` + (quiz.timePerQ ? ` · ${quiz.timePerQ}s per question` : '');
+    const questionCount = quiz.questions
+      ? quiz.questions.length
+      : parseInt(quiz.meta?.match(/(\d+)\s+question/)?.[1]) || '—';
+    const subject = quiz.subject || quiz.meta?.split('·')[0]?.trim() || 'Unknown';
 
-  const infos = [
-    ['Questions',       questionCount],
-    ['Time / question', quiz.timePerQ ? quiz.timePerQ + 's' : '—'],
-    ['Points / correct', points],
-    ['Pass score',      passScore],
-  ];
-  infoEl.innerHTML = infos.map(([label, value]) => `
-    <div class="start-modal__info-item">
-      <span class="start-modal__info-label">${label}</span>
-      <span class="start-modal__info-value">${value}</span>
-    </div>
-  `).join('');
+    metaEl.textContent = `${subject} · ${questionCount} questions` +
+      (quiz.timePerQ ? ` · ${quiz.timePerQ}s per question` : '');
 
-  overlay.classList.add('is-open');
-  overlay.removeAttribute('aria-hidden');
-  document.body.style.overflow = 'hidden';
-}
+    const infos = [
+      ['Questions',        questionCount],
+      ['Time / question',  quiz.timePerQ  ? quiz.timePerQ + 's' : '—'],
+      ['Points / correct', quiz.points    ?? '—'],
+      ['Pass score',       quiz.passScore != null ? quiz.passScore + '%' : '—'],
+    ];
+    infoEl.innerHTML = infos.map(([label, value]) => `
+      <div class="start-modal__info-item">
+        <span class="start-modal__info-label">${label}</span>
+        <span class="start-modal__info-value">${value}</span>
+      </div>
+    `).join('');
+
+    updateSaveBtn();
+
+    overlay.classList.add('is-open');
+    overlay.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+  }
 
   function closeStartModal() {
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
+
+  saveBtn?.addEventListener('click', () => {
+    if (!currentQuiz) return;
+    const saved = getSaved();
+    const idx = saved.findIndex(q => q.name === currentQuiz.name);
+    if (idx === -1) {
+      saved.push({ name: currentQuiz.name, meta: currentQuiz.meta || '', icon: currentQuiz.icon || '' });
+    } else {
+      saved.splice(idx, 1);
+    }
+    setSaved(saved);
+    updateSaveBtn();
+  });
 
   closeBtn?.addEventListener('click', closeStartModal);
   overlay?.addEventListener('click', e => { if (e.target === overlay) closeStartModal(); });
