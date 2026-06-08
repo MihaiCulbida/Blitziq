@@ -858,7 +858,17 @@
     if (trendingBlock) trendingBlock.remove();
     if (recommendedBlock) recommendedBlock.remove();
 
-    const allQuizzes = [...TRENDING, ...RECOMMENDED];
+    const publishedUserQuizzes = (JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]'))
+      .filter(q => q.status === 'published' && q.subject)
+      .map(q => ({
+        name: q.name,
+        meta: `${q.subject} · ${q.questions.length} questions`,
+        badge: '',
+        icon: 'img/quizzes.png',
+        _userQuiz: true,
+      }));
+    
+    const allQuizzes = [...publishedUserQuizzes, ...TRENDING, ...RECOMMENDED];
     const categoryMap = {};
     allQuizzes.forEach(q => {
       const cat = q.meta.split('·')[0].trim();
@@ -970,7 +980,16 @@
     const input = document.querySelector('.navbar-search-input');
     if (!input) return;
 
-    const allQuizzes = [...TRENDING, ...RECOMMENDED].filter(
+    const publishedUserQuizzes = (JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]'))
+      .filter(q => q.status === 'published' && q.subject)
+      .map(q => ({
+        name: q.name,
+        meta: `${q.subject} · ${q.questions.length} questions`,
+        badge: '',
+        icon: 'img/quizzes.png',
+      }));
+    
+    const allQuizzes = [...publishedUserQuizzes, ...TRENDING, ...RECOMMENDED].filter(
       (q, i, arr) => arr.findIndex(x => x.name === q.name) === i
     );
 
@@ -1132,6 +1151,7 @@
     quizzes.unshift(quiz);
     saveQuizzes();
     renderMyQuizzes();
+    renderDiscoverCategories();
     return quiz;
   };
 
@@ -1242,6 +1262,7 @@
     editorQuizId = null;
     setNavbarEditorMode(false);
     renderMyQuizzes();
+    renderDiscoverCategories();
   }
 
   function buildEditorHTML(quiz) {
