@@ -1,3 +1,20 @@
+const COLORS = ['#a78bfa', '#f472b6', '#34d399', '#60a5fa', '#fb923c', '#facc15'];
+const STORAGE_KEY = 'blitziq-folders';
+
+function getFolders() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveFolders(f) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(f));
+}
+
+function getQuizzes() {
+  try { return JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]'); }
+  catch { return []; }
+}
+
 (function () {
   const avatarBtn = document.getElementById('btn-avatar');
   const dropdown = document.getElementById('navbar-dropdown');
@@ -77,18 +94,7 @@
   }
 
   const MAX_FOLDERS = 6;
-  const STORAGE_KEY = 'blitziq-folders';
-  const COLORS = ['#a78bfa', '#f472b6', '#34d399', '#60a5fa', '#fb923c', '#facc15'];
   let dragSrcIndex = -1;
-
-  function getFolders() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-    catch { return []; }
-  }
-
-  function saveFolders(f) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(f));
-  }
 
   function escapeHtml(str) {
     return str.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -109,7 +115,29 @@
     const container = document.querySelector('.sidebar-folders');
     if (!container) return;
     container.innerHTML = '';
-    folders.forEach((folder, index) => container.appendChild(buildFolderRow(folder, index)));
+    folders.forEach((folder, index) => {
+    container.appendChild(buildFolderRow(folder, index));
+  
+    const subList = document.createElement('div');
+    subList.className = 'sidebar-folder-quizzes';
+    subList.dataset.fi = index;
+  
+    const allQuizzes = getQuizzes();
+    allQuizzes.filter(q => q.folders && q.folders.includes(index)).forEach(q => {
+      const item = document.createElement('a');
+      item.href = '#';
+      item.className = 'sidebar-folder-quiz-item';
+      item.innerHTML = `<span class="sidebar-folder-quiz-dot"></span><span class="sidebar-label">${escapeHtml(q.name)}</span>`;
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        window.blitziqSwitchSection('quizzes');
+        openEditor(q.id);
+      });
+      subList.appendChild(item);
+    });
+  
+    container.appendChild(subList);
+  });
     if (folders.length === 0) {
       const allQuizzes = document.querySelector('.sidebar-item--active');
       if (allQuizzes) allQuizzes.classList.remove('is-expanded');
@@ -139,6 +167,14 @@
       e.preventDefault();
       e.stopPropagation();
       showDeleteConfirm(a, index);
+    });
+
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const sub = document.querySelector(`.sidebar-folder-quizzes[data-fi="${index}"]`);
+      if (!sub) return;
+      sub.classList.toggle('is-open');
+      a.classList.toggle('is-expanded');
     });
 
     a.addEventListener('dragstart', e => {
@@ -1301,6 +1337,12 @@
           <div class="qe-topbar">
             <span class="qe-topbar__info" id="qe-q-label">Question 1 of ${quiz.questions.length}</span>
             <div class="qe-topbar__right">
+              <div style="position:relative;display:inline-flex;">
+                <button class="qe-save-btn" id="qe-folder-btn" style="border-right:none;border-radius:8px 0 0 8px;">
+                  <img src="img/folder.png" width="14" height="14" alt="">
+                </button>
+                <div class="qe-folder-dropdown" id="qe-folder-dropdown"></div>
+              </div>
               <button class="qe-save-btn" id="qe-save">
                 <img src="img/save.png" width="14" height="14" alt="">
                 Save
@@ -1369,6 +1411,43 @@
       saveCurrentQuestion(quiz);
       showSaveToast();
     });
+    const folderBtn = document.getElementById('qe-folder-btn');
+    const folderDropdown = document.getElementById('qe-folder-dropdown');
+    
+    folderBtn?.addEventListener('click', e => {
+      e.stopPropagation();
+      const folders = getFolders();
+      if (!folders.length) {
+        folderDropdown.innerHTML = '<div class="qe-folder-dropdown__empty">No folders yet</div>';
+      } else {
+        const currentFolders = quiz.folders || [];
+        folderDropdown.innerHTML = folders.map((f, i) => `
+          <button class="qe-folder-dropdown__item ${currentFolders.includes(i) ? 'is-active' : ''}" data-fi="${i}">
+            <span class="qe-folder-dropdown__dot" style="background:${COLORS[i % COLORS.length]}"></span>
+            ${escapeHtml(f.name)}
+            ${currentFolders.includes(i) ? '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
+          </button>
+        `).join('');
+        folderDropdown.querySelectorAll('.qe-folder-dropdown__item').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const fi = parseInt(btn.dataset.fi);
+            if (!quiz.folders) quiz.folders = [];
+            const idx = quiz.folders.indexOf(fi);
+            if (idx === -1) {
+              quiz.folders.push(fi);
+            } else {
+              quiz.folders.splice(idx, 1);
+            }
+            saveQuizzes();
+            folderBtn.click();
+          });
+        });
+      }
+      folderDropdown.classList.toggle('is-open');
+    });
+    
+    document.addEventListener('click', () => folderDropdown?.classList.remove('is-open'));
     document.getElementById('qe-publish')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
       quiz.status = 'published';
