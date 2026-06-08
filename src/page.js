@@ -222,6 +222,30 @@ function getQuizzes() {
         ? (insertBefore ? targetIndex - 1 : targetIndex)
         : (insertBefore ? targetIndex : targetIndex + 1);
       folders.splice(dest, 0, dragged);
+      const oldToNew = {};
+      folders.forEach((f, newIdx) => {
+        const oldIdx = newIdx <= dest ? 
+          (newIdx < dragSrcIndex ? newIdx : newIdx + 1) : newIdx;
+        oldToNew[newIdx] = newIdx;
+      });
+      
+      const reordered = [...folders];
+      reordered.splice(dest, 0, dragged);
+      
+      const quizzes = getQuizzes();
+      quizzes.forEach(q => {
+        if (!q.folders || !q.folders.length) return;
+        q.folders = q.folders.map(fi => {
+          if (fi === dragSrcIndex) return dest;
+          if (dragSrcIndex < dest) {
+            if (fi > dragSrcIndex && fi <= dest) return fi - 1;
+          } else {
+            if (fi >= dest && fi < dragSrcIndex) return fi + 1;
+          }
+          return fi;
+        });
+      });
+      localStorage.setItem('blitziq-quizzes', JSON.stringify(quizzes));
       saveFolders(folders);
       renderFolders();
       const allQuizzesBtn = document.querySelector('.sidebar-item--active');
