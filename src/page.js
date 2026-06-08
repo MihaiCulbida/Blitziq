@@ -909,6 +909,11 @@ function getQuizzes() {
         ${quiz.badge && BADGE_LABELS[quiz.badge] ? `<span class="home-card__badge home-card__badge--${quiz.badge}">${BADGE_LABELS[quiz.badge]}</span>` : ''}
       </div>
     `;
+    card.addEventListener('click', () => {
+      if (typeof window.blitziqOpenStartModal === 'function') {
+        window.blitziqOpenStartModal(quiz);
+      }
+    });
     return card;
   }
 
@@ -1010,6 +1015,11 @@ function getQuizzes() {
       footer.appendChild(badge);
       body.appendChild(footer);
     }
+    card.addEventListener('click', () => {
+      if (typeof window.blitziqOpenStartModal === 'function') {
+        window.blitziqOpenStartModal(quiz);
+      }
+    });
     card.appendChild(iconWrap);
     card.appendChild(body);
     return card;
@@ -1275,6 +1285,10 @@ function getQuizzes() {
         </button>
       </div>
     `;
+    card.addEventListener('click', e => {
+      if (e.target.closest('.mq-card__edit') || e.target.closest('.mq-card__delete')) return;
+      window.blitziqOpenStartModal(quiz);
+    });
     card.querySelector('.mq-card__edit').addEventListener('click', () => openEditor(quiz.id));
     card.querySelector('.mq-card__delete').addEventListener('click', e => {
       e.stopPropagation();
@@ -1833,4 +1847,64 @@ function getQuizzes() {
   window.blitziqSwitchSection = switchSection;
 
   renderMyQuizzes();
+})();
+
+(function () {
+  'use strict';
+
+  const overlay = document.getElementById('start-overlay');
+  const closeBtn = document.getElementById('start-modal-close');
+  const titleEl = document.getElementById('start-modal-title');
+  const metaEl = document.getElementById('start-modal-meta');
+  const infoEl = document.getElementById('start-modal-info');
+
+  function openStartModal(quiz) {
+  titleEl.textContent = quiz.name;
+
+  const questionCount = quiz.questions ? quiz.questions.length : parseInt(quiz.meta?.match(/(\d+)\s+question/)?.[1]) || '—';
+  const timePerQ     = quiz.timePerQ   ?? '—';
+  const points       = quiz.points     ?? '—';
+  const passScore    = quiz.passScore  != null ? quiz.passScore + '%' : '—';
+  const subject      = quiz.subject    || quiz.meta?.split('·')[0]?.trim() || 'Unknown';
+
+  metaEl.textContent = `${subject} · ${questionCount} questions` + (quiz.timePerQ ? ` · ${quiz.timePerQ}s per question` : '');
+
+  const infos = [
+    ['Questions',       questionCount],
+    ['Time / question', quiz.timePerQ ? quiz.timePerQ + 's' : '—'],
+    ['Points / correct', points],
+    ['Pass score',      passScore],
+  ];
+  infoEl.innerHTML = infos.map(([label, value]) => `
+    <div class="start-modal__info-item">
+      <span class="start-modal__info-label">${label}</span>
+      <span class="start-modal__info-value">${value}</span>
+    </div>
+  `).join('');
+
+  overlay.classList.add('is-open');
+  overlay.removeAttribute('aria-hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+  function closeStartModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn?.addEventListener('click', closeStartModal);
+  overlay?.addEventListener('click', e => { if (e.target === overlay) closeStartModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay?.classList.contains('is-open')) closeStartModal();
+  });
+
+  document.querySelectorAll('.start-modal__mode').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.start-modal__mode').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+    });
+  });
+
+  window.blitziqOpenStartModal = openStartModal;
 })();

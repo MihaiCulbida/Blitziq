@@ -537,6 +537,53 @@ $username = htmlspecialchars($_SESSION['username']);
   </div>
 </div>
 
+<div class="start-overlay" id="start-overlay" aria-hidden="true">
+  <div class="start-modal" id="start-modal" role="dialog" aria-modal="true">
+
+    <div class="start-modal__header">
+      <div class="start-modal__title-wrap">
+        <h2 class="start-modal__title" id="start-modal-title"></h2>
+        <span class="start-modal__meta" id="start-modal-meta"></span>
+      </div>
+      <button class="start-modal__close" id="start-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="start-modal__body">
+      <p class="start-modal__section-label">Mode</p>
+      <div class="start-modal__modes">
+        <button class="start-modal__mode is-active" data-mode="single">
+          <img src="img/user.png" width="22" height="22" alt="Single player">
+          <span class="start-modal__mode-name">Single player</span>
+          <span class="start-modal__mode-desc">Practice on your own</span>
+        </button>
+        <button class="start-modal__mode" data-mode="multi">
+          <img src="img/users.png" width="22" height="22" alt="Multiplayer">
+          <span class="start-modal__mode-name">Multiplayer</span>
+          <span class="start-modal__mode-desc">Play with others</span>
+        </button>
+      </div>
+
+      <div class="start-modal__info" id="start-modal-info"></div>
+    </div>
+
+    <div class="start-modal__footer">
+      <button class="start-modal__save" id="start-modal-save">
+        <img src="img/bookmark.png" width="15" height="15" alt="">
+        Save
+      </button>
+      <button class="start-modal__start" id="start-modal-start">
+        Start quiz
+        <img src="img/arrow-right1.png" width="13" height="13" style="filter:invert(1)">
+      </button>
+    </div>
+
+  </div>
+</div>
+
 <script src="src/page.js"></script>
 </body>
 </html>
