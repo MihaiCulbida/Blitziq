@@ -694,6 +694,7 @@
     renderHomeFeatures();
     renderDiscoverCategories();
     initFilters();
+    initSearch();
   }
 
   function renderDaily() {
@@ -900,6 +901,104 @@
       } else {
         block.style.display = block.dataset.cat.toLowerCase().includes(cat.toLowerCase()) ? '' : 'none';
       }
+    });
+  }
+
+  function initSearch() {
+    const input = document.querySelector('.navbar-search-input');
+    if (!input) return;
+
+    const allQuizzes = [...TRENDING, ...RECOMMENDED].filter(
+      (q, i, arr) => arr.findIndex(x => x.name === q.name) === i
+    );
+
+    let searchSection = document.getElementById('section-search');
+    if (!searchSection) {
+      searchSection = document.createElement('section');
+      searchSection.className = 'page-section';
+      searchSection.id = 'section-search';
+      document.querySelector('.page-main').appendChild(searchSection);
+    }
+
+    let lastActiveSection = null;
+
+    function showSearch(query) {
+      const q = query.trim().toLowerCase();
+
+      if (!searchSection.classList.contains('is-active')) {
+        const active = document.querySelector('.page-section.is-active:not(#section-search)');
+        if (active) lastActiveSection = active.id.replace('section-', '');
+      }
+
+      if (!q) {
+        restoreSection();
+        return;
+      }
+
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('is-active'));
+      document.querySelectorAll('.navbar-links a[data-section]').forEach(l => l.classList.remove('active'));
+      searchSection.classList.add('is-active');
+
+      const results = allQuizzes.filter(quiz =>
+        quiz.name.toLowerCase().includes(q) ||
+        quiz.meta.toLowerCase().includes(q)
+      );
+
+      searchSection.innerHTML = '';
+
+      const header = document.createElement('div');
+      header.className = 'search-header';
+      header.innerHTML = `
+        <span class="search-header__query">Results for "<strong>${q}</strong>"</span>
+        <span class="search-header__count">${results.length} found</span>
+      `;
+      searchSection.appendChild(header);
+
+      if (results.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'search-empty';
+        empty.innerHTML = `
+          <p class="search-empty__title">No quizzes found</p>
+          <p class="search-empty__sub">Try a different keyword or browse by category.</p>
+        `;
+        searchSection.appendChild(empty);
+        return;
+      }
+
+      const grid = document.createElement('div');
+      grid.className = 'disc-grid disc-grid--recommended';
+      results.forEach(quiz => grid.appendChild(buildCard(quiz)));
+      searchSection.appendChild(grid);
+    }
+
+    function restoreSection() {
+      searchSection.innerHTML = '';
+      searchSection.classList.remove('is-active');
+      const target = lastActiveSection || 'home';
+      const section = document.getElementById('section-' + target);
+      if (section) section.classList.add('is-active');
+      const link = document.querySelector(`.navbar-links a[data-section="${target}"]`);
+      if (link) link.classList.add('active');
+    }
+
+    function clearSearch() {
+      input.value = '';
+      restoreSection();
+    }
+
+    input.addEventListener('input', () => showSearch(input.value));
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        clearSearch();
+        input.blur();
+      }
+    });
+
+    document.querySelectorAll('.navbar-links a[data-section]').forEach(a => {
+      a.addEventListener('click', () => {
+        if (input.value.trim()) clearSearch();
+      });
     });
   }
 

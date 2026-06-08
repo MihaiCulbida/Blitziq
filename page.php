@@ -232,7 +232,7 @@ $username = htmlspecialchars($_SESSION['username']);
     <div class="disc-daily" id="disc-daily">
       <div class="disc-daily__left">
         <span class="disc-daily__eyebrow">
-          <img src="img/calendar.png" width="16" height="16" alt="">
+          <img src="img/calendar.png" width="16" height="16" style="filter: invert(1);" alt="">
           Daily quiz
         </span>
         <h2 class="disc-daily__title" id="disc-daily-title">Organic Chemistry – Functional Groups</h2>
