@@ -185,9 +185,9 @@ function getQuizzes() {
     item.className = 'sidebar-folder-quiz-item';
     item.innerHTML = `
       <span class="sidebar-folder-quiz-dot" style="background:#a78bfa"></span>
-      <span class="sidebar-label">${escapeHtml(q.name)}</span>
+      <span class="sidebar-label" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;" title="${escapeHtml(q.name)}">${escapeHtml(q.name)}</span>
     `;
-    item.addEventListener('click', e => {
+      item.addEventListener('click', e => {
       e.preventDefault();
       window.blitziqOpenStartModal(q);
     });
