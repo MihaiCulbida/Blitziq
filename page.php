@@ -226,7 +226,6 @@ $username = htmlspecialchars($_SESSION['username']);
       <button class="disc-filter" data-cat="Computer Science">Computer Science</button>
       <button class="disc-filter" data-cat="Language &amp; Literature">Language &amp; Literature</button>
       <button class="disc-filter" data-cat="Psychology">Psychology</button>
-      <button class="disc-filter" data-cat="Civic Education">Civic Education</button>
       <button class="disc-filter" data-cat="Other">Other</button>
     </div>
 

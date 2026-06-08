@@ -1,6 +1,6 @@
 (function () {
   const avatarBtn = document.getElementById('btn-avatar');
-  const dropdown  = document.getElementById('navbar-dropdown');
+  const dropdown = document.getElementById('navbar-dropdown');
 
   if (avatarBtn && dropdown) {
     avatarBtn.addEventListener('click', e => {
@@ -30,15 +30,11 @@
   function switchSection(sectionId) {
     sections.forEach(s => s.classList.remove('is-active'));
     navLinks.forEach(l => l.classList.remove('active'));
-
     const target = document.getElementById('section-' + sectionId);
     if (target) target.classList.add('is-active');
-
     const link = document.querySelector(`.navbar-links a[data-section="${sectionId}"]`);
     if (link) link.classList.add('active');
-
-    const hash = '#' + sectionId;
-    history.replaceState(null, '', hash);
+    history.replaceState(null, '', '#' + sectionId);
   }
 
   navLinks.forEach(a => {
@@ -68,7 +64,7 @@
   }
 
   function escapeHtml(str) {
-    return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    return str.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
 
   function getNewFolderBtn() {
@@ -82,18 +78,15 @@
   }
 
   function renderFolders() {
-    const folders   = getFolders();
+    const folders = getFolders();
     const container = document.querySelector('.sidebar-folders');
     if (!container) return;
-
     container.innerHTML = '';
     folders.forEach((folder, index) => container.appendChild(buildFolderRow(folder, index)));
-
     if (folders.length === 0) {
       const allQuizzes = document.querySelector('.sidebar-item--active');
       if (allQuizzes) allQuizzes.classList.remove('is-expanded');
     }
-
     updateFolderVisibility();
     updateNewFolderBtn();
   }
@@ -141,7 +134,7 @@
       if (thisIndex === dragSrcIndex) return;
       e.dataTransfer.dropEffect = 'move';
       const rect = a.getBoundingClientRect();
-      const mid  = rect.top + rect.height / 2;
+      const mid = rect.top + rect.height / 2;
       document.querySelectorAll('.sidebar-folder:not(.sidebar-folder-new-row)').forEach(el =>
         el.classList.remove('drag-over-top', 'drag-over-bottom')
       );
@@ -156,11 +149,10 @@
 
     a.addEventListener('drop', e => {
       e.preventDefault();
-      const targetIndex  = parseInt(a.dataset.index);
+      const targetIndex = parseInt(a.dataset.index);
       const insertBefore = a.classList.contains('drag-over-top');
       a.classList.remove('drag-over-top', 'drag-over-bottom');
       if (dragSrcIndex === targetIndex) return;
-
       const folders = getFolders();
       const [dragged] = folders.splice(dragSrcIndex, 1);
       let dest = targetIndex > dragSrcIndex
@@ -169,7 +161,6 @@
       folders.splice(dest, 0, dragged);
       saveFolders(folders);
       renderFolders();
-
       const allQuizzesBtn = document.querySelector('.sidebar-item--active');
       if (allQuizzesBtn) allQuizzesBtn.classList.add('is-expanded');
       updateFolderVisibility();
@@ -180,9 +171,7 @@
 
   function showDeleteConfirm(row, index) {
     if (row.querySelector('.sidebar-folder-confirm')) return;
-
     row.classList.add('is-confirming');
-
     const confirm = document.createElement('div');
     confirm.className = 'sidebar-folder-confirm';
     confirm.innerHTML = `
@@ -190,7 +179,6 @@
       <button class="sidebar-folder-confirm-yes">Yes</button>
       <button class="sidebar-folder-confirm-no">No</button>
     `;
-
     row.appendChild(confirm);
     requestAnimationFrame(() => confirm.classList.add('is-visible'));
 
@@ -231,20 +219,14 @@
     if (!container) return;
     if (container.querySelector('.sidebar-folder-new-row')) return;
 
-    const folders    = getFolders();
+    const folders = getFolders();
     const colorIndex = folders.length % COLORS.length;
 
     const row = document.createElement('div');
     row.className = 'sidebar-folder sidebar-folder-new-row';
     row.innerHTML = `
       <span class="sidebar-folder-dot" style="background:${COLORS[colorIndex]}"></span>
-      <input
-        class="sidebar-folder-inline-input"
-        type="text"
-        placeholder="Folder name"
-        maxlength="40"
-        autocomplete="off"
-      >
+      <input class="sidebar-folder-inline-input" type="text" placeholder="Folder name" maxlength="40" autocomplete="off">
       <button class="sidebar-folder-inline-cancel" aria-label="Cancel">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -283,14 +265,14 @@
     }
 
     input.addEventListener('keydown', e => {
-      if (e.key === 'Enter')  { e.preventDefault(); commit(); }
+      if (e.key === 'Enter') { e.preventDefault(); commit(); }
       if (e.key === 'Escape') { e.preventDefault(); cancelFolder(); }
     });
 
     input.addEventListener('blur', () => {
       setTimeout(() => {
         if (!row.classList.contains('is-removing') &&
-            document.activeElement !== row.querySelector('.sidebar-folder-inline-cancel')) {
+          document.activeElement !== row.querySelector('.sidebar-folder-inline-cancel')) {
           commit();
         }
       }, 120);
@@ -306,13 +288,12 @@
   }
 
   function updateFolderVisibility() {
-    const folders       = getFolders();
-    const container     = document.querySelector('.sidebar-folders');
+    const folders = getFolders();
+    const container = document.querySelector('.sidebar-folders');
     const allQuizzesBtn = document.querySelector('.sidebar-item--active');
     if (!container || !allQuizzesBtn) return;
-
     const isExpanded = allQuizzesBtn.classList.contains('is-expanded');
-    const hasNewRow  = !!container.querySelector('.sidebar-folder-new-row');
+    const hasNewRow = !!container.querySelector('.sidebar-folder-new-row');
     container.style.display = (isExpanded && (folders.length > 0 || hasNewRow)) ? 'block' : 'none';
   }
 
@@ -360,25 +341,25 @@
 (function () {
   'use strict';
 
-  const LETTERS      = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
   const PANEL_TITLES = ['General information', 'Quiz structure', 'Settings & confirmation'];
-  const TOTAL        = 3;
+  const TOTAL = 3;
 
   let currentPanel = 1;
-  let answerCount  = 4;
-  let visibility   = 'public';
+  let answerCount = 4;
+  let visibility = 'public';
 
-  const overlay       = document.getElementById('quiz-overlay');
-  const btnNewQuiz    = document.getElementById('btn-new-quiz');
-  const btnClose      = document.getElementById('qm-close');
-  const btnCancel     = document.getElementById('qm-cancel');
-  const btnNext       = document.getElementById('qm-next');
-  const btnBack       = document.getElementById('qm-back');
-  const progressFill  = document.getElementById('qm-progress');
-  const modalTitle    = document.getElementById('qm-title');
-  const stepLabel     = document.getElementById('qm-step-label');
+  const overlay = document.getElementById('quiz-overlay');
+  const btnNewQuiz = document.getElementById('btn-new-quiz');
+  const btnClose = document.getElementById('qm-close');
+  const btnCancel = document.getElementById('qm-cancel');
+  const btnNext = document.getElementById('qm-next');
+  const btnBack = document.getElementById('qm-back');
+  const progressFill = document.getElementById('qm-progress');
+  const modalTitle = document.getElementById('qm-title');
+  const stepLabel = document.getElementById('qm-step-label');
   const answerPreview = document.getElementById('qm-answers-preview');
-  const summaryBox    = document.getElementById('qm-summary');
+  const summaryBox = document.getElementById('qm-summary');
 
   function openModal() {
     overlay.classList.add('is-open');
@@ -396,10 +377,8 @@
 
   function resetModal() {
     answerCount = 4;
-    visibility  = 'public';
-
+    visibility = 'public';
     goToPanel(1, false);
-
     const defaults = {
       'qm-name': '', 'qm-desc': '',
       'qm-count': 10, 'qm-time': 30,
@@ -409,41 +388,33 @@
       const el = document.getElementById(id);
       if (el) el.value = val;
     });
-
-    ['qm-subject','qm-lang','qm-order','qm-aorder'].forEach(id => {
+    ['qm-subject', 'qm-lang', 'qm-order', 'qm-aorder'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.selectedIndex = 0;
     });
-
     document.querySelectorAll('.qm-vis-btn').forEach(b =>
       b.classList.toggle('is-active', b.dataset.vis === 'public'));
-
     document.querySelectorAll('.qm-toggle').forEach(t =>
-      t.classList.toggle('is-active', ['show-score','show-correct'].includes(t.dataset.key)));
-
+      t.classList.toggle('is-active', ['show-score', 'show-correct'].includes(t.dataset.key)));
     renderAnswers();
   }
 
   function goToPanel(target, animate = true) {
     if (target < 1 || target > TOTAL) return;
-
     document.getElementById('qm-panel-' + currentPanel)?.classList.remove('is-active');
     currentPanel = target;
     document.getElementById('qm-panel-' + currentPanel)?.classList.add('is-active');
-
     for (let i = 1; i <= TOTAL; i++) {
       const dot = document.getElementById('qm-dot-' + i);
       if (!dot) continue;
       dot.className = 'quiz-modal__dot';
-      if (i === currentPanel)    dot.classList.add('is-active');
+      if (i === currentPanel) dot.classList.add('is-active');
       else if (i < currentPanel) dot.classList.add('is-done');
     }
-
     progressFill.style.width = ((currentPanel / TOTAL) * 100) + '%';
-    modalTitle.textContent   = PANEL_TITLES[currentPanel - 1];
-    stepLabel.textContent    = `Step ${currentPanel} of ${TOTAL}`;
-    btnBack.style.display    = currentPanel > 1 ? '' : 'none';
-
+    modalTitle.textContent = PANEL_TITLES[currentPanel - 1];
+    stepLabel.textContent = `Step ${currentPanel} of ${TOTAL}`;
+    btnBack.style.display = currentPanel > 1 ? '' : 'none';
     if (currentPanel === TOTAL) {
       buildSummary();
       btnNext.innerHTML = `Create quiz <img src="img/arrow-right1.png" width="14" height="14" style="filter:invert(1)">`;
@@ -455,16 +426,13 @@
   function renderAnswers() {
     document.getElementById('qm-count-val').textContent = answerCount;
     answerPreview.innerHTML = '';
-
     for (let i = 0; i < answerCount; i++) {
       const chip = document.createElement('div');
       chip.className = 'qm-answer-chip' + (i === 0 ? ' qm-answer-chip--correct' : '');
       chip.innerHTML = `
         <div class="qm-answer-chip__letter">${LETTERS[i]}</div>
         <div class="qm-answer-chip__bar"></div>
-        ${i === 0 ? `<span class="qm-answer-chip__badge">
-          <img src="img/correct.png" width="10" height="10" alt="">
-          correct</span>` : ''}
+        ${i === 0 ? `<span class="qm-answer-chip__badge"><img src="img/correct.png" width="10" height="10" alt="">correct</span>` : ''}
       `;
       answerPreview.appendChild(chip);
     }
@@ -472,21 +440,18 @@
 
   function buildSummary() {
     const v = id => document.getElementById(id)?.value?.trim() || '-';
-
-    const visMap  = { public: 'Public', private: 'Private', draft: 'Draft' };
-
+    const visMap = { public: 'Public', private: 'Private', draft: 'Draft' };
     const rows = [
-      ['Name',             v('qm-name') || '-'],
-      ['Subject',          v('qm-subject') || '-'],
-      ['Questions',        v('qm-count')],
-      ['Time / question',  v('qm-time') + ' sec.'],
-      ['Answer choices',   answerCount],
-      ['Visibility',       visMap[visibility]],
-      ['Attempts',         v('qm-attempts')],
-      ['Pass score',       v('qm-pass') + ' %'],
+      ['Name', v('qm-name') || '-'],
+      ['Subject', v('qm-subject') || '-'],
+      ['Questions', v('qm-count')],
+      ['Time / question', v('qm-time') + ' sec.'],
+      ['Answer choices', answerCount],
+      ['Visibility', visMap[visibility]],
+      ['Attempts', v('qm-attempts')],
+      ['Pass score', v('qm-pass') + ' %'],
       ['Points / correct', v('qm-pts')],
     ];
-
     summaryBox.innerHTML = rows.map(([label, value]) => `
       <div class="qm-summary__row">
         <span class="qm-summary__row-label">${label}</span>
@@ -505,38 +470,32 @@
       input?.addEventListener('input', () => input.classList.remove('has-error'), { once: true });
       return;
     }
-
     const payload = {
       name,
-      description:     document.getElementById('qm-desc')?.value.trim()        || '',
-      subject:         document.getElementById('qm-subject')?.value            || '',
-      language:        document.getElementById('qm-lang')?.value               || '',
+      description: document.getElementById('qm-desc')?.value.trim() || '',
+      subject: document.getElementById('qm-subject')?.value || '',
+      language: document.getElementById('qm-lang')?.value || '',
       visibility,
-      questionCount:   parseInt(document.getElementById('qm-count')?.value)    || 10,
-      timePerQuestion: parseInt(document.getElementById('qm-time')?.value)     || 30,
+      questionCount: parseInt(document.getElementById('qm-count')?.value) || 10,
+      timePerQuestion: parseInt(document.getElementById('qm-time')?.value) || 30,
       answerCount,
-      questionOrder:   document.getElementById('qm-order')?.value              || 'fixed',
-      answerOrder:     document.getElementById('qm-aorder')?.value             || 'fixed',
-      attempts:        parseInt(document.getElementById('qm-attempts')?.value) || 1,
-      passScore:       parseInt(document.getElementById('qm-pass')?.value)     || 60,
-      pointsPerAnswer: parseInt(document.getElementById('qm-pts')?.value)      || 10,
-      displayOptions:  [...document.querySelectorAll('.qm-toggle.is-active')].map(t => t.dataset.key),
+      questionOrder: document.getElementById('qm-order')?.value || 'fixed',
+      answerOrder: document.getElementById('qm-aorder')?.value || 'fixed',
+      attempts: parseInt(document.getElementById('qm-attempts')?.value) || 1,
+      passScore: parseInt(document.getElementById('qm-pass')?.value) || 60,
+      pointsPerAnswer: parseInt(document.getElementById('qm-pts')?.value) || 10,
+      displayOptions: [...document.querySelectorAll('.qm-toggle.is-active')].map(t => t.dataset.key),
     };
-
     btnNext.innerHTML = 'Creating...';
-    btnNext.disabled  = true;
-
+    btnNext.disabled = true;
     setTimeout(() => {
       btnNext.disabled = false;
-
       if (typeof window.blitziqCreateDraft === 'function') {
         window.blitziqCreateDraft(payload);
       }
-
       if (typeof window.blitziqSwitchSection === 'function') {
         window.blitziqSwitchSection('quizzes');
       }
-
       closeModal();
     }, 600);
   }
@@ -548,7 +507,6 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && overlay?.classList.contains('is-open')) closeModal();
   });
-
   btnNext?.addEventListener('click', () => {
     currentPanel === TOTAL ? submitQuiz() : goToPanel(currentPanel + 1);
   });
@@ -581,30 +539,30 @@
 })();
 
 (function () {
-  const track   = document.getElementById('cat-track');
+  const track = document.getElementById('cat-track');
   const prevBtn = document.getElementById('cat-prev');
   const nextBtn = document.getElementById('cat-next');
   if (!track || !prevBtn || !nextBtn) return;
 
-  const VISIBLE  = 4;
-  const cards    = track.querySelectorAll('.cat-card');
-  const total    = cards.length;
+  const VISIBLE = 4;
+  const cards = track.querySelectorAll('.cat-card');
+  const total = cards.length;
   const maxIndex = total - VISIBLE;
   let index = 0;
   let timer = null;
 
   function getCardWidth() {
-    const card  = cards[0];
+    const card = cards[0];
     const style = getComputedStyle(track);
-    const gap   = parseFloat(style.gap) || 16;
+    const gap = parseFloat(style.gap) || 16;
     return card.getBoundingClientRect().width + gap;
   }
 
   function goTo(i) {
     index = Math.max(0, Math.min(i, maxIndex));
-    track.style.transform    = `translateX(-${index * getCardWidth()}px)`;
-    prevBtn.style.opacity    = index === 0 ? '0.4' : '1';
-    nextBtn.style.opacity    = index >= maxIndex ? '0.4' : '1';
+    track.style.transform = `translateX(-${index * getCardWidth()}px)`;
+    prevBtn.style.opacity = index === 0 ? '0.4' : '1';
+    nextBtn.style.opacity = index >= maxIndex ? '0.4' : '1';
   }
 
   function startTimer() {
@@ -626,55 +584,176 @@
 
   const DAILY_QUIZ = {
     title: 'Organic Chemistry – Functional Groups',
-    meta:  'Chemistry · 10 questions · 30 sec / question',
+    meta: 'Chemistry · 10 questions · 30 sec / question',
   };
 
+  // ─── TRENDING ──────────────────────────────────────────────────────────────
+  // ~4-5 quizzes per subject category
   const TRENDING = [
-    { name: 'Animal Cell – Structure & Functions', meta: 'Biology · 25 questions', badge: 'hot',     icon: 'img/science.png',   featured: true },
-    { name: 'Functions & Limits – Baccalaureate',  meta: 'Mathematics · 20 questions', badge: 'new', icon: 'img/mathematics.png' },
-    { name: 'World Capitals',                       meta: 'Geography · 30 questions', badge: 'classic', icon: 'img/geography.png' },
-    { name: 'Sorting Algorithms',                   meta: 'Computer Science · 15 questions', badge: '', icon: 'img/computer.png' },
+    // Biology
+    { name: 'Animal Cell – Structure & Functions', meta: 'Biology · 25 questions', badge: 'hot', icon: 'img/science.png' },
+    { name: 'Photosynthesis & Cellular Respiration', meta: 'Biology · 20 questions', badge: 'new', icon: 'img/science.png' },
+    { name: 'Human Digestive System', meta: 'Biology · 18 questions', badge: '', icon: 'img/science.png' },
+    { name: 'Genetics & DNA Replication', meta: 'Biology · 22 questions', badge: 'hot', icon: 'img/science.png' },
+    { name: 'Ecosystems & Food Chains', meta: 'Biology · 15 questions', badge: '', icon: 'img/science.png' },
+
+    // Mathematics
+    { name: 'Functions & Limits – Baccalaureate', meta: 'Mathematics · 20 questions', badge: 'new', icon: 'img/mathematics.png' },
+    { name: 'Quadratic Equations & Inequalities', meta: 'Mathematics · 18 questions', badge: 'hot', icon: 'img/mathematics.png' },
+    { name: 'Trigonometry – Identities & Values', meta: 'Mathematics · 16 questions', badge: '', icon: 'img/mathematics.png' },
+    { name: 'Probability & Statistics Basics', meta: 'Mathematics · 22 questions', badge: '', icon: 'img/mathematics.png' },
+    { name: 'Integrals & Derivatives', meta: 'Mathematics · 24 questions', badge: 'classic', icon: 'img/mathematics.png' },
+
+    // Geography
+    { name: 'World Capitals', meta: 'Geography · 30 questions', badge: 'classic', icon: 'img/geography.png' },
+    { name: 'Rivers & Mountains of Europe', meta: 'Geography · 20 questions', badge: '', icon: 'img/geography.png' },
+    { name: 'Countries of Africa – Flags & Facts', meta: 'Geography · 25 questions', badge: 'hot', icon: 'img/geography.png' },
+    { name: 'Climate Zones & Biomes', meta: 'Geography · 18 questions', badge: 'new', icon: 'img/geography.png' },
+    { name: 'Romania – Counties & Cities', meta: 'Geography · 20 questions', badge: '', icon: 'img/geography.png' },
+
+    // Computer Science
+    { name: 'Sorting Algorithms', meta: 'Computer Science · 15 questions', badge: '', icon: 'img/computer.png' },
+    { name: 'Object-Oriented Programming Concepts', meta: 'Computer Science · 18 questions', badge: 'new', icon: 'img/computer.png' },
+    { name: 'Data Structures – Arrays & Lists', meta: 'Computer Science · 20 questions', badge: '', icon: 'img/computer.png' },
+    { name: 'SQL & Database Fundamentals', meta: 'Computer Science · 16 questions', badge: 'hot', icon: 'img/computer.png' },
+    { name: 'Networks & Protocols Basics', meta: 'Computer Science · 14 questions', badge: '', icon: 'img/computer.png' },
+
+    // Physics
+    { name: 'Newton\'s Laws of Motion', meta: 'Physics · 16 questions', badge: '', icon: 'img/science.png' },
+    { name: 'Electricity & Circuits', meta: 'Physics · 20 questions', badge: 'hot', icon: 'img/science.png' },
+    { name: 'Optics – Light & Refraction', meta: 'Physics · 18 questions', badge: '', icon: 'img/science.png' },
+    { name: 'Thermodynamics – Heat & Energy', meta: 'Physics · 15 questions', badge: 'new', icon: 'img/science.png' },
+    { name: 'Kinematics & Projectile Motion', meta: 'Physics · 22 questions', badge: 'classic', icon: 'img/science.png' },
+
+    // History
+    { name: 'World War II – Key Events', meta: 'History · 22 questions', badge: 'hot', icon: 'img/history1.png' },
+    { name: 'Ancient Rome – Republic & Empire', meta: 'History · 18 questions', badge: 'classic', icon: 'img/history1.png' },
+    { name: 'French Revolution – Causes & Effects', meta: 'History · 20 questions', badge: '', icon: 'img/history1.png' },
+    { name: 'Cold War – Key Moments', meta: 'History · 16 questions', badge: 'new', icon: 'img/history1.png' },
+    { name: 'History of Romania – Medieval Period', meta: 'History · 14 questions', badge: '', icon: 'img/history1.png' },
   ];
 
+  // ─── RECOMMENDED ───────────────────────────────────────────────────────────
   const RECOMMENDED = [
-    { name: 'Eminescu\'s Poetry',          meta: 'Literature · 10 questions',        icon: 'img/literature.png' },
-    { name: 'Periodic Table – Elements',   meta: 'Chemistry · 18 questions',         icon: 'img/science.png' },
-    { name: 'World War II – Key Events',   meta: 'History · 22 questions',           icon: 'img/history1.png' },
-    { name: 'Cognitive Psychology Basics', meta: 'Psychology · 12 questions',        icon: 'img/psychology.png' },
-    { name: 'French Vocabulary – A2',      meta: 'Language & Literature · 20 questions', icon: 'img/public.png' },
-    { name: 'Newton\'s Laws of Motion',    meta: 'Physics · 16 questions',           icon: 'img/science.png' },
+    // Language & Literature
+    { name: 'Eminescu\'s Poetry', meta: 'Language & Literature · 10 questions', icon: 'img/literature.png' },
+    { name: 'Romanian Grammar – Parts of Speech', meta: 'Language & Literature · 18 questions', icon: 'img/literature.png' },
+    { name: 'Shakespeare\'s Works & Characters', meta: 'Language & Literature · 16 questions', icon: 'img/literature.png' },
+    { name: 'Literary Devices & Figures of Speech', meta: 'Language & Literature · 14 questions', icon: 'img/literature.png' },
+    { name: 'Romanian Writers – 19th & 20th Century', meta: 'Language & Literature · 20 questions', icon: 'img/literature.png' },
+
+    // Chemistry
+    { name: 'Periodic Table – Elements', meta: 'Chemistry · 18 questions', icon: 'img/science.png' },
+    { name: 'Chemical Bonds & Reactions', meta: 'Chemistry · 22 questions', icon: 'img/science.png' },
+    { name: 'Acids, Bases & pH Scale', meta: 'Chemistry · 16 questions', icon: 'img/science.png' },
+    { name: 'Organic Chemistry – Carbon Compounds', meta: 'Chemistry · 20 questions', icon: 'img/science.png' },
+    { name: 'Stoichiometry & Molar Mass', meta: 'Chemistry · 18 questions', icon: 'img/science.png' },
+
+    // Psychology
+    { name: 'Cognitive Psychology Basics', meta: 'Psychology · 12 questions', icon: 'img/psychology.png' },
+    { name: 'Freud\'s Psychoanalytic Theory', meta: 'Psychology · 14 questions', icon: 'img/psychology.png' },
+    { name: 'Memory & Learning Processes', meta: 'Psychology · 16 questions', icon: 'img/psychology.png' },
+    { name: 'Developmental Psychology – Piaget', meta: 'Psychology · 18 questions', icon: 'img/psychology.png' },
+    { name: 'Personality Theories & Traits', meta: 'Psychology · 15 questions', icon: 'img/psychology.png' },
+
+    // Languages (foreign)
+    { name: 'French Vocabulary – A2', meta: 'Language & Literature · 20 questions', icon: 'img/public.png' },
+    { name: 'English Grammar – Tenses', meta: 'Language & Literature · 22 questions', icon: 'img/public.png' },
+    { name: 'German – Basic Vocabulary B1', meta: 'Language & Literature · 18 questions', icon: 'img/public.png' },
+    { name: 'Spanish – Common Phrases A1', meta: 'Language & Literature · 16 questions', icon: 'img/public.png' },
+    { name: 'Latin – Declensions & Conjugations', meta: 'Language & Literature · 14 questions', icon: 'img/public.png' },
+
+    // Biology (extra)
+    { name: 'Animal Kingdoms – Classification', meta: 'Biology · 14 questions', icon: 'img/science.png' },
+    { name: 'Human Nervous System', meta: 'Biology · 18 questions', icon: 'img/science.png' },
+    { name: 'Plant Biology – Structures & Functions', meta: 'Biology · 16 questions', icon: 'img/science.png' },
+    { name: 'Evolution & Natural Selection', meta: 'Biology · 20 questions', icon: 'img/science.png' },
+    { name: 'Microbiology – Bacteria & Viruses', meta: 'Biology · 15 questions', icon: 'img/science.png' },
+
+    // Geography (extra)
+    { name: 'EU Countries & Capitals', meta: 'Geography · 27 questions', icon: 'img/geography.png' },
+    { name: 'Physical Geography of Asia', meta: 'Geography · 22 questions', icon: 'img/geography.png' },
+    { name: 'World Oceans & Seas', meta: 'Geography · 16 questions', icon: 'img/geography.png' },
+    { name: 'Natural Disasters – Causes & Effects', meta: 'Geography · 18 questions', icon: 'img/geography.png' },
+    { name: 'Cartography & Map Reading', meta: 'Geography · 12 questions', icon: 'img/geography.png' },
+
+    // Mathematics (extra)
+    { name: 'Basic Algebra', meta: 'Mathematics · 18 questions', icon: 'img/mathematics.png' },
+    { name: 'Geometry – Theorems & Proofs', meta: 'Mathematics · 20 questions', icon: 'img/mathematics.png' },
+    { name: 'Number Theory – Primes & Divisibility', meta: 'Mathematics · 15 questions', icon: 'img/mathematics.png' },
+    { name: 'Combinatorics & Permutations', meta: 'Mathematics · 16 questions', icon: 'img/mathematics.png' },
+    { name: 'Matrices & Linear Systems', meta: 'Mathematics · 18 questions', icon: 'img/mathematics.png' },
+
+    // Computer Science (extra)
+    { name: 'HTML & CSS Fundamentals', meta: 'Computer Science · 20 questions', icon: 'img/computer.png' },
+    { name: 'Binary & Number Systems', meta: 'Computer Science · 14 questions', icon: 'img/computer.png' },
+    { name: 'Operating Systems – Core Concepts', meta: 'Computer Science · 16 questions', icon: 'img/computer.png' },
+    { name: 'Recursion & Dynamic Programming', meta: 'Computer Science · 18 questions', icon: 'img/computer.png' },
+    { name: 'Cybersecurity Basics', meta: 'Computer Science · 15 questions', icon: 'img/computer.png' },
+
+    // History (extra)
+    { name: 'Roman Empire – Key Facts', meta: 'History · 15 questions', icon: 'img/history1.png' },
+    { name: 'World War I – Causes & Alliances', meta: 'History · 20 questions', icon: 'img/history1.png' },
+    { name: 'The Renaissance – Art & Ideas', meta: 'History · 16 questions', icon: 'img/history1.png' },
+    { name: 'Ancient Greece – City-States & Culture', meta: 'History · 18 questions', icon: 'img/history1.png' },
+    { name: 'Colonialism & Decolonization', meta: 'History · 14 questions', icon: 'img/history1.png' },
+
+    // Psychology (extra)
+    { name: 'Introduction to Philosophy', meta: 'Psychology · 10 questions', icon: 'img/psychology.png' },
+    { name: 'Social Psychology – Group Behaviour', meta: 'Psychology · 16 questions', icon: 'img/psychology.png' },
+    { name: 'Emotions & Motivation', meta: 'Psychology · 14 questions', icon: 'img/psychology.png' },
+    { name: 'Abnormal Psychology – Disorders', meta: 'Psychology · 18 questions', icon: 'img/psychology.png' },
+    { name: 'Behaviorism – Pavlov & Skinner', meta: 'Psychology · 12 questions', icon: 'img/psychology.png' },
+
+    // Chemistry (extra)
+    { name: 'Electrochemistry & Redox Reactions', meta: 'Chemistry · 16 questions', icon: 'img/science.png' },
+    { name: 'States of Matter & Gas Laws', meta: 'Chemistry · 20 questions', icon: 'img/science.png' },
+    { name: 'Biochemistry – Proteins & Enzymes', meta: 'Chemistry · 18 questions', icon: 'img/science.png' },
+    { name: 'Nuclear Chemistry & Radioactivity', meta: 'Chemistry · 14 questions', icon: 'img/science.png' },
+    { name: 'Solutions & Concentration Calculations', meta: 'Chemistry · 16 questions', icon: 'img/science.png' },
+
+    // Physics (extra)
+    { name: 'Waves & Sound', meta: 'Physics · 18 questions', icon: 'img/science.png' },
+    { name: 'Magnetism & Electromagnetism', meta: 'Physics · 20 questions', icon: 'img/science.png' },
+    { name: 'Modern Physics – Relativity Basics', meta: 'Physics · 14 questions', icon: 'img/science.png' },
+    { name: 'Quantum Mechanics – Introduction', meta: 'Physics · 12 questions', icon: 'img/science.png' },
+    { name: 'Fluids – Pressure & Archimedes', meta: 'Physics · 16 questions', icon: 'img/science.png' },
   ];
 
   const BADGE_LABELS = { hot: 'Hot', new: 'New', classic: 'Classic' };
-
-  function init() {
-    renderDaily();
-    renderGrid('disc-trending',     TRENDING,     true);
-    renderGrid('disc-recommended',  RECOMMENDED,  false);
-    initFilters();
-    renderHomeFeatures();
-  }
-
-  function renderHomeFeatures() {
-  const section = document.getElementById('section-home');
-  if (!section || document.getElementById('home-features-root')) return;
-
-  const root = document.createElement('div');
-  root.id = 'home-features-root';
-  root.className = 'home-features';
 
   function shuffle(arr) {
     return [...arr].sort(() => Math.random() - 0.5);
   }
 
-  const trendingData   = shuffle(TRENDING).slice(0, 6);
-  const recommendedData = shuffle(RECOMMENDED).slice(0, 6);
+  function init() {
+    renderDaily();
+    renderHomeFeatures();
+    renderDiscoverCategories();
+    initFilters();
+  }
 
-  root.innerHTML = `
-    <div class="home-daily" id="home-daily">
+  function renderDaily() {
+    const titleEl = document.getElementById('disc-daily-title');
+    const metaEl = document.getElementById('disc-daily-meta');
+    if (titleEl) titleEl.textContent = DAILY_QUIZ.title;
+    if (metaEl) metaEl.textContent = DAILY_QUIZ.meta;
+  }
+
+  function renderHomeFeatures() {
+    const section = document.getElementById('section-home');
+    if (!section || document.getElementById('home-features-root')) return;
+
+    const root = document.createElement('div');
+    root.id = 'home-features-root';
+    root.className = 'home-features';
+
+    const dailyEl = document.createElement('div');
+    dailyEl.className = 'home-daily';
+    dailyEl.innerHTML = `
       <div class="home-daily__left">
         <span class="home-daily__eyebrow">
-          <img src="img/calendar.png" width="14" height="14" alt="">
+          <img src="img/calendar.png" width="14" height="14" style="vertical-align: middle; filter: invert(1);" alt="">
           Daily quiz
         </span>
         <h3 class="home-daily__title">${DAILY_QUIZ.title}</h3>
@@ -684,20 +763,29 @@
         <img src="img/arrow-right2.png" width="13" height="13" alt="">
         Start now
       </button>
-    </div>
+    `;
+    root.appendChild(dailyEl);
 
-    <div class="home-block">
+    const trendingBlock = document.createElement('div');
+    trendingBlock.className = 'home-block';
+    trendingBlock.innerHTML = `
       <div class="home-block__hdr">
         <span class="home-block__title">
           <img src="img/fire.png" width="18" height="18" alt="">
-          Trending this week
+          Trending
         </span>
         <button class="home-block__see-all">See all</button>
       </div>
       <div class="home-scroll-row" id="hf-trending"></div>
-    </div>
+    `;
+    trendingBlock.querySelector('.home-block__see-all').addEventListener('click', () => {
+      document.querySelector('.navbar-links a[data-section="discover"]')?.click();
+    });
+    root.appendChild(trendingBlock);
 
-    <div class="home-block">
+    const recBlock = document.createElement('div');
+    recBlock.className = 'home-block';
+    recBlock.innerHTML = `
       <div class="home-block__hdr">
         <span class="home-block__title">
           <img src="img/star1.png" width="20" height="20" alt="">
@@ -706,74 +794,96 @@
         <button class="home-block__see-all">See all</button>
       </div>
       <div class="home-scroll-row" id="hf-recommended"></div>
-    </div>
-  `;
-
-  section.appendChild(root);
-
-  trendingData.forEach(q => {
-    document.getElementById('hf-trending').appendChild(buildHomeCard(q));
-  });
-  recommendedData.forEach(q => {
-    document.getElementById('hf-recommended').appendChild(buildHomeCard(q));
-  });
-
-  root.querySelectorAll('.home-block__see-all').forEach(btn => {
-    btn.addEventListener('click', () => {
+    `;
+    recBlock.querySelector('.home-block__see-all').addEventListener('click', () => {
       document.querySelector('.navbar-links a[data-section="discover"]')?.click();
     });
-  });
-}
+    root.appendChild(recBlock);
 
-function buildHomeCard(quiz) {
-  const BADGE_LABELS = { hot: 'Hot', new: 'New', classic: 'Classic' };
-  const card = document.createElement('div');
-  card.className = 'home-card';
-  card.innerHTML = `
-    <div class="home-card__icon-wrap">
-      <img src="${quiz.icon}" alt="">
-    </div>
-    <div class="home-card__body">
-      <p class="home-card__name">${quiz.name}</p>
-      <p class="home-card__meta">${quiz.meta}</p>
-      ${quiz.badge && BADGE_LABELS[quiz.badge] ? `<span class="home-card__badge home-card__badge--${quiz.badge}">${BADGE_LABELS[quiz.badge]}</span>` : ''}
-    </div>
-  `;
-  return card;
-}
+    section.appendChild(root);
 
-  function renderDaily() {
-    const titleEl = document.getElementById('disc-daily-title');
-    const metaEl  = document.getElementById('disc-daily-meta');
-    if (titleEl) titleEl.textContent = DAILY_QUIZ.title;
-    if (metaEl)  metaEl.textContent  = DAILY_QUIZ.meta;
+    shuffle(TRENDING).slice(0, 6).forEach(q => {
+      document.getElementById('hf-trending').appendChild(buildHomeCard(q));
+    });
+    shuffle(RECOMMENDED).slice(0, 6).forEach(q => {
+      document.getElementById('hf-recommended').appendChild(buildHomeCard(q));
+    });
   }
 
-  function buildCard(quiz, isTrending) {
+  function buildHomeCard(quiz) {
     const card = document.createElement('div');
-    card.className = 'disc-card' + (isTrending && quiz.featured ? ' disc-card--featured' : '');
+    card.className = 'home-card';
+    card.innerHTML = `
+      <div class="home-card__icon-wrap">
+        <img src="${quiz.icon}" alt="">
+      </div>
+      <div class="home-card__body">
+        <p class="home-card__name">${quiz.name}</p>
+        <p class="home-card__meta">${quiz.meta}</p>
+        ${quiz.badge && BADGE_LABELS[quiz.badge] ? `<span class="home-card__badge home-card__badge--${quiz.badge}">${BADGE_LABELS[quiz.badge]}</span>` : ''}
+      </div>
+    `;
+    return card;
+  }
 
+  function renderDiscoverCategories() {
+    const trendingBlock = document.getElementById('disc-trending')?.closest('.disc-block');
+    const recommendedBlock = document.getElementById('disc-recommended')?.closest('.disc-block');
+    if (trendingBlock) trendingBlock.remove();
+    if (recommendedBlock) recommendedBlock.remove();
+
+    const allQuizzes = [...TRENDING, ...RECOMMENDED];
+    const categoryMap = {};
+    allQuizzes.forEach(q => {
+      const cat = q.meta.split('·')[0].trim();
+      if (!categoryMap[cat]) categoryMap[cat] = [];
+      if (!categoryMap[cat].find(x => x.name === q.name)) {
+        categoryMap[cat].push(q);
+      }
+    });
+
+    const section = document.getElementById('section-discover');
+    if (!section) return;
+
+    shuffle(Object.keys(categoryMap)).forEach(cat => {
+      const quizzes = shuffle(categoryMap[cat]);
+      if (quizzes.length === 0) return;
+
+      const block = document.createElement('div');
+      block.className = 'disc-block disc-block--cat';
+      block.dataset.cat = cat;
+      block.innerHTML = `
+        <div class="disc-block__hdr">
+          <span class="disc-block__title">${cat}</span>
+          <a href="#" class="disc-block__see-all">See all</a>
+        </div>
+        <div class="disc-grid disc-grid--recommended"></div>
+      `;
+
+      quizzes.forEach(q => block.querySelector('.disc-grid').appendChild(buildCard(q)));
+      section.appendChild(block);
+    });
+  }
+
+  function buildCard(quiz) {
+    const card = document.createElement('div');
+    card.className = 'disc-card';
     const iconWrap = document.createElement('div');
     iconWrap.className = 'disc-card__icon-wrap';
     const img = document.createElement('img');
     img.src = quiz.icon;
     img.alt = '';
     iconWrap.appendChild(img);
-
     const body = document.createElement('div');
     body.className = 'disc-card__body';
-
     const name = document.createElement('p');
     name.className = 'disc-card__name';
     name.textContent = quiz.name;
-
     const meta = document.createElement('p');
     meta.className = 'disc-card__meta';
     meta.textContent = quiz.meta;
-
     body.appendChild(name);
     body.appendChild(meta);
-
     if (quiz.badge && BADGE_LABELS[quiz.badge]) {
       const footer = document.createElement('div');
       footer.className = 'disc-card__footer';
@@ -783,27 +893,9 @@ function buildHomeCard(quiz) {
       footer.appendChild(badge);
       body.appendChild(footer);
     }
-
     card.appendChild(iconWrap);
     card.appendChild(body);
-
     return card;
-  }
-
-  function renderGrid(containerId, data, isTrending) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.innerHTML = '';
-
-    if (data.length === 0) {
-      const empty = document.createElement('p');
-      empty.className = 'disc-empty';
-      empty.textContent = 'No quizzes found for this category.';
-      container.appendChild(empty);
-      return;
-    }
-
-    data.forEach(quiz => container.appendChild(buildCard(quiz, isTrending)));
   }
 
   function initFilters() {
@@ -812,18 +904,19 @@ function buildHomeCard(quiz) {
       btn.addEventListener('click', () => {
         filters.forEach(f => f.classList.remove('is-active'));
         btn.classList.add('is-active');
-        const cat = btn.dataset.cat;
-        filterGrids(cat);
+        filterGrids(btn.dataset.cat);
       });
     });
   }
 
   function filterGrids(cat) {
-    const filteredTrending     = cat ? TRENDING.filter(q => q.meta.toLowerCase().includes(cat.toLowerCase())) : TRENDING;
-    const filteredRecommended  = cat ? RECOMMENDED.filter(q => q.meta.toLowerCase().includes(cat.toLowerCase())) : RECOMMENDED;
-
-    renderGrid('disc-trending',    filteredTrending,    true);
-    renderGrid('disc-recommended', filteredRecommended, false);
+    document.querySelectorAll('.disc-block--cat').forEach(block => {
+      if (!cat) {
+        block.style.display = '';
+      } else {
+        block.style.display = block.dataset.cat.toLowerCase().includes(cat.toLowerCase()) ? '' : 'none';
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
@@ -831,14 +924,13 @@ function buildHomeCard(quiz) {
   } else {
     init();
   }
-
 })();
 
 (function () {
   'use strict';
 
-  let quizzes       = JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]');
-  let editorQuizId  = null;
+  let quizzes = JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]');
+  let editorQuizId = null;
   let currentQIndex = 0;
 
   function saveQuizzes() {
@@ -858,37 +950,35 @@ function buildHomeCard(quiz) {
   window.blitziqCreateDraft = function (payload) {
     const count = parseInt(payload.questionCount) || 10;
     const questions = Array.from({ length: count }, (_, i) => ({
-      index:    i,
-      text:     '',
-      answers:  Array.from({ length: payload.answerCount }, () => ({ text: '', correct: false })),
-      type:     'single',
-      time:     payload.timePerQuestion,
-      points:   payload.pointsPerAnswer,
+      index: i,
+      text: '',
+      answers: Array.from({ length: payload.answerCount }, () => ({ text: '', correct: false })),
+      type: 'single',
+      time: payload.timePerQuestion,
+      points: payload.pointsPerAnswer,
     }));
     if (questions.length > 0) {
       questions[0].answers[0].correct = true;
     }
-
     const quiz = {
-      id:            Date.now().toString(),
-      name:          payload.name,
-      description:   payload.description || '',
-      subject:       payload.subject || '',
-      language:      payload.language || '',
-      visibility:    payload.visibility || 'public',
-      answerCount:   payload.answerCount,
-      timePerQ:      payload.timePerQuestion,
+      id: Date.now().toString(),
+      name: payload.name,
+      description: payload.description || '',
+      subject: payload.subject || '',
+      language: payload.language || '',
+      visibility: payload.visibility || 'public',
+      answerCount: payload.answerCount,
+      timePerQ: payload.timePerQuestion,
       questionOrder: payload.questionOrder,
-      answerOrder:   payload.answerOrder,
-      attempts:      payload.attempts,
-      passScore:     payload.passScore,
-      points:        payload.pointsPerAnswer,
+      answerOrder: payload.answerOrder,
+      attempts: payload.attempts,
+      passScore: payload.passScore,
+      points: payload.pointsPerAnswer,
       displayOptions: payload.displayOptions || [],
-      status:        'draft',
-      createdAt:     Date.now(),
+      status: 'draft',
+      createdAt: Date.now(),
       questions,
     };
-
     quizzes.unshift(quiz);
     saveQuizzes();
     renderMyQuizzes();
@@ -898,7 +988,6 @@ function buildHomeCard(quiz) {
   function renderMyQuizzes() {
     const section = document.getElementById('section-quizzes');
     if (!section) return;
-
     if (quizzes.length === 0) {
       section.innerHTML = `
         <div class="mq-empty">
@@ -911,7 +1000,6 @@ function buildHomeCard(quiz) {
       `;
       return;
     }
-
     section.innerHTML = `
       <div class="mq-header">
         <h2 class="mq-header__title">My quizzes</h2>
@@ -919,7 +1007,6 @@ function buildHomeCard(quiz) {
       </div>
       <div class="mq-grid" id="mq-grid"></div>
     `;
-
     const grid = document.getElementById('mq-grid');
     quizzes.forEach(quiz => grid.appendChild(buildQuizCard(quiz)));
   }
@@ -928,12 +1015,10 @@ function buildHomeCard(quiz) {
     const card = document.createElement('div');
     card.className = 'mq-card';
     card.dataset.id = quiz.id;
-
-    const filled   = quiz.questions.filter(q => q.text.trim()).length;
-    const total    = quiz.questions.length;
-    const pct      = total > 0 ? Math.round((filled / total) * 100) : 0;
+    const filled = quiz.questions.filter(q => q.text.trim()).length;
+    const total = quiz.questions.length;
+    const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
     const statusLabel = quiz.status === 'draft' ? 'Draft' : 'Published';
-
     card.innerHTML = `
       <div class="mq-card__top">
         <span class="mq-card__status mq-card__status--${quiz.status}">${statusLabel}</span>
@@ -960,13 +1045,11 @@ function buildHomeCard(quiz) {
         </button>
       </div>
     `;
-
     card.querySelector('.mq-card__edit').addEventListener('click', () => openEditor(quiz.id));
     card.querySelector('.mq-card__delete').addEventListener('click', e => {
       e.stopPropagation();
       deleteQuiz(quiz.id);
     });
-
     return card;
   }
 
@@ -979,7 +1062,7 @@ function buildHomeCard(quiz) {
   function setNavbarEditorMode(hidden) {
     const search = document.querySelector('.navbar-search');
     const newBtn = document.getElementById('btn-new-quiz');
-    const bell   = document.querySelector('.navbar-bell');
+    const bell = document.querySelector('.navbar-bell');
     [search, newBtn, bell].forEach(el => {
       if (!el) return;
       if (hidden) {
@@ -992,17 +1075,14 @@ function buildHomeCard(quiz) {
   }
 
   function openEditor(quizId) {
-    editorQuizId  = quizId;
+    editorQuizId = quizId;
     currentQIndex = 0;
-    const quiz    = getQuiz(quizId);
+    const quiz = getQuiz(quizId);
     if (!quiz) return;
-
     switchSection('quizzes');
     setNavbarEditorMode(true);
-
     const section = document.getElementById('section-quizzes');
     section.innerHTML = buildEditorHTML(quiz);
-
     attachEditorEvents(quiz);
     renderQuestionList(quiz);
     loadQuestion(quiz, 0);
@@ -1017,7 +1097,6 @@ function buildHomeCard(quiz) {
   function buildEditorHTML(quiz) {
     return `
       <div class="qe-wrap">
-
         <aside class="qe-sidebar">
           <div class="qe-sidebar__header">
             <button class="qe-back" id="qe-back">
@@ -1030,7 +1109,6 @@ function buildHomeCard(quiz) {
           </div>
           <div class="qe-q-list" id="qe-q-list"></div>
         </aside>
-
         <main class="qe-main">
           <div class="qe-topbar">
             <span class="qe-topbar__info" id="qe-q-label">Question 1 of ${quiz.questions.length}</span>
@@ -1042,15 +1120,11 @@ function buildHomeCard(quiz) {
               <button class="qe-publish-btn" id="qe-publish">Publish quiz</button>
             </div>
           </div>
-
           <div class="qe-editor" id="qe-editor">
-
             <div class="qe-field">
               <label class="qe-field__label">Question text</label>
-              <textarea class="qe-field__input qe-field__input--textarea" id="qe-q-text"
-                placeholder="Type your question here..." rows="3"></textarea>
+              <textarea class="qe-field__input qe-field__input--textarea" id="qe-q-text" placeholder="Type your question here..." rows="3"></textarea>
             </div>
-
             <div class="qe-meta-row">
               <div class="qe-field qe-field--small">
                 <label class="qe-field__label">Time (sec)</label>
@@ -1074,12 +1148,9 @@ function buildHomeCard(quiz) {
                 </div>
               </div>
             </div>
-
             <div class="qe-divider"></div>
             <p class="qe-section-label">Answers <span class="qe-section-hint">(click the icon to mark correct)</span></p>
-
             <div class="qe-answers" id="qe-answers"></div>
-
             <div class="qe-nav">
               <button class="qe-nav-btn" id="qe-prev">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1094,10 +1165,8 @@ function buildHomeCard(quiz) {
                 </svg>
               </button>
             </div>
-
           </div>
         </main>
-
       </div>
     `;
   }
@@ -1107,19 +1176,16 @@ function buildHomeCard(quiz) {
       saveCurrentQuestion(quiz);
       closeEditor();
     });
-
     document.getElementById('qe-save')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
       showSaveToast();
     });
-
     document.getElementById('qe-publish')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
       quiz.status = 'published';
       saveQuizzes();
       closeEditor();
     });
-
     document.getElementById('qe-prev')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
       if (currentQIndex > 0) {
@@ -1128,7 +1194,6 @@ function buildHomeCard(quiz) {
         loadQuestion(quiz, currentQIndex);
       }
     });
-
     document.getElementById('qe-next-q')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
       if (currentQIndex < quiz.questions.length - 1) {
@@ -1143,7 +1208,6 @@ function buildHomeCard(quiz) {
     const list = document.getElementById('qe-q-list');
     if (!list) return;
     list.innerHTML = '';
-
     quiz.questions.forEach((q, i) => {
       const item = document.createElement('div');
       item.className = 'qe-q-item' + (i === currentQIndex ? ' is-active' : '');
@@ -1166,30 +1230,26 @@ function buildHomeCard(quiz) {
   function loadQuestion(quiz, index) {
     const q = quiz.questions[index];
     if (!q) return;
-
     document.getElementById('qe-q-label').textContent = `Question ${index + 1} of ${quiz.questions.length}`;
-    document.getElementById('qe-q-text').value  = q.text   || '';
-    document.getElementById('qe-q-time').value  = q.time   || quiz.timePerQ;
-    document.getElementById('qe-q-pts').value   = q.points || quiz.points;
+    document.getElementById('qe-q-text').value = q.text || '';
+    document.getElementById('qe-q-time').value = q.time || quiz.timePerQ;
+    document.getElementById('qe-q-pts').value = q.points || quiz.points;
 
     const typeSelect = document.getElementById('qe-q-type');
     if (typeSelect) {
       typeSelect.value = q.type || 'single';
-
       const freshSelect = typeSelect.cloneNode(true);
       typeSelect.parentNode.replaceChild(freshSelect, typeSelect);
       freshSelect.value = q.type || 'single';
-
       freshSelect.addEventListener('change', () => {
-        q.text   = document.getElementById('qe-q-text').value;
-        q.time   = parseInt(document.getElementById('qe-q-time').value)  || quiz.timePerQ;
-        q.points = parseInt(document.getElementById('qe-q-pts').value)   || quiz.points;
-        q.type   = freshSelect.value;
-
+        q.text = document.getElementById('qe-q-text').value;
+        q.time = parseInt(document.getElementById('qe-q-time').value) || quiz.timePerQ;
+        q.points = parseInt(document.getElementById('qe-q-pts').value) || quiz.points;
+        q.type = freshSelect.value;
         if (q.type === 'truefalse') {
           const prev = q.answers || [];
           q.answers = [
-            { text: prev[0]?.text || 'True',  correct: prev[0]?.correct || false },
+            { text: prev[0]?.text || 'True', correct: prev[0]?.correct || false },
             { text: prev[1]?.text || 'False', correct: prev[1]?.correct || false },
           ];
           if (!q.answers[0].correct && !q.answers[1].correct) {
@@ -1199,18 +1259,16 @@ function buildHomeCard(quiz) {
           const prev = q.answers || [];
           const target = quiz.answerCount;
           const tfDefaults = ['True', 'False'];
-          const cleaned = prev.map((a, i) => ({
-            text:    tfDefaults.includes(a.text) ? '' : a.text,
+          const cleaned = prev.map((a) => ({
+            text: tfDefaults.includes(a.text) ? '' : a.text,
             correct: a.correct,
           }));
           while (cleaned.length < target) cleaned.push({ text: '', correct: false });
           q.answers = cleaned.slice(0, target);
-
           if (q.type === 'single' && !q.answers.some(a => a.correct)) {
             q.answers[0].correct = true;
           }
         }
-
         saveQuizzes();
         loadQuestion(quiz, index);
       });
@@ -1218,10 +1276,9 @@ function buildHomeCard(quiz) {
 
     const answersEl = document.getElementById('qe-answers');
     answersEl.innerHTML = '';
-
-    const letters  = ['A', 'B', 'C', 'D', 'E', 'F'];
-    const isTF     = q.type === 'truefalse';
-    const answers  = isTF ? q.answers.slice(0, 2) : q.answers;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const isTF = q.type === 'truefalse';
+    const answers = isTF ? q.answers.slice(0, 2) : q.answers;
 
     answers.forEach((ans, ai) => {
       const row = document.createElement('div');
@@ -1231,32 +1288,25 @@ function buildHomeCard(quiz) {
           <img src="${ans.correct ? 'img/correct.png' : 'img/correct-empty.png'}" width="16" height="16" alt="" class="qe-correct-img">
         </button>
         <span class="qe-answer-letter">${letters[ai]}</span>
-        <input class="qe-answer-input" type="text" placeholder="${isTF ? (ai === 0 ? 'True' : 'False') : 'Answer ' + letters[ai] + '...'}"
-          value="${escapeHtml(ans.text)}" data-ai="${ai}">
+        <input class="qe-answer-input" type="text" placeholder="${isTF ? (ai === 0 ? 'True' : 'False') : 'Answer ' + letters[ai] + '...'}" value="${escapeHtml(ans.text)}" data-ai="${ai}">
       `;
-
       row.querySelector('.qe-answer-correct').addEventListener('click', () => {
-        q.text   = document.getElementById('qe-q-text').value;
-        q.time   = parseInt(document.getElementById('qe-q-time').value)   || quiz.timePerQ;
-        q.points = parseInt(document.getElementById('qe-q-pts').value)    || quiz.points;
-
+        q.text = document.getElementById('qe-q-text').value;
+        q.time = parseInt(document.getElementById('qe-q-time').value) || quiz.timePerQ;
+        q.points = parseInt(document.getElementById('qe-q-pts').value) || quiz.points;
         if (q.type === 'single' || q.type === 'truefalse') {
           q.answers.forEach(a => a.correct = false);
         }
         q.answers[ai].correct = !q.answers[ai].correct;
-
         if ((q.type === 'single' || q.type === 'truefalse') && !q.answers.some(a => a.correct)) {
           q.answers[ai].correct = true;
         }
-
         saveQuizzes();
         loadQuestion(quiz, index);
       });
-
       row.querySelector('.qe-answer-input').addEventListener('input', e => {
         q.answers[ai].text = e.target.value;
       });
-
       answersEl.appendChild(row);
     });
 
@@ -1269,9 +1319,9 @@ function buildHomeCard(quiz) {
   function saveCurrentQuestion(quiz) {
     const q = quiz.questions[currentQIndex];
     if (!q) return;
-    q.text   = document.getElementById('qe-q-text')?.value  || '';
-    q.time   = parseInt(document.getElementById('qe-q-time')?.value)  || quiz.timePerQ;
-    q.points = parseInt(document.getElementById('qe-q-pts')?.value)   || quiz.points;
+    q.text = document.getElementById('qe-q-text')?.value || '';
+    q.time = parseInt(document.getElementById('qe-q-time')?.value) || quiz.timePerQ;
+    q.points = parseInt(document.getElementById('qe-q-pts')?.value) || quiz.points;
     const typeSelect = document.getElementById('qe-q-type');
     if (typeSelect) q.type = typeSelect.value;
     saveQuizzes();
@@ -1296,5 +1346,4 @@ function buildHomeCard(quiz) {
   window.blitziqSwitchSection = switchSection;
 
   renderMyQuizzes();
-
 })();
