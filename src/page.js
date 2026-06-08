@@ -173,12 +173,8 @@ function getQuizzes() {
   const saved = getSaved();
   if (saved.length === 0) {
     favItem.classList.remove('is-expanded');
-    const img = favItem.querySelector('img');
-    if (img) img.src = 'img/bookmark.png';
     return;
   }
-  const img = favItem.querySelector('img');
-  if (img) img.src = 'img/bookmark1.png';
 
   const list = document.createElement('div');
   list.className = 'sidebar-fav-list sidebar-folder-quizzes' + (favItem.classList.contains('is-expanded') ? ' is-open' : '');
