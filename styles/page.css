@@ -2391,4 +2391,136 @@ body.sidebar-collapsed .sidebar .sidebar-folder-dot {
   font-size: 0.8125rem;
   color: #6b7280;
   margin: 0;
+}
+
+.qe-desc-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.qe-q-add-wrap {
+  padding: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.qe-q-add-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px;
+  border: 1px dashed #a78bfa;
+  border-radius: 8px;
+  background: #faf5ff;
+  color: #6d28d9;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.qe-q-add-btn:hover:not(:disabled) {
+  background: #ede9fe;
+  border-color: #6d28d9;
+}
+.qe-q-add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.qe-q-item {
+  position: relative;
+}
+.qe-q-item__delete {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  border: none;
+  background: none;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.qe-q-item__delete:hover {
+  color: #ef4444;
+  background: #fee2e2;
+}
+.qe-q-item:hover .qe-q-item__delete {
+  display: flex;
+}
+.qe-q-item.is-confirming {
+  background: #fff7f7;
+}
+.qe-q-item.is-removing {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.qe-q-delete-confirm {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.92);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 20;
+}
+.qe-q-delete-confirm.is-visible {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+.qe-q-delete-confirm__text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+  white-space: nowrap;
+}
+.qe-q-delete-confirm__yes {
+  border: none;
+  border-radius: 5px;
+  padding: 2px 8px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.qe-q-delete-confirm__yes:hover {
+  background: #dc2626;
+}
+.qe-q-delete-confirm__no {
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 2px 8px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.qe-q-delete-confirm__no:hover {
+  background: #f9fafb;
+  color: #111;
 }/*# sourceMappingURL=page.css.map */
