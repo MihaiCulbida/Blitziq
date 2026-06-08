@@ -155,7 +155,7 @@ function getQuizzes() {
     a.innerHTML = `
       <span class="sidebar-folder-dot" style="background:${COLORS[index % COLORS.length]}"></span>
       <span class="sidebar-folder-name">${escapeHtml(folder.name)}</span>
-      <span class="sidebar-folder-count">${folder.count}</span>
+      <span class="sidebar-folder-count">${getQuizzes().filter(q => q.folders && q.folders.includes(index)).length}</span>
       <button class="sidebar-folder-delete" data-index="${index}" aria-label="Delete folder" title="Delete">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -315,7 +315,7 @@ function getQuizzes() {
       const folders = getFolders();
       if (folders.length >= MAX_FOLDERS) { cancelFolder(); return; }
       row.classList.add('is-removing');
-      folders.push({ name, count: 0 });
+      folders.push({ name });
       saveFolders(folders);
       row.classList.remove('is-visible');
       setTimeout(() => renderFolders(), 200);
@@ -1440,6 +1440,7 @@ function getQuizzes() {
               quiz.folders.splice(idx, 1);
             }
             saveQuizzes();
+            renderFolders();
             folderBtn.click();
           });
         });
