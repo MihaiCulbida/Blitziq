@@ -131,7 +131,7 @@ function getQuizzes() {
       item.addEventListener('click', e => {
         e.preventDefault();
         window.blitziqSwitchSection('quizzes');
-        openEditor(q.id);
+        window.blitziqOpenEditor(q.id);
       });
       subList.appendChild(item);
     });
@@ -1279,6 +1279,8 @@ function getQuizzes() {
       }
     });
   }
+
+  window.blitziqOpenEditor = function(quizId) { openEditor(quizId); };
 
   function openEditor(quizId) {
     editorQuizId = quizId;
