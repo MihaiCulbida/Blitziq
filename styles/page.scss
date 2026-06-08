@@ -2761,3 +2761,107 @@ body.sidebar-collapsed {
     }
   }
 }
+
+.qe-answer-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid $border;
+  border-radius: 12px;
+  background: $white;
+  margin-bottom: 10px;
+  transition: border-color .15s ease, background .15s ease;
+
+  &.is-correct {
+    border-color: $purple;
+    background: rgba(109, 40, 217, .04);
+  }
+}
+
+.qe-answer-correct {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.qe-answer-letter {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: $purple-light;
+  color: $purple;
+  font-size: .85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qe-answer-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: .95rem;
+  color: $text;
+  outline: none;
+
+  &::placeholder {
+    color: #94a3b8;
+  }
+}
+
+.qe-answer-remove {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: none;
+  color: $text-muted;
+  cursor: pointer;
+  border-radius: 4px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity .15s ease, color .15s ease;
+
+  &:hover {
+    color: #ef4444;
+  }
+}
+
+.qe-answer-row:hover .qe-answer-remove {
+  opacity: 1;
+}
+
+.qe-answer-add-row {
+  margin-top: 6px;
+}
+
+.qe-answer-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  color: $text;
+  font-family: inherit;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color .15s ease;
+
+  &:hover:not(:disabled) {
+    color: $purple;
+  }
+
+  &:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+}
