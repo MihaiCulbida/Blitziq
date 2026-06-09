@@ -15,6 +15,10 @@ body {
           user-select: none;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .navbar {
   display: flex;
   align-items: center;
