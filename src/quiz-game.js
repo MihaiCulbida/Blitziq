@@ -52,7 +52,7 @@
   startScreen.id = 'game-start';
   startScreen.className = 'game-start';
   startScreen.innerHTML = `
-    <div class="game-start__icon">⚡</div>
+    <img class="game-start__icon" src="img/quiz.png" style="width:90px;height:90px;">
     <h3 class="game-start__title">PHP Quiz</h3>
     <p class="game-start__desc">3 questions · 15 seconds each<br>Test your PHP knowledge</p>
     <button class="game-start__btn" id="btn-start-game">
