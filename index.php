@@ -14,6 +14,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/theme-l.css">
 </head>
 <body>
 
@@ -121,6 +122,10 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </ul>
 
     <div class="navbar-actions">
+      <button type="button" class="navbar-btn navbar-btn-toggle" id="btn-dark-toggle" aria-label="Toggle dark mode">
+        <img src="img/moon.png" id="moon-icon" class="icon-moon" width="24" height="24" alt="Dark mode">
+        <img src="img/sun.png" id="sun-icon" class="icon-sun" width="24" height="24" alt="Light mode" style="display:none;">
+      </button>
       <?php if ($logged_in): ?>
         <span class="navbar-username"><?= $username ?></span>
         <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
@@ -128,7 +133,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
             <?= strtoupper(mb_substr($username, 0, 1)) ?>
           </button>
           <div class="navbar-dropdown" id="navbar-dropdown">
-            <a href="logout.php" class="navbar-dropdown-item">Log out</a>
+            <a href="php/logout.php" class="navbar-dropdown-item">Log out</a>
           </div>
         </div>
       <?php else: ?>
@@ -519,7 +524,36 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </div>
 </div>
+ <script>
+(function(){
+  const html = document.documentElement;
+  const moonIcon = document.getElementById('moon-icon');
+  const sunIcon = document.getElementById('sun-icon');
+  
+  function updateThemeIcons(isDark) {
+    if (moonIcon) moonIcon.style.display = isDark ? 'none' : 'inline-block';
+    if (sunIcon) sunIcon.style.display = isDark ? 'inline-block' : 'none';
+  }
+  
+  if (localStorage.getItem('blitziq-dark') === '1') {
+    html.classList.add('dark');
+    updateThemeIcons(true);
+  } else {
+    updateThemeIcons(false);
+  }
 
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('btn-dark-toggle');
+    if (!btn) return;
+    
+    btn.addEventListener('click', function () {
+      const dark = html.classList.toggle('dark');
+      localStorage.setItem('blitziq-dark', dark ? '1' : '0');
+      updateThemeIcons(dark);
+    });
+  });
+})();
+</script>
   <script src="src/toast.js"></script>
   <script src="src/hero.js"></script>
   <script src="src/overlays.js"></script>
