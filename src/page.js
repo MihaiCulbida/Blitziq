@@ -2352,7 +2352,90 @@ window.blitziqRenderFavorites = renderFavorites;
     overlay.removeAttribute('aria-hidden');
     document.body.style.overflow = 'hidden';
 
-    loadQuestion();
+    showCountdown(() => loadQuestion());
+  }
+
+  function showCountdown(onDone) {
+    const body = document.getElementById('qr-body');
+    const questionWrap = document.getElementById('qr-question-wrap');
+    const footer = document.querySelector('.qr-footer');
+    const existing = document.getElementById('qr-countdown');
+
+    body.style.display = 'none';
+    questionWrap.style.display = 'none';
+    footer.style.display = 'none';
+
+    if (existing) existing.remove();
+
+    const cd = document.createElement('div');
+    cd.id = 'qr-countdown';
+    cd.innerHTML = `
+      <div class="qr-cd-label">Get ready!</div>
+      <div class="qr-cd-ring">
+        <svg class="qr-cd-svg" viewBox="0 0 120 120">
+          <circle class="qr-cd-track" cx="60" cy="60" r="52"/>
+          <circle class="qr-cd-arc"   cx="60" cy="60" r="52" id="qr-cd-arc"/>
+        </svg>
+        <span class="qr-cd-num" id="qr-cd-num">3</span>
+      </div>
+      <div class="qr-cd-quiz-name" id="qr-cd-quiz-name"></div>
+    `;
+    overlay.appendChild(cd);
+
+    const quizNameEl = cd.querySelector('#qr-cd-quiz-name');
+    if (quizNameEl) quizNameEl.textContent = state.quiz.name || '';
+
+    const arc = cd.querySelector('#qr-cd-arc');
+    const numEl = cd.querySelector('#qr-cd-num');
+    const CIRC = 2 * Math.PI * 52;
+    arc.style.strokeDasharray = CIRC;
+    arc.style.strokeDashoffset = '0';
+
+    const steps = [
+      { num: '3', color: '#a78bfa', label: 'Get ready!' },
+      { num: '2', color: '#f472b6', label: 'Almost...' },
+      { num: '1', color: '#34d399', label: 'Go!' },
+    ];
+
+    let i = 0;
+
+    function tick() {
+      if (i >= steps.length) {
+        cd.classList.add('qr-cd-out');
+        setTimeout(() => {
+          cd.remove();
+          body.style.display = '';
+          questionWrap.style.display = '';
+          footer.style.display = '';
+          onDone();
+        }, 400);
+        return;
+      }
+
+      const s = steps[i];
+      numEl.textContent = s.num;
+      cd.querySelector('.qr-cd-label').textContent = s.label;
+      arc.style.stroke = s.color;
+      numEl.style.color = s.color;
+
+      // reset arc
+      arc.style.transition = 'none';
+      arc.style.strokeDashoffset = '0';
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        arc.style.transition = 'stroke-dashoffset 1s linear';
+        arc.style.strokeDashoffset = CIRC;
+      }));
+
+      cd.classList.remove('qr-cd-pop');
+      void cd.offsetWidth;
+      cd.classList.add('qr-cd-pop');
+
+      i++;
+      setTimeout(tick, 1000);
+    }
+
+    tick();
   }
 
   function close() {
