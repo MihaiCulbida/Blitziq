@@ -294,8 +294,19 @@ document.getElementById('btn-about-create')?.addEventListener('click', () => {
   if (document.querySelector('.navbar-avatar')) {
     window.location.href = 'page.php';
   } else {
-    openOverlay('overlay-login');
+    openOverlay('overlay-signup');
   }
+});
+
+document.querySelectorAll('[data-open="overlay-terms"]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    openOverlay('overlay-terms');
+  });
+});
+ 
+document.getElementById('btn-terms-accept')?.addEventListener('click', () => {
+  closeOverlay('overlay-terms');
 });
 
 })();

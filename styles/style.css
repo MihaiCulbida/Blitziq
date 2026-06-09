@@ -1498,22 +1498,26 @@ body::-webkit-scrollbar {
   box-shadow: 0 8px 24px rgba(251, 191, 36, 0.55);
 }
 
-.overlay-card--about {
+.overlay-card.info-card {
   max-width: 540px;
   padding: 40px 40px 32px;
   gap: 0;
 }
 
-.about-section {
+.overlay-card.info-card .overlay-title {
+  margin-bottom: 18px;
+}
+
+.info-section {
   border-top: 1px solid #f0eff5;
   padding: 22px 0;
 }
-.about-section:last-of-type {
+.info-section:last-of-type {
   border-bottom: 1px solid #f0eff5;
   margin-bottom: 24px;
 }
 
-.about-section-label {
+.info-label {
   font-size: 0.7rem;
   font-weight: 700;
   color: #a78bfa;
@@ -1522,61 +1526,30 @@ body::-webkit-scrollbar {
   margin: 0 0 10px;
 }
 
-.about-section-body {
+.info-text {
   font-size: 0.875rem;
   color: #555;
   line-height: 1.7;
   margin: 0;
 }
-.about-section-body strong {
+.info-text strong {
   color: #111;
   font-weight: 600;
 }
 
-.about-swatches {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.about-swatch {
-  flex: 1;
-  height: 56px;
-  border-radius: 10px;
-  display: flex;
-  align-items: flex-end;
-  padding: 7px 10px;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-.about-swatch--purple {
-  background: #ede9fe;
-  color: #5b21b6;
-}
-.about-swatch--yellow {
-  background: #fef3c7;
-  color: #92400e;
-}
-.about-swatch--green {
-  background: #ecfdf5;
-  color: #065f46;
-}
-
-.about-footer {
+.info-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.about-footer-note {
+.info-footer-note {
   font-size: 0.75rem;
   color: #bbb;
-  line-height: 1.4;
 }
 
-.about-footer-btn {
+.info-footer-btn {
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 700;
@@ -1589,14 +1562,16 @@ body::-webkit-scrollbar {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  white-space: nowrap;
   transition: background 0.15s, transform 0.12s;
   box-shadow: 0 4px 16px rgba(109, 40, 217, 0.3);
 }
-.about-footer-btn img {
+.info-footer-btn img {
   display: block;
   flex-shrink: 0;
+  filter: invert(1);
 }
-.about-footer-btn:hover {
+.info-footer-btn:hover {
   background: rgb(97.9071146245, 34.7707509881, 196.7292490119);
   transform: translateY(-1px);
 }/*# sourceMappingURL=style.css.map */

@@ -1512,26 +1512,27 @@ body::-webkit-scrollbar {
   }
 }
 
-// overlay-about.scss
-// Adaugă în style.css sau importă în fișierul tău principal SCSS
-
-.overlay-card--about {
+.overlay-card.info-card {
   max-width: 540px;
   padding: 40px 40px 32px;
   gap: 0;
 }
 
-.about-section {
+.overlay-card.info-card .overlay-title {
+  margin-bottom: 18px;
+}
+ 
+.info-section {
   border-top: 1px solid #f0eff5;
   padding: 22px 0;
-
+ 
   &:last-of-type {
     border-bottom: 1px solid #f0eff5;
     margin-bottom: 24px;
   }
 }
-
-.about-section-label {
+ 
+.info-label {
   font-size: 0.7rem;
   font-weight: 700;
   color: #a78bfa;
@@ -1539,66 +1540,32 @@ body::-webkit-scrollbar {
   letter-spacing: 0.1em;
   margin: 0 0 10px;
 }
-
-.about-section-body {
+ 
+.info-text {
   font-size: 0.875rem;
   color: $text-muted;
   line-height: 1.7;
   margin: 0;
-
+ 
   strong {
     color: $text;
     font-weight: 600;
   }
 }
-
-.about-swatches {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.about-swatch {
-  flex: 1;
-  height: 56px;
-  border-radius: 10px;
-  display: flex;
-  align-items: flex-end;
-  padding: 7px 10px;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-
-  &--purple {
-    background: #ede9fe;
-    color: #5b21b6;
-  }
-
-  &--yellow {
-    background: #fef3c7;
-    color: #92400e;
-  }
-
-  &--green {
-    background: #ecfdf5;
-    color: #065f46;
-  }
-}
-
-.about-footer {
+ 
+.info-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
-
-.about-footer-note {
+ 
+.info-footer-note {
   font-size: 0.75rem;
   color: #bbb;
-  line-height: 1.4;
 }
-
-.about-footer-btn {
+ 
+.info-footer-btn {
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 700;
@@ -1611,16 +1578,19 @@ body::-webkit-scrollbar {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  white-space: nowrap;
   transition: background 0.15s, transform 0.12s;
   box-shadow: 0 4px 16px rgba(109, 40, 217, 0.3);
-
+ 
   img {
     display: block;
     flex-shrink: 0;
+    filter: invert(1);
   }
-
+ 
   &:hover {
     background: darken(#6d28d9, 5%);
     transform: translateY(-1px);
   }
 }
+ 

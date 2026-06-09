@@ -346,7 +346,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
       <ul>
         <li><a href="#" data-open="overlay-contact">Contacts</a></li>
         <li><a href="#" data-open="overlay-about">About</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#" data-open="overlay-terms">Terms & Conditions</a></li>
         <li><a href="#">Privacy Policy</a></li>
       </ul>
     </div>
@@ -413,7 +413,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
 
 <div class="overlay" id="overlay-about" role="dialog" aria-modal="true" aria-labelledby="about-title">
   <div class="overlay-backdrop" data-close="overlay-about"></div>
-  <div class="overlay-card overlay-card--about">
+  <div class="overlay-card info-card">
 
     <button class="overlay-close" data-close="overlay-about" aria-label="Close">
       <img src="img/close.png" width="16" height="16">
@@ -421,28 +421,65 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
 
     <h2 class="overlay-title" id="about-title">About BlitzIQ</h2>
 
-    <div class="about-section">
-      <p class="about-section-label">What is BlitzIQ?</p>
-      <p class="about-section-body">BlitzIQ is a live quiz platform. A question appears, a timer counts down, you answer fast. Simple to host, instant to join. Built for classrooms, events, and anyone who thinks learning should feel like a game.</p>
+    <div class="info-section">
+      <p class="info-label">What is BlitzIQ?</p>
+      <p class="info-text">BlitzIQ is a live quiz platform. A question appears, a timer counts down, you answer fast. Simple to host, instant to join, built for classrooms, events, or anyone who thinks learning should feel like a game.</p>
     </div>
 
-    <div class="about-section">
-      <p class="about-section-label">How scoring works</p>
-      <p class="about-section-body">Every correct answer scores points. Answer faster and you score <strong>more</strong> - the timer is part of the game. Wrong or late answers score zero. Final rankings are shown after the last question.</p>
+    <div class="info-section">
+      <p class="info-label">How scoring works</p>
+      <p class="info-text">Every correct answer scores points. Answer faster and you score <strong>more</strong> - the timer is part of the game. Wrong or late answers score zero. Final rankings are shown after the last question.</p>
     </div>
 
-    <div class="about-section">
-      <p class="about-section-label">Question types</p>
-      <p class="about-section-body">Multiple choice with up to <strong>6 options</strong>, true/false, and timed open questions. Each quiz supports up to <strong>100 questions</strong>, with per-question time limits from 5 to 300 seconds.</p>
+    <div class="info-section">
+      <p class="info-label">Question types</p>
+      <p class="info-text">Multiple choice with up to <strong>6 options</strong>, true/false, and timed open questions. Each quiz supports up to <strong>100 questions</strong>, with per-question time limits from 5 to 300 seconds.</p>
     </div>
 
-    <div class="about-footer">
-      <p class="about-footer-note">Built by Culbida Mihail</p>
-      <button class="about-footer-btn" id="btn-about-create">
-        Start creating <img src="img/arrow-right1.png" width="13" height="13" style="filter: invert(1);">
+    <div class="info-footer">
+      <p class="info-footer-note">Built by Culbida Mihail </p>
+      <button class="info-footer-btn" id="btn-about-create">
+        Start creating <img src="img/arrow-right1.png" width="13" height="13">
       </button>
     </div>
 
+  </div>
+</div>
+
+<div class="overlay" id="overlay-terms" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+  <div class="overlay-backdrop" data-close="overlay-terms"></div>
+  <div class="overlay-card info-card">
+
+    <button class="overlay-close" data-close="overlay-terms" aria-label="Close">
+      <img src="img/close.png" width="16" height="16">
+    </button>
+
+    <h2 class="overlay-title" id="terms-title">Terms &amp; Conditions</h2>
+
+    <div class="info-section">
+      <p class="info-label">Using the platform</p>
+      <p class="info-text">BlitzIQ is open to anyone aged <strong>13 or older</strong>. Use is permitted for personal, non-commercial purposes only. We reserve the right to suspend any account without prior notice if these terms are violated.</p>
+    </div>
+
+    <div class="info-section">
+      <p class="info-label">Intellectual property</p>
+      <p class="info-text">The interface, logo, code, and all other elements of the platform are protected by copyright and belong to BlitzIQ. Content created by users - questions, answers, quizzes, remains their property. Reproducing or distributing platform elements without written permission is prohibited.</p>
+    </div>
+
+    <div class="info-section">
+      <p class="info-label">Liability</p>
+      <p class="info-text">BlitzIQ is provided without guarantees of uninterrupted availability or data accuracy. The owner cannot be held liable for data loss, service interruptions, or any damages resulting from the use of the platform.</p>
+    </div>
+
+    <div class="info-section">
+      <p class="info-label">Conduct</p>
+      <p class="info-text">Publishing content that is illegal, misleading, or harmful to others is strictly prohibited. Attempts to copy, reverse-engineer, or exploit the platform, as well as any automated use that disrupts normal service - are not permitted.</p>
+    </div>
+
+    <div class="info-footer">
+      <p class="info-footer-note">BlitzIQ · 2026</p>
+      <button class="info-footer-btn" id="btn-terms-accept">Got it</button>
+    </div>
   </div>
 </div>
 
