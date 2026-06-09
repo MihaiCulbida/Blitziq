@@ -309,4 +309,8 @@ document.getElementById('btn-terms-accept')?.addEventListener('click', () => {
   closeOverlay('overlay-terms');
 });
 
+document.getElementById('btn-privacy-accept')?.addEventListener('click', () => {
+  closeOverlay('overlay-privacy');
+});
+
 })();

@@ -347,7 +347,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
         <li><a href="#" data-open="overlay-contact">Contacts</a></li>
         <li><a href="#" data-open="overlay-about">About</a></li>
         <li><a href="#" data-open="overlay-terms">Terms & Conditions</a></li>
-        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#" data-open="overlay-privacy">Privacy Policy</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -479,6 +479,43 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     <div class="info-footer">
       <p class="info-footer-note">BlitzIQ · 2026</p>
       <button class="info-footer-btn" id="btn-terms-accept">Got it</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay-privacy" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+  <div class="overlay-backdrop" data-close="overlay-privacy"></div>
+  <div class="overlay-card info-card">
+
+    <button class="overlay-close" data-close="overlay-privacy" aria-label="Close">
+      <img src="img/close.png" width="16" height="16">
+    </button>
+
+    <h2 class="overlay-title" id="privacy-title">Privacy Policy</h2>
+
+    <div class="info-section">
+      <p class="info-label">What we collect</p>
+      <p class="info-text">When you create an account, we store your <strong>username</strong> and <strong>email address</strong>. When you create or play a quiz, we store the content and results associated with your account. We do not collect payment information, location data, or any data beyond what is necessary to run the platform.</p>
+    </div>
+
+    <div class="info-section">
+      <p class="info-label">How we use it</p>
+      <p class="info-text">Your data is used solely to provide and improve the BlitzIQ service - account authentication, displaying your quizzes, and showing session results. We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
+    </div>
+
+    <div class="info-section">
+      <p class="info-label">Cookies</p>
+      <p class="info-text">BlitzIQ uses a single session cookie to keep you logged in. No tracking cookies, no analytics cookies, no third-party advertising scripts. The session cookie is deleted when you log out or close the browser.</p>
+    </div>
+
+    <div class="info-section">
+      <p class="info-label">Your rights</p>
+      <p class="info-text">You can request the deletion of your account and all associated data at any time by contacting us directly. We will process the request within a reasonable timeframe and confirm once complete.</p>
+    </div>
+
+    <div class="info-footer">
+      <p class="info-footer-note">BlitzIQ · 2026</p>
+      <button class="info-footer-btn" id="btn-privacy-accept">Got it</button>
     </div>
   </div>
 </div>
