@@ -345,7 +345,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
       <h4 class="footer-col-title">Company</h4>
       <ul>
         <li><a href="#" data-open="overlay-contact">Contacts</a></li>
-        <li><a href="#">About us</a></li>
+        <li><a href="#" data-open="overlay-about">About</a></li>
         <li><a href="#">Terms & Conditions</a></li>
         <li><a href="#">Privacy Policy</a></li>
       </ul>
@@ -410,6 +410,42 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
     </div>
   </div>
 </div>
+
+<div class="overlay" id="overlay-about" role="dialog" aria-modal="true" aria-labelledby="about-title">
+  <div class="overlay-backdrop" data-close="overlay-about"></div>
+  <div class="overlay-card overlay-card--about">
+
+    <button class="overlay-close" data-close="overlay-about" aria-label="Close">
+      <img src="img/close.png" width="16" height="16">
+    </button>
+
+    <h2 class="overlay-title" id="about-title">About BlitzIQ</h2>
+
+    <div class="about-section">
+      <p class="about-section-label">What is BlitzIQ?</p>
+      <p class="about-section-body">BlitzIQ is a live quiz platform. A question appears, a timer counts down, you answer fast. Simple to host, instant to join. Built for classrooms, events, and anyone who thinks learning should feel like a game.</p>
+    </div>
+
+    <div class="about-section">
+      <p class="about-section-label">How scoring works</p>
+      <p class="about-section-body">Every correct answer scores points. Answer faster and you score <strong>more</strong> - the timer is part of the game. Wrong or late answers score zero. Final rankings are shown after the last question.</p>
+    </div>
+
+    <div class="about-section">
+      <p class="about-section-label">Question types</p>
+      <p class="about-section-body">Multiple choice with up to <strong>6 options</strong>, true/false, and timed open questions. Each quiz supports up to <strong>100 questions</strong>, with per-question time limits from 5 to 300 seconds.</p>
+    </div>
+
+    <div class="about-footer">
+      <p class="about-footer-note">Built by Culbida Mihail</p>
+      <button class="about-footer-btn" id="btn-about-create">
+        Start creating <img src="img/arrow-right1.png" width="13" height="13" style="filter: invert(1);">
+      </button>
+    </div>
+
+  </div>
+</div>
+
   <script src="src/toast.js"></script>
   <script src="src/hero.js"></script>
   <script src="src/overlays.js"></script>

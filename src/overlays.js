@@ -282,4 +282,20 @@
   window.addEventListener('scroll', updateActive);
   updateActive();
 
+document.querySelectorAll('[data-open="overlay-about"]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    openOverlay('overlay-about');
+  });
+});
+
+document.getElementById('btn-about-create')?.addEventListener('click', () => {
+  closeOverlay('overlay-about');
+  if (document.querySelector('.navbar-avatar')) {
+    window.location.href = 'page.php';
+  } else {
+    openOverlay('overlay-login');
+  }
+});
+
 })();
