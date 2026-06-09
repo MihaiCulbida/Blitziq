@@ -25,6 +25,120 @@ function getQuizzes() {
   catch { return []; }
 }
 
+function getNotifications() {
+  try { return JSON.parse(localStorage.getItem('blitziq-notifs')) || []; }
+  catch { return []; }
+}
+
+function addNotification(notif) {
+  const notifs = getNotifications();
+  notifs.unshift({ id: Date.now().toString(), ts: Date.now(), read: false, ...notif });
+  localStorage.setItem('blitziq-notifs', JSON.stringify(notifs.slice(0, 50)));
+  renderNotifications();
+  updateBellBadge();
+}
+
+function renderNotifications() {
+  const body = document.querySelector('.notif-panel__body');
+  if (!body) return;
+  const notifs = getNotifications();
+
+  if (notifs.length === 0) {
+    body.innerHTML = `
+      <div class="notif-empty">
+        <img src="img/bell.png" width="32" height="32" alt="" style="opacity:0.2;">
+        <p class="notif-empty__title">No notifications yet</p>
+        <p class="notif-empty__sub">You're all caught up!</p>
+      </div>`;
+    updateBellBadge();
+    return;
+  }
+
+  body.innerHTML = `
+    <div class="notif-list-header">
+      <span class="notif-list-header__count">${notifs.length} notification${notifs.length !== 1 ? 's' : ''}</span>
+      <button class="notif-clear-all" id="notif-clear-all">Clear all</button>
+    </div>
+    ${notifs.map(n => `
+      <div class="notif-item ${n.read ? '' : 'notif-item--unread'}" data-id="${n.id}">
+        <div class="notif-item__body">
+          <p class="notif-item__text">${n.text}</p>
+          <span class="notif-item__time">${formatNotifTime(n.ts)}</span>
+        </div>
+        <button class="notif-item__delete" data-id="${n.id}" aria-label="Delete notification" title="Delete">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    `).join('')}
+  `;
+
+  body.querySelector('#notif-clear-all')?.addEventListener('click', () => {
+    localStorage.removeItem('blitziq-notifs');
+    renderNotifications();
+    updateBellBadge();
+  });
+
+  body.querySelectorAll('.notif-item__delete').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      const el = body.querySelector(`.notif-item[data-id="${id}"]`);
+      if (el) {
+        el.classList.add('notif-item--removing');
+        setTimeout(() => {
+          let notifs = getNotifications();
+          notifs = notifs.filter(x => x.id !== id);
+          localStorage.setItem('blitziq-notifs', JSON.stringify(notifs));
+          renderNotifications();
+          updateBellBadge();
+        }, 220);
+      }
+    });
+  });
+
+  body.querySelectorAll('.notif-item').forEach(el => {
+    el.addEventListener('click', e => {
+      if (e.target.closest('.notif-item__delete')) return;
+      const notifs = getNotifications();
+      const n = notifs.find(x => x.id === el.dataset.id);
+      if (n && !n.read) {
+        n.read = true;
+        localStorage.setItem('blitziq-notifs', JSON.stringify(notifs));
+        el.classList.remove('notif-item--unread');
+        updateBellBadge();
+      }
+    });
+  });
+
+  updateBellBadge();
+}
+
+function formatNotifTime(ts) {
+  const diff = Date.now() - ts;
+  if (diff < 60000) return 'Just now';
+  if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+  if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+  return new Date(ts).toLocaleDateString();
+}
+
+function updateBellBadge() {
+  const bell = document.getElementById('btn-bell');
+  if (!bell) return;
+  const unread = getNotifications().filter(n => !n.read).length;
+  let dot = bell.querySelector('.bell-dot');
+  if (unread === 0) {
+    if (dot) dot.remove();
+    return;
+  }
+  if (!dot) {
+    dot = document.createElement('span');
+    dot.className = 'bell-dot';
+    bell.appendChild(dot);
+  }
+}
+
 (function () {
   const avatarBtn = document.getElementById('btn-avatar');
   const dropdown = document.getElementById('navbar-dropdown');
@@ -894,6 +1008,16 @@ window.blitziqRenderFavorites = renderFavorites;
 
   function init() {
     renderDaily();
+    document.getElementById('disc-daily-btn')?.addEventListener('click', () => {
+      if (typeof window.blitziqOpenStartModal === 'function') {
+        window.blitziqOpenStartModal({
+          name: DAILY_QUIZ.title,
+          meta: DAILY_QUIZ.meta,
+          icon: 'img/calendar.png',
+          subject: DAILY_QUIZ.meta.split('·')[0].trim(),
+        });
+      }
+    });
     renderHomeFeatures();
     renderDiscoverCategories();
     initFilters();
@@ -932,6 +1056,16 @@ window.blitziqRenderFavorites = renderFavorites;
       </button>
     `;
     root.appendChild(dailyEl);
+    dailyEl.querySelector('.home-daily__btn')?.addEventListener('click', () => {
+      if (typeof window.blitziqOpenStartModal === 'function') {
+        window.blitziqOpenStartModal({
+          name: DAILY_QUIZ.title,
+          meta: DAILY_QUIZ.meta,
+          icon: 'img/calendar.png',
+          subject: DAILY_QUIZ.meta.split('·')[0].trim(),
+        });
+      }
+    });
 
     const trendingBlock = document.createElement('div');
     trendingBlock.className = 'home-block';
@@ -1569,11 +1703,13 @@ window.blitziqRenderFavorites = renderFavorites;
       folderDropdown.classList.toggle('is-open');
     });
     
-    document.addEventListener('click', () => folderDropdown?.classList.remove('is-open'));
     document.getElementById('qe-publish')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
       quiz.status = 'published';
       saveQuizzes();
+      addNotification({
+        text: `"${quiz.name}" has been published successfully.`,
+      });
       closeEditor();
     });
     document.getElementById('qe-prev')?.addEventListener('click', () => {
