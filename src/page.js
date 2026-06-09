@@ -1654,8 +1654,8 @@ window.blitziqRenderFavorites = renderFavorites;
           <div class="mq-empty__icon">
             <img src="img/quizzes.png" width="40" height="40" alt="">
           </div>
-          <p class="mq-empty__title">No quizzes yet</p>
-          <p class="mq-empty__sub">Click <strong>New quiz</strong> to create your first one.</p>
+          <p class="mq-empty__title">${t('no_quizzes_title')}</p>
+          <p class="mq-empty__sub">${t('no_quizzes_sub')}</p>
         </div>
       `;
       return;
