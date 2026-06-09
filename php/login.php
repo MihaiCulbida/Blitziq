@@ -1,4 +1,5 @@
 <?php
+require_once 'functions.php';
 session_start();
 header('Content-Type: application/json');
 
@@ -15,8 +16,7 @@ if (!$identifier || !$password) {
     exit;
 }
 
-$file  = __DIR__ . '/data/users.json';
-$users = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+$users = loadUsers();
 
 foreach ($users as $u) {
     if (($u['username'] === $identifier || $u['email'] === $identifier) && password_verify($password, $u['password_hash'])) {

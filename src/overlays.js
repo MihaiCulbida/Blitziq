@@ -57,26 +57,29 @@
   }
 
   function handleAuthSuccess(username) {
-    const actions = document.querySelector('.navbar-actions');
-    if (!actions) return;
-    actions.innerHTML = `
-      <span class="navbar-username">${escapeHtml(username)}</span>
-      <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
-        <button class="navbar-avatar" id="btn-avatar" aria-label="Account menu">
-          ${username.charAt(0).toUpperCase()}
-        </button>
-        <div class="navbar-dropdown" id="navbar-dropdown">
-          <a href="logout.php" class="navbar-dropdown-item">Log out</a>
-        </div>
+  const actions = document.querySelector('.navbar-actions');
+  if (!actions) return;
+  actions.innerHTML = `
+    <span class="navbar-username">${escapeHtml(username)}</span>
+    <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
+      <button class="navbar-avatar" id="btn-avatar" aria-label="Account menu">
+        ${username.charAt(0).toUpperCase()}
+      </button>
+      <div class="navbar-dropdown" id="navbar-dropdown">
+        <a href="php/logout.php" class="navbar-dropdown-item">Log out</a>
       </div>
-    `;
-    const newAvatarBtn = document.getElementById('btn-avatar');
-    const newDropdown  = document.getElementById('navbar-dropdown');
-    newAvatarBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      newDropdown.classList.toggle('is-open');
-    });
-  }
+    </div>
+  `;
+  
+  localStorage.removeItem('blitziq-quizzes');
+  localStorage.removeItem('blitziq-folders');
+  localStorage.removeItem('blitziq-saved');
+  localStorage.removeItem('blitziq-notifs');
+  
+  setTimeout(() => {
+    window.location.href = 'page.php';
+  }, 500);
+}
 
   function submitForm({ formId, endpoint, btnId, errorId, successId }) {
     const form = document.getElementById(formId);
@@ -110,7 +113,7 @@
 
   submitForm({
     formId:    'form-login',
-    endpoint:  'login.php',
+    endpoint:  'php/login.php',
     btnId:     'btn-login-submit',
     errorId:   'login-error',
     successId: null,
@@ -118,7 +121,7 @@
 
   submitForm({
     formId:    'form-signup',
-    endpoint:  'register.php',
+    endpoint:  'php/register.php',
     btnId:     'btn-signup-submit',
     errorId:   'signup-error',
     successId: 'signup-success',

@@ -1,4 +1,5 @@
 <?php
+require_once 'functions.php';
 session_start();
 header('Content-Type: application/json');
 
@@ -8,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $username = trim($_POST['username'] ?? '');
-$email = trim($_POST['email'] ?? '');
+$email    = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
 $confirm  = $_POST['confirm'] ?? '';
 
@@ -37,8 +38,7 @@ if ($password !== $confirm) {
     exit;
 }
 
-$file  = __DIR__ . '/data/users.json';
-$users = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+$users = loadUsers();
 
 foreach ($users as $u) {
     if ($u['username'] === $username || $u['email'] === $email) {
@@ -48,15 +48,14 @@ foreach ($users as $u) {
 }
 
 $newUser = [
-    'id' => time(),
-    'username' => $username,
-    'email' => $email,
+    'id'            => time(),
+    'username'      => $username,
+    'email'         => $email,
     'password_hash' => password_hash($password, PASSWORD_BCRYPT),
 ];
 
 $users[] = $newUser;
-
-file_put_contents($file, json_encode($users, JSON_PRETTY_PRINT));
+saveUsers($users);
 
 session_regenerate_id(true);
 $_SESSION['user_id']  = $newUser['id'];

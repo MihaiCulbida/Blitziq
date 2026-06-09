@@ -1,14 +1,23 @@
-<?php
+<?php 
+require_once 'php/functions.php';
 session_start();
 
 $logged_in = isset($_SESSION['user_id']);
+$username = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
 
-if (!$logged_in) {
-    header('Location: index.php');
-    exit;
+if ($logged_in) {
+    $dir = __DIR__ . '/data';
+    if (!is_dir($dir)) mkdir($dir, 0777, true);
+    $userFile = $dir . '/user_' . $_SESSION['user_id'] . '_data.json';
+    if (!file_exists($userFile)) {
+        file_put_contents($userFile, json_encode([
+            'quizzes' => [],
+            'folders' => [],
+            'saved' => [],
+            'notifs' => []
+        ]));
+    }
 }
-
-$username = htmlspecialchars($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +74,7 @@ $username = htmlspecialchars($_SESSION['username']);
         <div class="navbar-dropdown" id="navbar-dropdown">
           <span class="navbar-dropdown-user"><?= $username ?></span>
           <a href="index.php" class="navbar-dropdown-item">Home</a>
-          <a href="logout.php" class="navbar-dropdown-item">Log out</a>
+          <a href="php/logout.php" class="navbar-dropdown-item">Log out</a>
         </div>
       </div>
     <?php else: ?>
@@ -120,7 +129,7 @@ $username = htmlspecialchars($_SESSION['username']);
       <div class="sidebar-settings-dropdown" id="settings-dropdown">
         <a href="#" class="sidebar-settings-item">Profile</a>
         <a href="#" class="sidebar-settings-item">Appearance</a>
-        <a href="logout.php" class="sidebar-settings-item">Log out</a>
+        <a href="php/logout.php" class="sidebar-settings-item">Log out</a>
       </div>
     </div>
   </div>
@@ -670,12 +679,14 @@ $username = htmlspecialchars($_SESSION['username']);
       </button>
     </div>
   </div>
-
 </div>
 
 
 <script>
-  const QUIZ_DATA = <?= json_encode(json_decode(file_get_contents('data/items.json'), true)) ?>;
+  const QUIZ_DATA = <?php 
+    $items = json_decode(file_get_contents('data/items.json'), true);
+    echo json_encode($items);
+  ?>;
 </script>
 <script src="src/page.js"></script>
 </body>

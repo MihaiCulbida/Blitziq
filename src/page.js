@@ -1,3 +1,53 @@
+const lastUser = localStorage.getItem('blitziq-last-user');
+const avatarEl = document.querySelector('.navbar-avatar');
+const currentUser = avatarEl ? avatarEl.textContent.trim() : null;
+
+if (currentUser && lastUser !== currentUser) {
+  localStorage.removeItem('blitziq-quizzes');
+  localStorage.removeItem('blitziq-folders');
+  localStorage.removeItem('blitziq-saved');
+  localStorage.removeItem('blitziq-notifs');
+}
+if (currentUser) {
+  localStorage.setItem('blitziq-last-user', currentUser);
+}
+
+async function loadServerData() {
+  try {
+    const res = await fetch('php/save_data.php');
+    const json = await res.json();
+    if (json.success && json.data) {
+      localStorage.setItem('blitziq-quizzes', JSON.stringify(json.data.quizzes || []));
+      localStorage.setItem('blitziq-folders', JSON.stringify(json.data.folders || []));
+      localStorage.setItem('blitziq-saved', JSON.stringify(json.data.saved || []));
+      localStorage.setItem('blitziq-notifs', JSON.stringify(json.data.notifs || []));
+    }
+  } catch (e) {
+    console.error('Failed to load server data:', e);
+  }
+}
+
+async function syncToServer() {
+  try {
+    await fetch('php/save_data.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        quizzes: JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]'),
+        folders: JSON.parse(localStorage.getItem('blitziq-folders') || '[]'),
+        saved: JSON.parse(localStorage.getItem('blitziq-saved') || '[]'),
+        notifs: JSON.parse(localStorage.getItem('blitziq-notifs') || '[]'),
+      })
+    });
+  } catch (e) {
+    console.error('Failed to sync to server:', e);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadServerData();
+});
+
 function getCategoryIcon(categoryId) {
   const cat = QUIZ_DATA.categories.find(c => c.id === categoryId);
   return cat ? cat.icon : 'img/quizzes.png';
@@ -25,6 +75,7 @@ function getSaved() {
 
 function setSaved(arr) {
   localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+  syncToServer(); 
 }
 
 function getFolders() {
@@ -34,6 +85,7 @@ function getFolders() {
 
 function saveFolders(f) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(f));
+  syncToServer(); 
 }
 
 function getQuizzes() {
@@ -50,6 +102,7 @@ function addNotification(notif) {
   const notifs = getNotifications();
   notifs.unshift({ id: Date.now().toString(), ts: Date.now(), read: false, ...notif });
   localStorage.setItem('blitziq-notifs', JSON.stringify(notifs.slice(0, 50)));
+  syncToServer();
   renderNotifications();
   updateBellBadge();
 }
@@ -956,8 +1009,9 @@ window.blitziqRenderFavorites = renderFavorites;
   'use strict';
 
   const DAILY_QUIZ = {
-    title: 'Organic Chemistry – Functional Groups',
-    meta: 'Chemistry · 10 questions · 30 sec / question',
+    title: 'Animal Cell – Structure & Functions',
+    meta: 'Biology · 10 questions · 30 sec / question',
+    id: 'bio_001'
   };
 
   const TRENDING    = ALL_QUIZZES.filter(q => q.badge === 'hot' || q.badge === 'new' || q.badge === 'classic');
@@ -971,16 +1025,36 @@ window.blitziqRenderFavorites = renderFavorites;
 
   function init() {
     renderDaily();
+    
+    let realQuiz = null;
+    if (typeof QUIZ_DATA !== 'undefined' && QUIZ_DATA.quizzes) {
+      realQuiz = QUIZ_DATA.quizzes.find(q => 
+        q.name === DAILY_QUIZ.title || 
+        q.id === DAILY_QUIZ.id
+      );
+    }
+    
     document.getElementById('disc-daily-btn')?.addEventListener('click', () => {
-      if (typeof window.blitziqOpenStartModal === 'function') {
-        window.blitziqOpenStartModal({
-          name: DAILY_QUIZ.title,
-          meta: DAILY_QUIZ.meta,
+      if (realQuiz) {
+        const quizForModal = {
+          name: realQuiz.name,
+          meta: `${realQuiz.subject} · ${realQuiz.questions.length} questions · ${realQuiz.timePerQ} sec/question`,
           icon: 'img/calendar.png',
-          subject: DAILY_QUIZ.meta.split('·')[0].trim(),
-        });
+          subject: realQuiz.subject,
+          questions: realQuiz.questions,
+          timePerQ: realQuiz.timePerQ,
+          points: realQuiz.points,
+          passScore: realQuiz.passScore
+        };
+        
+        if (typeof window.blitziqOpenStartModal === 'function') {
+          window.blitziqOpenStartModal(quizForModal);
+        }
+      } else {
+        showToast('Daily quiz not available');
       }
     });
+    
     renderHomeFeatures();
     renderDiscoverCategories();
     initFilters();
@@ -997,11 +1071,16 @@ window.blitziqRenderFavorites = renderFavorites;
   function renderHomeFeatures() {
     const section = document.getElementById('section-home');
     if (!section || document.getElementById('home-features-root')) return;
-
+  
+    let realQuiz = null;
+    if (typeof QUIZ_DATA !== 'undefined' && QUIZ_DATA.quizzes) {
+      realQuiz = QUIZ_DATA.quizzes.find(q => q.name === DAILY_QUIZ.title || q.id === DAILY_QUIZ.id);
+    }
+  
     const root = document.createElement('div');
     root.id = 'home-features-root';
     root.className = 'home-features';
-
+  
     const dailyEl = document.createElement('div');
     dailyEl.className = 'home-daily';
     dailyEl.innerHTML = `
@@ -1018,18 +1097,29 @@ window.blitziqRenderFavorites = renderFavorites;
         Start now
       </button>
     `;
-    root.appendChild(dailyEl);
-    dailyEl.querySelector('.home-daily__btn')?.addEventListener('click', () => {
-      if (typeof window.blitziqOpenStartModal === 'function') {
-        window.blitziqOpenStartModal({
-          name: DAILY_QUIZ.title,
-          meta: DAILY_QUIZ.meta,
+  
+    dailyEl.querySelector('.home-daily__btn').addEventListener('click', () => {
+      if (realQuiz) {
+        const quizForModal = {
+          name: realQuiz.name,
+          meta: `${realQuiz.subject} · ${realQuiz.questions.length} questions · ${realQuiz.timePerQ} sec/question`,
           icon: 'img/calendar.png',
-          subject: DAILY_QUIZ.meta.split('·')[0].trim(),
-        });
+          subject: realQuiz.subject,
+          questions: realQuiz.questions,
+          timePerQ: realQuiz.timePerQ,
+          points: realQuiz.points,
+          passScore: realQuiz.passScore
+        };
+        if (typeof window.blitziqOpenStartModal === 'function') {
+          window.blitziqOpenStartModal(quizForModal);
+        }
+      } else {
+        showToast('Daily quiz not available');
       }
     });
-
+  
+    root.appendChild(dailyEl);
+  
     const trendingBlock = document.createElement('div');
     trendingBlock.className = 'home-block';
     trendingBlock.innerHTML = `
@@ -1042,11 +1132,13 @@ window.blitziqRenderFavorites = renderFavorites;
       </div>
       <div class="home-scroll-row" id="hf-trending"></div>
     `;
+  
     trendingBlock.querySelector('.home-block__see-all').addEventListener('click', () => {
       document.querySelector('.navbar-links a[data-section="discover"]')?.click();
     });
+  
     root.appendChild(trendingBlock);
-
+  
     const recBlock = document.createElement('div');
     recBlock.className = 'home-block';
     recBlock.innerHTML = `
@@ -1059,16 +1151,18 @@ window.blitziqRenderFavorites = renderFavorites;
       </div>
       <div class="home-scroll-row" id="hf-recommended"></div>
     `;
+  
     recBlock.querySelector('.home-block__see-all').addEventListener('click', () => {
       document.querySelector('.navbar-links a[data-section="discover"]')?.click();
     });
+  
     root.appendChild(recBlock);
-
     section.appendChild(root);
-
+  
     shuffle(TRENDING).slice(0, 6).forEach(q => {
       document.getElementById('hf-trending').appendChild(buildHomeCard(q));
     });
+  
     shuffle(RECOMMENDED).slice(0, 6).forEach(q => {
       document.getElementById('hf-recommended').appendChild(buildHomeCard(q));
     });
@@ -1352,6 +1446,7 @@ window.blitziqRenderFavorites = renderFavorites;
 
   function saveQuizzes() {
     localStorage.setItem('blitziq-quizzes', JSON.stringify(quizzes));
+    syncToServer(); 
   }
 
   function escapeHtml(str) {
@@ -1365,44 +1460,48 @@ window.blitziqRenderFavorites = renderFavorites;
   }
 
   window.blitziqCreateDraft = function (payload) {
-    const count = Math.max(1, Math.min(MAX_QUESTIONS, parseInt(payload.questionCount) || 10));
-    const ansCount = Math.max(MIN_ANSWERS, Math.min(MAX_ANSWERS, parseInt(payload.answerCount) || 4));
-    const questions = Array.from({ length: count }, (_, i) => ({
-      index: i,
-      text: '',
-      answers: Array.from({ length: ansCount }, () => ({ text: '', correct: false })),
-      type: 'single',
-      time: Math.max(5, Math.min(300, parseInt(payload.timePerQuestion) || 30)),
-      points: Math.max(1, parseInt(payload.pointsPerAnswer) || 10),
-    }));
-    if (questions.length > 0) {
-      questions[0].answers[0].correct = true;
-    }
-    const quiz = {
-      id: Date.now().toString(),
-      name: payload.name,
-      description: payload.description || '',
-      subject: payload.subject || '',
-      language: payload.language || '',
-      visibility: payload.visibility || 'public',
-      answerCount: ansCount,
-      timePerQ: Math.max(5, Math.min(300, parseInt(payload.timePerQuestion) || 30)),
-      questionOrder: payload.questionOrder,
-      answerOrder: payload.answerOrder,
-      attempts: Math.max(1, Math.min(10, parseInt(payload.attempts) || 1)),
-      passScore: Math.max(0, Math.min(100, parseInt(payload.passScore) || 60)),
-      points: Math.max(1, parseInt(payload.pointsPerAnswer) || 10),
-      displayOptions: payload.displayOptions || [],
-      status: 'draft',
-      createdAt: Date.now(),
-      questions,
-    };
-    quizzes.unshift(quiz);
-    saveQuizzes();
-    renderMyQuizzes();
-    renderDiscoverCategories();
-    return quiz;
+  const avatar = document.querySelector('.navbar-avatar');
+  if (!avatar) {
+    showToast('Please log in to create a quiz');
+    return null;
+  }
+  const count = Math.max(1, Math.min(MAX_QUESTIONS, parseInt(payload.questionCount) || 10));
+  const ansCount = Math.max(MIN_ANSWERS, Math.min(MAX_ANSWERS, parseInt(payload.answerCount) || 4));
+  const questions = Array.from({ length: count }, (_, i) => ({
+    index: i,
+    text: '',
+    answers: Array.from({ length: ansCount }, () => ({ text: '', correct: false })),
+    type: 'single',
+    time: Math.max(5, Math.min(300, parseInt(payload.timePerQuestion) || 30)),
+    points: Math.max(1, parseInt(payload.pointsPerAnswer) || 10),
+  }));
+  if (questions.length > 0) {
+    questions[0].answers[0].correct = true;
+  }
+  const quiz = {
+    id: Date.now().toString(),
+    name: payload.name,
+    description: payload.description || '',
+    subject: payload.subject || '',
+    language: payload.language || '',
+    visibility: payload.visibility || 'public',
+    answerCount: ansCount,
+    timePerQ: Math.max(5, Math.min(300, parseInt(payload.timePerQuestion) || 30)),
+    questionOrder: payload.questionOrder,
+    answerOrder: payload.answerOrder,
+    attempts: Math.max(1, Math.min(10, parseInt(payload.attempts) || 1)),
+    passScore: Math.max(0, Math.min(100, parseInt(payload.passScore) || 60)),
+    points: Math.max(1, parseInt(payload.pointsPerAnswer) || 10),
+    displayOptions: payload.displayOptions || [],
+    status: 'draft',
+    createdAt: Date.now(),
+    questions,
   };
+  quizzes.unshift(quiz);
+  saveQuizzes();
+  renderMyQuizzes();
+  return quiz;
+};
 
   function renderMyQuizzes() {
     const section = document.getElementById('section-quizzes');
@@ -1518,6 +1617,7 @@ window.blitziqRenderFavorites = renderFavorites;
     setNavbarEditorMode(false);
     renderMyQuizzes();
     renderDiscoverCategories();
+    syncToServer();
   }
 
   function buildEditorHTML(quiz) {
@@ -2012,7 +2112,15 @@ window.blitziqRenderFavorites = renderFavorites;
 
   function showSaveToast() {
     if (typeof showToast === 'function') {
-      showToast('Quiz saved!');
+      showToast('Quiz saved successfully!');
+    } else {
+      console.log('Quiz saved');
+      const saveBtn = document.getElementById('qe-save');
+      if (saveBtn) {
+        const originalBg = saveBtn.style.background;
+        saveBtn.style.background = '#10b981';
+        setTimeout(() => { saveBtn.style.background = originalBg; }, 500);
+      }
     }
   }
 

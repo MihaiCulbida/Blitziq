@@ -1,0 +1,284 @@
+{
+    "quizzes": [
+        {
+            "id": "1781016290435",
+            "name": "Salut",
+            "description": "",
+            "subject": "Chemistry",
+            "language": "English",
+            "visibility": "public",
+            "answerCount": 4,
+            "timePerQ": 30,
+            "questionOrder": "fixed",
+            "answerOrder": "fixed",
+            "attempts": 1,
+            "passScore": 60,
+            "points": 10,
+            "displayOptions": [
+                "show-score",
+                "show-correct"
+            ],
+            "status": "draft",
+            "createdAt": 1781016290435,
+            "questions": [
+                {
+                    "index": 0,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": true
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 1,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 2,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 3,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 4,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 5,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 6,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 7,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 8,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 9,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                }
+            ]
+        }
+    ],
+    "folders": [
+        {
+            "name": "YEa"
+        }
+    ],
+    "saved": [],
+    "notifs": []
+}
