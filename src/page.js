@@ -894,6 +894,32 @@ window.blitziqRenderFavorites = renderFavorites;
 
   goTo(0);
   startTimer();
+
+  cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const cat = card.dataset.cat;
+    if (!cat) return;
+
+    const navLink = document.querySelector('.navbar-links a[data-section="discover"]');
+    if (navLink) navLink.click();
+
+    setTimeout(() => {
+      const matchingFilter = [...document.querySelectorAll('.disc-filter')]
+        .find(f => f.dataset.cat === cat);
+
+      if (matchingFilter && typeof window.blitziqFilterGrids === 'function') {
+        document.querySelectorAll('.disc-filter').forEach(f => f.classList.remove('is-active'));
+        matchingFilter.classList.add('is-active');
+        window.blitziqFilterGrids(cat);
+      }
+
+      setTimeout(() => {
+        const firstBlock = document.querySelector('.disc-block--cat:not([style*="display: none"])');
+        if (firstBlock) firstBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }, 50);
+  });
+});
 })();
 
 (function () {
@@ -1260,6 +1286,7 @@ window.blitziqRenderFavorites = renderFavorites;
       }
     });
   }
+  window.blitziqFilterGrids = filterGrids;
 
   function initSearch() {
     const input = document.querySelector('.navbar-search-input');

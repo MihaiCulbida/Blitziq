@@ -126,7 +126,7 @@ $username = htmlspecialchars($_SESSION['username']);
       <div class="cat-carousel" id="cat-carousel">
         <div class="cat-track" id="cat-track">
 
-          <div class="cat-card" style="--g1:#f97316;--g2:#ef4444">
+          <div class="cat-card" style="--g1:#f97316;--g2:#ef4444" data-cat="Biology">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/science.png" alt="">
             <div class="cat-card__body">
@@ -135,7 +135,7 @@ $username = htmlspecialchars($_SESSION['username']);
             </div>
           </div>
 
-          <div class="cat-card" style="--g1:#8b5cf6;--g2:#6d28d9">
+          <div class="cat-card" style="--g1:#8b5cf6;--g2:#6d28d9" data-cat="Mathematics">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/mathematics.png" alt="">
             <div class="cat-card__body">
@@ -144,7 +144,7 @@ $username = htmlspecialchars($_SESSION['username']);
             </div>
           </div>
 
-          <div class="cat-card" style="--g1:#0ea5e9;--g2:#0284c7">
+          <div class="cat-card" style="--g1:#0ea5e9;--g2:#0284c7" data-cat="Geography">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/geography.png" alt="">
             <div class="cat-card__body">
@@ -153,7 +153,7 @@ $username = htmlspecialchars($_SESSION['username']);
             </div>
           </div>
 
-          <div class="cat-card" style="--g1:#10b981;--g2:#059669">
+          <div class="cat-card" style="--g1:#10b981;--g2:#059669" data-cat="Language & Literature">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/literature.png" alt="">
             <div class="cat-card__body">
@@ -162,7 +162,7 @@ $username = htmlspecialchars($_SESSION['username']);
             </div>
           </div>
 
-          <div class="cat-card" style="--g1:#f59e0b;--g2:#d97706">
+          <div class="cat-card" style="--g1:#f59e0b;--g2:#d97706" data-cat="History">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/history1.png" alt="">
             <div class="cat-card__body">
@@ -171,7 +171,7 @@ $username = htmlspecialchars($_SESSION['username']);
             </div>
           </div>
 
-          <div class="cat-card" style="--g1:#ec4899;--g2:#db2777">
+          <div class="cat-card" style="--g1:#ec4899;--g2:#db2777" data-cat="Computer Science">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/computer.png" alt="">
             <div class="cat-card__body">
@@ -180,7 +180,7 @@ $username = htmlspecialchars($_SESSION['username']);
             </div>
           </div>
 
-          <div class="cat-card" style="--g1:#14b8a6;--g2:#0d9488">
+          <div class="cat-card" style="--g1:#14b8a6;--g2:#0d9488" data-cat="Psychology">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/psychology.png" alt="">
             <div class="cat-card__body">
@@ -189,7 +189,7 @@ $username = htmlspecialchars($_SESSION['username']);
             </div>
           </div>
 
-          <div class="cat-card" style="--g1:#6366f1;--g2:#4338ca">
+          <div class="cat-card" style="--g1:#6366f1;--g2:#4338ca" data-cat="Language & Literature">
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/public.png" style="filter:invert(1)">
             <div class="cat-card__body">
@@ -218,9 +218,7 @@ $username = htmlspecialchars($_SESSION['username']);
     <div class="disc-filters" id="disc-filters">
       <button class="disc-filter is-active" data-cat="">All</button>
       <button class="disc-filter" data-cat="Mathematics">Mathematics</button>
-      <button class="disc-filter" data-cat="Biology">Biology</button>
-      <button class="disc-filter" data-cat="Chemistry">Chemistry</button>
-      <button class="disc-filter" data-cat="Physics">Physics</button>
+      <button class="disc-filter" data-cat="Biology">Science</button>
       <button class="disc-filter" data-cat="History">History</button>
       <button class="disc-filter" data-cat="Geography">Geography</button>
       <button class="disc-filter" data-cat="Computer Science">Computer Science</button>
