@@ -157,6 +157,20 @@ function updateBellBadge() {
   const notifOverlay = document.getElementById('notif-overlay');
   const notifClose = document.getElementById('notif-close');
   
+  const settingsBtn = document.getElementById('settings-btn');
+  const settingsDropdown = document.getElementById('settings-dropdown');
+  
+  if (settingsBtn && settingsDropdown) {
+    settingsBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      settingsDropdown.classList.toggle('is-open');
+    });
+    document.addEventListener('click', () => {
+      settingsDropdown.classList.remove('is-open');
+    });
+  }
+
   function openNotif() {
     notifOverlay.classList.add('is-open');
     notifOverlay.removeAttribute('aria-hidden');

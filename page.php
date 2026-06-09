@@ -112,10 +112,17 @@ $username = htmlspecialchars($_SESSION['username']);
     </a>
   </div>
   <div class="sidebar-footer">
-    <a href="#" class="sidebar-item">
-      <img src="img/settings.png" width="16" height="16" alt="">
-      <span class="sidebar-label">Settings</span>
-    </a>
+    <div class="sidebar-settings-wrap">
+      <a href="#" class="sidebar-item" id="settings-btn">
+        <img src="img/settings.png" width="16" height="16" alt="">
+        <span class="sidebar-label">Settings</span>
+      </a>
+      <div class="sidebar-settings-dropdown" id="settings-dropdown">
+        <a href="#" class="sidebar-settings-item">Profile</a>
+        <a href="#" class="sidebar-settings-item">Appearance</a>
+        <a href="logout.php" class="sidebar-settings-item">Log out</a>
+      </div>
+    </div>
   </div>
 </aside>
 

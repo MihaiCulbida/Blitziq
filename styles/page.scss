@@ -3864,3 +3864,39 @@ body.sidebar-collapsed {
   margin-left: 2px;
 }
 
+.sidebar-settings-wrap {
+  position: relative;
+}
+
+.sidebar-settings-dropdown {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 8px;
+  right: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  display: none;
+  z-index: 200;
+
+  &.is-open {
+    display: block;
+  }
+}
+
+.sidebar-settings-item {
+  display: block;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #111;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+}
