@@ -1291,6 +1291,14 @@ body.dark-mode .dark-mode-toggle-item:hover {
   background: #2a2a3a;
 }
 
+body.dark-mode .navbar-dropdown-home {
+  filter: invert(1);
+}
+
+body.dark-mode .navbar-dropdown-logout {
+  filter: invert(1);
+}
+
 .dark-mode-toggle-item__label {
   display: flex;
   align-items: center;

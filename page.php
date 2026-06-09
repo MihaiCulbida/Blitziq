@@ -76,11 +76,17 @@ if ($logged_in) {
         <div class="navbar-dropdown" id="navbar-dropdown">
           <span class="navbar-dropdown-user"><?= $username ?></span>
           <button type="button" class="navbar-dropdown-item navbar-dropdown-theme" id="btn-theme-toggle" aria-label="Toggle theme">
-            Theme
             <img src="img/moon.png" id="theme-toggle-icon" width="18" height="18" alt="Dark mode">
+            Theme
           </button>
-          <a href="index.php" class="navbar-dropdown-item">Home</a>
-          <a href="php/logout.php" class="navbar-dropdown-item">Log out</a>
+          <a href="index.php" class="navbar-dropdown-item">
+            <img src="img/home.png" width="16" height="16" class="navbar-dropdown-home" style="vertical-align: middle;">
+            Home
+          </a>
+          <a href="php/logout.php" class="navbar-dropdown-item">
+            <img src="img/logout.png" width="16" height="16" class="navbar-dropdown-logout" style="vertical-align: middle;">
+            Log out
+          </a>
         </div>
       </div>
     <?php else: ?>

@@ -234,7 +234,7 @@ body::-webkit-scrollbar {
 }
 
 .navbar-dropdown-item img {
-  margin-left: 20px;
+  margin-right: 10px;
   vertical-align: middle;
 }
 
