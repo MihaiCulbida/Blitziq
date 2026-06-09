@@ -2102,6 +2102,17 @@ window.blitziqRenderFavorites = renderFavorites;
   const metaEl = document.getElementById('start-modal-meta');
   const infoEl = document.getElementById('start-modal-info');
   const saveBtn = document.getElementById('start-modal-save');
+  const startBtn = document.getElementById('start-modal-start');
+
+  document.getElementById('start-modal-start')?.addEventListener('click', () => {
+    if (!currentQuiz) return;
+    closeStartModal();
+    setTimeout(() => {
+      if (typeof window.blitziqRunQuiz === 'function') {
+        window.blitziqRunQuiz(currentQuiz);
+      }
+    }, 250);
+  });
 
   let currentQuiz = null;
 
@@ -2189,4 +2200,350 @@ window.blitziqRenderFavorites = renderFavorites;
   });
 
   window.blitziqOpenStartModal = openStartModal;
+})();
+
+(function () {
+  'use strict';
+
+  const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+  let state = {
+    quiz: null,
+    questions: [],
+    index: 0,
+    score: 0,
+    correct: 0,
+    wrong: 0,
+    skipped: 0,
+    answered: false,
+    timer: null,
+    timeLeft: 30,
+    startTime: 0,
+  };
+
+  const overlay = document.getElementById('qr-overlay');
+  const nameEl = document.getElementById('qr-name');
+  const counterEl = document.getElementById('qr-counter');
+  const fillEl = document.getElementById('qr-progress-fill');
+  const timerEl = document.getElementById('qr-timer');
+  const timerVal = document.getElementById('qr-timer-val');
+  const scoreVal = document.getElementById('qr-score-val');
+  const qNum = document.getElementById('qr-q-num');
+  const qText = document.getElementById('qr-q-text');
+  const answersEl = document.getElementById('qr-answers');
+  const feedback = document.getElementById('qr-feedback');
+  const nextBtn = document.getElementById('qr-next-btn');
+  const bodyEl = document.getElementById('qr-body');
+  const resultsEl = document.getElementById('qr-results');
+
+  function buildQuestions(quiz) {
+    if (quiz.questions && quiz.questions.length > 0) {
+      return quiz.questions.map(q => ({
+        text: q.text || '(No question text)',
+        answers: q.answers || [],
+        type: q.type || 'single',
+        time: q.time || quiz.timePerQ || 30,
+        points: q.points || quiz.points || 10,
+      }));
+    }
+    const count = parseInt(quiz.meta?.match(/(\d+)\s+question/)?.[1]) || 5;
+    return Array.from({ length: count }, (_, i) => ({
+      text: `Question ${i + 1} — "${quiz.name}"`,
+      answers: [
+        { text: 'Option A', correct: true },
+        { text: 'Option B', correct: false },
+        { text: 'Option C', correct: false },
+        { text: 'Option D', correct: false },
+      ],
+      type: 'single',
+      time: 30,
+      points: 10,
+    }));
+  }
+
+  function open(quiz) {
+    state = {
+      quiz,
+      questions: buildQuestions(quiz),
+      index: 0,
+      score: 0,
+      correct: 0,
+      wrong: 0,
+      skipped: 0,
+      answered: false,
+      timer: null,
+      timeLeft: 30,
+      startTime: Date.now(),
+    };
+
+    nameEl.textContent = quiz.name;
+    scoreVal.textContent = '0';
+    document.getElementById('qr-body').style.display = '';
+    document.getElementById('qr-question-wrap').style.display = '';
+    document.querySelector('.qr-footer').style.display = '';
+    resultsEl.style.display = 'none';
+    feedback.className = 'qr-feedback';
+    feedback.innerHTML = '<span class="qr-feedback__icon" id="qr-feedback-icon"></span><span id="qr-feedback-text"></span>';
+    nextBtn.style.display = 'none';
+
+    overlay.classList.add('is-open');
+    overlay.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+
+    loadQuestion();
+  }
+
+  function close() {
+    clearTimer();
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function loadQuestion() {
+    const q = state.questions[state.index];
+    state.answered = false;
+    feedback.className = 'qr-feedback';
+    feedback.innerHTML = '<span class="qr-feedback__icon" id="qr-feedback-icon"></span><span id="qr-feedback-text"></span>';
+    nextBtn.style.display = 'none';
+    const skipBtn = document.getElementById('qr-skip-btn');
+    if (skipBtn) {
+      skipBtn.style.display = '';
+      skipBtn.onclick = () => skipQuestion();
+    }
+
+    const total = state.questions.length;
+    const current = state.index + 1;
+    counterEl.textContent = `${current} / ${total}`;
+    fillEl.style.width = ((current / total) * 100) + '%';
+    qNum.textContent = `Question ${current} of ${total}`;
+    qText.textContent = q.text || '(No question text)';
+
+    answersEl.innerHTML = '';
+    const answers = q.answers.length > 0 ? q.answers : [
+      { text: 'True', correct: true }, { text: 'False', correct: false }
+    ];
+    answers.forEach((ans, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'qr-answer';
+      btn.dataset.index = i;
+      btn.innerHTML = `
+        <span class="qr-answer__letter">${LETTERS[i]}</span>
+        <span class="qr-answer__text">${ans.text || '(empty)'}</span>
+        <span class="qr-answer__icon">
+          <img src="img/correct-empty.png" width="16" height="16" alt="" class="icon-check>
+        </span>
+      `;
+      btn.addEventListener('click', () => pickAnswer(i));
+      answersEl.appendChild(btn);
+    });
+    
+    renderDots();
+    startTimer(q.time || 30);
+  }
+
+  function renderDots() {
+    const dotsEl = document.getElementById('qr-dots');
+    if (!dotsEl) return;
+    const total = state.questions.length;
+    const MAX_DOTS = 12;
+    dotsEl.innerHTML = '';
+    if (total > MAX_DOTS) return;
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('span');
+      d.className = 'qr-dots__dot' +
+        (i < state.index ? ' qr-dots__dot--done' : '') +
+        (i === state.index ? ' qr-dots__dot--current' : '');
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function pickAnswer(chosenIndex) {
+    if (state.answered) return;
+    state.answered = true;
+    const skipBtn = document.getElementById('qr-skip-btn');
+    if (skipBtn) skipBtn.style.display = 'none';
+    clearTimer();
+
+    const q = state.questions[state.index];
+    const answers = q.answers.length > 0 ? q.answers : [{ text: 'True', correct: true }, { text: 'False', correct: false }];
+    const chosen = answers[chosenIndex];
+    const isCorrect = chosen?.correct === true;
+
+    if (isCorrect) {
+      state.correct++;
+      state.score += (q.points || 10);
+      scoreVal.textContent = state.score;
+    } else {
+      state.wrong++;
+    }
+
+    const allBtns = answersEl.querySelectorAll('.qr-answer');
+
+    allBtns.forEach((btn, i) => {
+      btn.disabled = true;
+      const ans = answers[i];
+      const check = btn.querySelector('.icon-check');
+      const xmark = btn.querySelector('.icon-x');
+
+      if (ans.correct) {
+        btn.classList.add('qr-answer--correct');
+        if (check) check.style.display = '';
+      } else if (i === chosenIndex && !isCorrect) {
+        btn.classList.add('qr-answer--wrong');
+        if (xmark) xmark.style.display = '';
+      } else {
+        btn.classList.add('qr-answer--dimmed');
+      }
+    });
+
+    const fbIcon = document.getElementById('qr-feedback-icon');
+    const fbText = document.getElementById('qr-feedback-text');
+    
+    if (isCorrect) {
+      feedback.className = 'qr-feedback qr-feedback--correct';
+      if (fbIcon) fbIcon.textContent = 'Y';
+      if (fbText) fbText.innerHTML = `Correct! +${q.points || 10} points`;
+    } else {
+      feedback.className = 'qr-feedback qr-feedback--wrong';
+      if (fbIcon) fbIcon.textContent = 'x';
+      const correctAnswers = answers.filter(a => a.correct).map(a => a.text).join(', ');
+      if (fbText) fbText.innerHTML = `Incorrect — correct answer: <strong style="color:#fff">${correctAnswers}</strong>`;
+    }
+    requestAnimationFrame(() => feedback.classList.add('is-visible'));
+    nextBtn.style.display = '';
+    nextBtn.textContent = state.index < state.questions.length - 1 ? 'Next' : 'See results';
+    nextBtn.innerHTML += ` <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+
+  function skipQuestion() {
+    if (state.answered) return;
+    state.answered = true;
+    const skipBtn = document.getElementById('qr-skip-btn');
+    if (skipBtn) skipBtn.style.display = 'none';
+    state.skipped++;
+    clearTimer();
+
+    const q = state.questions[state.index];
+    const answers = q.answers.length > 0 ? q.answers : [];
+    const allBtns = answersEl.querySelectorAll('.qr-answer');
+    allBtns.forEach((btn, i) => {
+      btn.disabled = true;
+      if (answers[i]?.correct) btn.classList.add('qr-answer--correct');
+      else btn.classList.add('qr-answer--dimmed');
+    });
+
+    feedback.className = 'qr-feedback qr-feedback--wrong';
+    feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon">⏱</span><span id="qr-feedback-text">Time's up!</span>`;
+    requestAnimationFrame(() => feedback.classList.add('is-visible'));
+    nextBtn.style.display = '';
+    nextBtn.textContent = state.index < state.questions.length - 1 ? 'Next' : 'See results';
+    nextBtn.innerHTML += ` <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+
+  function nextQuestion() {
+    if (state.index < state.questions.length - 1) {
+      state.index++;
+      loadQuestion();
+    } else {
+      showResults();
+    }
+  }
+
+  function showResults() {
+    clearTimer();
+    feedback.className = 'qr-feedback';
+    document.getElementById('qr-body').style.display = 'none';
+    document.getElementById('qr-question-wrap').style.display = 'none';
+    document.querySelector('.qr-footer').style.display = 'none';
+    resultsEl.style.display = '';
+
+    const total = state.questions.length;
+    const pct = total > 0 ? Math.round((state.correct / total) * 100) : 0;
+    const elapsed = Math.round((Date.now() - state.startTime) / 1000);
+    const mins = Math.floor(elapsed / 60);
+    const secs = elapsed % 60;
+    const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+
+    const passScore = state.quiz.passScore ?? 60;
+    const passed = pct >= passScore;
+
+    document.getElementById('qr-results-title').textContent = pct === 100 ? 'Perfect score!' : passed ? 'Quiz passed!' : 'Keep practicing!';
+    document.getElementById('qr-results-sub').textContent = passed
+      ? `You scored ${pct}% — above the ${passScore}% pass mark.`
+      : `You scored ${pct}% — the pass mark is ${passScore}%. You've got this!`;
+
+    document.getElementById('qr-results-stats').innerHTML = `
+      <div class="qr-results__stat">
+        <span class="qr-results__stat-val">${state.score}</span>
+        <span class="qr-results__stat-label">Score</span>
+      </div>
+      <div class="qr-results__stat">
+        <span class="qr-results__stat-val">${state.correct}/${total}</span>
+        <span class="qr-results__stat-label">Correct</span>
+      </div>
+      <div class="qr-results__stat">
+        <span class="qr-results__stat-val">${pct}%</span>
+        <span class="qr-results__stat-label">Accuracy</span>
+      </div>
+      <div class="qr-results__stat">
+        <span class="qr-results__stat-val">${timeStr}</span>
+        <span class="qr-results__stat-label">Time</span>
+      </div>
+    `;
+
+    fillEl.style.width = '100%';
+  }
+
+  function startTimer(seconds) {
+    clearTimer();
+    state.timeLeft = seconds;
+    timerVal.textContent = seconds;
+    timerEl.className = 'qr-timer';
+
+    state.timer = setInterval(() => {
+      state.timeLeft--;
+      timerVal.textContent = state.timeLeft;
+
+      if (state.timeLeft <= 5) timerEl.className = 'qr-timer is-danger';
+      else if (state.timeLeft <= 10) timerEl.className = 'qr-timer is-warning';
+
+      if (state.timeLeft <= 0) {
+        clearTimer();
+        skipQuestion();
+      }
+    }, 1000);
+  }
+
+  function clearTimer() {
+    if (state.timer) { clearInterval(state.timer); state.timer = null; }
+    timerEl.className = 'qr-timer';
+  }
+
+  nextBtn?.addEventListener('click', nextQuestion);
+
+  document.getElementById('qr-exit')?.addEventListener('click', () => {
+    clearTimer();
+    close();
+  });
+
+  document.getElementById('qr-results-retry')?.addEventListener('click', () => {
+    open(state.quiz);
+  });
+
+  document.getElementById('qr-results-close')?.addEventListener('click', () => {
+    close();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!overlay?.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { clearTimer(); close(); return; }
+    if (state.answered && e.key === 'Enter') { nextQuestion(); return; }
+    const num = parseInt(e.key);
+    if (!isNaN(num) && num >= 1 && num <= 6 && !state.answered) {
+      pickAnswer(num - 1);
+    }
+  });
+
+  window.blitziqRunQuiz = open;
 })();

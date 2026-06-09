@@ -578,9 +578,99 @@ $username = htmlspecialchars($_SESSION['username']);
         <img src="img/arrow-right1.png" width="13" height="13" style="filter:invert(1)">
       </button>
     </div>
-
   </div>
 </div>
+
+
+
+<div class="qr-overlay" id="qr-overlay" aria-hidden="true">
+
+  <header class="qr-header">
+    <div class="qr-header__left">
+      <button class="qr-exit" id="qr-exit" aria-label="Exit quiz">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <span class="qr-header__name" id="qr-name"></span>
+    </div>
+    <div class="qr-header__center">
+      <div class="qr-progress-bar">
+        <div class="qr-progress-bar__fill" id="qr-progress-fill"></div>
+      </div>
+      <span class="qr-header__counter" id="qr-counter"></span>
+    </div>
+    <div class="qr-header__right">
+      <div class="qr-timer" id="qr-timer">
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M7 4.5V7l1.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span id="qr-timer-val">30</span>
+      </div>
+      <div class="qr-score-pill" id="qr-score-pill">
+        <svg width="11" height="11" viewBox="0 0 13 13" fill="none">
+          <path d="M6.5 1l1.5 3.1 3.4.5-2.5 2.4.6 3.4L6.5 9 3 10.4l.6-3.4L1 4.6l3.4-.5z" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+        <span id="qr-score-val">0</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="qr-question" id="qr-question-wrap">
+    <div class="qr-q-num" id="qr-q-num"></div>
+    <h2 class="qr-q-text" id="qr-q-text"></h2>
+  </div>
+  
+  <div class="qr-feedback" id="qr-feedback" aria-live="polite">
+    <span class="qr-feedback__icon" id="qr-feedback-icon"></span>
+    <span id="qr-feedback-text"></span>
+  </div>
+  
+  <div class="qr-body" id="qr-body">
+    <div class="qr-answers" id="qr-answers"></div>
+  </div>
+
+  <div class="qr-footer">
+    <div class="qr-dots" id="qr-dots"></div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="qr-skip-btn" id="qr-skip-btn">
+        Skip
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="qr-next-btn" id="qr-next-btn" style="display:none">
+        Next
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M5 2l5 5-5 5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="qr-results" id="qr-results" style="display:none">
+    <div class="qr-results__badge" id="qr-results-badge"></div>
+    <h2 class="qr-results__title" id="qr-results-title"></h2>
+    <p class="qr-results__sub" id="qr-results-sub"></p>
+    <div class="qr-results__stats" id="qr-results-stats"></div>
+    <div class="qr-results__actions">
+      <button class="qr-results__retry" id="qr-results-retry">
+        Try again
+        <img src="img/again.png" width="14" height="14" style="filter:invert(1)" >
+      </button>
+      <button class="qr-results__close" id="qr-results-close">
+        Back to quizzes
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M5 2l5 5-5 5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+
 
 <script src="src/page.js"></script>
 </body>
