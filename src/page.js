@@ -22,6 +22,7 @@ async function loadServerData() {
       localStorage.setItem('blitziq-saved', JSON.stringify(json.data.saved || []));
       localStorage.setItem('blitziq-notifs', JSON.stringify(json.data.notifs || []));
     }
+    if (json.data.history) localStorage.setItem('blitziq-history', JSON.stringify(json.data.history));
   } catch (e) {
     console.error('Failed to load server data:', e);
   }
@@ -37,11 +38,27 @@ async function syncToServer() {
         folders: JSON.parse(localStorage.getItem('blitziq-folders') || '[]'),
         saved: JSON.parse(localStorage.getItem('blitziq-saved') || '[]'),
         notifs: JSON.parse(localStorage.getItem('blitziq-notifs') || '[]'),
+        history: getHistory(),
       })
     });
   } catch (e) {
     console.error('Failed to sync to server:', e);
   }
+}
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('blitziq-history')) || []; }
+  catch { return []; }
+}
+
+function saveHistory(arr) {
+  localStorage.setItem('blitziq-history', JSON.stringify(arr.slice(0, 100)));
+}
+
+function addHistoryEntry(entry) {
+  const h = getHistory();
+  h.unshift(entry);
+  saveHistory(h);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -2543,6 +2560,19 @@ window.blitziqRenderFavorites = renderFavorites;
       </div>
     `;
 
+    addHistoryEntry({
+      id: state.quiz.id || '',
+      name: state.quiz.name || 'Quiz',
+      subject: state.quiz.subject || '',
+      score: state.score,
+      correct: state.correct,
+      total: state.questions.length,
+      pct: pct,
+      passed: passed,
+      elapsed: elapsed,
+      playedAt: Date.now()
+    });
+
     fillEl.style.width = '100%';
   }
 
@@ -2592,4 +2622,55 @@ window.blitziqRenderFavorites = renderFavorites;
   });
 
   window.blitziqRunQuiz = open;
+
+  function renderHistory() {
+  const list = document.getElementById('history-list');
+  const empty = document.getElementById('history-empty');
+  if (!list) return;
+  const h = getHistory();
+  list.innerHTML = '';
+  if (!h.length) {
+    empty.style.display = '';
+    list.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+  list.style.display = '';
+  h.forEach(entry => {
+    const mins = Math.floor(entry.elapsed / 60);
+    const secs = entry.elapsed % 60;
+    const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+    const date = new Date(entry.playedAt);
+    const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const card = document.createElement('div');
+    card.className = 'history-card';
+    card.innerHTML = `
+      <div class="history-card__icon">
+        <img src="img/quizzes.png" alt="">
+      </div>
+      <div class="history-card__body">
+        <div class="history-card__name">${entry.name}</div>
+        <div class="history-card__meta">${dateStr} · ${entry.correct}/${entry.total} correct · ${timeStr}</div>
+      </div>
+      <div class="history-card__score">${entry.pct}%</div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+document.getElementById('btn-history')?.addEventListener('click', e => {
+  e.preventDefault();
+  renderHistory();
+  document.getElementById('history-overlay').classList.add('is-open');
+});
+
+document.getElementById('history-close')?.addEventListener('click', () => {
+  document.getElementById('history-overlay').classList.remove('is-open');
+});
+
+document.getElementById('history-overlay')?.addEventListener('click', e => {
+  if (e.target === document.getElementById('history-overlay')) {
+    document.getElementById('history-overlay').classList.remove('is-open');
+  }
+});
 })();

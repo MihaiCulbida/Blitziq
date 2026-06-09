@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    $allowed = ['quizzes', 'folders', 'saved', 'notifs'];
+    $allowed = ['quizzes', 'folders', 'saved', 'notifs', 'history'];
     $clean = [];
     foreach ($allowed as $key) {
         if (isset($data[$key])) {
@@ -48,7 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'quizzes' => [],
             'folders' => [],
             'saved' => [],
-            'notifs' => []
+            'notifs' => [],
+            'history' => []
         ]]);
     }
     exit;

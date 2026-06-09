@@ -30,6 +30,7 @@ if ($logged_in) {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image" href="img/logo1.png">
   <link rel="stylesheet" href="styles/page.css">
+  <link rel="stylesheet" href="styles/history.css">
 </head>
 <body>
 
@@ -115,7 +116,7 @@ if ($logged_in) {
       <img src="img/bookmark.png" width="16" height="16" alt="">
       <span class="sidebar-label">Favorites</span>
     </a>
-    <a href="#" class="sidebar-item">
+    <a href="#" class="sidebar-item" id="btn-history">
       <img src="img/history.png" width="16" height="16" alt="">
       <span class="sidebar-label">History</span>
     </a>
@@ -283,6 +284,27 @@ if ($logged_in) {
   </section>
 
 </main>
+
+<div class="history-overlay" id="history-overlay" aria-hidden="true">
+  <div class="history-panel" id="history-panel" role="dialog" aria-modal="true" aria-label="History">
+    <div class="history-panel__header">
+      <h2 class="history-panel__title">History</h2>
+      <button class="history-panel__close" id="history-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="history-panel__body" id="history-body">
+      <div class="history-empty" id="history-empty">
+        <img src="img/history.png" width="32" height="32" alt="" style="opacity:0.2;">
+        <p class="history-empty__title">No history yet</p>
+        <p class="history-empty__sub">Quizzes you play will appear here</p>
+      </div>
+      <div class="history-list" id="history-list"></div>
+    </div>
+  </div>
+</div>
 
 <div class="quiz-overlay" id="quiz-overlay" aria-hidden="true">
   <div class="quiz-modal" id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="qm-title">
