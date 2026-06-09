@@ -31,6 +31,7 @@ if ($logged_in) {
   <link rel="icon" type="image" href="img/logo1.png">
   <link rel="stylesheet" href="styles/page.css">
   <link rel="stylesheet" href="styles/history.css">
+  <link rel="stylesheet" href="styles/theme-p.css">
 </head>
 <body>
 
@@ -74,6 +75,10 @@ if ($logged_in) {
         </button>
         <div class="navbar-dropdown" id="navbar-dropdown">
           <span class="navbar-dropdown-user"><?= $username ?></span>
+          <button type="button" class="navbar-dropdown-item navbar-dropdown-theme" id="btn-theme-toggle" aria-label="Toggle theme">
+            Theme
+            <img src="img/moon.png" id="theme-toggle-icon" width="18" height="18" alt="Dark mode">
+          </button>
           <a href="index.php" class="navbar-dropdown-item">Home</a>
           <a href="php/logout.php" class="navbar-dropdown-item">Log out</a>
         </div>
