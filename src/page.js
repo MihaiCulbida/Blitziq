@@ -735,7 +735,7 @@ window.blitziqRenderFavorites = renderFavorites;
       chip.innerHTML = `
         <div class="qm-answer-chip__letter">${LETTERS[i]}</div>
         <div class="qm-answer-chip__bar"></div>
-        ${i === 0 ? `<span class="qm-answer-chip__badge"><img src="img/correct.png" width="10" height="10" alt="">correct</span>` : ''}
+        ${i === 0 ? `<span class="qm-answer-chip__badge"><img src="img/correct1.png" width="10" height="10" alt="">correct</span>` : ''}
       `;
       answerPreview.appendChild(chip);
     }
@@ -2430,12 +2430,17 @@ window.blitziqRenderFavorites = renderFavorites;
     const allBtns = answersEl.querySelectorAll('.qr-answer');
     allBtns.forEach((btn, i) => {
       btn.disabled = true;
-      if (answers[i]?.correct) btn.classList.add('qr-answer--correct');
-      else btn.classList.add('qr-answer--dimmed');
+      if (answers[i]?.correct) {
+        btn.classList.add('qr-answer--correct');
+        const check = btn.querySelector('.icon-check');
+        if (check) check.style.display = 'block';
+      } else {
+        btn.classList.add('qr-answer--dimmed');
+      }
     });
 
     feedback.className = 'qr-feedback qr-feedback--wrong';
-    feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon"><img src="img/timer.png" width="16" height="16" alt=""></span><span id="qr-feedback-text">Time's up!</span>`;
+    feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon"><img src="img/timer.png" width="16" height="16" style="filter:invert(1)"></span><span id="qr-feedback-text">Time's up!</span>`;
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
     nextBtn.textContent = state.index < state.questions.length - 1 ? 'Next' : 'See results';
