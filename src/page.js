@@ -270,19 +270,117 @@ function updateBellBadge() {
   const notifOverlay = document.getElementById('notif-overlay');
   const notifClose = document.getElementById('notif-close');
   
-  const settingsBtn = document.getElementById('settings-btn');
-  const settingsDropdown = document.getElementById('settings-dropdown');
-  
-  if (settingsBtn && settingsDropdown) {
-    settingsBtn.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      settingsDropdown.classList.toggle('is-open');
-    });
-    document.addEventListener('click', () => {
+const settingsBtn = document.getElementById('settings-btn');
+const settingsDropdown = document.getElementById('settings-dropdown');
+
+if (settingsBtn && settingsDropdown) {
+  settingsBtn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (document.body.classList.contains('sidebar-collapsed')) {
+      document.body.classList.remove('sidebar-collapsed');
+      localStorage.setItem('blitziq-sidebar', '0');
+    }
+    settingsDropdown.classList.toggle('is-open');
+  });
+  document.addEventListener('click', e => {
+    if (!settingsBtn.closest('.sidebar-settings-wrap').contains(e.target)) {
       settingsDropdown.classList.remove('is-open');
-    });
+    }
+  });
+}
+
+function openSettingsModal(id) {
+  document.querySelectorAll('.settings-overlay').forEach(o => {
+    o.classList.remove('is-open');
+    o.setAttribute('aria-hidden', 'true');
+  });
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('is-open');
+  el.removeAttribute('aria-hidden');
+  document.body.style.overflow = 'hidden';
+  settingsDropdown.classList.remove('is-open');
+}
+
+function closeAllSettingsModals() {
+  document.querySelectorAll('.settings-overlay').forEach(o => {
+    o.classList.remove('is-open');
+    o.setAttribute('aria-hidden', 'true');
+  });
+  document.body.style.overflow = '';
+}
+
+function updateThemeSettingsIcon() {
+  const icon = document.querySelector('#settings-theme img');
+  if (!icon) return;
+  const isDark = document.body.classList.contains('dark-mode');
+  icon.src = isDark ? 'img/sun.png' : 'img/moon.png';
+}
+
+document.getElementById('settings-profile')?.addEventListener('click', e => {
+  e.preventDefault();
+  openSettingsModal('settings-profile-overlay');
+});
+
+document.getElementById('settings-theme')?.addEventListener('click', e => {
+  e.preventDefault();
+  const isDark = !document.body.classList.contains('dark-mode');
+  applyTheme(isDark);
+  updateThemeSettingsIcon();
+  settingsDropdown.classList.remove('is-open');
+});
+
+document.getElementById('settings-language')?.addEventListener('click', e => {
+  e.preventDefault();
+  e.stopPropagation();
+  const langDropdown = document.getElementById('settings-lang-dropdown');
+  langDropdown?.classList.toggle('is-open');
+});
+
+document.addEventListener('click', e => {
+  const langWrap = document.querySelector('.settings-lang-wrap');
+  if (langWrap && !langWrap.contains(e.target)) {
+    document.getElementById('settings-lang-dropdown')?.classList.remove('is-open');
   }
+});
+
+document.getElementById('settings-help')?.addEventListener('click', e => {
+  e.preventDefault();
+  openSettingsModal('settings-help-overlay');
+});
+
+document.querySelectorAll('.settings-modal__close').forEach(btn => {
+  btn.addEventListener('click', closeAllSettingsModals);
+});
+
+document.querySelectorAll('.settings-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeAllSettingsModals();
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeAllSettingsModals();
+});
+
+document.querySelectorAll('.settings-lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.settings-lang-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    localStorage.setItem('blitziq-lang', btn.dataset.lang);
+    document.getElementById('settings-lang-dropdown')?.classList.remove('is-open');
+  });
+});
+
+const savedLang = localStorage.getItem('blitziq-lang');
+if (savedLang) {
+  document.querySelectorAll('.settings-lang-btn').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.lang === savedLang);
+  });
+}
+
+updateThemeSettingsIcon();
 
   function openNotif() {
     notifOverlay.classList.add('is-open');

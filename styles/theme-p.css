@@ -270,7 +270,7 @@ body.dark-mode .disc-block__title {
 }
 
 body.dark-mode .disc-block__title img {
-  filter: brightness(0.9);
+  filter: brightness(0) invert(1);
 }
 
 body.dark-mode .disc-block__see-all {
@@ -334,10 +334,85 @@ body.dark-mode .home-block__title {
 }
 
 body.dark-mode .home-block__title img {
-  filter: brightness(0.9);
+  filter: brightness(0) invert(1);
 }
 
 body.dark-mode .home-block__see-all {
+  color: #a78bfa;
+}
+
+body.dark-mode .sidebar-settings-item img {
+  filter: invert(0.7);
+}
+
+body.dark-mode .sidebar-settings-item:hover img {
+  filter: invert(1);
+}
+
+body.dark-mode .settings-modal {
+  background: #1e1e2a;
+  border-color: #2a2a3a;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .settings-modal__header {
+  border-bottom-color: #2a2a3a;
+}
+
+body.dark-mode .settings-modal__title {
+  color: #e2e8f0;
+}
+
+body.dark-mode .settings-modal__close {
+  color: #64748b;
+}
+
+body.dark-mode .settings-modal__close:hover {
+  background: #2a2a3a;
+  color: #e2e8f0;
+}
+
+body.dark-mode .profile-name {
+  color: #e2e8f0;
+}
+
+body.dark-mode .profile-email {
+  color: #64748b;
+}
+
+body.dark-mode .help-item {
+  background: #151520;
+  border-color: #2a2a3a;
+}
+
+body.dark-mode .help-title {
+  color: #e2e8f0;
+}
+
+body.dark-mode .help-desc {
+  color: #94a3b8;
+}
+
+body.dark-mode .help-desc strong {
+  color: #e2e8f0;
+}
+
+body.dark-mode .settings-lang-dropdown {
+  background: #1e1e2a;
+  border-color: #2a2a3a;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .settings-lang-btn {
+  color: #e2e8f0;
+}
+
+body.dark-mode .settings-lang-btn:hover {
+  background: #2a2a3a;
+}
+
+body.dark-mode .settings-lang-btn.is-active {
+  background: #2d1f4e;
   color: #a78bfa;
 }
 

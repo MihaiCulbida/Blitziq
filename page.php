@@ -139,9 +139,34 @@ if ($logged_in) {
         <span class="sidebar-label">Settings</span>
       </a>
       <div class="sidebar-settings-dropdown" id="settings-dropdown">
-        <a href="#" class="sidebar-settings-item">Profile</a>
-        <a href="#" class="sidebar-settings-item">Appearance</a>
-        <a href="php/logout.php" class="sidebar-settings-item">Log out</a>
+        <a href="#" class="sidebar-settings-item" id="settings-profile">
+          <img src="img/user.png" width="16" height="16" alt="">
+          Profile
+        </a>
+        <a href="#" class="sidebar-settings-item" id="settings-theme">
+          <img src="img/moon.png" width="16" height="16" alt="">
+          Theme
+        </a>
+        <div class="settings-lang-wrap">
+          <a href="#" class="sidebar-settings-item" id="settings-language">
+            <img src="img/public.png" width="16" height="16" alt="">
+            Language
+            <img src="img/arrow-r.png" width="10" height="10" alt="" style="margin-left:auto;opacity:0.4;">
+          </a>
+          <div class="settings-lang-dropdown" id="settings-lang-dropdown">
+            <button class="settings-lang-btn is-active" data-lang="en">English</button>
+            <button class="settings-lang-btn" data-lang="ro">Română</button>
+            <button class="settings-lang-btn" data-lang="ru">Русский</button>
+          </div>
+        </div>
+        <a href="#" class="sidebar-settings-item" id="settings-help">
+          <img src="img/help.png" width="18" height="18" alt="">
+          Help
+        </a>
+        <a href="php/logout.php" class="sidebar-settings-item">
+          <img src="img/logout.png" width="16" height="16" alt="">
+          Log out
+        </a>
       </div>
     </div>
   </div>
@@ -313,6 +338,85 @@ if ($logged_in) {
         <p class="history-empty__sub">Quizzes you play will appear here</p>
       </div>
       <div class="history-list" id="history-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="settings-overlay" id="settings-profile-overlay" aria-hidden="true">
+  <div class="settings-modal" role="dialog" aria-modal="true">
+    <div class="settings-modal__header">
+      <h2 class="settings-modal__title">Profile</h2>
+      <button class="settings-modal__close" id="settings-profile-close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="settings-modal__body">
+      <div class="profile-avatar-big">
+        <?= strtoupper(mb_substr($username, 0, 1)) ?>
+      </div>
+      <div class="profile-info">
+        <p class="profile-name"><?= $username ?></p>
+        <p class="profile-email"><?= $logged_in ? htmlspecialchars($_SESSION['email'] ?? 'No email') : '' ?></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="settings-overlay" id="settings-help-overlay" aria-hidden="true">
+  <div class="settings-modal" role="dialog" aria-modal="true">
+    <div class="settings-modal__header">
+      <h2 class="settings-modal__title">Help</h2>
+      <button class="settings-modal__close" id="settings-help-close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="settings-modal__body">
+      <div class="help-item">
+        <p class="help-title">Getting started</p>
+        <p class="help-desc">Click <strong>New quiz</strong> to create your first quiz. Add questions, set a timer and publish.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-title">Playing a quiz</p>
+        <p class="help-desc">Browse quizzes in Discover, click one and press <strong>Start quiz</strong>. Answer before the timer runs out.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-title">Saving quizzes</p>
+        <p class="help-desc">Click the bookmark icon on any quiz to save it to your Favorites in the sidebar.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-title">Contact</p>
+        <p class="help-desc">Reach out via Telegram or Instagram — links in the footer of the main page.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="settings-overlay" id="settings-language-overlay" aria-hidden="true">
+  <div class="settings-modal" role="dialog" aria-modal="true">
+    <div class="settings-modal__header">
+      <h2 class="settings-modal__title">Language</h2>
+      <button class="settings-modal__close" id="settings-language-close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="settings-modal__body">
+      <div class="lang-list">
+        <button class="lang-btn is-active" data-lang="en">
+          English
+        </button>
+        <button class="lang-btn" data-lang="ro">
+          Română
+        </button>
+        <button class="lang-btn" data-lang="ru">
+          Русский
+        </button>
+      </div>
     </div>
   </div>
 </div>

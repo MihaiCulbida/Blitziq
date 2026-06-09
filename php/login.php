@@ -23,6 +23,7 @@ foreach ($users as $u) {
         session_regenerate_id(true);
         $_SESSION['user_id']  = $u['id'] ?? $u['username'];
         $_SESSION['username'] = $u['username'];
+        $_SESSION['email']    = $u['email'];
         echo json_encode(['success' => true, 'username' => $u['username']]);
         exit;
     }
