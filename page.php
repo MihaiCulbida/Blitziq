@@ -674,7 +674,9 @@ $username = htmlspecialchars($_SESSION['username']);
 </div>
 
 
-
+<script>
+  const QUIZ_DATA = <?= json_encode(json_decode(file_get_contents('data/items.json'), true)) ?>;
+</script>
 <script src="src/page.js"></script>
 </body>
 </html>

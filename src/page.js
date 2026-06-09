@@ -1,3 +1,19 @@
+function getCategoryIcon(categoryId) {
+  const cat = QUIZ_DATA.categories.find(c => c.id === categoryId);
+  return cat ? cat.icon : 'img/quizzes.png';
+}
+
+const ALL_QUIZZES = QUIZ_DATA.quizzes.map(q => ({
+  name: q.name,
+  meta: `${q.subject} · ${q.questions.length} questions`,
+  badge: q.badge || '',
+  icon: getCategoryIcon(q.category),
+  questions: q.questions,
+  timePerQ: q.timePerQ,
+  points: q.points,
+  passScore: q.passScore,
+}));
+
 const COLORS = ['#a78bfa', '#f472b6', '#34d399', '#60a5fa', '#fb923c', '#facc15'];
 const STORAGE_KEY = 'blitziq-folders';
 const SAVED_KEY = 'blitziq-saved';
@@ -944,101 +960,8 @@ window.blitziqRenderFavorites = renderFavorites;
     meta: 'Chemistry · 10 questions · 30 sec / question',
   };
 
-  const TRENDING = [
-    { name: 'Animal Cell – Structure & Functions', meta: 'Biology · 25 questions', badge: 'hot', icon: 'img/science.png' },
-    { name: 'Photosynthesis & Cellular Respiration', meta: 'Biology · 20 questions', badge: 'new', icon: 'img/science.png' },
-    { name: 'Human Digestive System', meta: 'Biology · 18 questions', badge: '', icon: 'img/science.png' },
-    { name: 'Genetics & DNA Replication', meta: 'Biology · 22 questions', badge: 'hot', icon: 'img/science.png' },
-    { name: 'Ecosystems & Food Chains', meta: 'Biology · 15 questions', badge: '', icon: 'img/science.png' },
-    { name: 'Functions & Limits – Baccalaureate', meta: 'Mathematics · 20 questions', badge: 'new', icon: 'img/mathematics.png' },
-    { name: 'Quadratic Equations & Inequalities', meta: 'Mathematics · 18 questions', badge: 'hot', icon: 'img/mathematics.png' },
-    { name: 'Trigonometry – Identities & Values', meta: 'Mathematics · 16 questions', badge: '', icon: 'img/mathematics.png' },
-    { name: 'Probability & Statistics Basics', meta: 'Mathematics · 22 questions', badge: '', icon: 'img/mathematics.png' },
-    { name: 'Integrals & Derivatives', meta: 'Mathematics · 24 questions', badge: 'classic', icon: 'img/mathematics.png' },
-    { name: 'World Capitals', meta: 'Geography · 30 questions', badge: 'classic', icon: 'img/geography.png' },
-    { name: 'Rivers & Mountains of Europe', meta: 'Geography · 20 questions', badge: '', icon: 'img/geography.png' },
-    { name: 'Countries of Africa – Flags & Facts', meta: 'Geography · 25 questions', badge: 'hot', icon: 'img/geography.png' },
-    { name: 'Climate Zones & Biomes', meta: 'Geography · 18 questions', badge: 'new', icon: 'img/geography.png' },
-    { name: 'Romania – Counties & Cities', meta: 'Geography · 20 questions', badge: '', icon: 'img/geography.png' },
-    { name: 'Sorting Algorithms', meta: 'Computer Science · 15 questions', badge: '', icon: 'img/computer.png' },
-    { name: 'Object-Oriented Programming Concepts', meta: 'Computer Science · 18 questions', badge: 'new', icon: 'img/computer.png' },
-    { name: 'Data Structures – Arrays & Lists', meta: 'Computer Science · 20 questions', badge: '', icon: 'img/computer.png' },
-    { name: 'SQL & Database Fundamentals', meta: 'Computer Science · 16 questions', badge: 'hot', icon: 'img/computer.png' },
-    { name: 'Networks & Protocols Basics', meta: 'Computer Science · 14 questions', badge: '', icon: 'img/computer.png' },
-    { name: 'Newton\'s Laws of Motion', meta: 'Physics · 16 questions', badge: '', icon: 'img/science.png' },
-    { name: 'Electricity & Circuits', meta: 'Physics · 20 questions', badge: 'hot', icon: 'img/science.png' },
-    { name: 'Optics – Light & Refraction', meta: 'Physics · 18 questions', badge: '', icon: 'img/science.png' },
-    { name: 'Thermodynamics – Heat & Energy', meta: 'Physics · 15 questions', badge: 'new', icon: 'img/science.png' },
-    { name: 'Kinematics & Projectile Motion', meta: 'Physics · 22 questions', badge: 'classic', icon: 'img/science.png' },
-    { name: 'World War II – Key Events', meta: 'History · 22 questions', badge: 'hot', icon: 'img/history1.png' },
-    { name: 'Ancient Rome – Republic & Empire', meta: 'History · 18 questions', badge: 'classic', icon: 'img/history1.png' },
-    { name: 'French Revolution – Causes & Effects', meta: 'History · 20 questions', badge: '', icon: 'img/history1.png' },
-    { name: 'Cold War – Key Moments', meta: 'History · 16 questions', badge: 'new', icon: 'img/history1.png' },
-    { name: 'History of Romania – Medieval Period', meta: 'History · 14 questions', badge: '', icon: 'img/history1.png' },
-  ];
-
-  const RECOMMENDED = [
-    { name: 'Eminescu\'s Poetry', meta: 'Language & Literature · 10 questions', icon: 'img/literature.png' },
-    { name: 'Romanian Grammar – Parts of Speech', meta: 'Language & Literature · 18 questions', icon: 'img/literature.png' },
-    { name: 'Shakespeare\'s Works & Characters', meta: 'Language & Literature · 16 questions', icon: 'img/literature.png' },
-    { name: 'Literary Devices & Figures of Speech', meta: 'Language & Literature · 14 questions', icon: 'img/literature.png' },
-    { name: 'Romanian Writers – 19th & 20th Century', meta: 'Language & Literature · 20 questions', icon: 'img/literature.png' },
-    { name: 'Periodic Table – Elements', meta: 'Chemistry · 18 questions', icon: 'img/science.png' },
-    { name: 'Chemical Bonds & Reactions', meta: 'Chemistry · 22 questions', icon: 'img/science.png' },
-    { name: 'Acids, Bases & pH Scale', meta: 'Chemistry · 16 questions', icon: 'img/science.png' },
-    { name: 'Organic Chemistry – Carbon Compounds', meta: 'Chemistry · 20 questions', icon: 'img/science.png' },
-    { name: 'Stoichiometry & Molar Mass', meta: 'Chemistry · 18 questions', icon: 'img/science.png' },
-    { name: 'Cognitive Psychology Basics', meta: 'Psychology · 12 questions', icon: 'img/psychology.png' },
-    { name: 'Freud\'s Psychoanalytic Theory', meta: 'Psychology · 14 questions', icon: 'img/psychology.png' },
-    { name: 'Memory & Learning Processes', meta: 'Psychology · 16 questions', icon: 'img/psychology.png' },
-    { name: 'Developmental Psychology – Piaget', meta: 'Psychology · 18 questions', icon: 'img/psychology.png' },
-    { name: 'Personality Theories & Traits', meta: 'Psychology · 15 questions', icon: 'img/psychology.png' },
-    { name: 'French Vocabulary – A2', meta: 'Language & Literature · 20 questions', icon: 'img/public.png' },
-    { name: 'English Grammar – Tenses', meta: 'Language & Literature · 22 questions', icon: 'img/public.png' },
-    { name: 'German – Basic Vocabulary B1', meta: 'Language & Literature · 18 questions', icon: 'img/public.png' },
-    { name: 'Spanish – Common Phrases A1', meta: 'Language & Literature · 16 questions', icon: 'img/public.png' },
-    { name: 'Latin – Declensions & Conjugations', meta: 'Language & Literature · 14 questions', icon: 'img/public.png' },
-    { name: 'Animal Kingdoms – Classification', meta: 'Biology · 14 questions', icon: 'img/science.png' },
-    { name: 'Human Nervous System', meta: 'Biology · 18 questions', icon: 'img/science.png' },
-    { name: 'Plant Biology – Structures & Functions', meta: 'Biology · 16 questions', icon: 'img/science.png' },
-    { name: 'Evolution & Natural Selection', meta: 'Biology · 20 questions', icon: 'img/science.png' },
-    { name: 'Microbiology – Bacteria & Viruses', meta: 'Biology · 15 questions', icon: 'img/science.png' },
-    { name: 'EU Countries & Capitals', meta: 'Geography · 27 questions', icon: 'img/geography.png' },
-    { name: 'Physical Geography of Asia', meta: 'Geography · 22 questions', icon: 'img/geography.png' },
-    { name: 'World Oceans & Seas', meta: 'Geography · 16 questions', icon: 'img/geography.png' },
-    { name: 'Natural Disasters – Causes & Effects', meta: 'Geography · 18 questions', icon: 'img/geography.png' },
-    { name: 'Cartography & Map Reading', meta: 'Geography · 12 questions', icon: 'img/geography.png' },
-    { name: 'Basic Algebra', meta: 'Mathematics · 18 questions', icon: 'img/mathematics.png' },
-    { name: 'Geometry – Theorems & Proofs', meta: 'Mathematics · 20 questions', icon: 'img/mathematics.png' },
-    { name: 'Number Theory – Primes & Divisibility', meta: 'Mathematics · 15 questions', icon: 'img/mathematics.png' },
-    { name: 'Combinatorics & Permutations', meta: 'Mathematics · 16 questions', icon: 'img/mathematics.png' },
-    { name: 'Matrices & Linear Systems', meta: 'Mathematics · 18 questions', icon: 'img/mathematics.png' },
-    { name: 'HTML & CSS Fundamentals', meta: 'Computer Science · 20 questions', icon: 'img/computer.png' },
-    { name: 'Binary & Number Systems', meta: 'Computer Science · 14 questions', icon: 'img/computer.png' },
-    { name: 'Operating Systems – Core Concepts', meta: 'Computer Science · 16 questions', icon: 'img/computer.png' },
-    { name: 'Recursion & Dynamic Programming', meta: 'Computer Science · 18 questions', icon: 'img/computer.png' },
-    { name: 'Cybersecurity Basics', meta: 'Computer Science · 15 questions', icon: 'img/computer.png' },
-    { name: 'Roman Empire – Key Facts', meta: 'History · 15 questions', icon: 'img/history1.png' },
-    { name: 'World War I – Causes & Alliances', meta: 'History · 20 questions', icon: 'img/history1.png' },
-    { name: 'The Renaissance – Art & Ideas', meta: 'History · 16 questions', icon: 'img/history1.png' },
-    { name: 'Ancient Greece – City-States & Culture', meta: 'History · 18 questions', icon: 'img/history1.png' },
-    { name: 'Colonialism & Decolonization', meta: 'History · 14 questions', icon: 'img/history1.png' },
-    { name: 'Introduction to Philosophy', meta: 'Psychology · 10 questions', icon: 'img/psychology.png' },
-    { name: 'Social Psychology – Group Behaviour', meta: 'Psychology · 16 questions', icon: 'img/psychology.png' },
-    { name: 'Emotions & Motivation', meta: 'Psychology · 14 questions', icon: 'img/psychology.png' },
-    { name: 'Abnormal Psychology – Disorders', meta: 'Psychology · 18 questions', icon: 'img/psychology.png' },
-    { name: 'Behaviorism – Pavlov & Skinner', meta: 'Psychology · 12 questions', icon: 'img/psychology.png' },
-    { name: 'Electrochemistry & Redox Reactions', meta: 'Chemistry · 16 questions', icon: 'img/science.png' },
-    { name: 'States of Matter & Gas Laws', meta: 'Chemistry · 20 questions', icon: 'img/science.png' },
-    { name: 'Biochemistry – Proteins & Enzymes', meta: 'Chemistry · 18 questions', icon: 'img/science.png' },
-    { name: 'Nuclear Chemistry & Radioactivity', meta: 'Chemistry · 14 questions', icon: 'img/science.png' },
-    { name: 'Solutions & Concentration Calculations', meta: 'Chemistry · 16 questions', icon: 'img/science.png' },
-    { name: 'Waves & Sound', meta: 'Physics · 18 questions', icon: 'img/science.png' },
-    { name: 'Magnetism & Electromagnetism', meta: 'Physics · 20 questions', icon: 'img/science.png' },
-    { name: 'Modern Physics – Relativity Basics', meta: 'Physics · 14 questions', icon: 'img/science.png' },
-    { name: 'Quantum Mechanics – Introduction', meta: 'Physics · 12 questions', icon: 'img/science.png' },
-    { name: 'Fluids – Pressure & Archimedes', meta: 'Physics · 16 questions', icon: 'img/science.png' },
-  ];
+  const TRENDING    = ALL_QUIZZES.filter(q => q.badge === 'hot' || q.badge === 'new' || q.badge === 'classic');
+  const RECOMMENDED = ALL_QUIZZES.filter(q => !q.badge);
 
   const BADGE_LABELS = { hot: 'Hot', new: 'New', classic: 'Classic' };
 

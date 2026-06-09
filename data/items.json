@@ -1,0 +1,1718 @@
+{
+  "version": "1.0.0",
+  "categories": [
+    {
+      "id": "biology",
+      "label": "Biology",
+      "icon": "img/science.png",
+      "color": "#f97316"
+    },
+    {
+      "id": "chemistry",
+      "label": "Chemistry",
+      "icon": "img/science.png",
+      "color": "#ef4444"
+    },
+    {
+      "id": "physics",
+      "label": "Physics",
+      "icon": "img/science.png",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "mathematics",
+      "label": "Mathematics",
+      "icon": "img/mathematics.png",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "geography",
+      "label": "Geography",
+      "icon": "img/geography.png",
+      "color": "#0ea5e9"
+    },
+    {
+      "id": "history",
+      "label": "History",
+      "icon": "img/history1.png",
+      "color": "#d97706"
+    },
+    {
+      "id": "computer_science",
+      "label": "Computer Science",
+      "icon": "img/computer.png",
+      "color": "#ec4899"
+    },
+    {
+      "id": "literature",
+      "label": "Language & Literature",
+      "icon": "img/literature.png",
+      "color": "#10b981"
+    },
+    {
+      "id": "psychology",
+      "label": "Psychology",
+      "icon": "img/psychology.png",
+      "color": "#14b8a6"
+    }
+  ],
+  "quizzes": [
+
+    {
+      "id": "bio_001",
+      "category": "biology",
+      "name": "Animal Cell – Structure & Functions",
+      "description": "Test your knowledge of animal cell organelles and their roles.",
+      "subject": "Biology",
+      "language": "English",
+      "visibility": "public",
+      "badge": "hot",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "bio_001_q1",
+          "text": "Which organelle is known as the 'powerhouse of the cell'?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Mitochondria", "correct": true },
+            { "text": "Ribosome", "correct": false },
+            { "text": "Golgi apparatus", "correct": false },
+            { "text": "Vacuole", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q2",
+          "text": "What is the function of the nucleus in an animal cell?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Controls cell activities and contains DNA", "correct": true },
+            { "text": "Produces energy for the cell", "correct": false },
+            { "text": "Synthesises proteins", "correct": false },
+            { "text": "Digests waste materials", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q3",
+          "text": "Which organelle is responsible for protein synthesis?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Ribosome", "correct": true },
+            { "text": "Lysosome", "correct": false },
+            { "text": "Centrosome", "correct": false },
+            { "text": "Vacuole", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q4",
+          "text": "Animal cells do NOT have a cell wall.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q5",
+          "text": "The Golgi apparatus is involved in which of the following?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Packaging and secreting proteins", "correct": true },
+            { "text": "Producing ATP", "correct": false },
+            { "text": "Storing genetic information", "correct": false },
+            { "text": "Performing photosynthesis", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q6",
+          "text": "Which of the following is present in animal cells but NOT in plant cells?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Centrioles", "correct": true },
+            { "text": "Chloroplasts", "correct": false },
+            { "text": "Cell wall", "correct": false },
+            { "text": "Large central vacuole", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q7",
+          "text": "Lysosomes contain digestive enzymes that break down waste materials.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q8",
+          "text": "What is the outer boundary of an animal cell called?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Cell membrane", "correct": true },
+            { "text": "Cell wall", "correct": false },
+            { "text": "Nuclear envelope", "correct": false },
+            { "text": "Cytoskeleton", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q9",
+          "text": "The endoplasmic reticulum can be smooth or rough. What makes rough ER 'rough'?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Ribosomes attached to its surface", "correct": true },
+            { "text": "A thick membrane layer", "correct": false },
+            { "text": "Presence of lipids", "correct": false },
+            { "text": "Proximity to the nucleus", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_001_q10",
+          "text": "Which structure controls what enters and exits the nucleus?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Nuclear pores", "correct": true },
+            { "text": "Cell membrane", "correct": false },
+            { "text": "Nucleolus", "correct": false },
+            { "text": "Golgi body", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "bio_002",
+      "category": "biology",
+      "name": "Photosynthesis & Cellular Respiration",
+      "description": "Explore the two fundamental energy processes in living organisms.",
+      "subject": "Biology",
+      "language": "English",
+      "visibility": "public",
+      "badge": "new",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "bio_002_q1",
+          "text": "What is the overall equation for photosynthesis?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", "correct": true },
+            { "text": "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "correct": false },
+            { "text": "6O₂ + 6H₂O → C₆H₁₂O₆ + 6CO₂", "correct": false },
+            { "text": "C₆H₁₂O₆ + 6CO₂ → 6O₂ + 6H₂O", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_002_q2",
+          "text": "In which organelle does photosynthesis take place?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Chloroplast", "correct": true },
+            { "text": "Mitochondria", "correct": false },
+            { "text": "Vacuole", "correct": false },
+            { "text": "Nucleus", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_002_q3",
+          "text": "Cellular respiration produces ATP.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_002_q4",
+          "text": "Which pigment in chloroplasts absorbs light for photosynthesis?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Chlorophyll", "correct": true },
+            { "text": "Melanin", "correct": false },
+            { "text": "Haemoglobin", "correct": false },
+            { "text": "Carotene only", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_002_q5",
+          "text": "Aerobic respiration requires which gas?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Oxygen", "correct": true },
+            { "text": "Carbon dioxide", "correct": false },
+            { "text": "Nitrogen", "correct": false },
+            { "text": "Hydrogen", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_002_q6",
+          "text": "The light-dependent reactions of photosynthesis occur in which part of the chloroplast?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "Thylakoid membrane", "correct": true },
+            { "text": "Stroma", "correct": false },
+            { "text": "Outer membrane", "correct": false },
+            { "text": "Cristae", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_002_q7",
+          "text": "How many ATP molecules are produced per glucose in aerobic respiration (approximate)?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "36–38", "correct": true },
+            { "text": "2", "correct": false },
+            { "text": "12", "correct": false },
+            { "text": "100", "correct": false }
+          ]
+        },
+        {
+          "id": "bio_002_q8",
+          "text": "Anaerobic respiration in yeast produces ethanol and carbon dioxide.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "chem_001",
+      "category": "chemistry",
+      "name": "Periodic Table – Elements",
+      "description": "Test your knowledge of element symbols, groups, and properties.",
+      "subject": "Chemistry",
+      "language": "English",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 25,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "chem_001_q1",
+          "text": "What is the chemical symbol for Gold?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "Au", "correct": true },
+            { "text": "Go", "correct": false },
+            { "text": "Gd", "correct": false },
+            { "text": "Ag", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_001_q2",
+          "text": "How many elements are in the modern periodic table?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "118", "correct": true },
+            { "text": "108", "correct": false },
+            { "text": "92", "correct": false },
+            { "text": "128", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_001_q3",
+          "text": "What is the atomic number of Carbon?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "6", "correct": true },
+            { "text": "12", "correct": false },
+            { "text": "4", "correct": false },
+            { "text": "8", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_001_q4",
+          "text": "Noble gases are found in Group 18 of the periodic table.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_001_q5",
+          "text": "What is the symbol for Sodium?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "Na", "correct": true },
+            { "text": "So", "correct": false },
+            { "text": "Sd", "correct": false },
+            { "text": "Sn", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_001_q6",
+          "text": "Which element has the highest electronegativity?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Fluorine", "correct": true },
+            { "text": "Oxygen", "correct": false },
+            { "text": "Chlorine", "correct": false },
+            { "text": "Nitrogen", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_001_q7",
+          "text": "Isotopes of the same element have the same number of protons but different numbers of neutrons.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_001_q8",
+          "text": "Which group in the periodic table contains Alkali metals?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Group 1", "correct": true },
+            { "text": "Group 2", "correct": false },
+            { "text": "Group 17", "correct": false },
+            { "text": "Group 18", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "chem_002",
+      "category": "chemistry",
+      "name": "Acids, Bases & pH Scale",
+      "description": "Understand acids, bases, neutralisation and the pH scale.",
+      "subject": "Chemistry",
+      "language": "English",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "chem_002_q1",
+          "text": "What pH value indicates a neutral solution?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "7", "correct": true },
+            { "text": "0", "correct": false },
+            { "text": "14", "correct": false },
+            { "text": "5", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_002_q2",
+          "text": "Which ion makes a solution acidic?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "H⁺ (hydrogen ion)", "correct": true },
+            { "text": "OH⁻ (hydroxide ion)", "correct": false },
+            { "text": "Na⁺ (sodium ion)", "correct": false },
+            { "text": "Cl⁻ (chloride ion)", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_002_q3",
+          "text": "A pH of 3 is more acidic than a pH of 5.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_002_q4",
+          "text": "Which of the following is a strong acid?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Hydrochloric acid (HCl)", "correct": true },
+            { "text": "Acetic acid (CH₃COOH)", "correct": false },
+            { "text": "Carbonic acid (H₂CO₃)", "correct": false },
+            { "text": "Citric acid", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_002_q5",
+          "text": "When an acid and a base react together, the reaction is called?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Neutralisation", "correct": true },
+            { "text": "Oxidation", "correct": false },
+            { "text": "Decomposition", "correct": false },
+            { "text": "Precipitation", "correct": false }
+          ]
+        },
+        {
+          "id": "chem_002_q6",
+          "text": "Litmus paper turns red in acidic conditions and blue in alkaline conditions.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "phys_001",
+      "category": "physics",
+      "name": "Newton's Laws of Motion",
+      "description": "Understand the three fundamental laws that describe motion.",
+      "subject": "Physics",
+      "language": "English",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "phys_001_q1",
+          "text": "Newton's First Law states that an object at rest stays at rest unless acted on by an unbalanced force.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_001_q2",
+          "text": "What does Newton's Second Law express? (F = ?)",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "F = ma (force equals mass times acceleration)", "correct": true },
+            { "text": "F = mv (force equals mass times velocity)", "correct": false },
+            { "text": "F = mg (force equals mass times gravity only)", "correct": false },
+            { "text": "F = m/a", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_001_q3",
+          "text": "Newton's Third Law states that for every action there is an equal and opposite reaction.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_001_q4",
+          "text": "What is the SI unit of force?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "Newton (N)", "correct": true },
+            { "text": "Joule (J)", "correct": false },
+            { "text": "Pascal (Pa)", "correct": false },
+            { "text": "Watt (W)", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_001_q5",
+          "text": "An object with greater mass requires more force to achieve the same acceleration as a lighter object.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_001_q6",
+          "text": "What property of matter resists changes in motion?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Inertia", "correct": true },
+            { "text": "Momentum", "correct": false },
+            { "text": "Velocity", "correct": false },
+            { "text": "Friction", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "phys_002",
+      "category": "physics",
+      "name": "Electricity & Circuits",
+      "description": "Explore voltage, current, resistance, and circuit types.",
+      "subject": "Physics",
+      "language": "English",
+      "visibility": "public",
+      "badge": "hot",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "phys_002_q1",
+          "text": "What does Ohm's Law state?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "V = IR (Voltage = Current × Resistance)", "correct": true },
+            { "text": "V = I/R", "correct": false },
+            { "text": "V = I + R", "correct": false },
+            { "text": "V = I²R", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_002_q2",
+          "text": "What is the SI unit of electrical resistance?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "Ohm (Ω)", "correct": true },
+            { "text": "Ampere (A)", "correct": false },
+            { "text": "Volt (V)", "correct": false },
+            { "text": "Watt (W)", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_002_q3",
+          "text": "In a series circuit, the current is the same through all components.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_002_q4",
+          "text": "In a parallel circuit, what happens to the total resistance as more branches are added?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "It decreases", "correct": true },
+            { "text": "It increases", "correct": false },
+            { "text": "It stays the same", "correct": false },
+            { "text": "It doubles", "correct": false }
+          ]
+        },
+        {
+          "id": "phys_002_q5",
+          "text": "Electric current is measured in which unit?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "Ampere (A)", "correct": true },
+            { "text": "Volt (V)", "correct": false },
+            { "text": "Watt (W)", "correct": false },
+            { "text": "Joule (J)", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "math_001",
+      "category": "mathematics",
+      "name": "Functions & Limits – Baccalaureate",
+      "description": "Prepare for the baccalaureate with functions, limits and continuity.",
+      "subject": "Mathematics",
+      "language": "English",
+      "visibility": "public",
+      "badge": "new",
+      "timePerQ": 40,
+      "points": 10,
+      "passScore": 50,
+      "attempts": 2,
+      "questionOrder": "fixed",
+      "answerOrder": "fixed",
+      "questions": [
+        {
+          "id": "math_001_q1",
+          "text": "What is the limit of (sin x)/x as x approaches 0?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "1", "correct": true },
+            { "text": "0", "correct": false },
+            { "text": "∞", "correct": false },
+            { "text": "Undefined", "correct": false }
+          ]
+        },
+        {
+          "id": "math_001_q2",
+          "text": "If f(x) = x², what is f'(x)?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "2x", "correct": true },
+            { "text": "x²", "correct": false },
+            { "text": "2", "correct": false },
+            { "text": "x", "correct": false }
+          ]
+        },
+        {
+          "id": "math_001_q3",
+          "text": "A function is continuous at x = a if the limit exists and equals f(a).",
+          "type": "truefalse",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "math_001_q4",
+          "text": "What is the domain of f(x) = 1/x?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "All real numbers except 0", "correct": true },
+            { "text": "All real numbers", "correct": false },
+            { "text": "All positive numbers", "correct": false },
+            { "text": "x > 0 only", "correct": false }
+          ]
+        },
+        {
+          "id": "math_001_q5",
+          "text": "What is the integral of 2x with respect to x?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "x² + C", "correct": true },
+            { "text": "2x² + C", "correct": false },
+            { "text": "x + C", "correct": false },
+            { "text": "2 + C", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "math_002",
+      "category": "mathematics",
+      "name": "Quadratic Equations & Inequalities",
+      "description": "Solve quadratic equations using multiple methods.",
+      "subject": "Mathematics",
+      "language": "English",
+      "visibility": "public",
+      "badge": "hot",
+      "timePerQ": 40,
+      "points": 10,
+      "passScore": 50,
+      "attempts": 2,
+      "questionOrder": "fixed",
+      "answerOrder": "fixed",
+      "questions": [
+        {
+          "id": "math_002_q1",
+          "text": "What are the solutions of x² - 5x + 6 = 0?",
+          "type": "single",
+          "time": 40,
+          "points": 10,
+          "answers": [
+            { "text": "x = 2 and x = 3", "correct": true },
+            { "text": "x = -2 and x = -3", "correct": false },
+            { "text": "x = 1 and x = 6", "correct": false },
+            { "text": "x = 5 and x = 1", "correct": false }
+          ]
+        },
+        {
+          "id": "math_002_q2",
+          "text": "The discriminant of ax² + bx + c = 0 is given by Δ = b² - 4ac.",
+          "type": "truefalse",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "math_002_q3",
+          "text": "If the discriminant Δ < 0, the quadratic has:",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "No real solutions", "correct": true },
+            { "text": "Two equal real solutions", "correct": false },
+            { "text": "Two distinct real solutions", "correct": false },
+            { "text": "Infinite solutions", "correct": false }
+          ]
+        },
+        {
+          "id": "math_002_q4",
+          "text": "Solve: x² = 16. What are the values of x?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "x = 4 or x = -4", "correct": true },
+            { "text": "x = 4 only", "correct": false },
+            { "text": "x = 8", "correct": false },
+            { "text": "x = ±2", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "geo_001",
+      "category": "geography",
+      "name": "World Capitals",
+      "description": "How many world capitals do you know?",
+      "subject": "Geography",
+      "language": "English",
+      "visibility": "public",
+      "badge": "classic",
+      "timePerQ": 25,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "geo_001_q1",
+          "text": "What is the capital of Australia?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Canberra", "correct": true },
+            { "text": "Sydney", "correct": false },
+            { "text": "Melbourne", "correct": false },
+            { "text": "Brisbane", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_001_q2",
+          "text": "What is the capital of Brazil?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Brasília", "correct": true },
+            { "text": "São Paulo", "correct": false },
+            { "text": "Rio de Janeiro", "correct": false },
+            { "text": "Salvador", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_001_q3",
+          "text": "Tokyo is the capital of Japan.",
+          "type": "truefalse",
+          "time": 15,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_001_q4",
+          "text": "What is the capital of Canada?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Ottawa", "correct": true },
+            { "text": "Toronto", "correct": false },
+            { "text": "Vancouver", "correct": false },
+            { "text": "Montreal", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_001_q5",
+          "text": "What is the capital of South Africa? (Legislative)",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Cape Town", "correct": true },
+            { "text": "Johannesburg", "correct": false },
+            { "text": "Pretoria", "correct": false },
+            { "text": "Durban", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_001_q6",
+          "text": "What is the capital of Argentina?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Buenos Aires", "correct": true },
+            { "text": "Lima", "correct": false },
+            { "text": "Santiago", "correct": false },
+            { "text": "Montevideo", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_001_q7",
+          "text": "Nairobi is the capital of Kenya.",
+          "type": "truefalse",
+          "time": 15,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_001_q8",
+          "text": "What is the capital of Russia?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "Moscow", "correct": true },
+            { "text": "Saint Petersburg", "correct": false },
+            { "text": "Novosibirsk", "correct": false },
+            { "text": "Vladivostok", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "geo_002",
+      "category": "geography",
+      "name": "Romania – Counties & Cities",
+      "description": "Test your knowledge of Romanian geography.",
+      "subject": "Geography",
+      "language": "Romanian",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "geo_002_q1",
+          "text": "Care este capitala României?",
+          "type": "single",
+          "time": 15,
+          "points": 10,
+          "answers": [
+            { "text": "București", "correct": true },
+            { "text": "Cluj-Napoca", "correct": false },
+            { "text": "Iași", "correct": false },
+            { "text": "Timișoara", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_002_q2",
+          "text": "Câte județe are România?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "41", "correct": true },
+            { "text": "32", "correct": false },
+            { "text": "50", "correct": false },
+            { "text": "38", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_002_q3",
+          "text": "Cel mai lung fluviu din România este Dunărea.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_002_q4",
+          "text": "În ce județ se află Munții Bucegi?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Prahova și Dâmbovița", "correct": true },
+            { "text": "Brașov și Sibiu", "correct": false },
+            { "text": "Argeș și Vâlcea", "correct": false },
+            { "text": "Mureș și Cluj", "correct": false }
+          ]
+        },
+        {
+          "id": "geo_002_q5",
+          "text": "Cel mai înalt vârf din România este:",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Moldoveanu (2544 m)", "correct": true },
+            { "text": "Negoiu (2535 m)", "correct": false },
+            { "text": "Omu (2505 m)", "correct": false },
+            { "text": "Parângu Mare (2519 m)", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "hist_001",
+      "category": "history",
+      "name": "World War II – Key Events",
+      "description": "Major battles, dates and turning points of WWII.",
+      "subject": "History",
+      "language": "English",
+      "visibility": "public",
+      "badge": "hot",
+      "timePerQ": 35,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "hist_001_q1",
+          "text": "In which year did World War II begin?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "1939", "correct": true },
+            { "text": "1936", "correct": false },
+            { "text": "1941", "correct": false },
+            { "text": "1938", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_001_q2",
+          "text": "Which event brought the United States into WWII?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "The attack on Pearl Harbor (December 7, 1941)", "correct": true },
+            { "text": "The invasion of Poland", "correct": false },
+            { "text": "The fall of France", "correct": false },
+            { "text": "The Battle of Britain", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_001_q3",
+          "text": "Operation Overlord was the Allied invasion of Normandy in June 1944.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_001_q4",
+          "text": "Germany surrendered in which month and year?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "May 1945", "correct": true },
+            { "text": "August 1945", "correct": false },
+            { "text": "September 1944", "correct": false },
+            { "text": "January 1945", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_001_q5",
+          "text": "Who was the Prime Minister of the United Kingdom for most of WWII?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "Winston Churchill", "correct": true },
+            { "text": "Neville Chamberlain", "correct": false },
+            { "text": "Clement Attlee", "correct": false },
+            { "text": "Anthony Eden", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_001_q6",
+          "text": "The atomic bombs were dropped on Hiroshima and Nagasaki in 1945.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_001_q7",
+          "text": "The Battle of Stalingrad was a turning point on which front?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "Eastern Front (Soviet–German)", "correct": true },
+            { "text": "Western Front", "correct": false },
+            { "text": "Pacific Front", "correct": false },
+            { "text": "North African Front", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "hist_002",
+      "category": "history",
+      "name": "Ancient Rome – Republic & Empire",
+      "description": "From SPQR to the fall of Rome.",
+      "subject": "History",
+      "language": "English",
+      "visibility": "public",
+      "badge": "classic",
+      "timePerQ": 35,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "hist_002_q1",
+          "text": "According to tradition, in what year was Rome founded?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "753 BC", "correct": true },
+            { "text": "509 BC", "correct": false },
+            { "text": "1000 BC", "correct": false },
+            { "text": "264 BC", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_002_q2",
+          "text": "Julius Caesar was the first Emperor of Rome.",
+          "type": "truefalse",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "False", "correct": true },
+            { "text": "True", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_002_q3",
+          "text": "Who was the first Emperor of Rome?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Augustus (Octavian)", "correct": true },
+            { "text": "Julius Caesar", "correct": false },
+            { "text": "Nero", "correct": false },
+            { "text": "Caligula", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_002_q4",
+          "text": "SPQR stands for Senatus Populusque Romanus (The Senate and People of Rome).",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "hist_002_q5",
+          "text": "The Western Roman Empire fell in which year?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "476 AD", "correct": true },
+            { "text": "410 AD", "correct": false },
+            { "text": "330 AD", "correct": false },
+            { "text": "565 AD", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "cs_001",
+      "category": "computer_science",
+      "name": "Sorting Algorithms",
+      "description": "Understand the most common sorting algorithms and their complexity.",
+      "subject": "Computer Science",
+      "language": "English",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 35,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "cs_001_q1",
+          "text": "What is the best-case time complexity of Bubble Sort?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "O(n)", "correct": true },
+            { "text": "O(n²)", "correct": false },
+            { "text": "O(n log n)", "correct": false },
+            { "text": "O(1)", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_001_q2",
+          "text": "Merge Sort has a time complexity of O(n log n) in all cases.",
+          "type": "truefalse",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_001_q3",
+          "text": "Which algorithm uses a 'divide and conquer' approach?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Quick Sort", "correct": true },
+            { "text": "Bubble Sort", "correct": false },
+            { "text": "Insertion Sort", "correct": false },
+            { "text": "Selection Sort", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_001_q4",
+          "text": "What is the worst-case complexity of Quick Sort?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "O(n²)", "correct": true },
+            { "text": "O(n log n)", "correct": false },
+            { "text": "O(n)", "correct": false },
+            { "text": "O(log n)", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_001_q5",
+          "text": "Insertion Sort is efficient for small or nearly-sorted datasets.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "cs_002",
+      "category": "computer_science",
+      "name": "Object-Oriented Programming Concepts",
+      "description": "Core OOP principles: encapsulation, inheritance, polymorphism, abstraction.",
+      "subject": "Computer Science",
+      "language": "English",
+      "visibility": "public",
+      "badge": "new",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "cs_002_q1",
+          "text": "Which OOP principle hides internal implementation details from the outside world?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Encapsulation", "correct": true },
+            { "text": "Inheritance", "correct": false },
+            { "text": "Polymorphism", "correct": false },
+            { "text": "Abstraction", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_002_q2",
+          "text": "Inheritance allows a child class to acquire the properties of a parent class.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_002_q3",
+          "text": "What is method overloading?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "Same method name, different parameters", "correct": true },
+            { "text": "Same method name and parameters in a subclass", "correct": false },
+            { "text": "A method that calls itself", "correct": false },
+            { "text": "Hiding a method with private access", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_002_q4",
+          "text": "What is an abstract class?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "A class that cannot be instantiated and may contain abstract methods", "correct": true },
+            { "text": "A class with no methods", "correct": false },
+            { "text": "A class that inherits from multiple classes", "correct": false },
+            { "text": "A class with only static methods", "correct": false }
+          ]
+        },
+        {
+          "id": "cs_002_q5",
+          "text": "Polymorphism allows the same method name to behave differently in different classes.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "lit_001",
+      "category": "literature",
+      "name": "Romanian Grammar – Parts of Speech",
+      "description": "Identificați și înțelegeți părțile de vorbire în limba română.",
+      "subject": "Language & Literature",
+      "language": "Romanian",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "lit_001_q1",
+          "text": "Care este funcția sintactică a cuvântului subliniat: «Ea cântă frumos»?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Complement circumstanțial de mod", "correct": true },
+            { "text": "Atribut adverbial", "correct": false },
+            { "text": "Predicat nominal", "correct": false },
+            { "text": "Subiect", "correct": false }
+          ]
+        },
+        {
+          "id": "lit_001_q2",
+          "text": "Substantivul este o parte de vorbire flexibilă.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "lit_001_q3",
+          "text": "Care dintre următoarele cuvinte este un pronume?",
+          "type": "single",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "El", "correct": true },
+            { "text": "Acasă", "correct": false },
+            { "text": "Bine", "correct": false },
+            { "text": "Copil", "correct": false }
+          ]
+        },
+        {
+          "id": "lit_001_q4",
+          "text": "Verbul 'a fi' poate fi copulativ sau auxiliar.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "lit_001_q5",
+          "text": "Care este forma de plural a cuvântului «carte»?",
+          "type": "single",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "Cărți", "correct": true },
+            { "text": "Carți", "correct": false },
+            { "text": "Cartele", "correct": false },
+            { "text": "Cărte", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "lit_002",
+      "category": "literature",
+      "name": "English Grammar – Tenses",
+      "description": "Master English verb tenses from simple to perfect continuous.",
+      "subject": "Language & Literature",
+      "language": "English",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "lit_002_q1",
+          "text": "Which sentence uses the Present Perfect tense?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "She has visited Paris.", "correct": true },
+            { "text": "She visits Paris.", "correct": false },
+            { "text": "She visited Paris.", "correct": false },
+            { "text": "She will visit Paris.", "correct": false }
+          ]
+        },
+        {
+          "id": "lit_002_q2",
+          "text": "The Past Continuous tense uses 'was/were + verb-ing'.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "lit_002_q3",
+          "text": "Which tense describes a completed action at a specific time in the past?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Simple Past", "correct": true },
+            { "text": "Present Perfect", "correct": false },
+            { "text": "Past Continuous", "correct": false },
+            { "text": "Simple Present", "correct": false }
+          ]
+        },
+        {
+          "id": "lit_002_q4",
+          "text": "Fill in: 'By the time he arrived, she _______ (already leave).'",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "had already left", "correct": true },
+            { "text": "has already left", "correct": false },
+            { "text": "already left", "correct": false },
+            { "text": "was already leaving", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "psych_001",
+      "category": "psychology",
+      "name": "Cognitive Psychology Basics",
+      "description": "Explore memory, attention, perception and cognitive processes.",
+      "subject": "Psychology",
+      "language": "English",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 30,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "psych_001_q1",
+          "text": "Which type of memory has an almost unlimited capacity and stores information indefinitely?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Long-term memory", "correct": true },
+            { "text": "Short-term memory", "correct": false },
+            { "text": "Sensory memory", "correct": false },
+            { "text": "Working memory", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_001_q2",
+          "text": "The 'magic number' proposed by Miller for short-term memory capacity is 7 ± 2 chunks.",
+          "type": "truefalse",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_001_q3",
+          "text": "What is the term for interpreting sensory information to understand our environment?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Perception", "correct": true },
+            { "text": "Sensation", "correct": false },
+            { "text": "Attention", "correct": false },
+            { "text": "Cognition", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_001_q4",
+          "text": "Selective attention allows us to focus on one stimulus while filtering out others.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_001_q5",
+          "text": "Which cognitive bias leads people to favour information confirming their existing beliefs?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "Confirmation bias", "correct": true },
+            { "text": "Availability heuristic", "correct": false },
+            { "text": "Anchoring bias", "correct": false },
+            { "text": "Hindsight bias", "correct": false }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "psych_002",
+      "category": "psychology",
+      "name": "Freud's Psychoanalytic Theory",
+      "description": "Id, Ego, Superego, defence mechanisms and the unconscious mind.",
+      "subject": "Psychology",
+      "language": "English",
+      "visibility": "public",
+      "badge": "",
+      "timePerQ": 35,
+      "points": 10,
+      "passScore": 60,
+      "attempts": 3,
+      "questionOrder": "random",
+      "answerOrder": "random",
+      "questions": [
+        {
+          "id": "psych_002_q1",
+          "text": "According to Freud, which part of the psyche operates on the 'pleasure principle'?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "The Id", "correct": true },
+            { "text": "The Ego", "correct": false },
+            { "text": "The Superego", "correct": false },
+            { "text": "The Preconscious", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_002_q2",
+          "text": "The Ego operates on the 'reality principle'.",
+          "type": "truefalse",
+          "time": 20,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_002_q3",
+          "text": "Which defence mechanism involves pushing uncomfortable thoughts into the unconscious?",
+          "type": "single",
+          "time": 35,
+          "points": 10,
+          "answers": [
+            { "text": "Repression", "correct": true },
+            { "text": "Projection", "correct": false },
+            { "text": "Rationalisation", "correct": false },
+            { "text": "Displacement", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_002_q4",
+          "text": "Freud proposed five stages of psychosexual development.",
+          "type": "truefalse",
+          "time": 25,
+          "points": 10,
+          "answers": [
+            { "text": "True", "correct": true },
+            { "text": "False", "correct": false }
+          ]
+        },
+        {
+          "id": "psych_002_q5",
+          "text": "In Freud's psychosexual stages, which stage occurs roughly between ages 6–12?",
+          "type": "single",
+          "time": 30,
+          "points": 10,
+          "answers": [
+            { "text": "Latency stage", "correct": true },
+            { "text": "Phallic stage", "correct": false },
+            { "text": "Genital stage", "correct": false },
+            { "text": "Oral stage", "correct": false }
+          ]
+        }
+      ]
+    }
+
+  ]
+}
