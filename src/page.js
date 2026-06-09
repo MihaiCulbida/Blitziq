@@ -2528,11 +2528,6 @@ window.blitziqRenderFavorites = renderFavorites;
 
   nextBtn?.addEventListener('click', nextQuestion);
 
-  document.getElementById('qr-exit')?.addEventListener('click', () => {
-    clearTimer();
-    close();
-  });
-
   document.getElementById('qr-results-retry')?.addEventListener('click', () => {
     open(state.quiz);
   });

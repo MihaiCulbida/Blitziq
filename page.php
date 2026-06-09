@@ -587,11 +587,7 @@ $username = htmlspecialchars($_SESSION['username']);
 
   <header class="qr-header">
     <div class="qr-header__left">
-      <button class="qr-exit" id="qr-exit" aria-label="Exit quiz">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-      </button>
+      <span class="qr-logo">Blitz<span class="qr-logo-badge">IQ</span></span>
       <span class="qr-header__name" id="qr-name"></span>
     </div>
     <div class="qr-header__center">
