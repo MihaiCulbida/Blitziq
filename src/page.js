@@ -2331,7 +2331,8 @@ window.blitziqRenderFavorites = renderFavorites;
         <span class="qr-answer__letter">${LETTERS[i]}</span>
         <span class="qr-answer__text">${ans.text || '(empty)'}</span>
         <span class="qr-answer__icon">
-          <img src="img/correct-empty.png" width="16" height="16" alt="" class="icon-check>
+          <img class="icon-check" src="img/correct1.png" width="18" height="18" style="display:none; filter: invert(1)">
+          <img class="icon-x" src="img/incorrect.png" width="18" height="18" style="display:none; filter: invert(1)">
         </span>
       `;
       btn.addEventListener('click', () => pickAnswer(i));
@@ -2401,15 +2402,15 @@ window.blitziqRenderFavorites = renderFavorites;
     const fbText = document.getElementById('qr-feedback-text');
     
     if (isCorrect) {
-      feedback.className = 'qr-feedback qr-feedback--correct';
-      if (fbIcon) fbIcon.textContent = 'Y';
-      if (fbText) fbText.innerHTML = `Correct! +${q.points || 10} points`;
-    } else {
-      feedback.className = 'qr-feedback qr-feedback--wrong';
-      if (fbIcon) fbIcon.textContent = 'x';
-      const correctAnswers = answers.filter(a => a.correct).map(a => a.text).join(', ');
-      if (fbText) fbText.innerHTML = `Incorrect — correct answer: <strong style="color:#fff">${correctAnswers}</strong>`;
-    }
+  feedback.className = 'qr-feedback qr-feedback--correct';
+  if (fbIcon) fbIcon.innerHTML = `<img src="img/correct1.png" width="14" height="14" style="filter:invert(1)">`;
+  if (fbText) fbText.innerHTML = `Correct! +${q.points || 10} points`;
+} else {
+  feedback.className = 'qr-feedback qr-feedback--wrong';
+  if (fbIcon) fbIcon.innerHTML = `<img src="img/incorrect.png" width="14" height="14" style="filter:invert(1)">`;
+  const correctAnswers = answers.filter(a => a.correct).map(a => a.text).join(', ');
+  if (fbText) fbText.innerHTML = `Incorrect — correct answer: <strong style="color:#fff">${correctAnswers}</strong>`;
+}
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
     nextBtn.textContent = state.index < state.questions.length - 1 ? 'Next' : 'See results';
@@ -2434,7 +2435,7 @@ window.blitziqRenderFavorites = renderFavorites;
     });
 
     feedback.className = 'qr-feedback qr-feedback--wrong';
-    feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon">⏱</span><span id="qr-feedback-text">Time's up!</span>`;
+    feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon"><img src="img/timer.png" width="16" height="16" alt=""></span><span id="qr-feedback-text">Time's up!</span>`;
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
     nextBtn.textContent = state.index < state.questions.length - 1 ? 'Next' : 'See results';
