@@ -41,27 +41,27 @@ if ($logged_in) {
   <ul class="navbar-links">
     <li><a href="#home" class="active" data-section="home">
       <img src="img/home.png" width="20" height="20" alt="">
-      Home
+      <span data-i18n="home">Home</span>
     </a></li>
     <li><a href="#quizzes" data-section="quizzes">
       <img src="img/quizzes.png" width="20" height="20" alt="">
-      My quizzes
+      <span data-i18n="my_quizzes">My quizzes</span>
     </a></li>
     <li><a href="#discover" data-section="discover">
       <img src="img/discover.png" width="22" height="22" alt="">
-      Discover
+      <span data-i18n="discover">Discover</span>
     </a></li>
   </ul>
 
   <div class="navbar-search">
     <img src="img/search.png" width="14" height="14" class="navbar-search-icon" alt="">
-    <input type="text" class="navbar-search-input" placeholder="Search">
+    <input type="text" class="navbar-search-input" data-i18n-placeholder="search_placeholder" placeholder="Search">
   </div>
 
   <div class="navbar-right">
     <button class="navbar-new-btn" id="btn-new-quiz" aria-label="Create new quiz">
       <img src="img/add.png" width="14" height="14" alt="">
-      New quiz
+      <span data-i18n="new_quiz">New quiz</span>
     </button>
 
     <button class="navbar-bell" id="btn-bell" aria-label="Notifications">
@@ -77,15 +77,15 @@ if ($logged_in) {
           <span class="navbar-dropdown-user"><?= $username ?></span>
           <button type="button" class="navbar-dropdown-item navbar-dropdown-theme" id="btn-theme-toggle" aria-label="Toggle theme">
             <img src="img/moon.png" id="theme-toggle-icon" width="18" height="18" alt="Dark mode">
-            Theme
+            <span data-i18n="theme">Theme</span>
           </button>
           <a href="index.php" class="navbar-dropdown-item">
             <img src="img/home.png" width="16" height="16" class="navbar-dropdown-home" style="vertical-align: middle;">
-            Home
+            <span data-i18n="home">Home</span>
           </a>
           <a href="php/logout.php" class="navbar-dropdown-item">
             <img src="img/logout.png" width="16" height="16" class="navbar-dropdown-logout" style="vertical-align: middle;">
-            Log out
+            <span data-i18n="log_out">Log out</span>
           </a>
         </div>
       </div>
@@ -99,7 +99,7 @@ if ($logged_in) {
   <div class="sidebar-body">
 
     <div class="sidebar-section">
-      My collections
+      <span data-i18n="my_collections">My collections</span>
       <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
         <img src="img/sidebar.png" width="24" height="24" alt="">
       </button>
@@ -107,50 +107,50 @@ if ($logged_in) {
 
     <a href="#" class="sidebar-item sidebar-item--active">
       <img src="img/squares.png" width="22" height="22" alt="">
-      <span class="sidebar-label">All quizzes</span>
+      <span class="sidebar-label" data-i18n="all_quizzes">All quizzes</span>
     </a>
 
     <div class="sidebar-folders"></div>
 
     <a href="#" class="sidebar-item sidebar-item--muted">
       <img src="img/folder.png" alt="">
-      <span class="sidebar-label">New folder</span>
+      <span class="sidebar-label" data-i18n="new_folder">New folder</span>
     </a>
 
     <div class="sidebar-divider"></div>
 
     <div class="sidebar-section sidebar-section--saved">
-      <span class="sidebar-label">Saved</span>
+      <span class="sidebar-label" data-i18n="saved">Saved</span>
     </div>
 
     <a href="#" class="sidebar-item">
       <img src="img/bookmark.png" width="16" height="16" alt="">
-      <span class="sidebar-label">Favorites</span>
+      <span class="sidebar-label" data-i18n="favorites">Favorites</span>
     </a>
     <a href="#" class="sidebar-item" id="btn-history">
       <img src="img/history.png" width="16" height="16" alt="">
-      <span class="sidebar-label">History</span>
+      <span class="sidebar-label" data-i18n="history">History</span>
     </a>
   </div>
   <div class="sidebar-footer">
     <div class="sidebar-settings-wrap">
       <a href="#" class="sidebar-item" id="settings-btn">
         <img src="img/settings.png" width="16" height="16" alt="">
-        <span class="sidebar-label">Settings</span>
+        <span class="sidebar-label" data-i18n="settings">Settings</span>
       </a>
       <div class="sidebar-settings-dropdown" id="settings-dropdown">
         <a href="#" class="sidebar-settings-item" id="settings-profile">
           <img src="img/user.png" width="16" height="16" alt="">
-          Profile
+          <span data-i18n="profile">Profile</span>
         </a>
         <a href="#" class="sidebar-settings-item" id="settings-theme">
           <img src="img/moon.png" width="16" height="16" alt="">
-          Theme
+          <span data-i18n="theme">Theme</span>
         </a>
         <div class="settings-lang-wrap">
           <a href="#" class="sidebar-settings-item" id="settings-language">
             <img src="img/public.png" width="16" height="16" alt="">
-            Language
+            <span data-i18n="language">Language</span>
             <img src="img/arrow-r.png" width="10" height="10" alt="" style="margin-left:auto;opacity:0.4;">
           </a>
           <div class="settings-lang-dropdown" id="settings-lang-dropdown">
@@ -161,11 +161,11 @@ if ($logged_in) {
         </div>
         <a href="#" class="sidebar-settings-item" id="settings-help">
           <img src="img/help.png" width="18" height="18" alt="">
-          Help
+          <span data-i18n="help">Help</span>
         </a>
         <a href="php/logout.php" class="sidebar-settings-item">
           <img src="img/logout.png" width="16" height="16" alt="">
-          Log out
+          <span data-i18n="log_out">Log out</span>
         </a>
       </div>
     </div>
@@ -183,7 +183,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/science.png" alt="">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">Science</h3>
+              <h3 class="cat-card__title" data-i18n="cat_sciences">Science</h3>
               <p class="cat-card__sub">Biology · Chemistry · Physics</p>
             </div>
           </div>
@@ -192,7 +192,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/mathematics.png" alt="">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">Mathematics</h3>
+              <h3 class="cat-card__title" data-i18n="cat_mathematics">Mathematics</h3>
               <p class="cat-card__sub">Algebra · Geometry · Stats</p>
             </div>
           </div>
@@ -201,7 +201,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/geography.png" alt="">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">Geography</h3>
+              <h3 class="cat-card__title" data-i18n="cat_geography">Geography</h3>
               <p class="cat-card__sub">Countries · Maps · Capitals</p>
             </div>
           </div>
@@ -210,7 +210,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/literature.png" alt="">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">Literature</h3>
+              <h3 class="cat-card__title" data-i18n="cat_literature">Literature</h3>
               <p class="cat-card__sub">Classic · Poetry · Analysis</p>
             </div>
           </div>
@@ -219,7 +219,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/history1.png" alt="">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">History</h3>
+              <h3 class="cat-card__title" data-i18n="cat_history">History</h3>
               <p class="cat-card__sub">Ancient · Modern · Wars</p>
             </div>
           </div>
@@ -228,7 +228,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/computer.png" alt="">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">Computer Science</h3>
+              <h3 class="cat-card__title" data-i18n="cat_technology">Computer Science</h3>
               <p class="cat-card__sub">Coding · Algorithms · Web</p>
             </div>
           </div>
@@ -237,7 +237,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/psychology.png" alt="">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">Psychology</h3>
+              <h3 class="cat-card__title" data-i18n="cat_arts">Psychology</h3>
               <p class="cat-card__sub">Mind · Behaviour · Theories</p>
             </div>
           </div>
@@ -246,7 +246,7 @@ if ($logged_in) {
             <div class="cat-card__bg"></div>
             <img class="cat-card__icon" src="img/public.png" style="filter:invert(1)">
             <div class="cat-card__body">
-              <h3 class="cat-card__title">Languages</h3>
+              <h3 class="cat-card__title" data-i18n="cat_languages">Languages</h3>
               <p class="cat-card__sub">English · French · German</p>
             </div>
           </div>
@@ -263,35 +263,35 @@ if ($logged_in) {
   </section>
 
   <section class="page-section" id="section-quizzes">
-    <p style="color:#6b7280;font-size:0.9rem;">My quizzes - coming soon.</p>
+    <p style="color:#6b7280;font-size:0.9rem;" data-i18n="my_quizzes">My quizzes</p>
   </section>
 
   <section class="page-section" id="section-discover">
 
     <div class="disc-filters" id="disc-filters">
-      <button class="disc-filter is-active" data-cat="">All</button>
-      <button class="disc-filter" data-cat="Mathematics">Mathematics</button>
-      <button class="disc-filter" data-cat="Biology">Science</button>
-      <button class="disc-filter" data-cat="History">History</button>
-      <button class="disc-filter" data-cat="Geography">Geography</button>
-      <button class="disc-filter" data-cat="Computer Science">Computer Science</button>
-      <button class="disc-filter" data-cat="Language &amp; Literature">Language &amp; Literature</button>
-      <button class="disc-filter" data-cat="Psychology">Psychology</button>
-      <button class="disc-filter" data-cat="Other">Other</button>
+      <button class="disc-filter is-active" data-cat="" data-i18n="all">All</button>
+      <button class="disc-filter" data-cat="Mathematics" data-i18n="cat_mathematics">Mathematics</button>
+      <button class="disc-filter" data-cat="Biology" data-i18n="cat_sciences">Science</button>
+      <button class="disc-filter" data-cat="History" data-i18n="cat_history">History</button>
+      <button class="disc-filter" data-cat="Geography" data-i18n="cat_geography">Geography</button>
+      <button class="disc-filter" data-cat="Computer Science" data-i18n="cat_technology">Computer Science</button>
+      <button class="disc-filter" data-cat="Language &amp; Literature" data-i18n="cat_literature">Language &amp; Literature</button>
+      <button class="disc-filter" data-cat="Psychology" data-i18n="cat_arts">Psychology</button>
+      <button class="disc-filter" data-cat="Other" data-i18n="cat_general">Other</button>
     </div>
 
     <div class="disc-daily" id="disc-daily">
       <div class="disc-daily__left">
         <span class="disc-daily__eyebrow">
           <img src="img/calendar.png" width="16" height="16" style="filter: invert(1);" alt="">
-          Daily quiz
+          <span data-i18n="daily_quiz">Daily quiz</span>
         </span>
         <h2 class="disc-daily__title" id="disc-daily-title">Organic Chemistry – Functional Groups</h2>
         <p class="disc-daily__meta" id="disc-daily-meta">Chemistry · 10 questions · 30 sec / question</p>
       </div>
       <button class="disc-daily__btn" id="disc-daily-btn">
         <img src="img/arrow-right2.png" width="14" height="14" alt="">
-        Start now
+        <span data-i18n="start_now">Start now</span>
       </button>
     </div>
 
@@ -299,9 +299,9 @@ if ($logged_in) {
       <div class="disc-block__hdr">
         <span class="disc-block__title">
           <img src="img/fire.png" width="20" height="20" alt="">
-          Trending this week
+          <span data-i18n="trending">Trending this week</span>
         </span>
-        <a href="#" class="disc-block__see-all">See all</a>
+        <a href="#" class="disc-block__see-all" data-i18n="see_all">See all</a>
       </div>
       <div class="disc-grid disc-grid--trending" id="disc-trending"></div>
     </div>
@@ -310,9 +310,9 @@ if ($logged_in) {
       <div class="disc-block__hdr">
         <span class="disc-block__title">
           <img src="img/star1.png" width="22" height="22" alt="">
-          Recommended for you
+          <span data-i18n="recommended">Recommended for you</span>
         </span>
-        <a href="#" class="disc-block__see-all">See all</a>
+        <a href="#" class="disc-block__see-all" data-i18n="see_all">See all</a>
       </div>
       <div class="disc-grid disc-grid--recommended" id="disc-recommended"></div>
     </div>
@@ -324,7 +324,7 @@ if ($logged_in) {
 <div class="history-overlay" id="history-overlay" aria-hidden="true">
   <div class="history-panel" id="history-panel" role="dialog" aria-modal="true" aria-label="History">
     <div class="history-panel__header">
-      <h2 class="history-panel__title">History</h2>
+      <h2 class="history-panel__title" data-i18n="history_title">History</h2>
       <button class="history-panel__close" id="history-close" aria-label="Close">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -334,8 +334,8 @@ if ($logged_in) {
     <div class="history-panel__body" id="history-body">
       <div class="history-empty" id="history-empty">
         <img src="img/history.png" width="32" height="32" alt="" style="opacity:0.2;">
-        <p class="history-empty__title">No history yet</p>
-        <p class="history-empty__sub">Quizzes you play will appear here</p>
+        <p class="history-empty__title" data-i18n="no_history_title">No history yet</p>
+        <p class="history-empty__sub" data-i18n="no_history_sub">Quizzes you play will appear here</p>
       </div>
       <div class="history-list" id="history-list"></div>
     </div>
@@ -345,7 +345,7 @@ if ($logged_in) {
 <div class="settings-overlay" id="settings-profile-overlay" aria-hidden="true">
   <div class="settings-modal" role="dialog" aria-modal="true">
     <div class="settings-modal__header">
-      <h2 class="settings-modal__title">Profile</h2>
+      <h2 class="settings-modal__title" data-i18n="profile_title">Profile</h2>
       <button class="settings-modal__close" id="settings-profile-close">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -367,7 +367,7 @@ if ($logged_in) {
 <div class="settings-overlay" id="settings-help-overlay" aria-hidden="true">
   <div class="settings-modal" role="dialog" aria-modal="true">
     <div class="settings-modal__header">
-      <h2 class="settings-modal__title">Help</h2>
+      <h2 class="settings-modal__title" data-i18n="help_title">Help</h2>
       <button class="settings-modal__close" id="settings-help-close">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -376,20 +376,20 @@ if ($logged_in) {
     </div>
     <div class="settings-modal__body">
       <div class="help-item">
-        <p class="help-title">Getting started</p>
-        <p class="help-desc">Click <strong>New quiz</strong> to create your first quiz. Add questions, set a timer and publish.</p>
+        <p class="help-title" data-i18n="help_1_title">Getting started</p>
+        <p class="help-desc" data-i18n="help_1_desc">Click <strong>New quiz</strong> to create your first quiz. Add questions, set a timer and publish.</p>
       </div>
       <div class="help-item">
-        <p class="help-title">Playing a quiz</p>
-        <p class="help-desc">Browse quizzes in Discover, click one and press <strong>Start quiz</strong>. Answer before the timer runs out.</p>
+        <p class="help-title" data-i18n="help_2_title">Playing a quiz</p>
+        <p class="help-desc" data-i18n="help_2_desc">Browse quizzes in Discover, click one and press <strong>Start quiz</strong>. Answer before the timer runs out.</p>
       </div>
       <div class="help-item">
-        <p class="help-title">Saving quizzes</p>
-        <p class="help-desc">Click the bookmark icon on any quiz to save it to your Favorites in the sidebar.</p>
+        <p class="help-title" data-i18n="help_3_title">Saving quizzes</p>
+        <p class="help-desc" data-i18n="help_3_desc">Click the bookmark icon on any quiz to save it to your Favorites in the sidebar.</p>
       </div>
       <div class="help-item">
-        <p class="help-title">Contact</p>
-        <p class="help-desc">Reach out via Telegram or Instagram — links in the footer of the main page.</p>
+        <p class="help-title" data-i18n="help_4_title">Contact</p>
+        <p class="help-desc" data-i18n="help_4_desc">Reach out via Telegram or Instagram — links in the footer of the main page.</p>
       </div>
     </div>
   </div>
@@ -398,7 +398,7 @@ if ($logged_in) {
 <div class="settings-overlay" id="settings-language-overlay" aria-hidden="true">
   <div class="settings-modal" role="dialog" aria-modal="true">
     <div class="settings-modal__header">
-      <h2 class="settings-modal__title">Language</h2>
+      <h2 class="settings-modal__title" data-i18n="language">Language</h2>
       <button class="settings-modal__close" id="settings-language-close">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -407,15 +407,9 @@ if ($logged_in) {
     </div>
     <div class="settings-modal__body">
       <div class="lang-list">
-        <button class="lang-btn is-active" data-lang="en">
-          English
-        </button>
-        <button class="lang-btn" data-lang="ro">
-          Română
-        </button>
-        <button class="lang-btn" data-lang="ru">
-          Русский
-        </button>
+        <button class="lang-btn is-active" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="ro">Română</button>
+        <button class="lang-btn" data-lang="ru">Русский</button>
       </div>
     </div>
   </div>
@@ -426,7 +420,7 @@ if ($logged_in) {
 
     <div class="quiz-modal__header">
       <div class="quiz-modal__header-left">
-        <h2 class="quiz-modal__title" id="qm-title">General information</h2>
+        <h2 class="quiz-modal__title" id="qm-title" data-i18n="general_info">General information</h2>
         <span class="quiz-modal__step-label" id="qm-step-label">Step 1 of 3</span>
       </div>
       <div class="quiz-modal__header-right">
@@ -446,30 +440,39 @@ if ($logged_in) {
     <div class="quiz-modal__progress">
       <div class="quiz-modal__progress-fill" id="qm-progress"></div>
     </div>
+
     <div class="quiz-modal__body">
+
       <div class="qm-panel is-active" id="qm-panel-1">
 
         <div class="qm-field">
-          <label class="qm-field__label" for="qm-name">Quiz name</label>
+          <label class="qm-field__label" for="qm-name">
+            <span data-i18n="quiz_name">Quiz name</span>
+          </label>
           <input class="qm-field__input" id="qm-name" type="text"
+            data-i18n-placeholder="quiz_name_placeholder"
             placeholder="Biology - Animal Cell" maxlength="80" autocomplete="off">
-          <span class="qm-field__hint">Maximum 80 characters</span>
+          <span class="qm-field__hint" data-i18n="quiz_name_hint">Maximum 80 characters</span>
         </div>
 
         <div class="qm-field">
           <label class="qm-field__label" for="qm-desc">
-            Description <span class="qm-field__optional">optional</span>
+            <span data-i18n="description">Description</span>
+            <span class="qm-field__optional" data-i18n="description_optional">optional</span>
           </label>
           <textarea class="qm-field__input qm-field__input--textarea" id="qm-desc"
+            data-i18n-placeholder="description_placeholder"
             placeholder="A short description for participants..." maxlength="300"></textarea>
         </div>
 
         <div class="qm-row">
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-subject">Subject / Category</label>
+            <label class="qm-field__label" for="qm-subject">
+              <span data-i18n="subject_category">Subject / Category</span>
+            </label>
             <div class="qm-field__select-wrap">
               <select class="qm-field__input qm-field__input--select" id="qm-subject">
-                <option value="">Choose subject...</option>
+                <option value="" data-i18n="choose_subject">Choose subject...</option>
                 <option>Mathematics</option>
                 <option>Biology</option>
                 <option>Chemistry</option>
@@ -487,11 +490,14 @@ if ($logged_in) {
             </div>
           </div>
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-lang">Language</label>
+            <label class="qm-field__label" for="qm-lang">
+              <span data-i18n="language_label">Language</span>
+            </label>
             <div class="qm-field__select-wrap">
               <select class="qm-field__input qm-field__input--select" id="qm-lang">
                 <option>Romanian</option>
                 <option>English</option>
+                <option>Русский</option>
                 <option>French</option>
                 <option>German</option>
                 <option>Other</option>
@@ -504,23 +510,23 @@ if ($logged_in) {
         </div>
 
         <div class="qm-divider"></div>
-        <p class="qm-section-label">Visibility</p>
+        <p class="qm-section-label" data-i18n="visibility">Visibility</p>
 
         <div class="qm-vis-group" role="group" aria-label="Quiz visibility">
           <button class="qm-vis-btn is-active" data-vis="public">
             <img class="qm-vis-btn__icon" src="img/public.png" width="20" height="20" alt="">
-            <span class="qm-vis-btn__name">Public</span>
-            <span class="qm-vis-btn__desc">Everyone can access</span>
+            <span class="qm-vis-btn__name" data-i18n="public">Public</span>
+            <span class="qm-vis-btn__desc" data-i18n="public_desc">Everyone can access</span>
           </button>
           <button class="qm-vis-btn" data-vis="private">
             <img class="qm-vis-btn__icon" src="img/draft.png" width="20" height="20" alt="">
-            <span class="qm-vis-btn__name">Private</span>
-            <span class="qm-vis-btn__desc">Link only</span>
+            <span class="qm-vis-btn__name" data-i18n="private">Private</span>
+            <span class="qm-vis-btn__desc" data-i18n="private_desc">Link only</span>
           </button>
           <button class="qm-vis-btn" data-vis="draft">
             <img class="qm-vis-btn__icon" src="img/private.png" width="20" height="20" alt="">
-            <span class="qm-vis-btn__name">Draft</span>
-            <span class="qm-vis-btn__desc">Not publicly visible</span>
+            <span class="qm-vis-btn__name" data-i18n="draft">Draft</span>
+            <span class="qm-vis-btn__desc" data-i18n="draft_desc">Not publicly visible</span>
           </button>
         </div>
 
@@ -530,25 +536,28 @@ if ($logged_in) {
 
         <div class="qm-row">
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-count">Number of questions</label>
+            <label class="qm-field__label" for="qm-count">
+              <span data-i18n="num_questions">Number of questions</span>
+            </label>
             <input class="qm-field__input" id="qm-count" type="number" value="10" min="1" max="100">
-            <span class="qm-field__hint">Between 1 and 100</span>
+            <span class="qm-field__hint" data-i18n="between_1_100">Between 1 and 100</span>
           </div>
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-time">Time per question</label>
+            <label class="qm-field__label" for="qm-time">
+              <span data-i18n="time_per_question">Time per question</span>
+            </label>
             <div class="qm-time-wrap">
               <input class="qm-field__input" id="qm-time" type="number" value="30" min="5" max="300">
-              <span class="qm-time-wrap__unit">sec.</span>
             </div>
-            <span class="qm-field__hint">5 – 300 seconds</span>
+            <span class="qm-field__hint" data-i18n="time_hint">5 – 300 seconds</span>
           </div>
         </div>
 
         <div class="qm-divider"></div>
-        <p class="qm-section-label">Answer choices</p>
+        <p class="qm-section-label" data-i18n="answer_choices">Answer choices</p>
 
         <div class="qm-answer-count">
-          <span class="qm-answer-count__label">Choices per question:</span>
+          <span class="qm-answer-count__label" data-i18n="choices_per_q">Choices per question:</span>
           <div class="qm-answer-count__controls" role="group" aria-label="Number of choices">
             <button class="qm-answer-count__btn" id="qm-count-down" aria-label="Decrease">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
@@ -566,20 +575,23 @@ if ($logged_in) {
         <div class="qm-answers-preview" id="qm-answers-preview" aria-label="Answer choices preview"></div>
 
         <div class="qm-divider"></div>
-        <p class="qm-section-label">Question type <span style="font-size:0.72rem;font-weight:400;color:#9ca3af;text-transform:none;letter-spacing:0;margin-left:4px;">can be changed per question in the editor</span></p>
+        <p class="qm-section-label">
+          <span data-i18n="question_type">Question type</span>
+          <span style="font-size:0.72rem;font-weight:400;color:#9ca3af;text-transform:none;letter-spacing:0;margin-left:4px;" data-i18n="type_hint">can be changed per question in the editor</span>
+        </p>
 
         <div class="qm-type-info">
           <div class="qm-type-info__item">
             <img src="img/single.png" width="18" height="18" alt="">
-            <span><strong>Single answer</strong> – one correct option</span>
+            <span><strong data-i18n="single_answer">Single answer</strong> – <span data-i18n="single_desc">one correct option</span></span>
           </div>
           <div class="qm-type-info__item">
             <img src="img/multi.png" width="18" height="18" alt="">
-            <span><strong>Multiple answers</strong> – several correct options</span>
+            <span><strong data-i18n="multiple_answers">Multiple answers</strong> – <span data-i18n="multiple_desc">several correct options</span></span>
           </div>
           <div class="qm-type-info__item">
             <img src="img/truefalse.png" width="18" height="18" alt="">
-            <span><strong>True / False</strong> – forces 2 choices</span>
+            <span><strong data-i18n="true_false">True / False</strong> – <span data-i18n="true_false_desc">forces 2 choices</span></span>
           </div>
         </div>
 
@@ -587,14 +599,16 @@ if ($logged_in) {
 
       <div class="qm-panel" id="qm-panel-3">
 
-        <p class="qm-section-label">Behaviour</p>
+        <p class="qm-section-label" data-i18n="behaviour">Behaviour</p>
         <div class="qm-row qm-row--3">
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-order">Question order</label>
+            <label class="qm-field__label" for="qm-order">
+              <span data-i18n="question_order">Question order</span>
+            </label>
             <div class="qm-field__select-wrap">
               <select class="qm-field__input qm-field__input--select" id="qm-order">
-                <option value="fixed">Fixed</option>
-                <option value="random">Random</option>
+                <option value="fixed" data-i18n="fixed">Fixed</option>
+                <option value="random" data-i18n="random">Random</option>
               </select>
               <svg class="qm-field__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -602,11 +616,13 @@ if ($logged_in) {
             </div>
           </div>
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-aorder">Answer order</label>
+            <label class="qm-field__label" for="qm-aorder">
+              <span data-i18n="answer_order">Answer order</span>
+            </label>
             <div class="qm-field__select-wrap">
               <select class="qm-field__input qm-field__input--select" id="qm-aorder">
-                <option value="fixed">Fixed</option>
-                <option value="random">Random</option>
+                <option value="fixed" data-i18n="fixed">Fixed</option>
+                <option value="random" data-i18n="random">Random</option>
               </select>
               <svg class="qm-field__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -614,36 +630,42 @@ if ($logged_in) {
             </div>
           </div>
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-attempts">Allowed attempts</label>
+            <label class="qm-field__label" for="qm-attempts">
+              <span data-i18n="allowed_attempts">Allowed attempts</span>
+            </label>
             <input class="qm-field__input" id="qm-attempts" type="number" value="1" min="1" max="10">
           </div>
         </div>
 
         <div class="qm-row qm-row--2">
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-pass">Minimum pass score (%)</label>
+            <label class="qm-field__label" for="qm-pass">
+              <span data-i18n="min_pass_score">Minimum pass score (%)</span>
+            </label>
             <input class="qm-field__input" id="qm-pass" type="number" value="60" min="0" max="100">
           </div>
           <div class="qm-field">
-            <label class="qm-field__label" for="qm-pts">Points per correct answer</label>
+            <label class="qm-field__label" for="qm-pts">
+              <span data-i18n="points_correct">Points per correct answer</span>
+            </label>
             <input class="qm-field__input" id="qm-pts" type="number" value="10" min="1">
           </div>
         </div>
 
         <div class="qm-divider"></div>
-        <p class="qm-section-label">Display options</p>
+        <p class="qm-section-label" data-i18n="display_options">Display options</p>
 
         <div class="qm-toggles" role="group" aria-label="Display options">
-          <button class="qm-toggle is-active" data-key="show-score">Show final score</button>
-          <button class="qm-toggle is-active" data-key="show-correct">Correct answers</button>
-          <button class="qm-toggle" data-key="show-timer">Visible timer</button>
-          <button class="qm-toggle" data-key="show-progress">Question progress</button>
-          <button class="qm-toggle" data-key="show-explain">Explanations after answer</button>
-          <button class="qm-toggle" data-key="allow-skip">Allow skip</button>
+          <button class="qm-toggle is-active" data-key="show-score" data-i18n="show_final_score">Show final score</button>
+          <button class="qm-toggle is-active" data-key="show-correct" data-i18n="correct_answers">Correct answers</button>
+          <button class="qm-toggle" data-key="show-timer" data-i18n="visible_timer">Visible timer</button>
+          <button class="qm-toggle" data-key="show-progress" data-i18n="question_progress">Question progress</button>
+          <button class="qm-toggle" data-key="show-explain" data-i18n="explanations">Explanations after answer</button>
+          <button class="qm-toggle" data-key="allow-skip" data-i18n="allow_skip">Allow skip</button>
         </div>
 
         <div class="qm-divider"></div>
-        <p class="qm-section-label">Summary</p>
+        <p class="qm-section-label" data-i18n="summary">Summary</p>
         <div class="qm-summary" id="qm-summary" aria-label="Configuration summary"></div>
 
       </div>
@@ -654,13 +676,13 @@ if ($logged_in) {
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        Back
+        <span data-i18n="back">Back</span>
       </button>
       <button class="quiz-modal__btn quiz-modal__btn--ghost quiz-modal__btn--cancel" id="qm-cancel">
-        Cancel
+        <span data-i18n="cancel">Cancel</span>
       </button>
       <button class="quiz-modal__btn quiz-modal__btn--primary" id="qm-next">
-        Continue
+        <span data-i18n="continue">Continue</span>
         <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)">
       </button>
     </div>
@@ -671,7 +693,7 @@ if ($logged_in) {
 <div class="notif-overlay" id="notif-overlay" aria-hidden="true">
   <div class="notif-panel" id="notif-panel" role="dialog" aria-modal="true" aria-label="Notifications">
     <div class="notif-panel__header">
-      <h2 class="notif-panel__title">Notifications</h2>
+      <h2 class="notif-panel__title" data-i18n="notifications">Notifications</h2>
       <button class="notif-panel__close" id="notif-close" aria-label="Close">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -681,8 +703,8 @@ if ($logged_in) {
     <div class="notif-panel__body">
       <div class="notif-empty">
         <img src="img/bell.png" width="32" height="32" alt="" style="opacity:0.2;">
-        <p class="notif-empty__title">No notifications yet</p>
-        <p class="notif-empty__sub">You're all caught up!</p>
+        <p class="notif-empty__title" data-i18n="no_notifs_title">No notifications yet</p>
+        <p class="notif-empty__sub" data-i18n="no_notifs_sub">You're all caught up!</p>
       </div>
     </div>
   </div>
@@ -704,17 +726,17 @@ if ($logged_in) {
     </div>
 
     <div class="start-modal__body">
-      <p class="start-modal__section-label">Mode</p>
+      <p class="start-modal__section-label" data-i18n="mode">Mode</p>
       <div class="start-modal__modes">
         <button class="start-modal__mode is-active" data-mode="single">
           <img src="img/user.png" width="22" height="22" alt="Single player">
-          <span class="start-modal__mode-name">Single player</span>
-          <span class="start-modal__mode-desc">Practice on your own</span>
+          <span class="start-modal__mode-name" data-i18n="single_player">Single player</span>
+          <span class="start-modal__mode-desc" data-i18n="single_player_desc">Practice on your own</span>
         </button>
         <button class="start-modal__mode" data-mode="multi">
           <img src="img/users.png" width="22" height="22" alt="Multiplayer">
-          <span class="start-modal__mode-name">Multiplayer</span>
-          <span class="start-modal__mode-desc">Play with others</span>
+          <span class="start-modal__mode-name" data-i18n="multiplayer">Multiplayer</span>
+          <span class="start-modal__mode-desc" data-i18n="multiplayer_desc">Play with others</span>
         </button>
       </div>
 
@@ -724,17 +746,15 @@ if ($logged_in) {
     <div class="start-modal__footer">
       <button class="start-modal__save" id="start-modal-save">
         <img src="img/bookmark.png" width="15" height="15" alt="">
-        Save
+        <span data-i18n="save">Save</span>
       </button>
       <button class="start-modal__start" id="start-modal-start">
-        Start quiz
+        <span data-i18n="start_quiz">Start quiz</span>
         <img src="img/arrow-right1.png" width="13" height="13" style="filter:invert(1)">
       </button>
     </div>
   </div>
 </div>
-
-
 
 <div class="qr-overlay" id="qr-overlay" aria-hidden="true">
 
@@ -784,13 +804,13 @@ if ($logged_in) {
     <div class="qr-dots" id="qr-dots"></div>
     <div style="display:flex;align-items:center;gap:8px;">
       <button class="qr-skip-btn" id="qr-skip-btn">
-        Skip
+        <span data-i18n="skip">Skip</span>
         <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
           <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
       <button class="qr-next-btn" id="qr-next-btn" style="display:none">
-        Next
+        <span data-i18n="next">Next</span>
         <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
           <path d="M5 2l5 5-5 5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -805,11 +825,11 @@ if ($logged_in) {
     <div class="qr-results__stats" id="qr-results-stats"></div>
     <div class="qr-results__actions">
       <button class="qr-results__retry" id="qr-results-retry">
-        Try again
-        <img src="img/again.png" width="14" height="14" style="filter:invert(1)" >
+        <span data-i18n="try_again">Try again</span>
+        <img src="img/again.png" width="14" height="14" style="filter:invert(1)">
       </button>
       <button class="qr-results__close" id="qr-results-close">
-        Back to quizzes
+        <span data-i18n="back_to_quizzes">Back to quizzes</span>
         <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
           <path d="M5 2l5 5-5 5" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

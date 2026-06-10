@@ -90,6 +90,7 @@ function addHistoryEntry(entry) {
 document.addEventListener('DOMContentLoaded', function() {
   initTheme();
   loadServerData();
+  applyTranslations();
 });
 
 function getCategoryIcon(categoryId) {
@@ -160,8 +161,8 @@ function renderNotifications() {
     body.innerHTML = `
       <div class="notif-empty">
         <img src="img/bell.png" width="32" height="32" alt="" style="opacity:0.2;">
-        <p class="notif-empty__title">No notifications yet</p>
-        <p class="notif-empty__sub">You're all caught up!</p>
+        <p class="notif-empty__title">${t('no_notifs_title')}</p>
+        <p class="notif-empty__sub">${t('no_notifs_sub')}</p>
       </div>`;
     updateBellBadge();
     return;
@@ -169,8 +170,8 @@ function renderNotifications() {
 
   body.innerHTML = `
     <div class="notif-list-header">
-      <span class="notif-list-header__count">${notifs.length} notification${notifs.length !== 1 ? 's' : ''}</span>
-      <button class="notif-clear-all" id="notif-clear-all">Clear all</button>
+      <span class="notif-list-header__count">${notifs.length} ${notifs.length !== 1 ? t('notifs_count') : t('notif_count')}</span>
+      <button class="notif-clear-all" id="notif-clear-all">${t('clear_all')}</button>
     </div>
     ${notifs.map(n => `
       <div class="notif-item ${n.read ? '' : 'notif-item--unread'}" data-id="${n.id}">
@@ -230,9 +231,9 @@ function renderNotifications() {
 
 function formatNotifTime(ts) {
   const diff = Date.now() - ts;
-  if (diff < 60000) return 'Just now';
-  if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
-  if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+  if (diff < 60000) return t('just_now');
+  if (diff < 3600000) return Math.floor(diff / 60000) + 'm ' + t('ago');
+  if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ' + t('ago');
   return new Date(ts).toLocaleDateString();
 }
 
@@ -370,6 +371,7 @@ document.querySelectorAll('.settings-lang-btn').forEach(btn => {
     btn.classList.add('is-active');
     localStorage.setItem('blitziq-lang', btn.dataset.lang);
     document.getElementById('settings-lang-dropdown')?.classList.remove('is-open');
+    applyTranslations();
   });
 });
 
@@ -682,9 +684,9 @@ window.blitziqRenderFavorites = renderFavorites;
     const confirm = document.createElement('div');
     confirm.className = 'sidebar-folder-confirm';
     confirm.innerHTML = `
-      <span class="sidebar-folder-confirm-text">Delete?</span>
-      <button class="sidebar-folder-confirm-yes">Yes</button>
-      <button class="sidebar-folder-confirm-no">No</button>
+      <span class="sidebar-folder-confirm-text">${t('delete_confirm')}</span>
+      <button class="sidebar-folder-confirm-yes">${t('yes')}</button>
+      <button class="sidebar-folder-confirm-no">${t('no')}</button>
     `;
     row.appendChild(confirm);
     requestAnimationFrame(() => confirm.classList.add('is-visible'));
@@ -733,7 +735,7 @@ window.blitziqRenderFavorites = renderFavorites;
     row.className = 'sidebar-folder sidebar-folder-new-row';
     row.innerHTML = `
       <span class="sidebar-folder-dot" style="background:${COLORS[colorIndex]}"></span>
-      <input class="sidebar-folder-inline-input" type="text" placeholder="Folder name" maxlength="40" autocomplete="off">
+      <input class="sidebar-folder-inline-input" type="text" placeholder="${t('folder_name_placeholder')}" maxlength="40" autocomplete="off">
       <button class="sidebar-folder-inline-cancel" aria-label="Cancel">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -849,7 +851,7 @@ window.blitziqRenderFavorites = renderFavorites;
   'use strict';
 
   const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
-  const PANEL_TITLES = ['General information', 'Quiz structure', 'Settings & confirmation'];
+  const PANEL_TITLES = () => [t('general_info'), t('quiz_structure'), t('settings_confirmation')];
   const TOTAL = 3;
 
   let currentPanel = 1;
@@ -940,14 +942,14 @@ window.blitziqRenderFavorites = renderFavorites;
       else if (i < currentPanel) dot.classList.add('is-done');
     }
     progressFill.style.width = ((currentPanel / TOTAL) * 100) + '%';
-    modalTitle.textContent = PANEL_TITLES[currentPanel - 1];
-    stepLabel.textContent = `Step ${currentPanel} of ${TOTAL}`;
+    modalTitle.textContent = PANEL_TITLES()[currentPanel - 1];
+    stepLabel.textContent = `${t('step_of')} ${currentPanel} ${t('of')} ${TOTAL}`;
     btnBack.style.display = currentPanel > 1 ? '' : 'none';
     if (currentPanel === TOTAL) {
       buildSummary();
-      btnNext.innerHTML = `Create quiz <img src="img/arrow-right1.png" width="14" height="14" style="filter:invert(1)">`;
+      btnNext.innerHTML = `${t('create_quiz')} <img src="img/arrow-right1.png" width="14" height="14" style="filter:invert(1)">`;
     } else {
-      btnNext.innerHTML = `Continue <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)">`;
+      btnNext.innerHTML = `${t('continue')} <img src="img/arrow-r.png" width="12" height="12" style="filter:invert(1)">`;
     }
   }
 
@@ -968,17 +970,17 @@ window.blitziqRenderFavorites = renderFavorites;
 
   function buildSummary() {
     const v = id => document.getElementById(id)?.value?.trim() || '-';
-    const visMap = { public: 'Public', private: 'Private', draft: 'Draft' };
+    const visMap = { public: t('public'), private: t('private'), draft: t('draft') };
     const rows = [
-      ['Name', v('qm-name') || '-'],
-      ['Subject', v('qm-subject') || '-'],
-      ['Questions', v('qm-count')],
-      ['Time / question', v('qm-time') + ' sec.'],
-      ['Answer choices', answerCount],
-      ['Visibility', visMap[visibility]],
-      ['Attempts', v('qm-attempts')],
-      ['Pass score', v('qm-pass') + ' %'],
-      ['Points / correct', v('qm-pts')],
+      [t('summary_name'),           v('qm-name') || '-'],
+      [t('summary_subject'),        v('qm-subject') || '-'],
+      [t('summary_questions'),      v('qm-count')],
+      [t('summary_time_q'),         v('qm-time') + ' ' + t('summary_sec')],
+      [t('summary_answer_choices'), answerCount],
+      [t('summary_visibility'),     visMap[visibility]],
+      [t('summary_attempts'),       v('qm-attempts')],
+      [t('summary_pass_score'),     v('qm-pass') + ' %'],
+      [t('summary_points'),         v('qm-pts')],
     ];
     summaryBox.innerHTML = rows.map(([label, value]) => `
       <div class="qm-summary__row">
@@ -1028,7 +1030,7 @@ window.blitziqRenderFavorites = renderFavorites;
       pointsPerAnswer,
       displayOptions: [...document.querySelectorAll('.qm-toggle.is-active')].map(t => t.dataset.key),
     };
-    btnNext.innerHTML = 'Creating...';
+    btnNext.innerHTML = t('creating');
     btnNext.disabled = true;
     setTimeout(() => {
       btnNext.disabled = false;
@@ -1193,7 +1195,7 @@ window.blitziqRenderFavorites = renderFavorites;
           window.blitziqOpenStartModal(quizForModal);
         }
       } else {
-        showToast('Daily quiz not available');
+        showToast(t('toast_daily_unavailable'));
       }
     });
     
@@ -1229,14 +1231,14 @@ window.blitziqRenderFavorites = renderFavorites;
       <div class="home-daily__left">
         <span class="home-daily__eyebrow">
           <img src="img/calendar.png" width="14" height="14" style="vertical-align: middle; filter: invert(1);" alt="">
-          Daily quiz
+          ${t('daily_quiz')}
         </span>
         <h3 class="home-daily__title">${DAILY_QUIZ.title}</h3>
         <p class="home-daily__meta">${DAILY_QUIZ.meta}</p>
       </div>
       <button class="home-daily__btn">
         <img src="img/arrow-right2.png" width="13" height="13" alt="">
-        Start now
+        ${t('start_now')}
       </button>
     `;
   
@@ -1256,7 +1258,7 @@ window.blitziqRenderFavorites = renderFavorites;
           window.blitziqOpenStartModal(quizForModal);
         }
       } else {
-        showToast('Daily quiz not available');
+        showToast(t('toast_daily_unavailable'));
       }
     });
   
@@ -1268,9 +1270,9 @@ window.blitziqRenderFavorites = renderFavorites;
       <div class="home-block__hdr">
         <span class="home-block__title">
           <img src="img/fire.png" width="18" height="18" alt="">
-          Trending
+          ${t('trending_label')}
         </span>
-        <button class="home-block__see-all">See all</button>
+        <button class="home-block__see-all">${t('see_all')}</button>
       </div>
       <div class="home-scroll-row" id="hf-trending"></div>
     `;
@@ -1287,9 +1289,9 @@ window.blitziqRenderFavorites = renderFavorites;
       <div class="home-block__hdr">
         <span class="home-block__title">
           <img src="img/star1.png" width="20" height="20" alt="">
-          Recommended for you
+          ${t('recommended_label')}
         </span>
-        <button class="home-block__see-all">See all</button>
+        <button class="home-block__see-all">${t('see_all')}</button>
       </div>
       <div class="home-scroll-row" id="hf-recommended"></div>
     `;
@@ -1373,7 +1375,7 @@ window.blitziqRenderFavorites = renderFavorites;
       block.innerHTML = `
         <div class="disc-block__hdr">
           <span class="disc-block__title">${cat}</span>
-          ${hasMore ? '<a href="#" class="disc-block__see-all">See all</a>' : ''}
+          ${hasMore ? `<a href="#" class="disc-block__see-all">${t('see_all')}</a>` : ''}
         </div>
         <div class="disc-grid disc-grid--recommended"></div>
       `;
@@ -1389,10 +1391,10 @@ window.blitziqRenderFavorites = renderFavorites;
           expanded = !expanded;
           if (expanded) {
             quizzes.slice(LIMIT).forEach(q => grid.appendChild(buildCard(q)));
-            seeAll.textContent = 'Show less';
+            seeAll.textContent = t('show_less') || 'Show less';
           } else {
             while (grid.children.length > LIMIT) grid.lastChild.remove();
-            seeAll.textContent = 'See all';
+            seeAll.textContent = t('see_all');
           }
         });
       }
@@ -1460,6 +1462,7 @@ window.blitziqRenderFavorites = renderFavorites;
     });
   }
   window.blitziqFilterGrids = filterGrids;
+  window.renderDiscoverCategories = renderDiscoverCategories;
 
   function initSearch() {
     const input = document.querySelector('.navbar-search-input');
@@ -1515,8 +1518,8 @@ window.blitziqRenderFavorites = renderFavorites;
       const header = document.createElement('div');
       header.className = 'search-header';
       header.innerHTML = `
-        <span class="search-header__query">Results for "<strong>${q}</strong>"</span>
-        <span class="search-header__count">${results.length} found</span>
+        <span class="search-header__query">${t('results_for')} "<strong>${q}</strong>"</span>
+        <span class="search-header__count">${results.length} ${t('found')}</span>
       `;
       searchSection.appendChild(header);
 
@@ -1524,8 +1527,8 @@ window.blitziqRenderFavorites = renderFavorites;
         const empty = document.createElement('div');
         empty.className = 'search-empty';
         empty.innerHTML = `
-          <p class="search-empty__title">No quizzes found</p>
-          <p class="search-empty__sub">Try a different keyword or browse by category.</p>
+          <p class="search-empty__title">${t('no_quizzes_found')}</p>
+          <p class="search-empty__sub">${t('no_quizzes_found_sub')}</p>
         `;
         searchSection.appendChild(empty);
         return;
@@ -1568,6 +1571,8 @@ window.blitziqRenderFavorites = renderFavorites;
     });
   }
 
+  window.renderHomeFeatures = renderHomeFeatures;
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
@@ -1604,7 +1609,7 @@ window.blitziqRenderFavorites = renderFavorites;
   window.blitziqCreateDraft = function (payload) {
   const avatar = document.querySelector('.navbar-avatar');
   if (!avatar) {
-    showToast('Please log in to create a quiz');
+    showToast(t('toast_login_to_create'));
     return null;
   }
   const count = Math.max(1, Math.min(MAX_QUESTIONS, parseInt(payload.questionCount) || 10));
@@ -1662,8 +1667,8 @@ window.blitziqRenderFavorites = renderFavorites;
     }
     section.innerHTML = `
       <div class="mq-header">
-        <h2 class="mq-header__title">My quizzes</h2>
-        <span class="mq-header__count">${quizzes.length} quiz${quizzes.length !== 1 ? 'zes' : ''}</span>
+        <h2 class="mq-header__title">${t('my_quizzes_title')}</h2>
+        <span class="mq-header__count">${quizzes.length} ${quizzes.length !== 1 ? t('quizzes_word') : t('quiz_word')}</span>
       </div>
       <div class="mq-grid" id="mq-grid"></div>
     `;
@@ -1678,11 +1683,11 @@ window.blitziqRenderFavorites = renderFavorites;
     const filled = quiz.questions.filter(q => q.text.trim()).length;
     const total = quiz.questions.length;
     const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
-    const statusLabel = quiz.status === 'draft' ? 'Draft' : 'Published';
+    const statusLabel = quiz.status === 'draft' ? t('draft_label') : t('published_label');
     card.innerHTML = `
       <div class="mq-card__top">
         <span class="mq-card__status mq-card__status--${quiz.status}">${statusLabel}</span>
-        <button class="mq-card__delete" data-id="${quiz.id}" aria-label="Delete quiz" title="Delete">
+        <button class="mq-card__delete" data-id="${quiz.id}" aria-label="Delete quiz" title="${t('delete')}">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
@@ -1697,11 +1702,11 @@ window.blitziqRenderFavorites = renderFavorites;
           <div class="mq-card__progress-bar">
             <div class="mq-card__progress-fill" style="width:${pct}%"></div>
           </div>
-          <span class="mq-card__progress-label">${filled}/${total} filled</span>
+          <span class="mq-card__progress-label">${filled}/${total} ${t('filled')}</span>
         </div>
         <button class="mq-card__edit" data-id="${quiz.id}">
           <img src="img/edit.png" width="12" height="12" alt="" style="filter:invert(1)">
-          Edit
+          ${t('edit')}
         </button>
       </div>
     `;
@@ -1780,23 +1785,23 @@ window.blitziqRenderFavorites = renderFavorites;
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              Back
+              ${t('editor_back')}
             </button>
             <span class="qe-sidebar__title">${escapeHtml(quiz.name)}</span>
           </div>
           <div class="qe-q-list" id="qe-q-list"></div>
           <div class="qe-q-add-wrap" id="qe-q-add-wrap">
-            <button class="qe-q-add-btn" id="qe-q-add" title="Add question" aria-label="Add question">
+            <button class="qe-q-add-btn" id="qe-q-add" title="${t('editor_add_question')}" aria-label="${t('editor_add_question')}">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
-              Add question
+              ${t('editor_add_question')}
             </button>
           </div>
         </aside>
         <main class="qe-main">
           <div class="qe-topbar">
-            <span class="qe-topbar__info" id="qe-q-label">Question 1 of ${quiz.questions.length}</span>
+            <span class="qe-topbar__info" id="qe-q-label">${t('editor_q_of')} 1 ${t('editor_of')} ${quiz.questions.length}</span>
             <div class="qe-topbar__right">
               <div style="position:relative;display:inline-flex;">
                 <button class="qe-save-btn" id="qe-folder-btn" style="border-right:none;border-radius:8px 0 0 8px;">
@@ -1806,33 +1811,33 @@ window.blitziqRenderFavorites = renderFavorites;
               </div>
               <button class="qe-save-btn" id="qe-save">
                 <img src="img/save.png" width="14" height="14" alt="">
-                Save
+                ${t('editor_save')}
               </button>
-              <button class="qe-publish-btn" id="qe-publish">Publish quiz</button>
+              <button class="qe-publish-btn" id="qe-publish">${t('editor_publish')}</button>
             </div>
           </div>
           <div class="qe-editor" id="qe-editor">
             ${descBlock}
             <div class="qe-field">
-              <label class="qe-field__label">Question text</label>
-              <textarea class="qe-field__input qe-field__input--textarea" id="qe-q-text" placeholder="Type your question here..." rows="3"></textarea>
+              <label class="qe-field__label">${t('editor_question_label')}</label>
+              <textarea class="qe-field__input qe-field__input--textarea" id="qe-q-text" placeholder="${t('question_text_placeholder')}" rows="3"></textarea>
             </div>
             <div class="qe-meta-row">
               <div class="qe-field qe-field--small">
-                <label class="qe-field__label">Time (sec)</label>
+                <label class="qe-field__label">${t('time_sec')}</label>
                 <input class="qe-field__input" id="qe-q-time" type="number" min="5" max="300">
               </div>
               <div class="qe-field qe-field--small">
-                <label class="qe-field__label">Points</label>
+                <label class="qe-field__label">${t('points')}</label>
                 <input class="qe-field__input" id="qe-q-pts" type="number" min="1">
               </div>
               <div class="qe-field qe-field--small">
-                <label class="qe-field__label">Type</label>
+                <label class="qe-field__label">${t('type')}</label>
                 <div class="qe-field__select-wrap" style="position:relative;">
                   <select class="qe-field__input" id="qe-q-type" style="padding-right:28px;cursor:pointer;appearance:none;">
-                    <option value="single">Single</option>
-                    <option value="multi">Multiple</option>
-                    <option value="truefalse">True / False</option>
+                    <option value="single">${t('editor_option_single')}</option>
+                    <option value="multi">${t('editor_option_multiple')}</option>
+                    <option value="truefalse">${t('editor_option_truefalse')}</option>
                   </select>
                   <svg style="position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:#6b7280;" width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1841,17 +1846,17 @@ window.blitziqRenderFavorites = renderFavorites;
               </div>
             </div>
             <div class="qe-divider"></div>
-            <p class="qe-section-label">Answers <span class="qe-section-hint">(click the icon to mark correct)</span></p>
+            <p class="qe-section-label">${t('editor_answers_label')} <span class="qe-section-hint">${t('editor_answers_hint')}</span></p>
             <div class="qe-answers" id="qe-answers"></div>
             <div class="qe-nav">
               <button class="qe-nav-btn" id="qe-prev">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                Previous
+                ${t('editor_prev')}
               </button>
               <button class="qe-nav-btn qe-nav-btn--primary" id="qe-next-q">
-                Next
+                ${t('editor_next_q')}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -1879,7 +1884,7 @@ window.blitziqRenderFavorites = renderFavorites;
       e.stopPropagation();
       const folders = getFolders();
       if (!folders.length) {
-        folderDropdown.innerHTML = '<div class="qe-folder-dropdown__empty">No folders yet</div>';
+        folderDropdown.innerHTML = `<div class="qe-folder-dropdown__empty">${t('editor_no_folders')}</div>`;
       } else {
         const currentFolders = quiz.folders || [];
         folderDropdown.innerHTML = folders.map((f, i) => `
@@ -1914,7 +1919,7 @@ window.blitziqRenderFavorites = renderFavorites;
       quiz.status = 'published';
       saveQuizzes();
       addNotification({
-        text: `"${quiz.name}" has been published successfully.`,
+        text: `"${quiz.name}" ${t('toast_published')}`,
       });
       closeEditor();
     });
@@ -1965,12 +1970,12 @@ window.blitziqRenderFavorites = renderFavorites;
     if (!btn) return;
     const atMax = quiz.questions.length >= MAX_QUESTIONS;
     btn.disabled = atMax;
-    btn.title = atMax ? `Maximum ${MAX_QUESTIONS} questions reached` : 'Add question';
+    btn.title = atMax ? t('max_questions_reached') : t('editor_add_question');
     btn.style.opacity = atMax ? '0.4' : '';
     btn.style.cursor = atMax ? 'not-allowed' : '';
 
     const topLabel = document.getElementById('qe-q-label');
-    if (topLabel) topLabel.textContent = `Question ${currentQIndex + 1} of ${quiz.questions.length}`;
+    if (topLabel) topLabel.textContent = `${t('editor_q_of')} ${currentQIndex + 1} ${t('editor_of')} ${quiz.questions.length}`;
   }
 
   function showQuestionDeleteConfirm(itemEl, quiz, index) {
@@ -1980,9 +1985,9 @@ window.blitziqRenderFavorites = renderFavorites;
     const confirm = document.createElement('div');
     confirm.className = 'qe-q-delete-confirm';
     confirm.innerHTML = `
-      <span class="qe-q-delete-confirm__text">Delete?</span>
-      <button class="qe-q-delete-confirm__yes">Yes</button>
-      <button class="qe-q-delete-confirm__no">No</button>
+      <span class="qe-q-delete-confirm__text">${t('delete_confirm')}</span>
+      <button class="qe-q-delete-confirm__yes">${t('yes')}</button>
+      <button class="qe-q-delete-confirm__no">${t('no')}</button>
     `;
     itemEl.appendChild(confirm);
     requestAnimationFrame(() => confirm.classList.add('is-visible'));
@@ -2076,7 +2081,7 @@ window.blitziqRenderFavorites = renderFavorites;
   function loadQuestion(quiz, index) {
     const q = quiz.questions[index];
     if (!q) return;
-    document.getElementById('qe-q-label').textContent = `Question ${index + 1} of ${quiz.questions.length}`;
+    document.getElementById('qe-q-label').textContent = `${t('editor_q_of')} ${index + 1} ${t('editor_of')} ${quiz.questions.length}`;
     document.getElementById('qe-q-text').value = q.text || '';
 
     const timeInput = document.getElementById('qe-q-time');
@@ -2162,7 +2167,7 @@ window.blitziqRenderFavorites = renderFavorites;
           <img src="${ans.correct ? 'img/correct.png' : 'img/correct-empty.png'}" width="16" height="16" alt="" class="qe-correct-img">
         </button>
         <span class="qe-answer-letter">${letters[ai]}</span>
-        <input class="qe-answer-input" type="text" placeholder="${isTF ? (ai === 0 ? 'True' : 'False') : 'Answer ' + letters[ai] + '...'}" value="${escapeHtml(ans.text)}" data-ai="${ai}">
+        <input class="qe-answer-input" type="text" placeholder="${isTF ? (ai === 0 ? 'True' : 'False') : t('editor_answer_placeholder') + ' ' + letters[ai] + '...'}" value="${escapeHtml(ans.text)}" data-ai="${ai}">
         ${canRemove ? `
         <button class="qe-answer-remove" data-ai="${ai}" aria-label="Remove answer" title="Remove answer">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -2210,11 +2215,11 @@ window.blitziqRenderFavorites = renderFavorites;
       const addRow = document.createElement('div');
       addRow.className = 'qe-answer-add-row';
       addRow.innerHTML = `
-        <button class="qe-answer-add-btn" id="qe-answer-add" ${!canAdd ? 'disabled' : ''} title="${!canAdd ? 'Maximum ' + MAX_ANSWERS + ' answers' : 'Add answer'}">
+        <button class="qe-answer-add-btn" id="qe-answer-add" ${!canAdd ? 'disabled' : ''} title="${!canAdd ? t('max_answers') : t('editor_add_answer')}">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
-          Add answer ${!canAdd ? `(max ${MAX_ANSWERS})` : `(${answers.length}/${MAX_ANSWERS})`}
+          ${!canAdd ? `${t('editor_add_answer')} (${t('editor_max_answers')} ${MAX_ANSWERS})` : `${t('editor_add_answer')} (${answers.length}/${MAX_ANSWERS})`}
         </button>
       `;
       if (canAdd) {
@@ -2254,7 +2259,7 @@ window.blitziqRenderFavorites = renderFavorites;
 
   function showSaveToast() {
     if (typeof showToast === 'function') {
-      showToast('Quiz saved successfully!');
+      showToast(t('toast_saved'));
     } else {
       console.log('Quiz saved');
       const saveBtn = document.getElementById('qe-save');
@@ -2312,7 +2317,7 @@ window.blitziqRenderFavorites = renderFavorites;
     const saved = isSaved(currentQuiz.name);
     saveBtn.innerHTML = `
       <img src="img/${saved ? 'bookmark1' : 'bookmark'}.png" width="15" height="15" alt="">
-      ${saved ? 'Saved' : 'Save'}
+      ${saved ? t('saved_label') : t('save')}
     `;
     saveBtn.style.color = saved ? '#6d28d9' : '';
     saveBtn.style.borderColor = saved ? '#a78bfa' : '';
@@ -2332,10 +2337,10 @@ window.blitziqRenderFavorites = renderFavorites;
       (quiz.timePerQ ? ` · ${quiz.timePerQ}s per question` : '');
 
     const infos = [
-      ['Questions',        questionCount],
-      ['Time / question',  quiz.timePerQ  ? quiz.timePerQ + 's' : '—'],
-      ['Points / correct', quiz.points    ?? '—'],
-      ['Pass score',       quiz.passScore != null ? quiz.passScore + '%' : '—'],
+      [t('info_questions'),  questionCount],
+      [t('info_time_q'),     quiz.timePerQ  ? quiz.timePerQ + 's' : '—'],
+      [t('info_points'),     quiz.points    ?? '—'],
+      [t('info_pass'),       quiz.passScore != null ? quiz.passScore + '%' : '—'],
     ];
     infoEl.innerHTML = infos.map(([label, value]) => `
       <div class="start-modal__info-item">
@@ -2495,7 +2500,7 @@ window.blitziqRenderFavorites = renderFavorites;
     const cd = document.createElement('div');
     cd.id = 'qr-countdown';
     cd.innerHTML = `
-      <div class="qr-cd-label">Get ready!</div>
+      <div class="qr-cd-label">${t('get_ready')}</div>
       <div class="qr-cd-ring">
         <svg class="qr-cd-svg" viewBox="0 0 120 120">
           <circle class="qr-cd-track" cx="60" cy="60" r="52"/>
@@ -2517,9 +2522,9 @@ window.blitziqRenderFavorites = renderFavorites;
     arc.style.strokeDashoffset = '0';
 
     const steps = [
-      { num: '3', color: '#a78bfa', label: 'Get ready!' },
-      { num: '2', color: '#f472b6', label: 'Almost...' },
-      { num: '1', color: '#34d399', label: 'Go!' },
+      { num: '3', color: '#a78bfa', label: t('get_ready') },
+      { num: '2', color: '#f472b6', label: t('almost') },
+      { num: '1', color: '#34d399', label: t('go') },
     ];
 
     let i = 0;
@@ -2585,7 +2590,7 @@ window.blitziqRenderFavorites = renderFavorites;
     const current = state.index + 1;
     counterEl.textContent = `${current} / ${total}`;
     fillEl.style.width = ((current / total) * 100) + '%';
-    qNum.textContent = `Question ${current} of ${total}`;
+    qNum.textContent = `${t('runner_q_of')} ${current} ${t('runner_of')} ${total}`;
     qText.textContent = q.text || '(No question text)';
 
     answersEl.innerHTML = '';
@@ -2673,16 +2678,16 @@ window.blitziqRenderFavorites = renderFavorites;
     if (isCorrect) {
   feedback.className = 'qr-feedback qr-feedback--correct';
   if (fbIcon) fbIcon.innerHTML = `<img src="img/correct1.png" width="14" height="14" style="filter:invert(1)">`;
-  if (fbText) fbText.innerHTML = `Correct! +${q.points || 10} points`;
+  if (fbText) fbText.innerHTML = `${t('runner_correct_prefix')}${q.points || 10}${t('runner_correct_suffix')}`;
 } else {
   feedback.className = 'qr-feedback qr-feedback--wrong';
   if (fbIcon) fbIcon.innerHTML = `<img src="img/incorrect.png" width="14" height="14" style="filter:invert(1)">`;
   const correctAnswers = answers.filter(a => a.correct).map(a => a.text).join(', ');
-  if (fbText) fbText.innerHTML = `Incorrect — correct answer: <strong style="color:#fff">${correctAnswers}</strong>`;
+  if (fbText) fbText.innerHTML = `${t('incorrect')} <strong style="color:#fff">${correctAnswers}</strong>`;
 }
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
-    nextBtn.textContent = state.index < state.questions.length - 1 ? 'Next' : 'See results';
+    nextBtn.textContent = state.index < state.questions.length - 1 ? t('runner_next') : t('runner_see_results');
     nextBtn.innerHTML += ` <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
 
@@ -2709,10 +2714,10 @@ window.blitziqRenderFavorites = renderFavorites;
     });
 
     feedback.className = 'qr-feedback qr-feedback--wrong';
-    feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon"><img src="img/timer.png" width="16" height="16" style="filter:invert(1)"></span><span id="qr-feedback-text">Time's up!</span>`;
+    feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon"><img src="img/timer.png" width="16" height="16" style="filter:invert(1)"></span><span id="qr-feedback-text">${t('times_up')}</span>`;
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
-    nextBtn.textContent = state.index < state.questions.length - 1 ? 'Next' : 'See results';
+    nextBtn.textContent = state.index < state.questions.length - 1 ? t('runner_next') : t('runner_see_results');
     nextBtn.innerHTML += ` <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
 
@@ -2743,27 +2748,27 @@ window.blitziqRenderFavorites = renderFavorites;
     const passScore = state.quiz.passScore ?? 60;
     const passed = pct >= passScore;
 
-    document.getElementById('qr-results-title').textContent = pct === 100 ? 'Perfect score!' : passed ? 'Quiz passed!' : 'Keep practicing!';
+    document.getElementById('qr-results-title').textContent = pct === 100 ? t('perfect_score') : passed ? t('quiz_passed') : t('keep_practicing');
     document.getElementById('qr-results-sub').textContent = passed
-      ? `You scored ${pct}% — above the ${passScore}% pass mark.`
-      : `You scored ${pct}% — the pass mark is ${passScore}%. You've got this!`;
+      ? `${t('scored_above')} ${pct}% — ${t('above_pass')} ${passScore}% ${t('pass_mark')}`
+      : `${t('scored_below')} ${pct}% — ${t('below_pass')} ${passScore}%. ${t('youve_got_this')}`;
 
     document.getElementById('qr-results-stats').innerHTML = `
       <div class="qr-results__stat">
         <span class="qr-results__stat-val">${state.score}</span>
-        <span class="qr-results__stat-label">Score</span>
+        <span class="qr-results__stat-label">${t('score')}</span>
       </div>
       <div class="qr-results__stat">
         <span class="qr-results__stat-val">${state.correct}/${total}</span>
-        <span class="qr-results__stat-label">Correct</span>
+        <span class="qr-results__stat-label">${t('correct')}</span>
       </div>
       <div class="qr-results__stat">
         <span class="qr-results__stat-val">${pct}%</span>
-        <span class="qr-results__stat-label">Accuracy</span>
+        <span class="qr-results__stat-label">${t('accuracy')}</span>
       </div>
       <div class="qr-results__stat">
         <span class="qr-results__stat-val">${timeStr}</span>
-        <span class="qr-results__stat-label">Time</span>
+        <span class="qr-results__stat-label">${t('time')}</span>
       </div>
     `;
 
@@ -2857,13 +2862,15 @@ window.blitziqRenderFavorites = renderFavorites;
       </div>
       <div class="history-card__body">
         <div class="history-card__name">${entry.name}</div>
-        <div class="history-card__meta">${dateStr} · ${entry.correct}/${entry.total} correct · ${timeStr}</div>
+        <div class="history-card__meta">${dateStr} · ${entry.correct}/${entry.total} ${t('correct')} · ${timeStr}</div>
       </div>
       <div class="history-card__score">${entry.pct}%</div>
     `;
     list.appendChild(card);
   });
 }
+
+  window.renderHistory = renderHistory;
 
 document.getElementById('btn-history')?.addEventListener('click', e => {
   e.preventDefault();
