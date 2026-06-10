@@ -57,29 +57,48 @@
   }
 
   function handleAuthSuccess(username) {
-  const actions = document.querySelector('.navbar-actions');
-  if (!actions) return;
-  actions.innerHTML = `
-    <span class="navbar-username">${escapeHtml(username)}</span>
-    <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
-      <button class="navbar-avatar" id="btn-avatar" aria-label="Account menu">
-        ${username.charAt(0).toUpperCase()}
-      </button>
-      <div class="navbar-dropdown" id="navbar-dropdown">
-        <a href="php/logout.php" class="navbar-dropdown-item">Log out</a>
-      </div>
+    const actions = document.querySelector('.navbar-actions');
+    if (!actions) return;
+    actions.innerHTML = `
+  <div class="navbar-lang-wrap" id="navbar-lang-wrap">
+    <button type="button" class="navbar-btn navbar-btn-lang" id="btn-lang-toggle">EN</button>
+    <div class="navbar-lang-dropdown" id="navbar-lang-dropdown">
+      <button class="navbar-lang-option" data-lang="en">English</button>
+      <button class="navbar-lang-option" data-lang="ro">Română</button>
+      <button class="navbar-lang-option" data-lang="ru">Русский</button>
     </div>
-  `;
-  
-  localStorage.removeItem('blitziq-quizzes');
-  localStorage.removeItem('blitziq-folders');
-  localStorage.removeItem('blitziq-saved');
-  localStorage.removeItem('blitziq-notifs');
-  
-  setTimeout(() => {
-    window.location.href = 'page.php';
-  }, 500);
-}
+  </div>
+  <span class="navbar-username">${escapeHtml(username)}</span>
+  <div class="navbar-avatar-wrap" id="navbar-avatar-wrap">
+    <button class="navbar-avatar" id="btn-avatar" aria-label="Account menu">
+      ${username.charAt(0).toUpperCase()}
+    </button>
+    <div class="navbar-dropdown" id="navbar-dropdown">
+      <span class="navbar-dropdown-user">${escapeHtml(username)}</span>
+      <a href="#" class="navbar-dropdown-item" id="btn-dark-toggle">
+        <img src="img/moon.png" id="theme-toggle-icon" width="18" height="18" alt="Dark mode">
+        <span data-il18n-text="nav_theme">Theme</span>
+      </a>
+      <a href="php/logout.php" class="navbar-dropdown-item">
+        <img src="img/logout.png" width="16" height="16" alt="">
+        <span data-il18n-text="nav_logout">Log out</span>
+      </a>
+    </div>
+  </div>
+`;
+
+    initLangDropdown();
+    initAvatarDropdown();
+
+    localStorage.removeItem('blitziq-quizzes');
+    localStorage.removeItem('blitziq-folders');
+    localStorage.removeItem('blitziq-saved');
+    localStorage.removeItem('blitziq-notifs');
+    if (window.applyLandingTranslations) window.applyLandingTranslations();
+    setTimeout(() => {
+      window.location.href = 'page.php';
+    }, 500);
+  }
 
   function submitForm({ formId, endpoint, btnId, errorId, successId }) {
     const form = document.getElementById(formId);
@@ -101,10 +120,10 @@
           handleAuthSuccess(data.username);
           setTimeout(() => closeOverlay(formId.replace('form-', 'overlay-')), 800);
         } else {
-          showAlert(errorId, data.message || 'Something went wrong.');
+          showAlert(errorId, data.message || window.tl('error_generic'));
         }
       } catch {
-        showAlert(errorId, 'Network error, please try again.');
+        showAlert(errorId, window.tl('error_network'));
       } finally {
         setLoading(btnId, false);
       }
@@ -133,30 +152,30 @@
       <button class="overlay-close" data-close="overlay-contact" aria-label="Close">
         <img src="img/close.png" width="16" height="16">
       </button>
-      <h2 class="overlay-title">Get in touch</h2>
-      <p class="overlay-sub">We'll get back to you as soon as possible</p>
+      <h2 class="overlay-title" data-il18n="contact_title">Get in touch</h2>
+      <p class="overlay-sub" data-il18n="contact_sub">We'll get back to you as soon as possible</p>
       <div id="contact-error" class="overlay-alert" style="display:none;"></div>
       <div id="contact-success" class="overlay-alert overlay-alert--success" style="display:none;"></div>
       <form class="overlay-form" id="form-contact" novalidate>
         <div class="overlay-field">
-          <label for="contact-to">To</label>
+          <label for="contact-to" data-il18n-text="contact_to_label">To</label>
           <input id="contact-to" type="email" value="clbidamihai@gmail.com" readonly>
         </div>
         <div class="overlay-field">
-          <label for="contact-subject">Subject</label>
-          <input id="contact-subject" name="subject" type="text" placeholder="What's this about?" required>
+          <label for="contact-subject" data-il18n-text="contact_subj_label">Subject</label>
+          <input id="contact-subject" name="subject" type="text" placeholder="What's this about?" data-il18n-placeholder="contact_subj_ph" required>
         </div>
         <div class="overlay-field">
-          <label for="contact-msg">Message</label>
-          <textarea id="contact-msg" name="message" rows="4" placeholder="Your message..." required style="resize:vertical;"></textarea>
+          <label for="contact-msg" data-il18n-text="contact_msg_label">Message</label>
+          <textarea id="contact-msg" name="message" rows="4" placeholder="Your message..." data-il18n-placeholder="contact_msg_ph" required style="resize:vertical;"></textarea>
         </div>
         <button type="submit" class="overlay-submit" id="btn-contact-submit">
-          <span class="overlay-submit-text">Send message</span>
+          <span class="overlay-submit-text" data-il18n-text="contact_send">Send message</span>
           <span class="overlay-spinner" style="display:none;"></span>
         </button>
       </form>
       <div class="contact-socials">
-        <p class="contact-socials-label">Or reach out on socials</p>
+        <p class="contact-socials-label" data-il18n-text="contact_socials">Or reach out on socials</p>
         <div class="contact-socials-row">
           <a href="https://github.com/MihaiCulbida" target="_blank"><img src="img/github.png" width="28" height="28"></a>
           <a href="https://instagram.com/acsiless" target="_blank"><img src="img/instagram.png" width="28" height="28"></a>
@@ -164,6 +183,7 @@
         </div>
       </div>
     `;
+    if (window.applyLandingTranslations) window.applyLandingTranslations();
   }
 
   document.getElementById('form-contact')?.addEventListener('submit', async e => {
@@ -180,7 +200,7 @@
 
     btn.querySelector('.overlay-submit-text').style.display = 'inline';
     btn.querySelector('.overlay-spinner').style.display = 'none';
-    ok.textContent = 'Message sent!';
+    ok.textContent = window.tl('contact_sent');
     ok.style.display = 'block';
     e.target.reset();
   });
@@ -229,22 +249,59 @@
     });
   });
 
-  const avatarBtn = document.getElementById('btn-avatar');
-  const dropdown  = document.getElementById('navbar-dropdown');
+  function initAvatarDropdown() {
+    const avatarBtn = document.getElementById('btn-avatar');
+    const dropdown  = document.getElementById('navbar-dropdown');
+    if (avatarBtn && dropdown) {
+      avatarBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        dropdown.classList.toggle('is-open');
+      });
+      document.addEventListener('click', () => {
+        dropdown.classList.remove('is-open');
+      });
+    }
+  }
 
-  if (avatarBtn && dropdown) {
-    avatarBtn.addEventListener('click', e => {
+  initAvatarDropdown();
+
+  function initLangDropdown() {
+    const langBtn      = document.getElementById('btn-lang-toggle');
+    const langDropdown = document.getElementById('navbar-lang-dropdown');
+    if (!langBtn || !langDropdown) return;
+
+    langBtn.addEventListener('click', e => {
       e.stopPropagation();
-      dropdown.classList.toggle('is-open');
+      langDropdown.classList.toggle('is-open');
     });
-    document.addEventListener('click', () => {
-      dropdown.classList.remove('is-open');
+
+    document.addEventListener('click', e => {
+      if (!langBtn.contains(e.target)) {
+        langDropdown.classList.remove('is-open');
+      }
+    });
+
+    langDropdown.querySelectorAll('.navbar-lang-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        localStorage.setItem('blitziq-lang', btn.dataset.lang);
+        langDropdown.classList.remove('is-open');
+        if (window.applyLandingTranslations) window.applyLandingTranslations();
+      });
     });
   }
 
+  function updateLangBtn() {
+  const btn = document.getElementById('btn-lang-toggle');
+  if (!btn) return;
+  const lang = localStorage.getItem('blitziq-lang') || 'en';
+  btn.textContent = lang.toUpperCase();
+}
+
+  initLangDropdown();
+
   document.getElementById('btn-cta-signup')?.addEventListener('click', () => {
     if (document.querySelector('.navbar-avatar')) {
-      showToast('You are already logged in.');
+      showToast(window.tl('toast_already_logged'));
       return;
     }
     openOverlay('overlay-signup');
@@ -285,35 +342,35 @@
   window.addEventListener('scroll', updateActive);
   updateActive();
 
-document.querySelectorAll('[data-open="overlay-about"]').forEach(el => {
-  el.addEventListener('click', e => {
-    e.preventDefault();
-    openOverlay('overlay-about');
+  document.querySelectorAll('[data-open="overlay-about"]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      openOverlay('overlay-about');
+    });
   });
-});
 
-document.getElementById('btn-about-create')?.addEventListener('click', () => {
-  closeOverlay('overlay-about');
-  if (document.querySelector('.navbar-avatar')) {
-    window.location.href = 'page.php';
-  } else {
-    openOverlay('overlay-signup');
-  }
-});
-
-document.querySelectorAll('[data-open="overlay-terms"]').forEach(el => {
-  el.addEventListener('click', e => {
-    e.preventDefault();
-    openOverlay('overlay-terms');
+  document.getElementById('btn-about-create')?.addEventListener('click', () => {
+    closeOverlay('overlay-about');
+    if (document.querySelector('.navbar-avatar')) {
+      window.location.href = 'page.php';
+    } else {
+      openOverlay('overlay-signup');
+    }
   });
-});
- 
-document.getElementById('btn-terms-accept')?.addEventListener('click', () => {
-  closeOverlay('overlay-terms');
-});
 
-document.getElementById('btn-privacy-accept')?.addEventListener('click', () => {
-  closeOverlay('overlay-privacy');
-});
+  document.querySelectorAll('[data-open="overlay-terms"]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      openOverlay('overlay-terms');
+    });
+  });
+
+  document.getElementById('btn-terms-accept')?.addEventListener('click', () => {
+    closeOverlay('overlay-terms');
+  });
+
+  document.getElementById('btn-privacy-accept')?.addEventListener('click', () => {
+    closeOverlay('overlay-privacy');
+  });
 
 })();

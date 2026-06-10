@@ -53,10 +53,10 @@
   startScreen.className = 'game-start';
   startScreen.innerHTML = `
     <img class="game-start__icon" src="img/quiz.png" style="width:90px;height:90px;">
-    <h3 class="game-start__title">PHP Quiz</h3>
-    <p class="game-start__desc">3 questions · 15 seconds each<br>Test your PHP knowledge</p>
+    <h3 class="game-start__title" data-il18n-text="game_start_title">PHP Quiz</h3>
+    <p class="game-start__desc" data-il18n="game_start_desc">3 questions · 15 seconds each<br>Test your PHP knowledge</p>
     <button class="game-start__btn" id="btn-start-game">
-      Start quiz
+      <span data-il18n-text="game_start_btn">Start quiz</span>
       <img src="img/arrow-right1.png" class="game-next-img" style="width:14px;height:14px;">
     </button>
   `;
@@ -64,6 +64,8 @@
   gameCard.insertBefore(startScreen, gameMain);
   gameMain.style.display = 'none';
   gameResult.className   = 'game-result';
+
+  if (window.applyLandingTranslations) window.applyLandingTranslations();
 
   document.getElementById('btn-start-game').addEventListener('click', startGame);
 
@@ -88,7 +90,8 @@
   function renderQuestion(i) {
     answered = false;
     const q = questions[i];
-    document.getElementById('g-num').textContent = `Question ${i + 1} of 3`;
+    const tl = window.tl || (k => k);
+    document.getElementById('g-num').textContent = `${tl('game_q_of')} ${i + 1} ${tl('game_of')} 3`;
     document.getElementById('g-text').textContent = q.text;
 
     const codeEl = document.getElementById('g-code');
@@ -131,13 +134,14 @@
   function timeUp() {
     if (answered) return;
     answered = true;
+    const tl = window.tl || (k => k);
     const q = questions[current];
     document.querySelectorAll('.game-opt').forEach((b, idx) => {
       b.disabled = true;
       b.className = 'game-opt ' + (idx === q.correct ? 'correct' : 'dimmed');
     });
     const fb = document.getElementById('g-feedback');
-    fb.textContent = "Time's up! " + q.feedback.ko;
+    fb.textContent = tl('game_times_up') + q.feedback.ko;
     fb.className = 'game-feedback show ko';
     document.getElementById('btn-next').className = 'game-next show';
   }
@@ -169,14 +173,20 @@
   }
 
   function showResult() {
+    const tl = window.tl || (k => k);
     gameMain.style.display = 'none';
     gameResult.className = 'game-result show';
     document.getElementById('g-score').textContent = score;
-    const titles = ['Keep practicing!', 'Good start!', 'PHP Master!'];
+
+    const titles = [
+      tl('game_result_0_title'),
+      tl('game_result_1_title'),
+      tl('game_result_2_title'),
+    ];
     const subs = [
-      'PHP has many quirks. Review the docs and give it another shot!',
-      "You're getting there - a bit more practice and you'll nail it.",
-      'You know type juggling, security & breaking changes. Impressive!'
+      tl('game_result_0_sub'),
+      tl('game_result_1_sub'),
+      tl('game_result_2_sub'),
     ];
     document.getElementById('g-result-title').textContent = titles[score];
     document.getElementById('g-result-sub').textContent   = subs[score];
