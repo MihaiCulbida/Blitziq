@@ -57,7 +57,6 @@
     }
   ],
   "quizzes": [
-
     {
       "id": "bio_001",
       "category": "biology",
@@ -81,10 +80,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Mitochondria", "correct": true },
-            { "text": "Ribosome", "correct": false },
-            { "text": "Golgi apparatus", "correct": false },
-            { "text": "Vacuole", "correct": false }
+            {
+              "text": "Ribosome",
+              "correct": false
+            },
+            {
+              "text": "Mitochondria",
+              "correct": true
+            },
+            {
+              "text": "Golgi apparatus",
+              "correct": false
+            },
+            {
+              "text": "Vacuole",
+              "correct": false
+            }
           ]
         },
         {
@@ -94,10 +105,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Controls cell activities and contains DNA", "correct": true },
-            { "text": "Produces energy for the cell", "correct": false },
-            { "text": "Synthesises proteins", "correct": false },
-            { "text": "Digests waste materials", "correct": false }
+            {
+              "text": "Produces energy for the cell",
+              "correct": false
+            },
+            {
+              "text": "Synthesises proteins",
+              "correct": false
+            },
+            {
+              "text": "Controls cell activities and contains DNA",
+              "correct": true
+            },
+            {
+              "text": "Digests waste materials",
+              "correct": false
+            }
           ]
         },
         {
@@ -107,10 +130,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Ribosome", "correct": true },
-            { "text": "Lysosome", "correct": false },
-            { "text": "Centrosome", "correct": false },
-            { "text": "Vacuole", "correct": false }
+            {
+              "text": "Lysosome",
+              "correct": false
+            },
+            {
+              "text": "Centrosome",
+              "correct": false
+            },
+            {
+              "text": "Vacuole",
+              "correct": false
+            },
+            {
+              "text": "Ribosome",
+              "correct": true
+            }
           ]
         },
         {
@@ -120,8 +155,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -131,10 +172,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Packaging and secreting proteins", "correct": true },
-            { "text": "Producing ATP", "correct": false },
-            { "text": "Storing genetic information", "correct": false },
-            { "text": "Performing photosynthesis", "correct": false }
+            {
+              "text": "Packaging and secreting proteins",
+              "correct": true
+            },
+            {
+              "text": "Producing ATP",
+              "correct": false
+            },
+            {
+              "text": "Storing genetic information",
+              "correct": false
+            },
+            {
+              "text": "Performing photosynthesis",
+              "correct": false
+            }
           ]
         },
         {
@@ -144,10 +197,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Centrioles", "correct": true },
-            { "text": "Chloroplasts", "correct": false },
-            { "text": "Cell wall", "correct": false },
-            { "text": "Large central vacuole", "correct": false }
+            {
+              "text": "Chloroplasts",
+              "correct": false
+            },
+            {
+              "text": "Cell wall",
+              "correct": false
+            },
+            {
+              "text": "Centrioles",
+              "correct": true
+            },
+            {
+              "text": "Large central vacuole",
+              "correct": false
+            }
           ]
         },
         {
@@ -157,8 +222,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -168,10 +239,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Cell membrane", "correct": true },
-            { "text": "Cell wall", "correct": false },
-            { "text": "Nuclear envelope", "correct": false },
-            { "text": "Cytoskeleton", "correct": false }
+            {
+              "text": "Cell membrane",
+              "correct": true
+            },
+            {
+              "text": "Cell wall",
+              "correct": false
+            },
+            {
+              "text": "Nuclear envelope",
+              "correct": false
+            },
+            {
+              "text": "Cytoskeleton",
+              "correct": false
+            }
           ]
         },
         {
@@ -181,10 +264,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Ribosomes attached to its surface", "correct": true },
-            { "text": "A thick membrane layer", "correct": false },
-            { "text": "Presence of lipids", "correct": false },
-            { "text": "Proximity to the nucleus", "correct": false }
+            {
+              "text": "A thick membrane layer",
+              "correct": false
+            },
+            {
+              "text": "Presence of lipids",
+              "correct": false
+            },
+            {
+              "text": "Ribosomes attached to its surface",
+              "correct": true
+            },
+            {
+              "text": "Proximity to the nucleus",
+              "correct": false
+            }
           ]
         },
         {
@@ -194,15 +289,26 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Nuclear pores", "correct": true },
-            { "text": "Cell membrane", "correct": false },
-            { "text": "Nucleolus", "correct": false },
-            { "text": "Golgi body", "correct": false }
+            {
+              "text": "Cell membrane",
+              "correct": false
+            },
+            {
+              "text": "Nuclear pores",
+              "correct": true
+            },
+            {
+              "text": "Nucleolus",
+              "correct": false
+            },
+            {
+              "text": "Golgi body",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "bio_002",
       "category": "biology",
@@ -226,10 +332,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", "correct": true },
-            { "text": "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "correct": false },
-            { "text": "6O₂ + 6H₂O → C₆H₁₂O₆ + 6CO₂", "correct": false },
-            { "text": "C₆H₁₂O₆ + 6CO₂ → 6O₂ + 6H₂O", "correct": false }
+            {
+              "text": "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O",
+              "correct": false
+            },
+            {
+              "text": "6O₂ + 6H₂O → C₆H₁₂O₆ + 6CO₂",
+              "correct": false
+            },
+            {
+              "text": "C₆H₁₂O₆ + 6CO₂ → 6O₂ + 6H₂O",
+              "correct": false
+            },
+            {
+              "text": "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂",
+              "correct": true
+            }
           ]
         },
         {
@@ -239,10 +357,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Chloroplast", "correct": true },
-            { "text": "Mitochondria", "correct": false },
-            { "text": "Vacuole", "correct": false },
-            { "text": "Nucleus", "correct": false }
+            {
+              "text": "Chloroplast",
+              "correct": true
+            },
+            {
+              "text": "Mitochondria",
+              "correct": false
+            },
+            {
+              "text": "Vacuole",
+              "correct": false
+            },
+            {
+              "text": "Nucleus",
+              "correct": false
+            }
           ]
         },
         {
@@ -252,8 +382,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -263,10 +399,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Chlorophyll", "correct": true },
-            { "text": "Melanin", "correct": false },
-            { "text": "Haemoglobin", "correct": false },
-            { "text": "Carotene only", "correct": false }
+            {
+              "text": "Melanin",
+              "correct": false
+            },
+            {
+              "text": "Chlorophyll",
+              "correct": true
+            },
+            {
+              "text": "Haemoglobin",
+              "correct": false
+            },
+            {
+              "text": "Carotene only",
+              "correct": false
+            }
           ]
         },
         {
@@ -276,10 +424,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Oxygen", "correct": true },
-            { "text": "Carbon dioxide", "correct": false },
-            { "text": "Nitrogen", "correct": false },
-            { "text": "Hydrogen", "correct": false }
+            {
+              "text": "Carbon dioxide",
+              "correct": false
+            },
+            {
+              "text": "Nitrogen",
+              "correct": false
+            },
+            {
+              "text": "Hydrogen",
+              "correct": false
+            },
+            {
+              "text": "Oxygen",
+              "correct": true
+            }
           ]
         },
         {
@@ -289,10 +449,22 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "Thylakoid membrane", "correct": true },
-            { "text": "Stroma", "correct": false },
-            { "text": "Outer membrane", "correct": false },
-            { "text": "Cristae", "correct": false }
+            {
+              "text": "Thylakoid membrane",
+              "correct": true
+            },
+            {
+              "text": "Stroma",
+              "correct": false
+            },
+            {
+              "text": "Outer membrane",
+              "correct": false
+            },
+            {
+              "text": "Cristae",
+              "correct": false
+            }
           ]
         },
         {
@@ -302,10 +474,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "36–38", "correct": true },
-            { "text": "2", "correct": false },
-            { "text": "12", "correct": false },
-            { "text": "100", "correct": false }
+            {
+              "text": "2",
+              "correct": false
+            },
+            {
+              "text": "12",
+              "correct": false
+            },
+            {
+              "text": "36–38",
+              "correct": true
+            },
+            {
+              "text": "100",
+              "correct": false
+            }
           ]
         },
         {
@@ -315,13 +499,18 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "chem_001",
       "category": "chemistry",
@@ -345,10 +534,22 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "Au", "correct": true },
-            { "text": "Go", "correct": false },
-            { "text": "Gd", "correct": false },
-            { "text": "Ag", "correct": false }
+            {
+              "text": "Go",
+              "correct": false
+            },
+            {
+              "text": "Au",
+              "correct": true
+            },
+            {
+              "text": "Gd",
+              "correct": false
+            },
+            {
+              "text": "Ag",
+              "correct": false
+            }
           ]
         },
         {
@@ -358,10 +559,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "118", "correct": true },
-            { "text": "108", "correct": false },
-            { "text": "92", "correct": false },
-            { "text": "128", "correct": false }
+            {
+              "text": "118",
+              "correct": true
+            },
+            {
+              "text": "108",
+              "correct": false
+            },
+            {
+              "text": "92",
+              "correct": false
+            },
+            {
+              "text": "128",
+              "correct": false
+            }
           ]
         },
         {
@@ -371,10 +584,22 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "6", "correct": true },
-            { "text": "12", "correct": false },
-            { "text": "4", "correct": false },
-            { "text": "8", "correct": false }
+            {
+              "text": "12",
+              "correct": false
+            },
+            {
+              "text": "4",
+              "correct": false
+            },
+            {
+              "text": "6",
+              "correct": true
+            },
+            {
+              "text": "8",
+              "correct": false
+            }
           ]
         },
         {
@@ -384,8 +609,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -395,10 +626,22 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "Na", "correct": true },
-            { "text": "So", "correct": false },
-            { "text": "Sd", "correct": false },
-            { "text": "Sn", "correct": false }
+            {
+              "text": "So",
+              "correct": false
+            },
+            {
+              "text": "Sd",
+              "correct": false
+            },
+            {
+              "text": "Sn",
+              "correct": false
+            },
+            {
+              "text": "Na",
+              "correct": true
+            }
           ]
         },
         {
@@ -408,10 +651,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Fluorine", "correct": true },
-            { "text": "Oxygen", "correct": false },
-            { "text": "Chlorine", "correct": false },
-            { "text": "Nitrogen", "correct": false }
+            {
+              "text": "Oxygen",
+              "correct": false
+            },
+            {
+              "text": "Chlorine",
+              "correct": false
+            },
+            {
+              "text": "Fluorine",
+              "correct": true
+            },
+            {
+              "text": "Nitrogen",
+              "correct": false
+            }
           ]
         },
         {
@@ -421,8 +676,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -432,15 +693,26 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Group 1", "correct": true },
-            { "text": "Group 2", "correct": false },
-            { "text": "Group 17", "correct": false },
-            { "text": "Group 18", "correct": false }
+            {
+              "text": "Group 2",
+              "correct": false
+            },
+            {
+              "text": "Group 17",
+              "correct": false
+            },
+            {
+              "text": "Group 18",
+              "correct": false
+            },
+            {
+              "text": "Group 1",
+              "correct": true
+            }
           ]
         }
       ]
     },
-
     {
       "id": "chem_002",
       "category": "chemistry",
@@ -464,10 +736,22 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "7", "correct": true },
-            { "text": "0", "correct": false },
-            { "text": "14", "correct": false },
-            { "text": "5", "correct": false }
+            {
+              "text": "0",
+              "correct": false
+            },
+            {
+              "text": "7",
+              "correct": true
+            },
+            {
+              "text": "14",
+              "correct": false
+            },
+            {
+              "text": "5",
+              "correct": false
+            }
           ]
         },
         {
@@ -477,10 +761,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "H⁺ (hydrogen ion)", "correct": true },
-            { "text": "OH⁻ (hydroxide ion)", "correct": false },
-            { "text": "Na⁺ (sodium ion)", "correct": false },
-            { "text": "Cl⁻ (chloride ion)", "correct": false }
+            {
+              "text": "OH⁻ (hydroxide ion)",
+              "correct": false
+            },
+            {
+              "text": "Na⁺ (sodium ion)",
+              "correct": false
+            },
+            {
+              "text": "H⁺ (hydrogen ion)",
+              "correct": true
+            },
+            {
+              "text": "Cl⁻ (chloride ion)",
+              "correct": false
+            }
           ]
         },
         {
@@ -490,8 +786,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -501,10 +803,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Hydrochloric acid (HCl)", "correct": true },
-            { "text": "Acetic acid (CH₃COOH)", "correct": false },
-            { "text": "Carbonic acid (H₂CO₃)", "correct": false },
-            { "text": "Citric acid", "correct": false }
+            {
+              "text": "Acetic acid (CH₃COOH)",
+              "correct": false
+            },
+            {
+              "text": "Carbonic acid (H₂CO₃)",
+              "correct": false
+            },
+            {
+              "text": "Citric acid",
+              "correct": false
+            },
+            {
+              "text": "Hydrochloric acid (HCl)",
+              "correct": true
+            }
           ]
         },
         {
@@ -514,10 +828,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Neutralisation", "correct": true },
-            { "text": "Oxidation", "correct": false },
-            { "text": "Decomposition", "correct": false },
-            { "text": "Precipitation", "correct": false }
+            {
+              "text": "Oxidation",
+              "correct": false
+            },
+            {
+              "text": "Neutralisation",
+              "correct": true
+            },
+            {
+              "text": "Decomposition",
+              "correct": false
+            },
+            {
+              "text": "Precipitation",
+              "correct": false
+            }
           ]
         },
         {
@@ -527,13 +853,18 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "phys_001",
       "category": "physics",
@@ -557,8 +888,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -568,10 +905,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "F = ma (force equals mass times acceleration)", "correct": true },
-            { "text": "F = mv (force equals mass times velocity)", "correct": false },
-            { "text": "F = mg (force equals mass times gravity only)", "correct": false },
-            { "text": "F = m/a", "correct": false }
+            {
+              "text": "F = mv (force equals mass times velocity)",
+              "correct": false
+            },
+            {
+              "text": "F = mg (force equals mass times gravity only)",
+              "correct": false
+            },
+            {
+              "text": "F = m/a",
+              "correct": false
+            },
+            {
+              "text": "F = ma (force equals mass times acceleration)",
+              "correct": true
+            }
           ]
         },
         {
@@ -581,8 +930,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -592,10 +947,22 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "Newton (N)", "correct": true },
-            { "text": "Joule (J)", "correct": false },
-            { "text": "Pascal (Pa)", "correct": false },
-            { "text": "Watt (W)", "correct": false }
+            {
+              "text": "Joule (J)",
+              "correct": false
+            },
+            {
+              "text": "Pascal (Pa)",
+              "correct": false
+            },
+            {
+              "text": "Newton (N)",
+              "correct": true
+            },
+            {
+              "text": "Watt (W)",
+              "correct": false
+            }
           ]
         },
         {
@@ -605,8 +972,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -616,15 +989,26 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Inertia", "correct": true },
-            { "text": "Momentum", "correct": false },
-            { "text": "Velocity", "correct": false },
-            { "text": "Friction", "correct": false }
+            {
+              "text": "Momentum",
+              "correct": false
+            },
+            {
+              "text": "Velocity",
+              "correct": false
+            },
+            {
+              "text": "Friction",
+              "correct": false
+            },
+            {
+              "text": "Inertia",
+              "correct": true
+            }
           ]
         }
       ]
     },
-
     {
       "id": "phys_002",
       "category": "physics",
@@ -648,10 +1032,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "V = IR (Voltage = Current × Resistance)", "correct": true },
-            { "text": "V = I/R", "correct": false },
-            { "text": "V = I + R", "correct": false },
-            { "text": "V = I²R", "correct": false }
+            {
+              "text": "V = I/R",
+              "correct": false
+            },
+            {
+              "text": "V = IR (Voltage = Current × Resistance)",
+              "correct": true
+            },
+            {
+              "text": "V = I + R",
+              "correct": false
+            },
+            {
+              "text": "V = I²R",
+              "correct": false
+            }
           ]
         },
         {
@@ -661,10 +1057,22 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "Ohm (Ω)", "correct": true },
-            { "text": "Ampere (A)", "correct": false },
-            { "text": "Volt (V)", "correct": false },
-            { "text": "Watt (W)", "correct": false }
+            {
+              "text": "Ampere (A)",
+              "correct": false
+            },
+            {
+              "text": "Volt (V)",
+              "correct": false
+            },
+            {
+              "text": "Ohm (Ω)",
+              "correct": true
+            },
+            {
+              "text": "Watt (W)",
+              "correct": false
+            }
           ]
         },
         {
@@ -674,8 +1082,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -685,10 +1099,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "It decreases", "correct": true },
-            { "text": "It increases", "correct": false },
-            { "text": "It stays the same", "correct": false },
-            { "text": "It doubles", "correct": false }
+            {
+              "text": "It increases",
+              "correct": false
+            },
+            {
+              "text": "It stays the same",
+              "correct": false
+            },
+            {
+              "text": "It doubles",
+              "correct": false
+            },
+            {
+              "text": "It decreases",
+              "correct": true
+            }
           ]
         },
         {
@@ -698,15 +1124,26 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "Ampere (A)", "correct": true },
-            { "text": "Volt (V)", "correct": false },
-            { "text": "Watt (W)", "correct": false },
-            { "text": "Joule (J)", "correct": false }
+            {
+              "text": "Volt (V)",
+              "correct": false
+            },
+            {
+              "text": "Ampere (A)",
+              "correct": true
+            },
+            {
+              "text": "Watt (W)",
+              "correct": false
+            },
+            {
+              "text": "Joule (J)",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "math_001",
       "category": "mathematics",
@@ -730,10 +1167,22 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "1", "correct": true },
-            { "text": "0", "correct": false },
-            { "text": "∞", "correct": false },
-            { "text": "Undefined", "correct": false }
+            {
+              "text": "0",
+              "correct": false
+            },
+            {
+              "text": "∞",
+              "correct": false
+            },
+            {
+              "text": "1",
+              "correct": true
+            },
+            {
+              "text": "Undefined",
+              "correct": false
+            }
           ]
         },
         {
@@ -743,10 +1192,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "2x", "correct": true },
-            { "text": "x²", "correct": false },
-            { "text": "2", "correct": false },
-            { "text": "x", "correct": false }
+            {
+              "text": "2x",
+              "correct": true
+            },
+            {
+              "text": "x²",
+              "correct": false
+            },
+            {
+              "text": "2",
+              "correct": false
+            },
+            {
+              "text": "x",
+              "correct": false
+            }
           ]
         },
         {
@@ -756,8 +1217,14 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -767,10 +1234,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "All real numbers except 0", "correct": true },
-            { "text": "All real numbers", "correct": false },
-            { "text": "All positive numbers", "correct": false },
-            { "text": "x > 0 only", "correct": false }
+            {
+              "text": "All real numbers",
+              "correct": false
+            },
+            {
+              "text": "All real numbers except 0",
+              "correct": true
+            },
+            {
+              "text": "All positive numbers",
+              "correct": false
+            },
+            {
+              "text": "x > 0 only",
+              "correct": false
+            }
           ]
         },
         {
@@ -780,15 +1259,26 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "x² + C", "correct": true },
-            { "text": "2x² + C", "correct": false },
-            { "text": "x + C", "correct": false },
-            { "text": "2 + C", "correct": false }
+            {
+              "text": "2x² + C",
+              "correct": false
+            },
+            {
+              "text": "x + C",
+              "correct": false
+            },
+            {
+              "text": "x² + C",
+              "correct": true
+            },
+            {
+              "text": "2 + C",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "math_002",
       "category": "mathematics",
@@ -812,10 +1302,22 @@
           "time": 40,
           "points": 10,
           "answers": [
-            { "text": "x = 2 and x = 3", "correct": true },
-            { "text": "x = -2 and x = -3", "correct": false },
-            { "text": "x = 1 and x = 6", "correct": false },
-            { "text": "x = 5 and x = 1", "correct": false }
+            {
+              "text": "x = 2 and x = 3",
+              "correct": true
+            },
+            {
+              "text": "x = -2 and x = -3",
+              "correct": false
+            },
+            {
+              "text": "x = 1 and x = 6",
+              "correct": false
+            },
+            {
+              "text": "x = 5 and x = 1",
+              "correct": false
+            }
           ]
         },
         {
@@ -825,8 +1327,14 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -836,10 +1344,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "No real solutions", "correct": true },
-            { "text": "Two equal real solutions", "correct": false },
-            { "text": "Two distinct real solutions", "correct": false },
-            { "text": "Infinite solutions", "correct": false }
+            {
+              "text": "Two equal real solutions",
+              "correct": false
+            },
+            {
+              "text": "No real solutions",
+              "correct": true
+            },
+            {
+              "text": "Two distinct real solutions",
+              "correct": false
+            },
+            {
+              "text": "Infinite solutions",
+              "correct": false
+            }
           ]
         },
         {
@@ -849,15 +1369,26 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "x = 4 or x = -4", "correct": true },
-            { "text": "x = 4 only", "correct": false },
-            { "text": "x = 8", "correct": false },
-            { "text": "x = ±2", "correct": false }
+            {
+              "text": "x = 4 only",
+              "correct": false
+            },
+            {
+              "text": "x = 8",
+              "correct": false
+            },
+            {
+              "text": "x = 4 or x = -4",
+              "correct": true
+            },
+            {
+              "text": "x = ±2",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "geo_001",
       "category": "geography",
@@ -881,10 +1412,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Canberra", "correct": true },
-            { "text": "Sydney", "correct": false },
-            { "text": "Melbourne", "correct": false },
-            { "text": "Brisbane", "correct": false }
+            {
+              "text": "Canberra",
+              "correct": true
+            },
+            {
+              "text": "Sydney",
+              "correct": false
+            },
+            {
+              "text": "Melbourne",
+              "correct": false
+            },
+            {
+              "text": "Brisbane",
+              "correct": false
+            }
           ]
         },
         {
@@ -894,10 +1437,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Brasília", "correct": true },
-            { "text": "São Paulo", "correct": false },
-            { "text": "Rio de Janeiro", "correct": false },
-            { "text": "Salvador", "correct": false }
+            {
+              "text": "São Paulo",
+              "correct": false
+            },
+            {
+              "text": "Rio de Janeiro",
+              "correct": false
+            },
+            {
+              "text": "Salvador",
+              "correct": false
+            },
+            {
+              "text": "Brasília",
+              "correct": true
+            }
           ]
         },
         {
@@ -907,8 +1462,14 @@
           "time": 15,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -918,10 +1479,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Ottawa", "correct": true },
-            { "text": "Toronto", "correct": false },
-            { "text": "Vancouver", "correct": false },
-            { "text": "Montreal", "correct": false }
+            {
+              "text": "Toronto",
+              "correct": false
+            },
+            {
+              "text": "Vancouver",
+              "correct": false
+            },
+            {
+              "text": "Ottawa",
+              "correct": true
+            },
+            {
+              "text": "Montreal",
+              "correct": false
+            }
           ]
         },
         {
@@ -931,10 +1504,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Cape Town", "correct": true },
-            { "text": "Johannesburg", "correct": false },
-            { "text": "Pretoria", "correct": false },
-            { "text": "Durban", "correct": false }
+            {
+              "text": "Cape Town",
+              "correct": true
+            },
+            {
+              "text": "Johannesburg",
+              "correct": false
+            },
+            {
+              "text": "Pretoria",
+              "correct": false
+            },
+            {
+              "text": "Durban",
+              "correct": false
+            }
           ]
         },
         {
@@ -944,10 +1529,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Buenos Aires", "correct": true },
-            { "text": "Lima", "correct": false },
-            { "text": "Santiago", "correct": false },
-            { "text": "Montevideo", "correct": false }
+            {
+              "text": "Lima",
+              "correct": false
+            },
+            {
+              "text": "Santiago",
+              "correct": false
+            },
+            {
+              "text": "Montevideo",
+              "correct": false
+            },
+            {
+              "text": "Buenos Aires",
+              "correct": true
+            }
           ]
         },
         {
@@ -957,8 +1554,14 @@
           "time": 15,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -968,15 +1571,26 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "Moscow", "correct": true },
-            { "text": "Saint Petersburg", "correct": false },
-            { "text": "Novosibirsk", "correct": false },
-            { "text": "Vladivostok", "correct": false }
+            {
+              "text": "Saint Petersburg",
+              "correct": false
+            },
+            {
+              "text": "Novosibirsk",
+              "correct": false
+            },
+            {
+              "text": "Moscow",
+              "correct": true
+            },
+            {
+              "text": "Vladivostok",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "geo_002",
       "category": "geography",
@@ -1000,10 +1614,22 @@
           "time": 15,
           "points": 10,
           "answers": [
-            { "text": "București", "correct": true },
-            { "text": "Cluj-Napoca", "correct": false },
-            { "text": "Iași", "correct": false },
-            { "text": "Timișoara", "correct": false }
+            {
+              "text": "București",
+              "correct": true
+            },
+            {
+              "text": "Cluj-Napoca",
+              "correct": false
+            },
+            {
+              "text": "Iași",
+              "correct": false
+            },
+            {
+              "text": "Timișoara",
+              "correct": false
+            }
           ]
         },
         {
@@ -1013,10 +1639,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "41", "correct": true },
-            { "text": "32", "correct": false },
-            { "text": "50", "correct": false },
-            { "text": "38", "correct": false }
+            {
+              "text": "32",
+              "correct": false
+            },
+            {
+              "text": "50",
+              "correct": false
+            },
+            {
+              "text": "38",
+              "correct": false
+            },
+            {
+              "text": "41",
+              "correct": true
+            }
           ]
         },
         {
@@ -1026,8 +1664,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1037,10 +1681,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Prahova și Dâmbovița", "correct": true },
-            { "text": "Brașov și Sibiu", "correct": false },
-            { "text": "Argeș și Vâlcea", "correct": false },
-            { "text": "Mureș și Cluj", "correct": false }
+            {
+              "text": "Brașov și Sibiu",
+              "correct": false
+            },
+            {
+              "text": "Argeș și Vâlcea",
+              "correct": false
+            },
+            {
+              "text": "Prahova și Dâmbovița",
+              "correct": true
+            },
+            {
+              "text": "Mureș și Cluj",
+              "correct": false
+            }
           ]
         },
         {
@@ -1050,15 +1706,26 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Moldoveanu (2544 m)", "correct": true },
-            { "text": "Negoiu (2535 m)", "correct": false },
-            { "text": "Omu (2505 m)", "correct": false },
-            { "text": "Parângu Mare (2519 m)", "correct": false }
+            {
+              "text": "Parângu Mare",
+              "correct": false
+            },
+            {
+              "text": "Negoiu",
+              "correct": false
+            },
+            {
+              "text": "Omu",
+              "correct": false
+            },
+            {
+              "text": "Moldoveanu",
+              "correct": true
+            }
           ]
         }
       ]
     },
-
     {
       "id": "hist_001",
       "category": "history",
@@ -1082,10 +1749,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "1939", "correct": true },
-            { "text": "1936", "correct": false },
-            { "text": "1941", "correct": false },
-            { "text": "1938", "correct": false }
+            {
+              "text": "1936",
+              "correct": false
+            },
+            {
+              "text": "1941",
+              "correct": false
+            },
+            {
+              "text": "1938",
+              "correct": false
+            },
+            {
+              "text": "1939",
+              "correct": true
+            }
           ]
         },
         {
@@ -1095,10 +1774,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "The attack on Pearl Harbor (December 7, 1941)", "correct": true },
-            { "text": "The invasion of Poland", "correct": false },
-            { "text": "The fall of France", "correct": false },
-            { "text": "The Battle of Britain", "correct": false }
+            {
+              "text": "The invasion of Poland",
+              "correct": false
+            },
+            {
+              "text": "The attack on Pearl Harbor (December 7, 1941)",
+              "correct": true
+            },
+            {
+              "text": "The fall of France",
+              "correct": false
+            },
+            {
+              "text": "The Battle of Britain",
+              "correct": false
+            }
           ]
         },
         {
@@ -1108,8 +1799,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1119,10 +1816,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "May 1945", "correct": true },
-            { "text": "August 1945", "correct": false },
-            { "text": "September 1944", "correct": false },
-            { "text": "January 1945", "correct": false }
+            {
+              "text": "May 1945",
+              "correct": true
+            },
+            {
+              "text": "August 1945",
+              "correct": false
+            },
+            {
+              "text": "September 1944",
+              "correct": false
+            },
+            {
+              "text": "January 1945",
+              "correct": false
+            }
           ]
         },
         {
@@ -1132,10 +1841,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "Winston Churchill", "correct": true },
-            { "text": "Neville Chamberlain", "correct": false },
-            { "text": "Clement Attlee", "correct": false },
-            { "text": "Anthony Eden", "correct": false }
+            {
+              "text": "Neville Chamberlain",
+              "correct": false
+            },
+            {
+              "text": "Clement Attlee",
+              "correct": false
+            },
+            {
+              "text": "Anthony Eden",
+              "correct": false
+            },
+            {
+              "text": "Winston Churchill",
+              "correct": true
+            }
           ]
         },
         {
@@ -1145,8 +1866,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1156,15 +1883,26 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "Eastern Front (Soviet–German)", "correct": true },
-            { "text": "Western Front", "correct": false },
-            { "text": "Pacific Front", "correct": false },
-            { "text": "North African Front", "correct": false }
+            {
+              "text": "Western Front",
+              "correct": false
+            },
+            {
+              "text": "Pacific Front",
+              "correct": false
+            },
+            {
+              "text": "Eastern Front (Soviet–German)",
+              "correct": true
+            },
+            {
+              "text": "North African Front",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "hist_002",
       "category": "history",
@@ -1188,10 +1926,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "753 BC", "correct": true },
-            { "text": "509 BC", "correct": false },
-            { "text": "1000 BC", "correct": false },
-            { "text": "264 BC", "correct": false }
+            {
+              "text": "753 BC",
+              "correct": true
+            },
+            {
+              "text": "509 BC",
+              "correct": false
+            },
+            {
+              "text": "1000 BC",
+              "correct": false
+            },
+            {
+              "text": "264 BC",
+              "correct": false
+            }
           ]
         },
         {
@@ -1201,8 +1951,14 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "False", "correct": true },
-            { "text": "True", "correct": false }
+            {
+              "text": "False",
+              "correct": true
+            },
+            {
+              "text": "True",
+              "correct": false
+            }
           ]
         },
         {
@@ -1212,10 +1968,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Augustus (Octavian)", "correct": true },
-            { "text": "Julius Caesar", "correct": false },
-            { "text": "Nero", "correct": false },
-            { "text": "Caligula", "correct": false }
+            {
+              "text": "Julius Caesar",
+              "correct": false
+            },
+            {
+              "text": "Augustus (Octavian)",
+              "correct": true
+            },
+            {
+              "text": "Nero",
+              "correct": false
+            },
+            {
+              "text": "Caligula",
+              "correct": false
+            }
           ]
         },
         {
@@ -1225,8 +1993,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1236,15 +2010,26 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "476 AD", "correct": true },
-            { "text": "410 AD", "correct": false },
-            { "text": "330 AD", "correct": false },
-            { "text": "565 AD", "correct": false }
+            {
+              "text": "476 AD",
+              "correct": true
+            },
+            {
+              "text": "410 AD",
+              "correct": false
+            },
+            {
+              "text": "330 AD",
+              "correct": false
+            },
+            {
+              "text": "565 AD",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "cs_001",
       "category": "computer_science",
@@ -1268,10 +2053,22 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "O(n)", "correct": true },
-            { "text": "O(n²)", "correct": false },
-            { "text": "O(n log n)", "correct": false },
-            { "text": "O(1)", "correct": false }
+            {
+              "text": "O(n²)",
+              "correct": false
+            },
+            {
+              "text": "O(n log n)",
+              "correct": false
+            },
+            {
+              "text": "O(1)",
+              "correct": false
+            },
+            {
+              "text": "O(n)",
+              "correct": true
+            }
           ]
         },
         {
@@ -1281,8 +2078,14 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1292,10 +2095,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Quick Sort", "correct": true },
-            { "text": "Bubble Sort", "correct": false },
-            { "text": "Insertion Sort", "correct": false },
-            { "text": "Selection Sort", "correct": false }
+            {
+              "text": "Bubble Sort",
+              "correct": false
+            },
+            {
+              "text": "Insertion Sort",
+              "correct": false
+            },
+            {
+              "text": "Quick Sort",
+              "correct": true
+            },
+            {
+              "text": "Selection Sort",
+              "correct": false
+            }
           ]
         },
         {
@@ -1305,10 +2120,22 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "O(n²)", "correct": true },
-            { "text": "O(n log n)", "correct": false },
-            { "text": "O(n)", "correct": false },
-            { "text": "O(log n)", "correct": false }
+            {
+              "text": "O(n²)",
+              "correct": true
+            },
+            {
+              "text": "O(n log n)",
+              "correct": false
+            },
+            {
+              "text": "O(n)",
+              "correct": false
+            },
+            {
+              "text": "O(log n)",
+              "correct": false
+            }
           ]
         },
         {
@@ -1318,13 +2145,18 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "cs_002",
       "category": "computer_science",
@@ -1348,10 +2180,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Encapsulation", "correct": true },
-            { "text": "Inheritance", "correct": false },
-            { "text": "Polymorphism", "correct": false },
-            { "text": "Abstraction", "correct": false }
+            {
+              "text": "Inheritance",
+              "correct": false
+            },
+            {
+              "text": "Encapsulation",
+              "correct": true
+            },
+            {
+              "text": "Polymorphism",
+              "correct": false
+            },
+            {
+              "text": "Abstraction",
+              "correct": false
+            }
           ]
         },
         {
@@ -1361,8 +2205,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1372,10 +2222,22 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "Same method name, different parameters", "correct": true },
-            { "text": "Same method name and parameters in a subclass", "correct": false },
-            { "text": "A method that calls itself", "correct": false },
-            { "text": "Hiding a method with private access", "correct": false }
+            {
+              "text": "Same method name and parameters in a subclass",
+              "correct": false
+            },
+            {
+              "text": "Same method name, different parameters",
+              "correct": true
+            },
+            {
+              "text": "A method that calls itself",
+              "correct": false
+            },
+            {
+              "text": "Hiding a method with private access",
+              "correct": false
+            }
           ]
         },
         {
@@ -1385,10 +2247,22 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "A class that cannot be instantiated and may contain abstract methods", "correct": true },
-            { "text": "A class with no methods", "correct": false },
-            { "text": "A class that inherits from multiple classes", "correct": false },
-            { "text": "A class with only static methods", "correct": false }
+            {
+              "text": "A class with no methods",
+              "correct": false
+            },
+            {
+              "text": "A class that inherits from multiple classes",
+              "correct": false
+            },
+            {
+              "text": "A class that cannot be instantiated and may contain abstract methods",
+              "correct": true
+            },
+            {
+              "text": "A class with only static methods",
+              "correct": false
+            }
           ]
         },
         {
@@ -1398,13 +2272,18 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "lit_001",
       "category": "literature",
@@ -1428,10 +2307,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Complement circumstanțial de mod", "correct": true },
-            { "text": "Atribut adverbial", "correct": false },
-            { "text": "Predicat nominal", "correct": false },
-            { "text": "Subiect", "correct": false }
+            {
+              "text": "Atribut adverbial",
+              "correct": false
+            },
+            {
+              "text": "Complement circumstanțial de mod",
+              "correct": true
+            },
+            {
+              "text": "Predicat nominal",
+              "correct": false
+            },
+            {
+              "text": "Subiect",
+              "correct": false
+            }
           ]
         },
         {
@@ -1441,8 +2332,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1452,10 +2349,22 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "El", "correct": true },
-            { "text": "Acasă", "correct": false },
-            { "text": "Bine", "correct": false },
-            { "text": "Copil", "correct": false }
+            {
+              "text": "Acasă",
+              "correct": false
+            },
+            {
+              "text": "Bine",
+              "correct": false
+            },
+            {
+              "text": "El",
+              "correct": true
+            },
+            {
+              "text": "Copil",
+              "correct": false
+            }
           ]
         },
         {
@@ -1465,8 +2374,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1476,15 +2391,26 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "Cărți", "correct": true },
-            { "text": "Carți", "correct": false },
-            { "text": "Cartele", "correct": false },
-            { "text": "Cărte", "correct": false }
+            {
+              "text": "Cărți",
+              "correct": true
+            },
+            {
+              "text": "Carți",
+              "correct": false
+            },
+            {
+              "text": "Cartele",
+              "correct": false
+            },
+            {
+              "text": "Cărte",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "lit_002",
       "category": "literature",
@@ -1508,10 +2434,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "She has visited Paris.", "correct": true },
-            { "text": "She visits Paris.", "correct": false },
-            { "text": "She visited Paris.", "correct": false },
-            { "text": "She will visit Paris.", "correct": false }
+            {
+              "text": "She visits Paris.",
+              "correct": false
+            },
+            {
+              "text": "She visited Paris.",
+              "correct": false
+            },
+            {
+              "text": "She has visited Paris.",
+              "correct": true
+            },
+            {
+              "text": "She will visit Paris.",
+              "correct": false
+            }
           ]
         },
         {
@@ -1521,8 +2459,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1532,10 +2476,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Simple Past", "correct": true },
-            { "text": "Present Perfect", "correct": false },
-            { "text": "Past Continuous", "correct": false },
-            { "text": "Simple Present", "correct": false }
+            {
+              "text": "Present Perfect",
+              "correct": false
+            },
+            {
+              "text": "Past Continuous",
+              "correct": false
+            },
+            {
+              "text": "Simple Present",
+              "correct": false
+            },
+            {
+              "text": "Simple Past",
+              "correct": true
+            }
           ]
         },
         {
@@ -1545,15 +2501,26 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "had already left", "correct": true },
-            { "text": "has already left", "correct": false },
-            { "text": "already left", "correct": false },
-            { "text": "was already leaving", "correct": false }
+            {
+              "text": "had already left",
+              "correct": true
+            },
+            {
+              "text": "has already left",
+              "correct": false
+            },
+            {
+              "text": "already left",
+              "correct": false
+            },
+            {
+              "text": "was already leaving",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "psych_001",
       "category": "psychology",
@@ -1577,10 +2544,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Long-term memory", "correct": true },
-            { "text": "Short-term memory", "correct": false },
-            { "text": "Sensory memory", "correct": false },
-            { "text": "Working memory", "correct": false }
+            {
+              "text": "Short-term memory",
+              "correct": false
+            },
+            {
+              "text": "Sensory memory",
+              "correct": false
+            },
+            {
+              "text": "Long-term memory",
+              "correct": true
+            },
+            {
+              "text": "Working memory",
+              "correct": false
+            }
           ]
         },
         {
@@ -1590,8 +2569,14 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1601,10 +2586,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Perception", "correct": true },
-            { "text": "Sensation", "correct": false },
-            { "text": "Attention", "correct": false },
-            { "text": "Cognition", "correct": false }
+            {
+              "text": "Sensation",
+              "correct": false
+            },
+            {
+              "text": "Attention",
+              "correct": false
+            },
+            {
+              "text": "Cognition",
+              "correct": false
+            },
+            {
+              "text": "Perception",
+              "correct": true
+            }
           ]
         },
         {
@@ -1614,8 +2611,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1625,15 +2628,26 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "Confirmation bias", "correct": true },
-            { "text": "Availability heuristic", "correct": false },
-            { "text": "Anchoring bias", "correct": false },
-            { "text": "Hindsight bias", "correct": false }
+            {
+              "text": "Availability heuristic",
+              "correct": false
+            },
+            {
+              "text": "Anchoring bias",
+              "correct": false
+            },
+            {
+              "text": "Confirmation bias",
+              "correct": true
+            },
+            {
+              "text": "Hindsight bias",
+              "correct": false
+            }
           ]
         }
       ]
     },
-
     {
       "id": "psych_002",
       "category": "psychology",
@@ -1657,10 +2671,22 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "The Id", "correct": true },
-            { "text": "The Ego", "correct": false },
-            { "text": "The Superego", "correct": false },
-            { "text": "The Preconscious", "correct": false }
+            {
+              "text": "The Ego",
+              "correct": false
+            },
+            {
+              "text": "The Superego",
+              "correct": false
+            },
+            {
+              "text": "The Preconscious",
+              "correct": false
+            },
+            {
+              "text": "The Id",
+              "correct": true
+            }
           ]
         },
         {
@@ -1670,8 +2696,14 @@
           "time": 20,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1681,10 +2713,22 @@
           "time": 35,
           "points": 10,
           "answers": [
-            { "text": "Repression", "correct": true },
-            { "text": "Projection", "correct": false },
-            { "text": "Rationalisation", "correct": false },
-            { "text": "Displacement", "correct": false }
+            {
+              "text": "Repression",
+              "correct": true
+            },
+            {
+              "text": "Projection",
+              "correct": false
+            },
+            {
+              "text": "Rationalisation",
+              "correct": false
+            },
+            {
+              "text": "Displacement",
+              "correct": false
+            }
           ]
         },
         {
@@ -1694,8 +2738,14 @@
           "time": 25,
           "points": 10,
           "answers": [
-            { "text": "True", "correct": true },
-            { "text": "False", "correct": false }
+            {
+              "text": "True",
+              "correct": true
+            },
+            {
+              "text": "False",
+              "correct": false
+            }
           ]
         },
         {
@@ -1705,14 +2755,25 @@
           "time": 30,
           "points": 10,
           "answers": [
-            { "text": "Latency stage", "correct": true },
-            { "text": "Phallic stage", "correct": false },
-            { "text": "Genital stage", "correct": false },
-            { "text": "Oral stage", "correct": false }
+            {
+              "text": "Phallic stage",
+              "correct": false
+            },
+            {
+              "text": "Latency stage",
+              "correct": true
+            },
+            {
+              "text": "Genital stage",
+              "correct": false
+            },
+            {
+              "text": "Oral stage",
+              "correct": false
+            }
           ]
         }
       ]
     }
-
   ]
 }
