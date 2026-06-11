@@ -275,12 +275,24 @@
         }
     ],
     "folders": [],
-    "saved": [],
+    "saved": [
+        {
+            "name": "vfv",
+            "meta": "",
+            "icon": ""
+        }
+    ],
     "notifs": [
+        {
+            "id": "1781168013101",
+            "ts": 1781168013101,
+            "read": false,
+            "text": "\"vfv\" \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d."
+        },
         {
             "id": "1781119241752",
             "ts": 1781119241752,
-            "read": false,
+            "read": true,
             "text": "\"vfv\" has been published successfully."
         }
     ],

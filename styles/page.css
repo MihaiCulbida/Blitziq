@@ -196,7 +196,7 @@ body::-webkit-scrollbar {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
+  min-width: 160px;
   padding: 6px;
   display: none;
   z-index: 200;
@@ -1174,6 +1174,7 @@ body.sidebar-collapsed .sidebar .sidebar-folder-dot {
   background: #6d28d9;
   border: none;
   color: #fff;
+  margin-left: auto;
 }
 .quiz-modal__btn--primary:hover {
   background: #5b21b6;
@@ -1184,10 +1185,9 @@ body.sidebar-collapsed .sidebar .sidebar-folder-dot {
 .quiz-modal__btn--primary svg {
   flex-shrink: 0;
 }
-.quiz-modal__btn#qm-back {
+#qm-back {
   display: none;
 }
-
 .qm-panel {
   display: none;
   animation: qmPanelIn 0.2s ease;

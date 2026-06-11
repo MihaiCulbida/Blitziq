@@ -898,11 +898,11 @@ window.blitziqRenderFavorites = renderFavorites;
     }, 270);
   }
 
-  function closeModal() {
+  function closeModal(clearData = false) {
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    setTimeout(resetModal, 280);
+    if (clearData) setTimeout(resetModal, 280);
   }
 
   function resetModal() {
@@ -944,7 +944,10 @@ window.blitziqRenderFavorites = renderFavorites;
     progressFill.style.width = ((currentPanel / TOTAL) * 100) + '%';
     modalTitle.textContent = PANEL_TITLES()[currentPanel - 1];
     stepLabel.textContent = `${t('step_of')} ${currentPanel} ${t('of')} ${TOTAL}`;
-    btnBack.style.display = currentPanel > 1 ? '' : 'none';
+    btnBack.style.display = currentPanel > 1 ? 'inline-flex' : 'none';
+    btnBack.querySelector('span').textContent = t('back');
+    const cancelBtn = document.getElementById('qm-cancel');
+    if (cancelBtn) cancelBtn.style.display = currentPanel > 1 ? 'none' : '';
     if (currentPanel === TOTAL) {
       buildSummary();
       btnNext.innerHTML = `${t('create_quiz')} <img src="img/arrow-right1.png" width="14" height="14" style="filter:invert(1)">`;
@@ -1040,21 +1043,21 @@ window.blitziqRenderFavorites = renderFavorites;
       if (typeof window.blitziqSwitchSection === 'function') {
         window.blitziqSwitchSection('quizzes');
       }
-      closeModal();
+  
+      closeModal(true);
     }, 600);
   }
 
   btnNewQuiz?.addEventListener('click', openModal);
-  btnClose?.addEventListener('click', closeModal);
-  btnCancel?.addEventListener('click', closeModal);
-  overlay?.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  btnClose?.addEventListener('click', () => closeModal(false));
+  btnCancel?.addEventListener('click', () => closeModal(false));
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && overlay?.classList.contains('is-open')) closeModal();
+    if (e.key === 'Escape' && overlay?.classList.contains('is-open')) closeModal(false);
   });
+  btnBack?.addEventListener('click', () => goToPanel(currentPanel - 1));
   btnNext?.addEventListener('click', () => {
     currentPanel === TOTAL ? submitQuiz() : goToPanel(currentPanel + 1);
   });
-  btnBack?.addEventListener('click', () => goToPanel(currentPanel - 1));
 
   document.querySelectorAll('.qm-vis-btn').forEach(btn =>
     btn.addEventListener('click', () => {

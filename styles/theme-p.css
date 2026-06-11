@@ -416,6 +416,12 @@ body.dark-mode .settings-lang-btn.is-active {
   color: #a78bfa;
 }
 
+body.dark-mode .qe-answer-correct img {
+  filter: invert(1) opacity(0.5);
+}
+body.dark-mode .qe-answer-row.is-correct .qe-answer-correct img {
+  filter: invert(1) opacity(1);
+}
 body.dark-mode .mq-card {
   background: #1e1e2a;
   border-color: #2a2a3a;
@@ -1193,10 +1199,6 @@ body.dark-mode .qe-answer-input {
 
 body.dark-mode .qe-answer-input::placeholder {
   color: #3a3a4a;
-}
-
-body.dark-mode .qe-answer-correct img {
-  filter: brightness(0.85);
 }
 
 body.dark-mode .qe-answer-remove {

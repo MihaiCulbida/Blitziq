@@ -254,9 +254,13 @@
     const dropdown  = document.getElementById('navbar-dropdown');
     if (avatarBtn && dropdown) {
       avatarBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        dropdown.classList.toggle('is-open');
-      });
+         e.stopPropagation();
+         if (!dropdown.classList.contains('is-open')) {
+           const langDropdown = document.getElementById('navbar-lang-dropdown');
+           if (langDropdown) langDropdown.classList.remove('is-open');
+         }
+         dropdown.classList.toggle('is-open');
+       });
       document.addEventListener('click', () => {
         dropdown.classList.remove('is-open');
       });
@@ -272,6 +276,10 @@
 
     langBtn.addEventListener('click', e => {
       e.stopPropagation();
+      if (!langDropdown.classList.contains('is-open')) {
+        const avatarDropdown = document.getElementById('navbar-dropdown');
+        if (avatarDropdown) avatarDropdown.classList.remove('is-open');
+      }
       langDropdown.classList.toggle('is-open');
     });
 
