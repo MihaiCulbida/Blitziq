@@ -177,11 +177,11 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   <div class="hero-join">
     <h3 class="hero-join-title" data-il18n-text="hero_join_title">Try it now</h3>
     <div class="hero-join-row">
-      <input class="hero-join-input" type="text" placeholder="Code" data-il18n-placeholder="hero_join_ph">
-      <button class="hero-join-btn">
+      <input class="hero-join-input" id="hero-join-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="Code" data-il18n-placeholder="hero_join_ph">
+      <button class="hero-join-btn" id="btn-hero-join">
         <span data-il18n-text="hero_join_btn">Join</span>
         <img class="hero-join-img" src="img/arrow-right1.png">
-      </button>
+        </button>
     </div>
   </div>
 </section>

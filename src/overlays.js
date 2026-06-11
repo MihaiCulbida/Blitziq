@@ -381,4 +381,21 @@
     closeOverlay('overlay-privacy');
   });
 
+  const heroInput = document.getElementById('hero-join-input');
+  const heroJoinBtn = document.getElementById('btn-hero-join');
+
+  if (heroInput) {
+    heroInput.addEventListener('input', () => {
+      heroInput.value = heroInput.value.replace(/\D/g, '').slice(0, 6);
+    });
+    heroInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') heroJoinBtn?.click();
+    });
+  }
+
+  if (heroJoinBtn) {
+    heroJoinBtn.addEventListener('click', () => {
+      showToast(window.tl('toast_join_unavailable'));
+    });
+  }
 })();

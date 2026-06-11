@@ -139,6 +139,7 @@ const TRANSLATIONS_L = {
     error_network:       'Network error, please try again.',
     error_generic:       'Something went wrong.',
     nav_theme: 'Theme',
+    toast_join_unavailable: 'This feature is not available yet',
   },
 
   ro: {
@@ -281,6 +282,7 @@ const TRANSLATIONS_L = {
     error_network:       'Eroare de rețea, încearcă din nou.',
     error_generic:       'Ceva a mers greșit.',
     nav_theme: 'Temă',
+    toast_join_unavailable: 'Această funcție nu este disponibilă momentan',
   },
 
   ru: {
@@ -423,6 +425,7 @@ const TRANSLATIONS_L = {
     error_network:       'Ошибка сети, попробуйте ещё раз.',
     error_generic:       'Что-то пошло не так.',
     nav_theme: 'Тема',
+    toast_join_unavailable: 'Эта функция пока недоступна',
   }
 };
 
