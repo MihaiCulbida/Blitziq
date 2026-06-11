@@ -3832,4 +3832,204 @@ body.sidebar-collapsed .sidebar .sidebar-folder-dot {
   background: #ede9fe;
   color: #5b21b6;
   font-weight: 600;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.overlay.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+.overlay.is-open .overlay-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 10, 35, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+.overlay-card {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08);
+  transform: translateY(18px) scale(0.97);
+  opacity: 0;
+  transition: transform 0.26s cubic-bezier(0.22,0.68,0,1.2), opacity 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.overlay-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #aaa;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.overlay-close:hover {
+  color: #111;
+  background: #f3f4f6;
+}
+.overlay-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin-top: 4px;
+}
+.overlay-sub {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+.overlay-alert {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+.overlay-alert--success {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+.overlay-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+}
+.overlay-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.overlay-field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+  letter-spacing: 0.01em;
+}
+.overlay-field input,
+.overlay-field textarea {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  outline: none;
+  color: #111;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+.overlay-field textarea {
+  resize: vertical;
+}
+.overlay-field input:focus,
+.overlay-field textarea:focus {
+  border-color: #6d28d9;
+  box-shadow: 0 0 0 3px rgba(109,40,217,0.1);
+}
+.overlay-field input::placeholder,
+.overlay-field textarea::placeholder {
+  color: #c0bfc8;
+}
+#contact-to {
+  background: #f5f5f5;
+  cursor: default;
+  opacity: 0.7;
+}
+.overlay-submit {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+  border-radius: 9px;
+  border: none;
+  background: #6d28d9;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(109,40,217,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 4px;
+}
+.overlay-submit:hover:not(:disabled) {
+  background: #5b21b6;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(109,40,217,0.4);
+}
+.overlay-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.overlay-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.contact-socials {
+  margin-top: 24px;
+  text-align: center;
+}
+.contact-socials-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+.contact-socials-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.contact-socials-row a {
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.contact-socials-row a:hover {
+  opacity: 1;
+}
+.contact-socials-row img {
+  filter: brightness(0);
 }/*# sourceMappingURL=page.css.map */

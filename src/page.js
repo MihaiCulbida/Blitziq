@@ -361,6 +361,58 @@ document.querySelectorAll('.settings-overlay').forEach(overlay => {
   });
 });
 
+document.getElementById('btn-avatar-profile')?.addEventListener('click', e => {
+  e.preventDefault();
+  dropdown.classList.remove('is-open');
+  openSettingsModal('settings-profile-overlay');
+});
+
+document.getElementById('btn-avatar-help')?.addEventListener('click', e => {
+  e.preventDefault();
+  dropdown.classList.remove('is-open');
+  openSettingsModal('settings-help-overlay');
+});
+
+document.getElementById('btn-avatar-contact')?.addEventListener('click', e => {
+  e.preventDefault();
+  dropdown.classList.remove('is-open');
+  openContactOverlay();
+});
+
+function openContactOverlay() {
+  const el = document.getElementById('overlay-contact');
+  if (!el) return;
+  el.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.querySelector('#overlay-contact .overlay-backdrop')?.addEventListener('click', () => {
+  document.getElementById('overlay-contact')?.classList.remove('is-open');
+  document.body.style.overflow = '';
+});
+
+document.querySelector('#overlay-contact .overlay-close')?.addEventListener('click', () => {
+  document.getElementById('overlay-contact')?.classList.remove('is-open');
+  document.body.style.overflow = '';
+});
+
+document.getElementById('form-contact')?.addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = document.getElementById('contact-error');
+  const ok  = document.getElementById('contact-success');
+  const btn = document.getElementById('btn-contact-submit');
+  err.style.display = 'none';
+  ok.style.display  = 'none';
+  btn.querySelector('.overlay-submit-text').style.display = 'none';
+  btn.querySelector('.overlay-spinner').style.display = 'inline-block';
+  await new Promise(r => setTimeout(r, 800));
+  btn.querySelector('.overlay-submit-text').style.display = 'inline';
+  btn.querySelector('.overlay-spinner').style.display = 'none';
+  ok.textContent = window.t('contact_sent');
+  ok.style.display = 'block';
+  e.target.reset();
+});
+
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeAllSettingsModals();
 });

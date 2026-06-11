@@ -75,16 +75,24 @@ if ($logged_in) {
         </button>
         <div class="navbar-dropdown" id="navbar-dropdown">
           <span class="navbar-dropdown-user"><?= $username ?></span>
-          <button type="button" class="navbar-dropdown-item navbar-dropdown-theme" id="btn-theme-toggle" aria-label="Toggle theme">
-            <img src="img/moon.png" id="theme-toggle-icon" width="18" height="18" alt="Dark mode">
-            <span data-i18n="theme">Theme</span>
-          </button>
+          <a href="#" class="navbar-dropdown-item" id="btn-avatar-profile">
+            <img src="img/user.png" width="20" height="20" alt="">
+            <span data-i18n="profile">Profile</span>
+          </a>
           <a href="index.php" class="navbar-dropdown-item">
-            <img src="img/home.png" width="16" height="16" class="navbar-dropdown-home" style="vertical-align: middle;">
+            <img src="img/home.png" width="16" height="16" alt="">
             <span data-i18n="home">Home</span>
           </a>
+          <a href="#" class="navbar-dropdown-item" id="btn-avatar-contact">
+            <img src="img/contact.png" width="18" height="18" alt="">
+            <span data-i18n="contact">Contact</span>
+          </a>
+          <a href="#" class="navbar-dropdown-item" id="btn-avatar-help">
+            <img src="img/help.png" width="18" height="18" alt="">
+            <span data-i18n="help">Help</span>
+          </a>
           <a href="php/logout.php" class="navbar-dropdown-item">
-            <img src="img/logout.png" width="16" height="16" class="navbar-dropdown-logout" style="vertical-align: middle;">
+            <img src="img/logout.png" width="16" height="16" alt="">
             <span data-i18n="log_out">Log out</span>
           </a>
         </div>
@@ -139,10 +147,6 @@ if ($logged_in) {
         <span class="sidebar-label" data-i18n="settings">Settings</span>
       </a>
       <div class="sidebar-settings-dropdown" id="settings-dropdown">
-        <a href="#" class="sidebar-settings-item" id="settings-profile">
-          <img src="img/user.png" width="16" height="16" alt="">
-          <span data-i18n="profile">Profile</span>
-        </a>
         <a href="#" class="sidebar-settings-item" id="settings-theme">
           <img src="img/moon.png" width="16" height="16" alt="">
           <span data-i18n="theme">Theme</span>
@@ -752,6 +756,45 @@ if ($logged_in) {
         <span data-i18n="start_quiz">Start quiz</span>
         <img src="img/arrow-right1.png" width="13" height="13" style="filter:invert(1)">
       </button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay-contact" role="dialog" aria-modal="true" aria-label="Contact">
+  <div class="overlay-backdrop" data-close="overlay-contact"></div>
+  <div class="overlay-card">
+    <button class="overlay-close" data-close="overlay-contact" aria-label="Close">
+      <img src="img/close.png" width="16" height="16">
+    </button>
+    <h2 class="overlay-title" data-i18n="contact_title">Get in touch</h2>
+    <p class="overlay-sub" data-i18n="contact_sub">We'll get back to you as soon as possible</p>
+    <div id="contact-error" class="overlay-alert" style="display:none;"></div>
+    <div id="contact-success" class="overlay-alert overlay-alert--success" style="display:none;"></div>
+    <form class="overlay-form" id="form-contact" novalidate>
+      <div class="overlay-field">
+        <label for="contact-to" data-i18n="contact_to_label">To</label>
+        <input id="contact-to" type="email" value="clbidamihai@gmail.com" readonly>
+      </div>
+      <div class="overlay-field">
+        <label for="contact-subject" data-i18n="contact_subj_label">Subject</label>
+        <input id="contact-subject" name="subject" type="text" data-i18n-placeholder="contact_subj_ph" placeholder="What's this about?" required>
+      </div>
+      <div class="overlay-field">
+        <label for="contact-msg" data-i18n="contact_msg_label">Message</label>
+        <textarea id="contact-msg" name="message" rows="4" data-i18n-placeholder="contact_msg_ph" placeholder="Your message..." required style="resize:vertical;"></textarea>
+      </div>
+      <button type="submit" class="overlay-submit" id="btn-contact-submit">
+        <span class="overlay-submit-text" data-i18n="contact_send">Send message</span>
+        <span class="overlay-spinner" style="display:none;"></span>
+      </button>
+    </form>
+    <div class="contact-socials">
+      <p class="contact-socials-label" data-i18n="contact_socials">Or reach out on socials</p>
+      <div class="contact-socials-row">
+        <a href="https://github.com/MihaiCulbida" target="_blank"><img src="img/github.png" width="28" height="28"></a>
+        <a href="https://instagram.com/acsiless" target="_blank"><img src="img/instagram.png" width="28" height="28"></a>
+        <a href="https://t.me/acsiless" target="_blank"><img src="img/telegram.png" width="28" height="28"></a>
+      </div>
     </div>
   </div>
 </div>
