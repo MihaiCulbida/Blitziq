@@ -2462,6 +2462,9 @@ window.blitziqRenderFavorites = renderFavorites;
     correct: 0,
     wrong: 0,
     skipped: 0,
+    skippedIndices: [],
+    answeredIndices: new Set(),
+    isRetry: false,
     answered: false,
     timer: null,
     timeLeft: 30,
@@ -2517,6 +2520,9 @@ window.blitziqRenderFavorites = renderFavorites;
       correct: 0,
       wrong: 0,
       skipped: 0,
+      skippedIndices: [],
+      answeredIndices: new Set(),
+      isRetry: false,
       answered: false,
       timer: null,
       timeLeft: 30,
@@ -2637,7 +2643,7 @@ window.blitziqRenderFavorites = renderFavorites;
     nextBtn.style.display = 'none';
     const skipBtn = document.getElementById('qr-skip-btn');
     if (skipBtn) {
-      skipBtn.style.display = '';
+      skipBtn.style.display = state.isRetry ? 'none' : '';
       skipBtn.onclick = () => skipQuestion();
     }
 
@@ -2742,17 +2748,19 @@ window.blitziqRenderFavorites = renderFavorites;
 }
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
-    nextBtn.textContent = state.index < state.questions.length - 1 ? t('runner_next') : t('runner_see_results');
+    const remaining = state.questions.slice(state.index + 1).some((_, i) => !state.answeredIndices.has(state.index + 1 + i));
+    const hasNext = remaining || state.skippedIndices.some(i => !state.answeredIndices.has(i));
+    nextBtn.textContent = hasNext ? t('runner_next') : t('runner_see_results');
     nextBtn.innerHTML += ` <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
 
-  function skipQuestion() {
+  function timeoutQuestion() {
     if (state.answered) return;
     state.answered = true;
+    state.wrong++;
+    state.answeredIndices.add(state.index);
     const skipBtn = document.getElementById('qr-skip-btn');
     if (skipBtn) skipBtn.style.display = 'none';
-    state.skipped++;
-    clearTimer();
 
     const q = state.questions[state.index];
     const answers = q.answers.length > 0 ? q.answers : [];
@@ -2772,17 +2780,49 @@ window.blitziqRenderFavorites = renderFavorites;
     feedback.innerHTML = `<span class="qr-feedback__icon" id="qr-feedback-icon"><img src="img/timer.png" width="16" height="16" style="filter:invert(1)"></span><span id="qr-feedback-text">${t('times_up')}</span>`;
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
-    nextBtn.textContent = state.index < state.questions.length - 1 ? t('runner_next') : t('runner_see_results');
+    const remaining = state.questions.slice(state.index + 1).some((_, i) => !state.answeredIndices.has(state.index + 1 + i));
+    const hasNext = remaining || state.skippedIndices.some(i => !state.answeredIndices.has(i));
+    nextBtn.textContent = hasNext ? t('runner_next') : t('runner_see_results');
     nextBtn.innerHTML += ` <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
 
+  function skipQuestion() {
+    if (state.answered) return;
+    if (state.isRetry) return;
+    state.answered = true;
+    clearTimer();
+    state.skipped++;
+    state.skippedIndices.push(state.index);
+    advance();
+  }
+
   function nextQuestion() {
-    if (state.index < state.questions.length - 1) {
-      state.index++;
-      loadQuestion();
-    } else {
-      showResults();
+    state.answeredIndices.add(state.index);
+    advance();
+  }
+
+  function advance() {
+    const skippedSet = new Set(state.skippedIndices);
+
+    for (let i = state.index + 1; i < state.questions.length; i++) {
+      if (!state.answeredIndices.has(i) && !skippedSet.has(i)) {
+        state.index = i;
+        state.isRetry = false;
+        loadQuestion();
+        return;
+      }
     }
+    while (state.skippedIndices.length > 0) {
+      const next = state.skippedIndices.shift();
+      if (!state.answeredIndices.has(next)) {
+        state.index = next;
+        state.isRetry = true;
+        state.skipped--;
+        loadQuestion();
+        return;
+      }
+    }
+    showResults();
   }
 
   function showResults() {
@@ -2858,7 +2898,7 @@ window.blitziqRenderFavorites = renderFavorites;
 
       if (state.timeLeft <= 0) {
         clearTimer();
-        skipQuestion();
+        timeoutQuestion();
       }
     }, 1000);
   }
