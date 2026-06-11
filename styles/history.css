@@ -175,7 +175,6 @@
   flex-shrink: 0;
 }
 
-/* ── Quiz Countdown ─────────────────────────── */
 #qr-countdown {
   position: absolute;
   inset: 0;

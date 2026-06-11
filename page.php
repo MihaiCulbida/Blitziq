@@ -32,6 +32,7 @@ if ($logged_in) {
   <link rel="stylesheet" href="styles/page.css">
   <link rel="stylesheet" href="styles/history.css">
   <link rel="stylesheet" href="styles/theme-p.css">
+  <link rel="stylesheet" href="styles/mobil.css">
 </head>
 <body>
 
