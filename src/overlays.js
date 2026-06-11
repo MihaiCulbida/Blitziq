@@ -89,6 +89,8 @@
 
     initLangDropdown();
     initAvatarDropdown();
+    updateLangBtn();
+
 
     localStorage.removeItem('blitziq-quizzes');
     localStorage.removeItem('blitziq-folders');
@@ -289,21 +291,26 @@
       }
     });
 
-    langDropdown.querySelectorAll('.navbar-lang-option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        localStorage.setItem('blitziq-lang', btn.dataset.lang);
-        langDropdown.classList.remove('is-open');
-        if (window.applyLandingTranslations) window.applyLandingTranslations();
+      langDropdown.querySelectorAll('.navbar-lang-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const selectedLang = btn.dataset.lang;
+          localStorage.setItem('blitziq-lang', selectedLang);
+          langDropdown.classList.remove('is-open');
+          
+          updateLangBtn();
+          
+          if (window.applyLandingTranslations) window.applyLandingTranslations();
+        });
       });
-    });
-  }
+      updateLangBtn();
+    }
 
   function updateLangBtn() {
-  const btn = document.getElementById('btn-lang-toggle');
-  if (!btn) return;
-  const lang = localStorage.getItem('blitziq-lang') || 'en';
-  btn.textContent = lang.toUpperCase();
-}
+    const btn = document.getElementById('btn-lang-toggle');
+    if (!btn) return;
+    const lang = localStorage.getItem('blitziq-lang') || 'en';
+    btn.textContent = lang.toUpperCase();
+  }
 
   initLangDropdown();
 
