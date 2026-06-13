@@ -1859,8 +1859,8 @@ window.blitziqRenderFavorites = renderFavorites;
             <span class="qe-topbar__info" id="qe-q-label">${t('editor_q_of')} 1 ${t('editor_of')} ${quiz.questions.length}</span>
             <div class="qe-topbar__right">
               <div style="position:relative;display:inline-flex;">
-                <button class="qe-save-btn" id="qe-folder-btn" style="border-right:none;border-radius:8px 0 0 8px;">
-                  <img src="img/folder.png" width="14" height="14" alt="">
+                <button class="qe-save-btn" id="qe-folder-btn" style="border-radius:8px;">
+                  <img src="img/folder.png" width="16" height="16" alt="">
                 </button>
                 <div class="qe-folder-dropdown" id="qe-folder-dropdown"></div>
               </div>
@@ -2982,4 +2982,208 @@ document.getElementById('history-overlay')?.addEventListener('click', e => {
     document.getElementById('history-overlay').classList.remove('is-open');
   }
 });
+})();
+
+(function () {
+  'use strict';
+
+  const MOBILE_BP = 768;
+
+  function isMobile() {
+    return window.innerWidth <= MOBILE_BP;
+  }
+
+  function injectBottomNav() {
+    if (document.getElementById('bottom-nav')) return;
+
+    const nav = document.createElement('nav');
+    nav.id = 'bottom-nav';
+    nav.className = 'bottom-nav';
+    nav.setAttribute('aria-label', 'Main navigation');
+
+    nav.innerHTML = `
+      <button class="bottom-nav__item" data-section="home" aria-label="Home">
+        <img src="img/home.png" width="22" height="22" alt="">
+        <span data-i18n="home">Home</span>
+      </button>
+      <button class="bottom-nav__item" data-section="quizzes" aria-label="My Quizzes">
+        <img src="img/quizzes.png" width="22" height="22" alt="">
+        <span data-i18n="my_quizzes">My quizzes</span>
+      </button>
+      <button class="bottom-nav__fab" id="bottom-new-quiz" aria-label="New Quiz">
+        <img src="img/add.png" width="18" height="18" alt="">
+        <span data-i18n="new_quiz">New</span>
+      </button>
+      <button class="bottom-nav__item" data-section="discover" aria-label="Discover">
+        <img src="img/discover.png" width="22" height="22" alt="">
+        <span data-i18n="discover">Discover</span>
+      </button>
+      <button class="bottom-nav__item" id="bottom-sidebar-btn" aria-label="Collections">
+        <img src="img/sidebar.png" width="22" height="22" alt="">
+        <span data-i18n="my_collections">More</span>
+      </button>
+    `;
+
+    document.body.appendChild(nav);
+
+    function syncActiveTab(sectionId) {
+      nav.querySelectorAll('.bottom-nav__item[data-section]').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.section === sectionId);
+      });
+    }
+
+    nav.querySelectorAll('.bottom-nav__item[data-section]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sectionId = btn.dataset.section;
+        const desktopLink = document.querySelector(
+          `.navbar-links a[data-section="${sectionId}"]`
+        );
+        if (desktopLink) {
+          desktopLink.click();
+        }
+        syncActiveTab(sectionId);
+      });
+    });
+
+    document.getElementById('bottom-new-quiz')?.addEventListener('click', () => {
+      document.getElementById('btn-new-quiz')?.click();
+    });
+
+    document.getElementById('bottom-sidebar-btn')?.addEventListener('click', () => {
+      toggleSidebar();
+    });
+
+    document.querySelectorAll('.navbar-links a[data-section]').forEach(link => {
+      link.addEventListener('click', () => {
+        syncActiveTab(link.dataset.section);
+      });
+    });
+
+    const observer = new MutationObserver(() => {
+      const active = document.querySelector('.page-section.is-active');
+      if (active) {
+        const id = active.id.replace('section-', '');
+        syncActiveTab(id);
+      }
+    });
+
+    const main = document.querySelector('.page-main');
+    if (main) observer.observe(main, { childList: true, subtree: false, attributes: true, attributeFilter: ['class'] });
+
+    document.querySelectorAll('.page-section').forEach(s => {
+      observer.observe(s, { attributes: true, attributeFilter: ['class'] });
+    });
+
+    if (typeof window.applyTranslations === 'function') {
+      window.applyTranslations();
+    }
+
+    const initialActive = document.querySelector('.page-section.is-active');
+    if (initialActive) {
+      syncActiveTab(initialActive.id.replace('section-', ''));
+    } else {
+      syncActiveTab('home');
+    }
+  }
+
+  function injectSidebarBackdrop() {
+    if (document.getElementById('sidebar-backdrop')) return;
+
+    const backdrop = document.createElement('div');
+    backdrop.id = 'sidebar-backdrop';
+    backdrop.className = 'sidebar-backdrop';
+    document.body.appendChild(backdrop);
+
+    backdrop.addEventListener('click', closeSidebar);
+  }
+
+  function openSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const hamburger = document.getElementById('navbar-hamburger');
+
+    if (!sidebar) return;
+
+    sidebar.classList.add('is-mobile-open');
+    backdrop?.classList.add('is-visible');
+    hamburger?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const hamburger = document.getElementById('navbar-hamburger');
+
+    if (!sidebar) return;
+
+    sidebar.classList.remove('is-mobile-open');
+    backdrop?.classList.remove('is-visible');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    if (!sidebar) return;
+    sidebar.classList.contains('is-mobile-open') ? closeSidebar() : openSidebar();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSidebar();
+  });
+
+  document.querySelectorAll('.navbar-links a[data-section]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (isMobile()) closeSidebar();
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!isMobile()) return;
+
+    const sidebarItem = e.target.closest('.sidebar-item:not(#settings-btn), .sidebar-folder, .sidebar-folder-quiz-item, .sidebar-fav-list a');
+    if (sidebarItem) {
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar?.classList.contains('is-mobile-open')) {
+        setTimeout(closeSidebar, 80);
+      }
+    }
+  });
+
+  function init() {
+    if (!isMobile()) return; 
+
+    injectBottomNav();
+    injectSidebarBackdrop();
+
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', e => {
+        if (isMobile()) {
+          e.stopPropagation();
+          closeSidebar();
+        }
+      });
+    }
+  }
+
+  let lastMobile = isMobile();
+  window.addEventListener('resize', () => {
+    const mobile = isMobile();
+    if (mobile && !lastMobile) {
+      init();
+    } else if (!mobile && lastMobile) {
+      closeSidebar();
+    }
+    lastMobile = mobile;
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  window.blitziqMobile = { openSidebar, closeSidebar, toggleSidebar };
 })();
