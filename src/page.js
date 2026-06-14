@@ -2715,24 +2715,28 @@ window.blitziqRenderFavorites = renderFavorites;
     }
 
     const allBtns = answersEl.querySelectorAll('.qr-answer');
+    const showCorrect = (state.quiz.displayOptions || []).includes('show-correct');
 
-    allBtns.forEach((btn, i) => {
-      btn.disabled = true;
-      const ans = answers[i];
-      const check = btn.querySelector('.icon-check');
-      const xmark = btn.querySelector('.icon-x');
-
-      if (ans.correct) {
-        btn.classList.add('qr-answer--correct');
-        if (check) check.style.display = '';
-      } else if (i === chosenIndex && !isCorrect) {
-        btn.classList.add('qr-answer--wrong');
-        if (xmark) xmark.style.display = '';
-      } else {
-        btn.classList.add('qr-answer--dimmed');
-      }
-    });
-
+  allBtns.forEach((btn, i) => {
+    btn.disabled = true;
+    const ans = answers[i];
+    const check = btn.querySelector('.icon-check');
+    const xmark = btn.querySelector('.icon-x');
+  
+    if (i === chosenIndex && isCorrect) {
+      btn.classList.add('qr-answer--correct');
+      if (check) check.style.display = '';
+    } else if (i === chosenIndex && !isCorrect) {
+      btn.classList.add('qr-answer--wrong');
+      if (xmark) xmark.style.display = '';
+    } else if (ans.correct && showCorrect) {
+      btn.classList.add('qr-answer--correct');
+      if (check) check.style.display = '';
+    } else {
+      btn.classList.add('qr-answer--dimmed');
+    }
+  });
+  
     const fbIcon = document.getElementById('qr-feedback-icon');
     const fbText = document.getElementById('qr-feedback-text');
     
@@ -2740,12 +2744,14 @@ window.blitziqRenderFavorites = renderFavorites;
   feedback.className = 'qr-feedback qr-feedback--correct';
   if (fbIcon) fbIcon.innerHTML = `<img src="img/correct1.png" width="14" height="14" style="filter:invert(1)">`;
   if (fbText) fbText.innerHTML = `${t('runner_correct_prefix')}${q.points || 10}${t('runner_correct_suffix')}`;
-} else {
-  feedback.className = 'qr-feedback qr-feedback--wrong';
-  if (fbIcon) fbIcon.innerHTML = `<img src="img/incorrect.png" width="14" height="14" style="filter:invert(1)">`;
-  const correctAnswers = answers.filter(a => a.correct).map(a => a.text).join(', ');
-  if (fbText) fbText.innerHTML = `${t('incorrect')} <strong style="color:#fff">${correctAnswers}</strong>`;
-}
+  } else {
+    feedback.className = 'qr-feedback qr-feedback--wrong';
+    if (fbIcon) fbIcon.innerHTML = `<img src="img/incorrect.png" width="14" height="14" style="filter:invert(1)">`;
+    const correctAnswers = answers.filter(a => a.correct).map(a => a.text).join(', ');
+    if (fbText) fbText.innerHTML = showCorrect
+      ? `${t('incorrect')} <strong style="color:#fff">${correctAnswers}</strong>`
+      : t('incorrect');
+  }
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
     const remaining = state.questions.slice(state.index + 1).some((_, i) => !state.answeredIndices.has(state.index + 1 + i));
