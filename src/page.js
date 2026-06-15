@@ -2641,9 +2641,11 @@ window.blitziqRenderFavorites = renderFavorites;
     feedback.className = 'qr-feedback';
     feedback.innerHTML = '<span class="qr-feedback__icon" id="qr-feedback-icon"></span><span id="qr-feedback-text"></span>';
     nextBtn.style.display = 'none';
+    const allowSkip = (state.quiz.displayOptions || []).includes('allow-skip');
     const skipBtn = document.getElementById('qr-skip-btn');
     if (skipBtn) {
-      skipBtn.style.display = state.isRetry ? 'none' : '';
+      const allowSkip = (state.quiz.displayOptions || []).includes('allow-skip');
+      skipBtn.style.display = (!state.isRetry && allowSkip) ? '' : 'none';
       skipBtn.onclick = () => skipQuestion();
     }
 
