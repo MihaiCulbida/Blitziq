@@ -29,10 +29,10 @@ if ($logged_in) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image" href="img/logo1.png">
-  <link rel="stylesheet" href="styles/page.css">
-  <link rel="stylesheet" href="styles/history.css">
-  <link rel="stylesheet" href="styles/theme-p.css">
-  <link rel="stylesheet" href="styles/mobil.css">
+  <link rel="stylesheet" href="styles/page/page.css">
+  <link rel="stylesheet" href="styles/page/history.css">
+  <link rel="stylesheet" href="styles/page/theme-p.css">
+  <link rel="stylesheet" href="styles/page/mobile.css">
 </head>
 <body>
 

@@ -13,9 +13,9 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/style.css">
-  <link rel="stylesheet" href="styles/theme-l.css">
-  <link rel="stylesheet" href="styles/mobile.css">
+  <link rel="stylesheet" href="styles/land/style.css">
+  <link rel="stylesheet" href="styles/land/theme-l.css">
+  <link rel="stylesheet" href="styles/land/mobile.css">
 </head>
 <body>
 
