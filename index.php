@@ -573,10 +573,10 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   });
 })();
 </script>
-  <script src="src/toast.js"></script>
-  <script src="src/translatel.js"></script>
-  <script src="src/hero.js"></script>
-  <script src="src/overlays.js"></script>
-  <script src="src/quiz-game.js"></script>
+  <script src="src/land/toast.js"></script>
+  <script src="src/land/translate-l.js"></script>
+  <script src="src/land/hero.js"></script>
+  <script src="src/land/overlays.js"></script>
+  <script src="src/land/quiz-game.js"></script>
 </body>
 </html>

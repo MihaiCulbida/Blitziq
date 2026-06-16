@@ -889,7 +889,7 @@ if ($logged_in) {
     echo json_encode($items);
   ?>;
 </script>
-<script src="src/translate.js"></script>
-<script src="src/page.js"></script>
+<script src="src/page/translate.js"></script>
+<script src="src/page/page.js"></script>
 </body>
 </html>
