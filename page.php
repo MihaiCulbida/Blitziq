@@ -890,6 +890,12 @@ if ($logged_in) {
   ?>;
 </script>
 <script src="src/page/translate.js"></script>
-<script src="src/page/page.js"></script>
+<script src="src/page/storage-notifications.js"></script>
+<script src="src/page/init-theme.js"></script>
+<script src="src/page/navbar-sidebar-folders.js"></script>
+<script src="src/page/home.js"></script>
+<script src="src/page/quiz-edit.js"></script>
+<script src="src/page/quiz.js"></script>
+<script src="src/page/run-history-mobile.js"></script>
 </body>
 </html>
