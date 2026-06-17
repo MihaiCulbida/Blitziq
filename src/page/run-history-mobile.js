@@ -306,6 +306,8 @@
 
     const dotsContainer = document.getElementById('qr-dots');
     if (dotsContainer) dotsContainer.style.display = showProgress ? '' : 'none';
+    const footer = document.querySelector('.qr-footer');
+    if (footer) footer.style.justifyContent = showProgress ? 'space-between' : 'flex-end';
     renderDots();
     startTimer(q.time || 30);
   }
