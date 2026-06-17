@@ -274,9 +274,14 @@
 
     const total = state.questions.length;
     const current = state.index + 1;
-    counterEl.textContent = `${current} / ${total}`;
-    fillEl.style.width = ((current / total) * 100) + '%';
-    qNum.textContent = `${t('runner_q_of')} ${current} ${t('runner_of')} ${total}`;
+    const showProgress = (state.quiz.displayOptions || []).includes('show-progress');
+    const progressBar = document.querySelector('.qr-progress-bar');
+    if (progressBar) progressBar.style.display = showProgress ? '' : 'none';
+    counterEl.textContent = showProgress ? `${current} / ${total}` : '';
+    fillEl.style.width = showProgress ? ((current / total) * 100) + '%' : '0%';
+    qNum.textContent = showProgress
+      ? `${t('runner_q_of')} ${current} ${t('runner_of')} ${total}`
+      : `${t('runner_q_of')} ${current}`;
     qText.textContent = q.text || '(No question text)';
 
     answersEl.innerHTML = '';
@@ -299,6 +304,8 @@
       answersEl.appendChild(btn);
     });
 
+    const dotsContainer = document.getElementById('qr-dots');
+    if (dotsContainer) dotsContainer.style.display = showProgress ? '' : 'none';
     renderDots();
     startTimer(q.time || 30);
   }
@@ -490,6 +497,8 @@
       pct, passed, elapsed, playedAt: Date.now()
     });
 
+    const progressBar = document.querySelector('.qr-progress-bar');
+    if (progressBar) progressBar.style.display = '';
     fillEl.style.width = '100%';
   }
 
