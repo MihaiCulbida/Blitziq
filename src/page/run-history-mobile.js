@@ -284,6 +284,11 @@
       : `${t('runner_q_of')} ${current}`;
     qText.textContent = q.text || '(No question text)';
 
+    const showTimer = (state.quiz.displayOptions || []).includes('show-timer');
+const timerNumEl = document.getElementById('qr-timer-val');
+if (timerNumEl) timerNumEl.style.display = showTimer ? '' : 'none';
+if (timerEl) timerEl.style.justifyContent = showTimer ? '' : 'center';   
+
     answersEl.innerHTML = '';
     const answers = q.answers.length > 0 ? q.answers : [
       { text: 'True', correct: true }, { text: 'False', correct: false }
