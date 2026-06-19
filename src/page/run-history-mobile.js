@@ -498,7 +498,7 @@ if (timerEl) timerEl.style.justifyContent = showTimer ? '' : 'center';
       <div class="qr-results__stat"><span class="qr-results__stat-val">${pct}%</span><span class="qr-results__stat-label">${t('accuracy')}</span></div>
       <div class="qr-results__stat"><span class="qr-results__stat-val">${timeStr}</span><span class="qr-results__stat-label">${t('time')}</span></div>
     `;
-    document.getElementById('qr-results-badge').innerHTML = pct === 100 ? '<img src="img/trophy.png" width="48" height="48">' : passed ? '<img src="img/passed.png" width="48" height="48">' : '<img src="img/keep-practice.png" width="48" height="48">';
+    document.getElementById('qr-results-badge').innerHTML = pct === 100 ? '<img src="img/trophy.png" width="72" height="72">' : passed ? '<img src="img/passed.png" width="72" height="72">' : '<img src="img/keep-practice.png" width="72" height="72">';
     document.getElementById('qr-results-title').style.display = '';
     document.getElementById('qr-results-sub').style.display = '';
     document.getElementById('qr-results-stats').style.display = '';
