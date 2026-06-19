@@ -14,7 +14,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/land/style.css">
-  <link rel="stylesheet" href="styles/land/theme-l.css">
+  <link rel="stylesheet" href="styles/land/theme.css">
   <link rel="stylesheet" href="styles/land/mobile.css">
 </head>
 <body>
@@ -162,7 +162,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
   <div class="hero-content">
     <h1 class="hero-title" data-il18n="hero_title">The fastest way to<br>run live quizzes</h1>
     <h2 class="hero-subtext" data-il18n-text="hero_sub">Your crowd. Your questions.</h2>
-    <p class="hero-desc" data-il18n-text="hero_desc">Create, share, and host real-time quizzes - for classrooms, events, or just for fun.</p>
+    <p class="hero-desc" data-il18n-text="hero_desc">Create, share, and host real-time quizzes for classrooms, events, or just for fun.</p>
     <div class="hero-actions">
       <button class="hero-btn hero-btn-primary" onclick="if(document.querySelector('.navbar-avatar')){window.location.href='page.php'}else{showToast(window.tl('toast_not_logged'))}">
         <span data-il18n-text="hero_start">Start creating</span>
@@ -574,7 +574,7 @@ $username  = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
 })();
 </script>
   <script src="src/land/toast.js"></script>
-  <script src="src/land/translate-l.js"></script>
+  <script src="src/land/translate.js"></script>
   <script src="src/land/hero.js"></script>
   <script src="src/land/overlays.js"></script>
   <script src="src/land/quiz-game.js"></script>

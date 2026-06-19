@@ -31,7 +31,7 @@ if ($logged_in) {
   <link rel="icon" type="image" href="img/logo1.png">
   <link rel="stylesheet" href="styles/page/page.css">
   <link rel="stylesheet" href="styles/page/history.css">
-  <link rel="stylesheet" href="styles/page/theme-p.css">
+  <link rel="stylesheet" href="styles/page/theme.css">
   <link rel="stylesheet" href="styles/page/mobile.css">
 </head>
 <body>
