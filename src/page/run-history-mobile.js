@@ -469,22 +469,24 @@ if (timerEl) timerEl.style.justifyContent = showTimer ? '' : 'center';
   }
 
   function showResults() {
-    clearTimer();
-    feedback.className = 'qr-feedback';
-    document.getElementById('qr-body').style.display = 'none';
-    document.getElementById('qr-question-wrap').style.display = 'none';
-    document.querySelector('.qr-footer').style.display = 'none';
-    resultsEl.style.display = '';
+  clearTimer();
+  feedback.className = 'qr-feedback';
+  document.getElementById('qr-body').style.display = 'none';
+  document.getElementById('qr-question-wrap').style.display = 'none';
+  document.querySelector('.qr-footer').style.display = 'none';
+  resultsEl.style.display = '';
 
-    const total = state.questions.length;
-    const pct = total > 0 ? Math.round((state.correct / total) * 100) : 0;
-    const elapsed = Math.round((Date.now() - state.startTime) / 1000);
-    const mins = Math.floor(elapsed / 60);
-    const secs = elapsed % 60;
-    const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
-    const passScore = state.quiz.passScore ?? 60;
-    const passed = pct >= passScore;
+  const total = state.questions.length;
+  const pct = total > 0 ? Math.round((state.correct / total) * 100) : 0;
+  const elapsed = Math.round((Date.now() - state.startTime) / 1000);
+  const mins = Math.floor(elapsed / 60);
+  const secs = elapsed % 60;
+  const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+  const passScore = state.quiz.passScore ?? 60;
+  const passed = pct >= passScore;
+  const showScore = (state.quiz.displayOptions || []).includes('show-score');
 
+  if (showScore) {
     document.getElementById('qr-results-title').textContent = pct === 100 ? t('perfect_score') : passed ? t('quiz_passed') : t('keep_practicing');
     document.getElementById('qr-results-sub').textContent = passed
       ? `${t('scored_above')} ${pct}% — ${t('above_pass')} ${passScore}% ${t('pass_mark')}`
@@ -496,18 +498,29 @@ if (timerEl) timerEl.style.justifyContent = showTimer ? '' : 'center';
       <div class="qr-results__stat"><span class="qr-results__stat-val">${pct}%</span><span class="qr-results__stat-label">${t('accuracy')}</span></div>
       <div class="qr-results__stat"><span class="qr-results__stat-val">${timeStr}</span><span class="qr-results__stat-label">${t('time')}</span></div>
     `;
-
-    addHistoryEntry({
-      id: state.quiz.id || '', name: state.quiz.name || 'Quiz',
-      subject: state.quiz.subject || '', score: state.score,
-      correct: state.correct, total: state.questions.length,
-      pct, passed, elapsed, playedAt: Date.now()
-    });
-
-    const progressBar = document.querySelector('.qr-progress-bar');
-    if (progressBar) progressBar.style.display = '';
-    fillEl.style.width = '100%';
+    document.getElementById('qr-results-badge').innerHTML = pct === 100 ? '<img src="img/trophy.png" width="48" height="48">' : passed ? '<img src="img/passed.png" width="48" height="48">' : '<img src="img/keep-practice.png" width="48" height="48">';
+    document.getElementById('qr-results-title').style.display = '';
+    document.getElementById('qr-results-sub').style.display = '';
+    document.getElementById('qr-results-stats').style.display = '';
+    document.getElementById('qr-results-badge').style.display = '';
+  } else {
+    document.getElementById('qr-results-badge').style.display = 'none';
+    document.getElementById('qr-results-title').style.display = 'none';
+    document.getElementById('qr-results-sub').style.display = 'none';
+    document.getElementById('qr-results-stats').style.display = 'none';
   }
+
+  addHistoryEntry({
+    id: state.quiz.id || '', name: state.quiz.name || 'Quiz',
+    subject: state.quiz.subject || '', score: state.score,
+    correct: state.correct, total: state.questions.length,
+    pct, passed, elapsed, playedAt: Date.now()
+  });
+
+  const progressBar = document.querySelector('.qr-progress-bar');
+  if (progressBar) progressBar.style.display = '';
+  fillEl.style.width = '100%';
+}
 
   function startTimer(seconds) {
     clearTimer();
