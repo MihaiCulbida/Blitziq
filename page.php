@@ -665,7 +665,6 @@ if ($logged_in) {
           <button class="qm-toggle is-active" data-key="show-correct" data-i18n="correct_answers">Correct answers</button>
           <button class="qm-toggle" data-key="show-timer" data-i18n="visible_timer">Visible timer</button>
           <button class="qm-toggle" data-key="show-progress" data-i18n="question_progress">Question progress</button>
-          <button class="qm-toggle" data-key="show-explain" data-i18n="explanations">Explanations after answer</button>
           <button class="qm-toggle" data-key="allow-skip" data-i18n="allow_skip">Allow skip</button>
         </div>
 

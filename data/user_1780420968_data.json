@@ -1,7 +1,572 @@
 {
-    "quizzes": [],
+    "quizzes": [
+        {
+            "id": "1781862340857",
+            "name": "dfvds",
+            "description": "",
+            "subject": "",
+            "language": "Romanian",
+            "visibility": "public",
+            "answerCount": 4,
+            "timePerQ": 30,
+            "questionOrder": "fixed",
+            "answerOrder": "fixed",
+            "attempts": 1,
+            "passScore": 60,
+            "points": 10,
+            "displayOptions": [
+                "show-score",
+                "show-correct",
+                "show-timer",
+                "show-progress",
+                "show-explain",
+                "allow-skip"
+            ],
+            "status": "published",
+            "createdAt": 1781862340857,
+            "questions": [
+                {
+                    "index": 0,
+                    "text": "gergege",
+                    "answers": [
+                        {
+                            "text": "gergerger",
+                            "correct": true
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 1,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "ergerger",
+                            "correct": false
+                        },
+                        {
+                            "text": "gregergergerg",
+                            "correct": true
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 2,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 3,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 4,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 5,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 6,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 7,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 8,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 9,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                }
+            ]
+        },
+        {
+            "id": "1781862275711",
+            "name": "safe",
+            "description": "",
+            "subject": "",
+            "language": "Romanian",
+            "visibility": "public",
+            "answerCount": 4,
+            "timePerQ": 30,
+            "questionOrder": "fixed",
+            "answerOrder": "fixed",
+            "attempts": 1,
+            "passScore": 60,
+            "points": 10,
+            "displayOptions": [
+                "show-score",
+                "show-timer",
+                "allow-skip"
+            ],
+            "status": "published",
+            "createdAt": 1781862275711,
+            "questions": [
+                {
+                    "index": 0,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "dfgdfgdsf",
+                            "correct": true
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 1,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "rgergergerg",
+                            "correct": true
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 2,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": true
+                        },
+                        {
+                            "text": "gergergerg",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 3,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 4,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 5,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 6,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 7,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 8,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                },
+                {
+                    "index": 9,
+                    "text": "",
+                    "answers": [
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        },
+                        {
+                            "text": "",
+                            "correct": false
+                        }
+                    ],
+                    "type": "single",
+                    "time": 30,
+                    "points": 10
+                }
+            ]
+        }
+    ],
     "folders": [],
     "saved": [],
-    "notifs": [],
+    "notifs": [
+        {
+            "id": "1781862390632",
+            "ts": 1781862390632,
+            "read": false,
+            "text": "\"dfvds\" has been published successfully."
+        },
+        {
+            "id": "1781862298638",
+            "ts": 1781862298638,
+            "read": false,
+            "text": "\"safe\" has been published successfully."
+        }
+    ],
     "history": []
 }
