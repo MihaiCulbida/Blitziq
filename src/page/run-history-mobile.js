@@ -153,8 +153,14 @@
   }
 
   function open(quiz) {
+    let questions = buildQuestions(quiz);
+  
+    if ((quiz.questionOrder || 'fixed') === 'random') {
+      questions = questions.sort(() => Math.random() - 0.5);
+    }
+  
     state = {
-      quiz, questions: buildQuestions(quiz),
+      quiz, questions,
       index: 0, score: 0, correct: 0, wrong: 0, skipped: 0,
       skippedIndices: [], answeredIndices: new Set(),
       isRetry: false, answered: false, timer: null, timeLeft: 30, startTime: Date.now(),
