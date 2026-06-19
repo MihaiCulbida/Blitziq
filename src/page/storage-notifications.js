@@ -12,6 +12,7 @@ const ALL_QUIZZES = QUIZ_DATA.quizzes.map(q => ({
   timePerQ: q.timePerQ,
   points: q.points,
   passScore: q.passScore,
+  displayOptions: q.displayOptions || ['show-score', 'show-correct', 'show-timer', 'show-progress', 'allow-skip'],
 }));
  
 const COLORS = ['#a78bfa', '#f472b6', '#34d399', '#60a5fa', '#fb923c', '#facc15'];
