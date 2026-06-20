@@ -295,7 +295,6 @@
     if (timerNumEl) timerNumEl.style.display = showTimer ? '' : 'none';
     if (timerEl) timerEl.style.justifyContent = showTimer ? '' : 'center';   
 
-    answersEl.innerHTML = '';
     let answers = q.answers.length > 0 ? q.answers : [
       { text: 'True', correct: true }, { text: 'False', correct: false }
     ];
@@ -303,18 +302,21 @@
     if ((state.quiz.answerOrder || 'fixed') === 'random') {
       answers = [...answers].sort(() => Math.random() - 0.5);
     }
+    
+    answersEl.innerHTML = '';
     answers.forEach((ans, i) => {
       const btn = document.createElement('button');
       btn.className = 'qr-answer';
       btn.dataset.index = i;
+      btn.dataset.correct = ans.correct ? '1' : '0';
       btn.innerHTML = `
-        <span class="qr-answer__letter">${LETTERS[i]}</span>
-        <span class="qr-answer__text">${ans.text || '(empty)'}</span>
-        <span class="qr-answer__icon">
-          <img class="icon-check" src="img/correct1.png" width="18" height="18" style="display:none; filter: invert(1)">
-          <img class="icon-x" src="img/incorrect.png" width="18" height="18" style="display:none; filter: invert(1)">
-        </span>
-      `;
+            <span class="qr-answer__letter">${LETTERS[i]}</span>
+            <span class="qr-answer__text">${ans.text || '(empty)'}</span>
+            <span class="qr-answer__icon">
+              <img class="icon-check" src="img/correct1.png" width="18" height="18" style="display:none; filter: invert(1)">
+              <img class="icon-x" src="img/incorrect.png" width="18" height="18" style="display:none; filter: invert(1)">
+            </span>
+          `;
       btn.addEventListener('click', () => pickAnswer(i));
       answersEl.appendChild(btn);
     });
@@ -349,26 +351,23 @@
     const skipBtn = document.getElementById('qr-skip-btn');
     if (skipBtn) skipBtn.style.display = 'none';
     clearTimer();
-
-    const q = state.questions[state.index];
-    const answers = q.answers.length > 0 ? q.answers : [{ text: 'True', correct: true }, { text: 'False', correct: false }];
-    const chosen = answers[chosenIndex];
-    const isCorrect = chosen?.correct === true;
-
+  
+    const allBtns = answersEl.querySelectorAll('.qr-answer');
+    const chosen = allBtns[chosenIndex];
+    const isCorrect = chosen.dataset.correct === '1';
+    const showCorrect = (state.quiz.displayOptions || []).includes('show-correct');
+  
     if (isCorrect) {
       state.correct++;
-      state.score += (q.points || 10);
+      state.score += (state.questions[state.index].points || 10);
       scoreVal.textContent = state.score;
     } else {
       state.wrong++;
     }
-
-    const allBtns = answersEl.querySelectorAll('.qr-answer');
-    const showCorrect = (state.quiz.displayOptions || []).includes('show-correct');
-
+  
     allBtns.forEach((btn, i) => {
       btn.disabled = true;
-      const ans = answers[i];
+      const isCorrectBtn = btn.dataset.correct === '1';
       const check = btn.querySelector('.icon-check');
       const xmark = btn.querySelector('.icon-x');
       if (i === chosenIndex && isCorrect) {
@@ -377,17 +376,18 @@
       } else if (i === chosenIndex && !isCorrect) {
         btn.classList.add('qr-answer--wrong');
         if (xmark) xmark.style.display = '';
-      } else if (ans.correct && showCorrect) {
+      } else if (isCorrectBtn && showCorrect) {
         btn.classList.add('qr-answer--correct');
         if (check) check.style.display = '';
       } else {
         btn.classList.add('qr-answer--dimmed');
       }
     });
-
+  
     const fbIcon = document.getElementById('qr-feedback-icon');
     const fbText = document.getElementById('qr-feedback-text');
-
+    const q = state.questions[state.index];
+  
     if (isCorrect) {
       feedback.className = 'qr-feedback qr-feedback--correct';
       if (fbIcon) fbIcon.innerHTML = `<img src="img/correct1.png" width="14" height="14" style="filter:invert(1)">`;
@@ -395,12 +395,12 @@
     } else {
       feedback.className = 'qr-feedback qr-feedback--wrong';
       if (fbIcon) fbIcon.innerHTML = `<img src="img/incorrect.png" width="14" height="14" style="filter:invert(1)">`;
-      const correctAnswers = answers.filter(a => a.correct).map(a => a.text).join(', ');
+      const correctText = [...allBtns].find(b => b.dataset.correct === '1')?.querySelector('.qr-answer__text')?.textContent || '';
       if (fbText) fbText.innerHTML = showCorrect
-        ? `${t('incorrect')} <strong style="color:#fff">${correctAnswers}</strong>`
+        ? `${t('incorrect')} <strong style="color:#fff">${correctText}</strong>`
         : t('incorrect');
     }
-
+  
     requestAnimationFrame(() => feedback.classList.add('is-visible'));
     nextBtn.style.display = '';
     const remaining = state.questions.slice(state.index + 1).some((_, i) => !state.answeredIndices.has(state.index + 1 + i));
@@ -408,7 +408,7 @@
     nextBtn.textContent = hasNext ? t('runner_next') : t('runner_see_results');
     nextBtn.innerHTML += ` <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
-
+  
   function timeoutQuestion() {
     if (state.answered) return;
     state.answered = true;
