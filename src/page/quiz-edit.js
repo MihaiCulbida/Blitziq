@@ -289,33 +289,48 @@
     const folderBtn = document.getElementById('qe-folder-btn');
     const folderDropdown = document.getElementById('qe-folder-dropdown');
 
-    folderBtn?.addEventListener('click', e => {
-      e.stopPropagation();
+    function renderFolderDropdown() {
       const folders = getFolders();
       if (!folders.length) {
         folderDropdown.innerHTML = `<div class="qe-folder-dropdown__empty">${t('editor_no_folders')}</div>`;
-      } else {
-        const currentFolders = quiz.folders || [];
-        folderDropdown.innerHTML = folders.map((f, i) => `
-          <button class="qe-folder-dropdown__item ${currentFolders.includes(i) ? 'is-active' : ''}" data-fi="${i}">
-            <span class="qe-folder-dropdown__dot" style="background:${COLORS[i % COLORS.length]}"></span>
-            ${escapeHtml(f.name)}
-            ${currentFolders.includes(i) ? '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
-          </button>
-        `).join('');
-        folderDropdown.querySelectorAll('.qe-folder-dropdown__item').forEach(btn => {
-          btn.addEventListener('click', e => {
-            e.stopPropagation();
-            const fi = parseInt(btn.dataset.fi);
-            if (!quiz.folders) quiz.folders = [];
-            const idx = quiz.folders.indexOf(fi);
-            if (idx === -1) { quiz.folders.push(fi); } else { quiz.folders.splice(idx, 1); }
-            saveQuizzes();
-            renderFolders();
-            folderBtn.click();
-          });
-        });
+        return;
       }
+      const currentFolders = quiz.folders || [];
+      folderDropdown.innerHTML = folders.map((f, i) => `
+        <button class="qe-folder-dropdown__item ${currentFolders.includes(i) ? 'is-active' : ''}" data-fi="${i}">
+          <span class="qe-folder-dropdown__dot" style="background:${COLORS[i % COLORS.length]}"></span>
+          ${escapeHtml(f.name)}
+          ${currentFolders.includes(i) ? '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
+        </button>
+      `).join('');
+      folderDropdown.querySelectorAll('.qe-folder-dropdown__item').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const fi = parseInt(btn.dataset.fi);
+          if (!quiz.folders) quiz.folders = [];
+          const idx = quiz.folders.indexOf(fi);
+          if (idx === -1) { 
+            quiz.folders.push(fi);
+            btn.classList.add('is-active');
+            btn.insertAdjacentHTML('beforeend', '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+          } else { 
+            quiz.folders.splice(idx, 1);
+            btn.classList.remove('is-active');
+            btn.querySelector('svg')?.remove();
+          }
+          saveQuizzes();
+          renderFolders();
+          setTimeout(() => {
+            renderFolderDropdown();
+            folderDropdown.classList.add('is-open');
+          }, 0);
+        });
+      });
+    }
+    
+    folderBtn?.addEventListener('click', e => {
+      e.stopPropagation();
+      renderFolderDropdown();
       folderDropdown.classList.toggle('is-open');
     });
 
