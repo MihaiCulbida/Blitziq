@@ -627,7 +627,14 @@ body.sidebar-collapsed .sidebar .sidebar-folder {
 body.sidebar-collapsed .sidebar .sidebar-folder-dot {
   margin: 0;
 }
+body.sidebar-collapsed .sidebar .sidebar-folder-quizzes.is-open {
+  justify-content: center;
+  padding: 10px 0;
+}
 
+body.sidebar-collapsed .sidebar .sidebar-folder-quizzes.is-open .sidebar-folder-quiz-item {
+  justify-content: center;
+}
 .sidebar-folder-drag {
   display: none;
   color: #9ca3af;
