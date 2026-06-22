@@ -62,7 +62,7 @@ The dashboard has three main sections accessible from the navbar: **Home**, **My
 Click **New quiz** in the navbar. A 3-step wizard opens:
 
 1. **General info**: give your quiz a name (required), an optional description, pick a subject and language, and set visibility to Public, Private or Draft.
-2. **Quiz structure**: set the number of questions (1–100), time per question (5–300 seconds) and how many answer choices per question (2–6).
+2. **Quiz structure**: set the number of questions (1-100), time per question (5-300 seconds) and how many answer choices per question (2-6).
 3. **Settings**: configure question order (fixed or random), answer order, allowed attempts, minimum pass score and points per correct answer. You can also toggle display options like showing the final score or correct answers after each question. A summary of your config is shown before you confirm.
 
 Click **Create quiz** and the editor opens automatically.
