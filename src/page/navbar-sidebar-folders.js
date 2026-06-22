@@ -473,48 +473,72 @@
   }
 
   function showDeleteConfirm(row, index) {
-    if (row.querySelector('.sidebar-folder-confirm')) return;
-    row.classList.add('is-confirming');
-    const confirm = document.createElement('div');
-    confirm.className = 'sidebar-folder-confirm';
-    confirm.innerHTML = `
-      <span class="sidebar-folder-confirm-text">${t('delete_confirm')}</span>
-      <button class="sidebar-folder-confirm-yes">${t('yes')}</button>
-      <button class="sidebar-folder-confirm-no">${t('no')}</button>
-    `;
-    row.appendChild(confirm);
-    requestAnimationFrame(() => confirm.classList.add('is-visible'));
+  if (row.querySelector('.sidebar-folder-confirm')) return;
+  row.classList.add('is-confirming');
+  const confirm = document.createElement('div');
+  confirm.className = 'sidebar-folder-confirm';
+  confirm.innerHTML = `
+    <span class="sidebar-folder-confirm-text">${t('delete_confirm')}</span>
+    <button class="sidebar-folder-confirm-yes">${t('yes')}</button>
+    <button class="sidebar-folder-confirm-no">${t('no')}</button>
+  `;
+  row.appendChild(confirm);
+  requestAnimationFrame(() => confirm.classList.add('is-visible'));
 
-    confirm.querySelector('.sidebar-folder-confirm-yes').addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      row.classList.add('is-removing');
-      setTimeout(() => {
-        const folders = getFolders();
-        folders.splice(index, 1);
-        saveFolders(folders);
-        renderFolders();
-      }, 220);
-    });
+  confirm.querySelector('.sidebar-folder-confirm-yes').addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    row.classList.add('is-removing');
+    setTimeout(() => {
+      // 1. sterge folderul
+      const folders = getFolders();
+      folders.splice(index, 1);
+      saveFolders(folders);
 
-    confirm.querySelector('.sidebar-folder-confirm-no').addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
+      // 2. update quiz-uri: scoate referinta la folderul sters si shift indexuri
+      const quizzes = getQuizzes();
+      quizzes.forEach(q => {
+        if (!q.folders || !q.folders.length) return;
+        q.folders = q.folders.filter(fi => fi !== index);
+        q.folders = q.folders.map(fi => fi > index ? fi - 1 : fi);
+      });
+      localStorage.setItem('blitziq-quizzes', JSON.stringify(quizzes));
+      syncToServer();
+
+      // 3. re-sincronizeaza array-ul din quiz-edit.js
+      if (typeof window.blitziqReloadQuizzes === 'function') {
+        window.blitziqReloadQuizzes();
+      }
+
+      // 4. inchide dropdown-ul daca e deschis
+      const folderDropdown = document.getElementById('qe-folder-dropdown');
+      if (folderDropdown) {
+        folderDropdown.classList.remove('is-open');
+      }
+
+      // 5. re-render sidebar
+      renderFolders();
+    }, 220);
+  });
+
+  confirm.querySelector('.sidebar-folder-confirm-no').addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    confirm.classList.remove('is-visible');
+    row.classList.remove('is-confirming');
+    setTimeout(() => confirm.remove(), 180);
+  });
+
+  function outsideClick(e) {
+    if (!row.contains(e.target)) {
       confirm.classList.remove('is-visible');
       row.classList.remove('is-confirming');
       setTimeout(() => confirm.remove(), 180);
-    });
-
-    function outsideClick(e) {
-      if (!row.contains(e.target)) {
-        confirm.classList.remove('is-visible');
-        row.classList.remove('is-confirming');
-        setTimeout(() => confirm.remove(), 180);
-        document.removeEventListener('click', outsideClick);
-      }
+      document.removeEventListener('click', outsideClick);
     }
-    setTimeout(() => document.addEventListener('click', outsideClick), 0);
   }
+  setTimeout(() => document.addEventListener('click', outsideClick), 0);
+}
 
   function showInlineNewFolder() {
     if (document.body.classList.contains('sidebar-collapsed')) return;

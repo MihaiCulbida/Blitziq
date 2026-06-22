@@ -6,6 +6,10 @@
   const MIN_ANSWERS = 2;
 
   let quizzes = JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]');
+  function reloadQuizzesFromStorage() {
+    quizzes = JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]');
+  }
+  window.blitziqReloadQuizzes = reloadQuizzesFromStorage;
   let editorQuizId = null;
   let currentQIndex = 0;
 
