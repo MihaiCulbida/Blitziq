@@ -37,11 +37,11 @@ The landing page introduces the platform with a 3D animated hero section, a feat
 
 ## Getting started
 
-**Sign up** — click Sign up in the navbar, fill in a username (3–30 characters), email and password (min. 8 characters). After submitting you'll be redirected straight to the dashboard.
+**Sign up** - click Sign up in the navbar, fill in a username (3–30 characters), email and password (min. 8 characters). After submitting you'll be redirected straight to the dashboard.
 
-**Log in** — use your email or username and password. Your session persists until you log out.
+**Log in** - use your email or username and password. Your session persists until you log out.
 
-**Log out** — click your avatar in the top right, then Log out. You can also log out from the sidebar settings.
+**Log out** - click your avatar in the top right, then Log out. You can also log out from the sidebar settings.
 
 ---
 
