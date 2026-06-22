@@ -639,4 +639,6 @@
   renderFolders();
   const foldersContainer = document.querySelector('.sidebar-folders');
   if (foldersContainer) foldersContainer.style.display = 'none';
+  window.blitziqUpdateFolderVisibility = updateFolderVisibility;
+  window.blitziqRenderFolders = renderFolders;
 })();

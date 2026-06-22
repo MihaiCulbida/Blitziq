@@ -319,7 +319,22 @@
             btn.querySelector('svg')?.remove();
           }
           saveQuizzes();
-          renderFolders();
+        
+          if (typeof window.blitziqRenderFolders === 'function') {
+            window.blitziqRenderFolders();
+          }
+          const allQuizzesBtn = document.querySelector('.sidebar-item--active');
+          if (allQuizzesBtn) {
+            allQuizzesBtn.classList.add('is-expanded');
+          }
+          if (typeof window.blitziqUpdateFolderVisibility === 'function') {
+            window.blitziqUpdateFolderVisibility();
+          }
+          const subList = document.querySelector(`.sidebar-folder-quizzes[data-fi="${fi}"]`);
+          if (subList) subList.classList.add('is-open');
+          const folderRow = document.querySelector(`.sidebar-folder[data-index="${fi}"]`);
+          if (folderRow) folderRow.classList.add('is-expanded');
+        
           setTimeout(() => {
             renderFolderDropdown();
             folderDropdown.classList.add('is-open');
