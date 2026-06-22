@@ -353,6 +353,12 @@
       folderDropdown.classList.toggle('is-open');
     });
 
+    document.addEventListener('click', function closeFolderDropdown(e) {
+      if (!folderBtn.contains(e.target) && !folderDropdown.contains(e.target)) {
+        folderDropdown.classList.remove('is-open');
+      }
+    });
+
     document.getElementById('qe-publish')?.addEventListener('click', () => {
       saveCurrentQuestion(quiz);
       quiz.status = 'published';
