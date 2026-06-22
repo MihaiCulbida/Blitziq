@@ -142,6 +142,9 @@
     quizzes = quizzes.filter(q => q.id !== id);
     saveQuizzes();
     renderMyQuizzes();
+    if (typeof window.blitziqRenderFolders === 'function') {
+    window.blitziqRenderFolders();
+  }
   }
 
   function setNavbarEditorMode(hidden) {
