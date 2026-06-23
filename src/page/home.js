@@ -179,6 +179,7 @@
     const recommendedBlock = document.getElementById('disc-recommended')?.closest('.disc-block');
     if (trendingBlock) trendingBlock.remove();
     if (recommendedBlock) recommendedBlock.remove();
+    document.querySelectorAll('.disc-block--cat').forEach(b => b.remove());
 
     const publishedUserQuizzes = (JSON.parse(localStorage.getItem('blitziq-quizzes') || '[]'))
       .filter(q => q.status === 'published' && q.subject)
