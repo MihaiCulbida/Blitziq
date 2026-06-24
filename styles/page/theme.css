@@ -201,6 +201,10 @@ body.dark-mode .sidebar-folder-inline-cancel {
   color: #64748b;
 }
 
+body.dark-mode .sidebar-folder-inline-cancel:hover {
+  color: #ef4444;
+}
+
 body.dark-mode .sidebar-folder-quiz-item {
   color: #94a3b8;
 }
