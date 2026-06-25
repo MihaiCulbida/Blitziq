@@ -468,6 +468,25 @@ body.dark-mode .mq-card__delete:hover {
   color: #ef4444;
 }
 
+body.dark-mode .mq-delete-popover__no { 
+  background: #334155; 
+  color: #e2e8f0; 
+}
+
+body.dark-mode .mq-delete-popover__no:hover { 
+  background: #475569; 
+}
+
+body.dark-mode .mq-delete-popover {
+  background: #1e1e2e;
+  border-color: #181827;
+  color: #e2e8f0;
+}
+
+body.dark-mode .mq-delete-popover__label { 
+  color: #cbd5e1; 
+}
+
 body.dark-mode .mq-empty__icon {
   background: #2d1f4e;
 }

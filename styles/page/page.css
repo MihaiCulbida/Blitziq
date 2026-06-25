@@ -4039,4 +4039,54 @@ body.sidebar-collapsed .sidebar .sidebar-folder-quizzes.is-open .sidebar-folder-
 }
 .contact-socials-row img {
   filter: brightness(0);
+}
+.mq-delete-popover {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  z-index: 9999;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+.mq-delete-popover.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.mq-delete-popover__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+}
+.mq-delete-popover__yes,
+.mq-delete-popover__no {
+  border: none;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mq-delete-popover__yes { 
+  background: #ef4444; 
+  color: #fff; 
+}
+.mq-delete-popover__yes:hover { 
+  background: #dc2626; 
+}
+.mq-delete-popover__no { 
+  background: #f1f5f9; 
+  color: #374151; 
+}
+.mq-delete-popover__no:hover { 
+  background: #e2e8f0; 
 }/*# sourceMappingURL=page.css.map */

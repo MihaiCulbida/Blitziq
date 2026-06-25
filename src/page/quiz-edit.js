@@ -133,9 +133,54 @@
     card.querySelector('.mq-card__edit').addEventListener('click', () => openEditor(quiz.id));
     card.querySelector('.mq-card__delete').addEventListener('click', e => {
       e.stopPropagation();
-      deleteQuiz(quiz.id);
+      showDeleteConfirm(quiz.id, e.currentTarget);
     });
     return card;
+  }
+
+  function showDeleteConfirm(id, triggerEl) {
+    document.querySelectorAll('.mq-delete-popover').forEach(p => p.remove());
+
+    const popover = document.createElement('div');
+    popover.className = 'mq-delete-popover';
+    popover.innerHTML = `
+      <span class="mq-delete-popover__label">${t('delete_confirm')}</span>
+      <button class="mq-delete-popover__yes">${t('yes')}</button>
+      <button class="mq-delete-popover__no">${t('no')}</button>
+    `;
+    document.body.appendChild(popover);
+
+    const rect = triggerEl.getBoundingClientRect();
+    popover.style.position = 'fixed';
+    popover.style.top = (rect.bottom + 6) + 'px';
+
+    requestAnimationFrame(() => {
+      const pw = popover.offsetWidth;
+      const left = rect.left + rect.width / 2 - pw / 2;
+      popover.style.left = Math.max(8, Math.min(left, window.innerWidth - pw - 8)) + 'px';
+      popover.classList.add('is-visible');
+    });
+
+    const close = () => {
+      popover.classList.remove('is-visible');
+      setTimeout(() => popover.remove(), 180);
+      document.removeEventListener('click', onOutside, true);
+      document.removeEventListener('keydown', onKey);
+    };
+
+    popover.querySelector('.mq-delete-popover__yes').addEventListener('click', e => {
+      e.stopPropagation(); close(); deleteQuiz(id);
+    });
+    popover.querySelector('.mq-delete-popover__no').addEventListener('click', e => {
+      e.stopPropagation(); close();
+    });
+
+    const onOutside = ev => { if (!popover.contains(ev.target) && ev.target !== triggerEl) close(); };
+    const onKey = ev => { if (ev.key === 'Escape') close(); };
+    setTimeout(() => {
+      document.addEventListener('click', onOutside, true);
+      document.addEventListener('keydown', onKey);
+    }, 0);
   }
 
   function deleteQuiz(id) {
@@ -143,8 +188,8 @@
     saveQuizzes();
     renderMyQuizzes();
     if (typeof window.blitziqRenderFolders === 'function') {
-    window.blitziqRenderFolders();
-  }
+      window.blitziqRenderFolders();
+    }
   }
 
   function setNavbarEditorMode(hidden) {
