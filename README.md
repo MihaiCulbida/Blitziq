@@ -113,11 +113,11 @@ At the end, a results screen shows your total score, how many you got correct, y
 
 The sidebar on the left side of the dashboard gives you quick access to your collections.
 
-**Folders** — click the **New folder** item to create a folder (up to 6 total). Folders can be renamed inline and reordered by dragging. Inside the editor, you can assign a quiz to any folder using the Folder button. Click a folder in the sidebar to expand its quizzes.
+**Folders** - click the **New folder** item to create a folder (up to 6 total). Folders can be renamed inline and reordered by dragging. Inside the editor, you can assign a quiz to any folder using the Folder button. Click a folder in the sidebar to expand its quizzes.
 
-**Favorites** — quizzes you save from the start screen appear here. Click any to open the start screen directly.
+**Favorites** - quizzes you save from the start screen appear here. Click any to open the start screen directly.
 
-**History** — opens a side panel listing every quiz session you've played, with the date, score, accuracy and time.
+**History** - opens a side panel listing every quiz session you've played, with the date, score, accuracy and time.
 
 ---
 
