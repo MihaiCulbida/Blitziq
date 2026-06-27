@@ -125,8 +125,8 @@ The sidebar on the left side of the dashboard gives you quick access to your col
 
 Open **Settings** at the bottom of the sidebar to access:
 
-- **Theme** — toggles between light and dark mode. The preference is saved in localStorage.
-- **Language** — switch between English, Romanian and Russian. All UI text updates instantly including quiz cards, modals and error messages.
+- **Theme**: toggles between light and dark mode. The preference is saved in localStorage.
+- **Language**: switch between English, Romanian and Russian. All UI text updates instantly including quiz cards, modals and error messages.
 
 The same language switcher is available in the navbar on the landing page.
 
