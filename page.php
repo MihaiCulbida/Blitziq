@@ -2,6 +2,11 @@
 require_once 'php/functions.php';
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
 $logged_in = isset($_SESSION['user_id']);
 $username = $logged_in ? htmlspecialchars($_SESSION['username']) : '';
 
