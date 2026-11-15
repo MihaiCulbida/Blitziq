@@ -1,6 +1,6 @@
 # BlitzIQ
 
-A quiz platform where you can create, share and play timed quizzes. Built with PHP, JavaScript and SCSs, without frameworks. All data is stored in flat JSON files.
+A quiz platform where you can create, share and play timed quizzes. Built with PHP, JavaScript and SCSS, without frameworks. All data is stored in flat JSON files.
 
 ---
 
